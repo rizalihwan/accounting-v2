@@ -100,7 +100,7 @@
 	min-height: 422px;
 }
 #visitfromworld{
-	width:100%; 
+	width:100%;
 	height:350px;
 }
 .card-300{
@@ -211,7 +211,7 @@
 }
 .sidebar-mini.sidebar-mini-hover .sidebar-action i:before {
     content: "\e910";
-} 
+}
 .sidebar-mini .app-sidebar {
     width: 70px !important;
 }
@@ -256,7 +256,7 @@
   display: block;
 }
 .wrapper .page-wrap .app-sidebar .sidebar-content .nav-container .navigation-main .nav-item.has-sub .submenu-content .menu-item:after {
-    content: '--';
+    /* content: '--'; */
     position: absolute;
     left: 29px;
 }
