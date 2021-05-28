@@ -3,6 +3,8 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="icon" href="{{ asset('favicon.png')}}" />
 
@@ -18,9 +20,9 @@
 <link rel="stylesheet" href="{{ asset('plugins/icon-kit/dist/css/iconkit.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/ionicons/dist/css/ionicons.min.css') }}">
 
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+@livewireStyles()
 
 <!-- Stack array for including inline css or head elements -->
 @stack('head')
-
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
-

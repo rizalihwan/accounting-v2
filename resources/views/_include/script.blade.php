@@ -1,4 +1,6 @@
 <script src="{{ asset('all.js') }}"></script>
+
+@livewireScripts()
 <!-- Stack array for including inline js or scripts -->
 @stack('script')
 
