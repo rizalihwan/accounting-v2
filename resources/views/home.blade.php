@@ -12,7 +12,6 @@
 
     <div class="container-fluid">
         <h1>Statistik Dan Analisa Data</h1>
-        <button type="button" id="swel"></button>
         <div class="row">
 
             <!-- page statustic chart end -->
