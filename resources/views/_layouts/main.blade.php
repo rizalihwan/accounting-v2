@@ -31,7 +31,6 @@
 
 	<!-- initiate modal menu section-->
 	@include('_include.modalmenu')
-
 	<!-- initiate scripts-->
 	@include('_include.script')
 </body>
