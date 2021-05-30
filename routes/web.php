@@ -12,4 +12,10 @@ Route::get('register', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('home', 'HomeController@home')->name('home');
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+        // Jurnal Umum
+        Route::resource('jurnalumum', 'JurnalUmumController');
+        // Buku Besar
+        Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
+    });
 });
