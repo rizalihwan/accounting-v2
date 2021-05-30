@@ -36,7 +36,8 @@
 			<div class="login100-more" style="background-image: url('loginstyle/images/bg-01.jpg');"></div>
 
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-				<form class="login100-form validate-form">
+				<form  action="{{ route('login') }}" method="POST" class="login100-form validate-form">
+					@csrf
 					<span class="login100-form-title p-b-59">
 						Log in
 					</span>
@@ -55,13 +56,13 @@
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="*************">
+						<input class="input100" type="password" name="password" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="flex-m w-full p-b-33">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
 							<label class="label-checkbox100" for="ckb1">
 								<span class="txt1">
 									Remember Me
