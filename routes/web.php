@@ -19,3 +19,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
     });
 });
+
+Route::get('kontak', function () {
+    return view('admin.kontak.create');
+});
+
+Route::get('kategorikontak', function () {
+    return view('admin.kategori_kontak.create');
+});
