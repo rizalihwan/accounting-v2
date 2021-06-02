@@ -15,7 +15,7 @@ class CreateBanksTable extends Migration
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
+            $table->string('kode')->unique('kode');
             $table->string('nama_bank');
             $table->longText('alamat')->nullable();
             $table->string('kota')->nullable();
