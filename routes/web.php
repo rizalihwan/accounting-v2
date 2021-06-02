@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 //auth management
-Route::get('/', 'AuthController@loginView');
+Route::get('/', 'AuthController@loginView')->middleware('guest');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'AuthController@logout')->name('logout');
 Route::get('register', function () {
@@ -17,13 +17,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('jurnalumum', 'JurnalUmumController');
         // Buku Besar
         Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
+        // Kategori
+        Route::resource('kategori', 'KategoriController');
+        // Kontak
+        Route::resource('kontak', 'KontakController');
     });
 });
 
-Route::get('kontak', function () {
-    return view('admin.kontak.create');
-});
-
-Route::get('kategorikontak', function () {
-    return view('admin.kategori_kontak.create');
-});

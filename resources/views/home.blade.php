@@ -236,7 +236,6 @@
     </div>
     <!-- push external js -->
     @push('script')
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{ asset('plugins/owl.carousel/dist/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('plugins/chartist/dist/chartist.min.js') }}"></script>
         <script src="{{ asset('plugins/flot-charts/jquery.flot.js') }}"></script>
@@ -255,17 +254,7 @@
 
         <script src="{{ asset('js/widget-statistic.js') }}"></script>
         <script src="{{ asset('js/widget-data.js') }}"></script>
-        <script src="{{ asset('js/dashboard-charts.js') }}"></script>
-
-        @if (session()->has('success'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Informasi Pesan',
-                    text: '{{ session()->get('success') }}'
-                })
-            </script>
-        @endif
+        <script src="{{ asset('js/dashboard-charts.js') }}"></script>   
 
     @endpush
 @endsection

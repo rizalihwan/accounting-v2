@@ -73,7 +73,7 @@
 
                                         </div>
                                         <div class="form-group">
-                                            <a href="" class="btn btn-danger">Tambah Kontak</a>
+                                            <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">Tambah Kontak</a>
                                         </div>
                                     </div>
                                 </div>
