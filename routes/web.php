@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('kategori', 'KategoriController');
         // Kontak
         Route::resource('kontak', 'KontakController');
+        // Bank
+        Route::resource('bank', 'BankController');
     });
 });
 
