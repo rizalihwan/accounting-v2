@@ -52,6 +52,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                            <div id="cek-kode"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,5 +209,41 @@
             }
             return true
         }
+
+        $(document).ready(function(){
+            $("#kode").keyup(function(){
+                let kode = $(this).val().trim()
+                let csrf = '{{ csrf_token() }}'
+
+                if (kode != '' && kode.length >= 4) {
+                    $.ajax({
+                        url: '{{ route('admin.bank.store') }}',
+                        type: 'post',
+                        data: {
+                            kode: kode,
+                            _token: csrf
+                        },
+                        success: (data) => {
+                            if (data.valid) {
+                                $("#kode").removeClass('is-invalid')
+                                $("#kode").addClass('is-valid')
+                                $("#cek-kode").html(data.valid)
+                            } else {
+                                $("#kode").removeClass('is-valid')
+                                $("#kode").addClass('is-invalid')
+                                $("#cek-kode").html(data.invalid)
+                            }
+                        },
+                        error: (err) => {
+                            console.log(err)
+                        }
+                    })
+                } else {
+                    $("#kode").removeClass("is-invalid")
+                    $("#kode").removeClass("is-valid")
+                    $("#cek-kode").html('')
+                }
+            })
+        })
     </script>
 @endpush

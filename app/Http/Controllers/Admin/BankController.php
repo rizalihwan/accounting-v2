@@ -38,6 +38,24 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->ajax()) {
+            $cek = Bank::select(['id', 'kode'])->where('kode', $request->kode)->count();
+
+            $response = '<span class="text-success">Available.</span>';
+
+            if ($cek > 0) {
+                $response = '<span class="text-danger">Not Available.</span>';
+                return response()->json(['invalid' => $response]);
+            }
+
+            return response()->json(['valid' => $response]);
+        }
+
+        $this->validate($request, [
+            'kode' => 'required|min:4|unique:banks',
+            'nama_bank' => 'required|string',
+        ]);
+
         try {
             Bank::create($request->all());
         } catch (\Exception $e) {

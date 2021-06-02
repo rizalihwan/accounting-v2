@@ -41,7 +41,7 @@
                     <div class="submenu-content">
                         <a href="{{url('')}}" class="menu-item">{{ __('Data Rekening')}}</a>
                         <a href="{{ route('admin.bank.index') }}" class="menu-item">{{ __('Data Bank')}}</a>
-                        <a href="{{url('')}}" class="menu-item">{{ __('Data Divisi')}}</a>
+                        <a href="{{ route('admin.divisi.index') }}" class="menu-item">{{ __('Data Divisi')}}</a>
                     </div>
                 </div>
 
