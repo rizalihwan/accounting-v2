@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('kontak', 'KontakController');
         // Bank
         Route::resource('bank', 'BankController');
+        // Divisi
+        Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
     });
 });
-
