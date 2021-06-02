@@ -20,7 +20,7 @@
                                 <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Tambah Kategori Kontak</a>
+                                <a href="{{ route('admin.kategori.create') }}">Tambah Kategori Kontak</a>
                             </li>
                         </ol>
                     </nav>
@@ -34,17 +34,17 @@
                         <h3>Tambah Kategori Kontak</h3>
                     </div>
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="#">
+                        <form class="forms-sample" method="POST" action="{{ route('admin.kategori.store') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="kategori">{{ __('kategori') }}<span class="text-red">*</span></label>
-                                        <input id="kategori" type="text"
-                                            class="form-control @error('kategori') is-invalid @enderror" name="kategori"
+                                        <label for="nama_kategori">{{ __('kategori') }}<span class="text-red">*</span></label>
+                                        <input id="nama_kategori" type="text"
+                                            class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori"
                                             required>
                                         <div class="help-block with-errors"></div>
-                                        @error('kategori')
+                                        @error('nama_kategori')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-8">
                                     <div class="form-group">
                                         <label for="keterangan">{{ __('keterangan') }}<span class="text-red">*</span></label>
                                         <input id="keterangan" type="text"
@@ -64,6 +64,13 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-4">
+                                    <div class="form-group">
+                                        <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">KEMBALI</a>
+                                        <button type="submit" class="btn btn-primary">
+                                            TAMBAH</button>
                                     </div>
                                 </div>
                             </div>
