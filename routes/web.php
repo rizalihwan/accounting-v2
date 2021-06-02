@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 //auth management
-Route::get('/', 'AuthController@loginView');
+Route::get('/', 'AuthController@loginView')->middleware('guest');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'AuthController@logout')->name('logout');
 Route::get('register', function () {
