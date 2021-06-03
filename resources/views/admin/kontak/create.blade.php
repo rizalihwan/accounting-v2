@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
-                        <h3>Tambah Jurnal Umum</h3>
+                        <h3>Tambah Kontak Person</h3>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" method="POST" action="{{ route('admin.kontak.store') }}">
