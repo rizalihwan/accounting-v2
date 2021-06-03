@@ -74,7 +74,8 @@
                                 <div class="col-sm-3 mt-2">
                                     <div class="form-group"></div>
                                     <div class="form-group">
-                                        <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger"> <i class="fa fa-plus"></i> TAMBAH
+                                        <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger"> <i
+                                                class="fa fa-plus"></i> TAMBAH
                                             KONTAK</a>
                                     </div>
                                 </div>
@@ -95,105 +96,110 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="nama_akun">Nama Akun<span class="text-red">*</span></label>
-                                        <select name="nama_akun" id="nama_akun"
-                                            class="form-control @error('nama_akun') is-invalid @enderror">
-                                            <option disabled selected>-- Pilih --</option>
-                                            <option value="tono">tono</option>
-                                        </select>
-                                        <div class="help-block with-errors"></div>
-                                        @error('nama_akun')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                            <div class="field_wrapper">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="nama_akun">Nama Akun<span class="text-red">*</span></label>
+                                            <select name="nama_akun[]" id="nama_akun"
+                                                class="form-control @error('nama_akun') is-invalid @enderror">
+                                                <option disabled selected>-- Pilih --</option>
+                                                <option value="tono">tono</option>
+                                            </select>
+                                            <div class="help-block with-errors"></div>
+                                            @error('nama_akun')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="debit">Debit</label>
-                                        <input id="debit" type="text"
-                                            class="form-control @error('debit') is-invalid @enderror" name="debit" required>
-                                        <div class="help-block with-errors"></div>
-                                        @error('debit')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="debit">Debit</label>
+                                            <input id="debit" type="text"
+                                                class="form-control @error('debit') is-invalid @enderror" name="debit[]"
+                                                required>
+                                            <div class="help-block with-errors"></div>
+                                            @error('debit')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="kredit">Kredit</label>
-                                        <input id="kredit" type="text"
-                                            class="form-control @error('kredit') is-invalid @enderror" name="kredit"
-                                            required>
-                                        <div class="help-block with-errors"></div>
-                                        @error('kredit')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="kredit">Kredit</label>
+                                            <input id="kredit" type="text"
+                                                class="form-control @error('kredit') is-invalid @enderror" name="kredit[]"
+                                                required>
+                                            <div class="help-block with-errors"></div>
+                                            @error('kredit')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="catatan">Catatan</label>
-                                        <input id="catatan" type="text"
-                                            class="form-control @error('catatan') is-invalid @enderror" name="catatan"
-                                            required>
-                                        <div class="help-block with-errors"></div>
-                                        @error('catatan')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="catatan">Catatan</label>
+                                            <input id="catatan" type="text"
+                                                class="form-control @error('catatan') is-invalid @enderror" name="catatan[]"
+                                                required>
+                                            <div class="help-block with-errors"></div>
+                                            @error('catatan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="kurs">kurs</span></label>
-                                        <input id="kurs" type="number"
-                                            class="form-control @error('kurs') is-invalid @enderror" name="kurs" required>
-                                        <div class="help-block with-errors"></div>
-                                        @error('kurs')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="kurs">kurs</span></label>
+                                            <input id="kurs" type="number"
+                                                class="form-control @error('kurs') is-invalid @enderror" name="kurs[]"
+                                                required>
+                                            <div class="help-block with-errors"></div>
+                                            @error('kurs')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="valas">Valas</label>
-                                        <input id="valas" type="number"
-                                            class="form-control @error('valas') is-invalid @enderror" name="valas" required>
-                                        <div class="help-block with-errors"></div>
-                                        @error('valas')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="valas">Valas</label>
+                                            <input id="valas" type="number"
+                                                class="form-control @error('valas') is-invalid @enderror" name="valas[]"
+                                                required>
+                                            <div class="help-block with-errors"></div>
+                                            @error('valas')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 mb-3">
+                                        <a href="javascript:void(0);" id="add_button" class="btn btn-success btn-sm"><i
+                                                class="fa fa-plus ml-1"></i></a>
                                     </div>
                                 </div>
-                                <div class="col-sm-2 mb-3">
-                                    <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus ml-1"></i></a>
-                                </div>
-                                <div class="col-md-12 mt-4">
-                                    <div class="form-group">
-                                        <a href="{{ route('admin.jurnalumum.index') }}"
-                                            class="btn btn-danger">KEMBALI</a>
-                                        <button type="submit" class="btn btn-primary">
-                                            TAMBAH</button>
-                                    </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <div class="form-group">
+                                    <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
+                                    <button type="submit" class="btn btn-primary">
+                                        TAMBAH</button>
                                 </div>
                             </div>
                         </form>
@@ -203,3 +209,43 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            var maxField = 10;
+            var addButton = $('#add_button');
+            var wrapper = $('.field_wrapper');
+            var fieldHTML = '<div class="form-group add"><div class="row">';
+            fieldHTML = fieldHTML +
+                '<div class="col-sm-2"><div class="form-group"><label for="nama_akun">Nama Akun<span class="text-red">*</span></label><select name="nama_akun[]" id="nama_akun" class="form-control @error('nama_akun') is-invalid @enderror"><option disabled="disabled" selected="selected">-- Pilih --</option><option value="tono">tono</option></select><div class="help-block with-errors"></div>@error('nama_akun') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>';
+            fieldHTML = fieldHTML +
+                '<div class="col-sm-2"><div class="form-group"><label for="debit">Debit</label><input id="debit" type="text" class="form-control @error('debit') is-invalid @enderror" name="debit[]" required><div class="help-block with-errors"></div>@error('debit') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>';
+            fieldHTML = fieldHTML +
+                '<div class="col-sm-2"><div class="form-group"><label for="kredit">Kredit</label><input id="kredit" type="text" class="form-control @error('kredit') is-invalid @enderror" name="kredit[]" required><div class="help-block with-errors"></div>@error('kredit') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
+            fieldHTML = fieldHTML +
+                '<div class="col-sm-2"><div class="form-group"><label for="catatan">Catatan</label><input id="catatan" type="text" class="form-control @error('catatan') is-invalid @enderror" name="catatan[]" required><div class="help-block with-errors"></div>@error('catatan') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
+            fieldHTML = fieldHTML +
+                '<div class="col-sm-2"><div class="form-group"><label for="kurs">kurs</label><input id="kurs" type="number" class="form-control @error('kurs') is-invalid @enderror" name="kurs[]" required><div class="help-block with-errors"></div>@error('kurs') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
+            fieldHTML = fieldHTML +
+                '<div class="col-sm-2"><div class="form-group"><label for="valas">Valas</label><input id="valas" type="number" class="form-control @error('valas') is-invalid @enderror" name="valas[]" required><div class="help-block with-errors"></div>@error('valas') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
+            fieldHTML = fieldHTML +
+                '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger"><i class="fa fa-trash ml-1"></i></a></div>';
+            fieldHTML = fieldHTML + '</div></div>';
+            var x = 1;
+            $(addButton).click(function() {
+                if (x < maxField) {
+                    x++;
+                    $(wrapper).append(fieldHTML);
+                }
+            });
+
+            $(wrapper).on('click', '.remove_button', function(e) {
+                e.preventDefault();
+                $(this).parent('').parent('').remove();
+                x--;
+            });
+        });
+
+    </script>
+@endpush
