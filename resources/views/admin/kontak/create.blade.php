@@ -70,12 +70,14 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="kategori_id">{{ __('kategori') }}<span class="text-red">*</span></label>
+                                        <label for="kategori_id">{{ __('kategori') }}<span
+                                                class="text-red">*</span></label>
                                         <select name="kategori_id" id="kategori_id"
                                             class="form-control @error('kategori_id') is-invalid @enderror" required>
                                             <option disabled selected>-- Pilih Kategori --</option>
                                             @foreach ($kategoris as $kategori)
-                                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         <div class="help-block with-errors"></div>
@@ -105,7 +107,7 @@
                                         <textarea name="alamat" id="alamat"
                                             class="form-control @error('alamat') is-invalid @enderror">
 
-                                                </textarea>
+                                                    </textarea>
                                         <div class="help-block with-errors"></div>
                                         @error('alamat')
                                             <span class="invalid-feedback" role="alert">
