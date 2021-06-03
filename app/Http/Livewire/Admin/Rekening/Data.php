@@ -21,7 +21,7 @@ class Data extends Component
     {
         $rekenings = Rekening::where('nomor', 'like', "%{$this->search}%")
             ->orWhere('nama', 'like', "%{$this->search}%")
-            ->latest()->paginate(1);
+            ->latest()->paginate(15);
 
         return view('livewire.admin.rekening.data', compact('rekenings'));
     }
