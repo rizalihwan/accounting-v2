@@ -45,13 +45,15 @@
                                             <label for="kode">Kode<span class="text-red">*</span></label>
                                             <input id="kode" type="text"
                                                 class="form-control @error('kode') is-invalid @enderror" name="kode"
-                                                required>
+                                                required autofocus>
                                             <div class="help-block with-errors"></div>
                                             @error('kode')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <div id="cek-kode"></div>
                                         </div>
                                     </div>
