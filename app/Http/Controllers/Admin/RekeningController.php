@@ -47,6 +47,6 @@ class RekeningController extends Controller
      */
     public function edit(Rekening $rekening)
     {
-        //
+        return view('admin.rekening.edit', compact('rekening'));
     }
 }
