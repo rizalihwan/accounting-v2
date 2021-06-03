@@ -281,6 +281,9 @@
                     <a href="{{ route('admin.rekening.index') }}" class="btn btn-danger">KEMBALI</a>
                     <button type="submit" class="btn btn-primary">
                         TAMBAH
+                        <span class="float-right pl-2">
+                            <i wire:loading wire:target="store" class="fas fa-spinner fa-pulse"></i>
+                        </span>
                     </button>
                 </div>
             </div>
