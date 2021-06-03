@@ -11,7 +11,7 @@
             </button>
         </div>
         <div class="float-right">
-            <input type="text" wire:model="search" class="form-control">
+            <input type="text" wire:model="search" class="form-control" placeholder="Search">
         </div>
     </div>
     <div class="card-body">
