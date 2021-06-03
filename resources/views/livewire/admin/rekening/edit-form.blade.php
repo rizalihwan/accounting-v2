@@ -6,7 +6,6 @@
         </div>
     @endif
     <form class="forms-sample" wire:submit.prevent="update">
-        <button type="button" wire:click="$refresh">refresh</button>
         <div class="row">
             <div class="col-sm-3">
                 <div class="form-group">
