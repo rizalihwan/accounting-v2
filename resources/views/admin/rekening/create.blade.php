@@ -1,5 +1,5 @@
 @extends('_layouts.main')
-@section('title', 'Data Bank')
+@section('title', 'Data Rekening')
 @section('content')
     <div class="container-fluid">
         <div class="page-header">
@@ -9,7 +9,7 @@
                         <i class="ik ik-user-plus bg-blue"></i>
                         <div class="d-inline">
                             <h5>Data</h5>
-                            <span>Form Tambah Data Bank</span>
+                            <span>Form Tambah Data Rekening</span>
                         </div>
                     </div>
                 </div>
