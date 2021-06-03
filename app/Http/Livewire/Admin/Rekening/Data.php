@@ -25,6 +25,11 @@ class Data extends Component
 
         return view('livewire.admin.rekening.data', compact('rekenings'));
     }
+    
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function refresh($type = "success", string $message)
     {
