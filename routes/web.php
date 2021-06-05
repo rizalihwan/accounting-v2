@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('kategori', 'KategoriController');
         // Kontak
         Route::resource('kontak', 'KontakController');
+        // Rekening
+        Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
         // Bank
         Route::resource('bank', 'BankController');
         // Divisi

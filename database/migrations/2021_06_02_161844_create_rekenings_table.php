@@ -29,9 +29,9 @@ class CreateRekeningsTable extends Migration
             $table->boolean('aktif')->default(true);
             $table->boolean('piutang')->default(false);
             $table->boolean('kas_bank')->default(false);
-            $table->char('level_1', 4)->unique();
-            $table->char('level_2', 4)->unique()->nullable();
-            $table->char('level_3', 4)->unique()->nullable();
+            $table->char('level_1', 4);
+            $table->char('level_2', 4)->nullable();
+            $table->char('level_3', 4)->nullable();
             $table->timestamps();
 
             $table->foreign('divisi_id')->references('id')->on('divisis')->onDelete('cascade');
