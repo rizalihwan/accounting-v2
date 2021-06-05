@@ -20,4 +20,8 @@ class Rekening extends Model
     {
         return $this->belongsToMany(Bank::class, 'bank_id', 'id');
     }
+    public function uraians()
+    {
+        return $this->hasMany(Uraian::class);
+    }
 }

@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kontak extends Model
 {
-    use HasFactory;
+    protected $table = 'kontaks';
 
+    use HasFactory;
     protected $guarded = [];
 
     public function kategori()
     {
         return $this->belongsTo(Kategori::class);
+    }
+    public function bkk()
+    {
+        return $this->hasMany(Bkk::class);
     }
 }
