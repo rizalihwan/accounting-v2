@@ -25,5 +25,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('bank', 'BankController');
         // Divisi
         Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
+        // Bkk
+        Route::resource('bkk', 'BkkController');
+        // Bkm
+        Route::resource('bkm', 'BkmController');
     });
 });

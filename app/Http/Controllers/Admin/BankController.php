@@ -38,6 +38,7 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         if ($request->ajax()) {
             $cek = Bank::select(['id', 'kode'])->where('kode', $request->kode)->count();
 
