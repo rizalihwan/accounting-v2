@@ -22,3 +22,11 @@
 
 <script src="{{ asset('dist/js/theme.js') }}"></script>
 <script src="{{ asset('js/chat.js') }}"></script>
+
+<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
+<script src="{{ asset('plugins/mohithg-switchery/dist/switchery.min.js') }}"></script>
+
+<script src="{{ asset('js/form-advanced.js') }}"></script>

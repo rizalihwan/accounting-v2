@@ -24,17 +24,16 @@ class KontakRequest extends FormRequest
     public function rules()
     {
         return [
-            'kode' => 'required',
             'nama' => 'required',
-            'kategori_id' => 'required',
-            'alamat' => 'nullable',
-            'kota' => 'nullable',
-            'kode_pos' => 'nullable',
-            'telepon' => 'nullable',
-            'fax' => 'nullable',
-            'bank' => 'nullable',
-            'ac' => 'nullable',
-            'catatan' => 'nullable'
+            'email' => 'required',
+            'telepon' => 'required',
+            'pelanggan' => 'required|boolean',
+            'pemasok' => 'required|boolean',
+            'karyawan' => 'required|boolean',
+            'nik' => 'numeric|min:16|max:16',
+            'telepon' => 'numeric',
+            'kode_pos' = 'numeric',
+            'aktif' => 'required|boolean',
         ];
     }
 }
