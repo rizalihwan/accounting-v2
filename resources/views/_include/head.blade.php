@@ -20,6 +20,11 @@
 <link rel="stylesheet" href="{{ asset('plugins/icon-kit/dist/css/iconkit.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/ionicons/dist/css/ionicons.min.css') }}">
 
+<link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/summernote/dist/summernote-bs4.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/mohithg-switchery/dist/switchery.min.css') }}">
+
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 @livewireStyles()
