@@ -2,16 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
-//auth management
-Route::get('/', 'AuthController@loginView')->middleware('guest');
-Route::post('/login', 'AuthController@login')->name('login');
-Route::post('/logout', 'AuthController@logout')->name('logout');
-Route::get('register', function () {
-    return view('_auth/register');
-});
 
+
+Route::middleware('guest')->group(function () {
+    //auth management
+    Route::get('/login', 'AuthController@loginView');
+    Route::post('/login', 'AuthController@login')->name('login');
+    
+});
 Route::middleware('auth')->group(function () {
-    Route::get('home', 'HomeController@home')->name('home');
+    Route::get('/', 'HomeController@home')->name('home');
+    Route::post('/logout', 'AuthController@logout')->name('logout');
+
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
         // Jurnal Umum
         Route::resource('jurnalumum', 'JurnalUmumController');
