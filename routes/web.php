@@ -34,5 +34,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('bkk', 'BkkController');
         // Bkm
         Route::resource('bkm', 'BkmController');
+        // Subklasifikasi
+        Route::resource('subklasifikasi', 'SubklasifikasiController');
+        // Akun
+        Route::resource('akun', 'AkunController');
     });
 });
