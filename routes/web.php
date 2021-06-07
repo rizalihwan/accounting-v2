@@ -21,6 +21,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('kategori', 'KategoriController');
         // Kontak
         Route::resource('kontak', 'KontakController');
+        // Neraca Keuangan
+        Route::resource('neracakeuangan','NeracaKeuanganController');
+        Route::post('/neracakeuangan/show', 'NeracaKeuanganController@show')->name('neracakeuangan.show');
+        Route::get('/neracakeuangan/get/data', 'NeracaKeuanganController@get_data')->name('neracakeuangan.get.data');
     });
 });
 

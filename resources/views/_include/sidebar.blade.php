@@ -39,7 +39,7 @@
                     <a href="{{ route('home') }}"><i class="ik ik-user"></i><span>{{ __('Bagan Akun')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'neraca keuangan') ? 'active' : '' }}">
-                    <a href="{{ route('home') }}"><i class="ik ik-bar-chart-line-"></i><span>{{ __('Neraca Keuangan')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('admin.neracakeuangan.index') }}"><i class="ik ik-bar-chart-line-"></i><span>{{ __('Neraca Keuangan')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'pos') ? 'active' : '' }}">
                     <a href="{{ route('home') }}"><i class="ik ik-dollar-sign"></i><span>{{ __('POS')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
