@@ -27,9 +27,9 @@ class KontakRequest extends FormRequest
             'nama' => 'required',
             'email' => 'required',
             'telepon' => 'nullable',
-            'pelanggan' => 'required|boolean',
-            'pemasok' => 'required|boolean',
-            'karyawan' => 'required|boolean',
+            'pelanggan' => 'boolean',
+            'pemasok' => 'boolean',
+            'karyawan' => 'boolean',
             'alamat' => 'nullable',
             'kota' => 'nullable',
             'kode_pos' => 'nullable',
@@ -38,7 +38,7 @@ class KontakRequest extends FormRequest
             'nik' => 'nullable',
             'kontak_person' => 'nullable',
             'website' => 'nullable',
-            'aktif' => 'required|boolean',
+            'aktif' => 'boolean',
         ];
     }
 }

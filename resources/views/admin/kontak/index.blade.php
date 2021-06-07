@@ -56,17 +56,18 @@
                                     <td><a href="{{ route('admin.kontak.show',$key->id) }}" style="color: blue;">{{ $key->kode_kontak }}</a></td>
                                     <td>{{ $key->email }}</td>
                                     <td>
-                                        {{ $i->pelanggan ? 'Pelanggan' . ($i->pemasok == true || $i->karyawan == true ? ', ' : '') : '' }}
-                                        {{ $i->pemasok ? 'Pemasok' . ($i->pelanggan == true || $i->karyawan == true ? ', ' : '') : '' }}
-                                        {{ $i->karyawan ? 'Karyawan' . ($i->pelanggan == true || $i->pemasok == true ? ', ' : '') : '' }}
+                                        {{ $key->pelanggan ? 'Pelanggan' . ($key->pemasok == true || $key->karyawan == true ? ', ' : '') : '' }}
+                                        {{ $key->pemasok ? 'Pemasok' . ($key->pelanggan == true || $key->karyawan == true ? ', ' : '') : '' }}
+                                        {{ $key->karyawan ? 'Karyawan' . ($key->pelanggan == true || $key->pemasok == true ? ', ' : '') : '' }}
                                     </td>
                                     <td>{{ $key->website }}</td>
                                     <td>{{ $key->telepon }}</td>
                                     <td>
                                         <a href="{{ route('admin.kontak.edit',$key->id) }}" class="btn btn-info btn-sm mr-1" style="float: left;"><i class="fa fa-edit"></i></a>
-                                        <form action="#" method="post">
+                                        <form action="{{ route('admin.kontak.destroy', $key->id)}}" method="post">
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                            @method('delete')
+                                            <button type="submit" class="button delete-confirm btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
