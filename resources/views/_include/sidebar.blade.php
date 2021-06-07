@@ -50,6 +50,7 @@
                 <div class="nav-item has-sub">
                     <a href="#"><i class="ik ik-user"></i><span>{{ __('Bagan Akun (COA)')}}</span></a>
                     <div class="submenu-content">
+                        <a href="{{ route('admin.kontak.index') }}" class="menu-item">{{ __('Data Kontak')}}</a>
                         <a href="{{ route('admin.rekening.index') }}" class="menu-item">{{ __('Data Rekening')}}</a>
                         <a href="{{ route('admin.bank.index') }}" class="menu-item">{{ __('Data Bank')}}</a>
                         <a href="{{ route('admin.divisi.index') }}" class="menu-item">{{ __('Data Divisi')}}</a>
