@@ -84,15 +84,15 @@
                                     <div class="form-group">
                                         <div class="border-checkbox-section">
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" checked>
+                                                <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" value="1" checked="checked">
                                                 <label class="border-checkbox-label" for="pelanggan">{{ __('Pelanggan')}}</label>
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" checked>
+                                                <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" value="1" checked="checked">
                                                 <label class="border-checkbox-label" for="Pemasok">{{ __('Pemasok')}}</label>
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" checked>
+                                                <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" value="1" checked="checked">
                                                 <label class="border-checkbox-label" for="karyawan">{{ __('Karyawan')}}</label>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@
 
                                 <div class="col-sm-12 col-xl-4 mb-30">
                                     <p><strong>Aktif</strong></p>
-                                    <input type="checkbox" class="js-single" name="aktif" checked />
+                                    <input type="checkbox" class="js-single" name="aktif" value="1" checked="checked" />
                                 </div>
                             </div>
 
