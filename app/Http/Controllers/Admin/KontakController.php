@@ -15,9 +15,11 @@ class KontakController extends Controller
      */
     public function index()
     {
-        $kontak = Kontak::all();
+        $kontak = Kontak::get();
 
-        return view('admin.kontak.index',compact('kontak'));
+        return view('admin.kontak.index', [
+            'kontak' => $kontak
+        ]);
     }
 
     /**
@@ -38,13 +40,12 @@ class KontakController extends Controller
      */
     public function store(KontakRequest $request)
     {
-        dd($request->all());
         try {
             Kontak::create($request->all());
         } catch (\Exception $e) {
             return back()->with('error', 'Data Gagal Disimpan!');
         }
-        return view('admin.kontak.index')->with('success', 'Data Berhasil Disimpan');
+        return redirect()->route('admin.kontak.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -96,7 +97,7 @@ class KontakController extends Controller
     {
         $kontak->delete();
 
-        return redirect()->route('bank.index')
+        return redirect()->route('admin.kontak.index')
                         ->with('success','Data Berhasil Dihapus');
     }
 }

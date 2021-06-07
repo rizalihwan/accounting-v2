@@ -89,7 +89,7 @@
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" value="1" checked="checked">
-                                                <label class="border-checkbox-label" for="Pemasok">{{ __('Pemasok')}}</label>
+                                                <label class="border-checkbox-label" for="pemasok">{{ __('Pemasok')}}</label>
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" value="1" checked="checked">
