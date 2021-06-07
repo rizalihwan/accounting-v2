@@ -105,17 +105,15 @@
                                         <div class="col-md-4 col-12">
                                             <div class="form-group">
                                                 <label for="itemquantity">Jumlah uang</label>
-                                                <input type="number" value="1" name="jumlah" id="jumlah" class="form-control jumlah" placeholder="1" />
+                                                <input type="number" value="1" name="jumlah" class="form-control jumlah" placeholder="1" />
                                             </div>
                                         </div>
-
                                         <div class="col-md-2 col-12">
                                             <div class="form-group">
                                                 <label for="staticprice">catatan</label>
                                                 <input type="text" class="form-control" id="staticprice" name="catatan" />
                                             </div>
                                         </div>
-
                                         <div class="col-md-2 col-12">
                                             <div class="form-group">
                                                 <label for="itemquantity">uang</label>
@@ -170,8 +168,6 @@
     </div>
 </div>
 <script>
-    document.getElementById('button').addEventListener('click', function() {
-        document.getElementById('')
-    })
+
 </script>
 @endsection
