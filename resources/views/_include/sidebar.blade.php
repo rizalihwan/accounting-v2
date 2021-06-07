@@ -20,6 +20,13 @@
                 <div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
                     <a href="{{ route('home') }}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
+                <div class="nav-item has-sub">
+                    <a href="#"><i class="ik ik-users"></i><span>{{ __('Data Master')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('admin.category.index') }}" class="menu-item">{{ __('Category')}}</a>
+                        <a href="{{ route('admin.product.index') }}" class="menu-item">{{ __('Product')}}</a>
+                    </div>
+                </div>
                 <div class="nav-item {{ ($segment1 == 'jurnal umum') ? 'active' : '' }}">
                     <a href="{{ route('admin.jurnalumum.index') }}"><i class="ik ik-book"></i><span>{{ __('Jurnal Umum')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
