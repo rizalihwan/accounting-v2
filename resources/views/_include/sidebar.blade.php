@@ -33,8 +33,8 @@
                 <div class="nav-item has-sub">
                     <a href="#"><i class="ik ik-users"></i><span>{{ __('Akun Management')}}</span></a>
                     <div class="submenu-content">
-                        <a href="#" class="menu-item">{{ __('Daftar Akun')}}</a>
-                        <a href="#" class="menu-item">{{ __('Data Subklasifikasi')}}</a>
+                        <a href="{{ route('admin.akun.index') }}" class="menu-item">{{ __('Daftar Akun')}}</a>
+                        <a href="{{ route('admin.subklasifikasi.index') }}" class="menu-item">{{ __('Data Subklasifikasi')}}</a>
                     </div>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'buku besar') ? 'active' : '' }}">

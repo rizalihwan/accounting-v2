@@ -38,5 +38,9 @@ Route::middleware('auth')->group(function () {
         Route::view('category', 'admin.category.index')->name('category.index');
 
         Route::resource('product', 'ProductController');
+        // Subklasifikasi
+        Route::resource('subklasifikasi', 'SubklasifikasiController');
+        // Akun
+        Route::resource('akun', 'AkunController');
     });
 });
