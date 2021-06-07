@@ -15,7 +15,9 @@ class KontakController extends Controller
      */
     public function index()
     {
-        //
+        $kontak = Kontak::all();
+
+        return view('admin.kontak.index',compact('kontak'));
     }
 
     /**
@@ -25,9 +27,7 @@ class KontakController extends Controller
      */
     public function create()
     {
-        return view('admin.kontak.create', [
-            'kategoris' => Kategori::orderBy('nama_kategori', 'ASC')->get()
-        ]);
+        return view('admin.kontak.create');
     }
 
     /**
@@ -38,12 +38,13 @@ class KontakController extends Controller
      */
     public function store(KontakRequest $request)
     {
+        dd($request->all());
         try {
             Kontak::create($request->all());
         } catch (\Exception $e) {
             return back()->with('error', 'Data Gagal Disimpan!');
         }
-        return back()->with('success', 'Data Berhasil Disimpan');
+        return view('admin.kontak.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -52,9 +53,9 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Kontak $kontak)
     {
-        //
+        return view('admin.kontak.show',compact('kontak'));
     }
 
     /**
@@ -63,9 +64,9 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kontak $kontak)
     {
-        //
+        return view('admin.kontak.edit', compact('kontak'));
     }
 
     /**
@@ -75,9 +76,14 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update($id, KontakRequest $request)
     {
-        //
+        try {
+            Kontak::update($request->all());
+        } catch (\Exception $e) {
+            return back()->with('error', 'Data Gagal Disimpan!');
+        }
+        return back()->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -86,8 +92,11 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Kontak $kontak)
     {
-        //
+        $kontak->delete();
+
+        return redirect()->route('bank.index')
+                        ->with('success','Data Berhasil Dihapus');
     }
 }

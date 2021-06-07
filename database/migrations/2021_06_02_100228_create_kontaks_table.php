@@ -15,17 +15,21 @@ class CreateKontaksTable extends Migration
     {
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
             $table->string('nama');
-            $table->foreignId('kategori_id')->constrained();
+            $table->string('email');
+            $table->string('telepon')->nullable();
+            $table->boolean('pelanggan')->default(true);
+            $table->boolean('pemasok')->default(true);
+            $table->boolean('karyawan')->default(true);
             $table->longText('alamat')->nullable();
             $table->string('kota')->nullable();
             $table->string('kode_pos')->nullable();
-            $table->string('telepon')->nullable();
-            $table->string('fax')->nullable();
-            $table->string('bank')->nullable();
-            $table->string('ac')->nullable();
-            $table->string('catatan')->nullable();
+            $table->string('kode_kontak')->nullable();
+            $table->string('mata_uang')->nullable();
+            $table->string('nik')->nullable();
+            $table->string('kontak_person')->nullable();
+            $table->string('website')->nullable();
+            $table->boolean('aktif')->default(true);
             $table->timestamps();
         });
     }

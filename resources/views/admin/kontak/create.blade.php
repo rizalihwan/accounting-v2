@@ -31,30 +31,16 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
-                        <h3>Tambah Jurnal Umum</h3>
+                        <h3>Tambah Kontak Person</h3>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" method="POST" action="{{ route('admin.kontak.store') }}">
                             @csrf
-                            <p><strong>Informasi Utama</strong></p>
+                            <p><strong>Umum</strong></p>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="kode">{{ __('kode') }}<span class="text-red">*</span></label>
-                                        <input id="kode" type="text"
-                                            class="form-control @error('kode') is-invalid @enderror" name="kode" required>
-                                        <div class="help-block with-errors"></div>
-                                        @error('kode')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="nama">{{ __('nama') }}<span class="text-red">*</span></label>
+                                        <label for="nama">{{ __('Nama') }}<span class="text-red">*</span></label>
                                         <input id="nama" type="text"
                                             class="form-control @error('nama') is-invalid @enderror" name="nama" required>
                                         <div class="help-block with-errors"></div>
@@ -65,47 +51,64 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="kategori_id">{{ __('kategori') }}<span class="text-red">*</span></label>
-                                        <select name="kategori_id" id="kategori_id"
-                                            class="form-control @error('kategori_id') is-invalid @enderror" required>
-                                            <option disabled selected>-- Pilih Kategori --</option>
-                                            @foreach ($kategoris as $kategori)
-                                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="email">{{ __('Email') }}<span class="text-red">*</span></label>
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" name="email" required>
                                         <div class="help-block with-errors"></div>
-                                        @error('kategori_id')
+                                        @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mt-3">
-                                    <div class="form-group">
 
-                                    </div>
+                                <div class="col-sm-12">
                                     <div class="form-group">
-                                        <a href="{{ route('admin.kategori.create') }}" class="btn btn-danger">Tambah
-                                            Kategori</a>
+                                        <label for="telepon">Telepon<span class="text-red">*</span></label>
+                                        <input id="telepon" type="text"
+                                            class="form-control @error('telepon') is-invalid @enderror" name="telepon"
+                                            minlength="11" maxlength="13" onkeypress="return hanyaAngka(event)">
+                                        <div class="help-block with-errors"></div>
+                                        @error('telepon')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="border-checkbox-section">
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" value="1" checked="checked">
+                                                <label class="border-checkbox-label" for="pelanggan">{{ __('Pelanggan')}}</label>
+                                            </div>
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" value="1" checked="checked">
+                                                <label class="border-checkbox-label" for="Pemasok">{{ __('Pemasok')}}</label>
+                                            </div>
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" value="1" checked="checked">
+                                                <label class="border-checkbox-label" for="karyawan">{{ __('Karyawan')}}</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <p><strong>Informasi Tambahan</strong></p>
+                            <p><strong>Alamat</strong></p>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="alamat">alamat<span class="text-red">*</span></label>
+                                        <label for="alamat">alamat</label>
                                         <textarea name="alamat" id="alamat"
                                             class="form-control @error('alamat') is-invalid @enderror">
 
-                                                </textarea>
+                                                    </textarea>
                                         <div class="help-block with-errors"></div>
                                         @error('alamat')
                                             <span class="invalid-feedback" role="alert">
@@ -117,7 +120,7 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="kota">kota<span class="text-red">*</span></label>
+                                        <label for="kota">kota</label>
                                         <input id="kota" type="text"
                                             class="form-control @error('kota') is-invalid @enderror" name="kota">
                                         <div class="help-block with-errors"></div>
@@ -131,7 +134,7 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="kode_pos">kode pos<span class="text-red">*</span></label>
+                                        <label for="kode_pos">kode pos</label>
                                         <input id="kode_pos" type="text"
                                             class="form-control @error('kode_pos') is-invalid @enderror" name="kode_pos">
                                         <div class="help-block with-errors"></div>
@@ -142,42 +145,32 @@
                                         @enderror
                                     </div>
                                 </div>
-
+                            </div>
+                            <hr>
+                            <p><strong>Data Lainnya</strong></p>
+                            <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="telepon">telepon<span class="text-red">*</span></label>
-                                        <input id="telepon" type="text"
-                                            class="form-control @error('telepon') is-invalid @enderror" name="telepon">
+                                        <label for="kode_kontak">Kode Kontak</label>
+                                        <input id="kode_kontak" type="text"
+                                            class="form-control @error('kode_kontak') is-invalid @enderror" name="kode_kontak" required>
                                         <div class="help-block with-errors"></div>
-                                        @error('telepon')
+                                        @error('kode_kontak')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="fax">fax<span class="text-red">*</span></label>
-                                        <input id="fax" type="text" class="form-control @error('fax') is-invalid @enderror"
-                                            name="fax">
-                                        <div class="help-block with-errors"></div>
-                                        @error('fax')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="bank">bank<span class="text-red">*</span></label>
-                                        <input id="bank" type="text"
-                                            class="form-control @error('bank') is-invalid @enderror" name="bank">
+                                        <label for="mata_uang">{{ __('Mata Uang') }}</label>
+                                        <select name="mata_uang" id="mata_uang"
+                                            class="form-control @error('mata_uang') is-invalid @enderror">
+                                            <option value="IDR">IDR</option>
+                                        </select>
                                         <div class="help-block with-errors"></div>
-                                        @error('bank')
+                                        @error('mata_uang')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -185,13 +178,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="ac">A/C<span class="text-red">*</span></label>
-                                        <input id="ac" type="text" class="form-control @error('ac') is-invalid @enderror"
-                                            name="ac">
+                                        <label for="nik">NIK</label>
+                                        <input id="nik" type="text"
+                                            class="form-control @error('nik') is-invalid @enderror" name="nik"
+                                            onkeypress="return hanyaAngka(event)" minlength="16" maxlength="16">
                                         <div class="help-block with-errors"></div>
-                                        @error('ac')
+                                        @error('nik')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -199,29 +193,51 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="catatan">catatan<span class="text-red">*</span></label>
-                                        <input id="catatan" type="text"
-                                            class="form-control @error('catatan') is-invalid @enderror" name="catatan">
+                                        <label for="kontak_person">Kontak Person</label>
+                                        <input id="kontak_person" type="text"
+                                            class="form-control @error('kontak_person') is-invalid @enderror" name="kontak_person">
                                         <div class="help-block with-errors"></div>
-                                        @error('catatan')
+                                        @error('kontak_person')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="website">Website</label>
+                                        <input id="website" type="text"
+                                            class="form-control @error('website') is-invalid @enderror" name="website">
+                                        <div class="help-block with-errors"></div>
+                                        @error('website')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-xl-4 mb-30">
+                                    <p><strong>Aktif</strong></p>
+                                    <input type="checkbox" class="js-single" name="aktif" value="1" checked="checked" />
+                                </div>
+                            </div>
+
 
                                 <div class="col-md-12 mt-4">
                                     <div class="form-group">
-                                        <a href="{{ route('admin.jurnalumum.index') }}"
+                                        <a href="{{ route('admin.kontak.index') }}"
                                             class="btn btn-danger">KEMBALI</a>
                                         <button type="submit" class="btn btn-primary">
                                             TAMBAH</button>
                                     </div>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -229,3 +245,15 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        function hanyaAngka(e){
+            let charCode = (e.which) ? e.which : e.keyCode
+            if (charCode > 32 && (charCode < 48 || charCode > 57)) {
+                return false
+            }
+            return true
+        }
+    </script>
+@endpush

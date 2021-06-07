@@ -19,8 +19,8 @@
 	    		@yield('content')
 	    	</div>
 
-	    	<!-- initiate chat section-->
-	    	@include('_include.chat')
+	    	{{-- <!-- initiate chat section-->
+	    	@include('_include.chat') --}}
 
 
 	    	<!-- initiate footer section-->
