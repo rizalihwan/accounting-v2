@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\KontakRequest;
 use App\Models\{Kategori, Kontak};
+use Illuminate\Support\Facades\DB;
 
 class KontakController extends Controller
 {
@@ -152,5 +153,24 @@ class KontakController extends Controller
 
         return redirect()->route('admin.kontak.index')
                         ->with('success','Data Berhasil Dihapus');
+    }
+    
+    public function kontakKode()
+    {
+        $nama = request()->nama;
+        $kontak = Kontak::select('id', 'nama')
+            ->where(DB::raw('LEFT(nama, 1)'), $nama)
+            ->count();
+
+        $huruf = ucfirst($nama) . "-";
+
+        if ($kontak > 0) {
+            $jumlah = $kontak + 1;
+            $result = $huruf . sprintf("%05s", $jumlah);
+        } else {
+            $result = $huruf . "00001";
+        }
+
+        return response()->json(['success' => $result]);
     }
 }
