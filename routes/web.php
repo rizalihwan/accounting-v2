@@ -36,5 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('bkm', 'BkmController');
         //Category
         Route::view('category', 'admin.category.index')->name('category.index');
+
+        Route::resource('product', 'ProductController');
     });
 });

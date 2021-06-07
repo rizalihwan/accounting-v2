@@ -24,7 +24,7 @@
                     <a href="#"><i class="ik ik-users"></i><span>{{ __('Data Master')}}</span></a>
                     <div class="submenu-content">
                         <a href="{{ route('admin.category.index') }}" class="menu-item">{{ __('Category')}}</a>
-                        <a href="#" class="menu-item">{{ __('Product')}}</a>
+                        <a href="{{ route('admin.product.index') }}" class="menu-item">{{ __('Product')}}</a>
                     </div>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'jurnal umum') ? 'active' : '' }}">
