@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="nama">{{ __('nama') }}<span class="text-red">*</span></label>
+                                        <label for="nama">{{ __('Nama') }}<span class="text-red">*</span></label>
                                         <input id="nama" type="text"
                                             class="form-control @error('nama') is-invalid @enderror" name="nama" required>
                                         <div class="help-block with-errors"></div>
@@ -54,7 +54,7 @@
 
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="email">{{ __('email') }}<span class="text-red">*</span></label>
+                                        <label for="email">{{ __('Email') }}<span class="text-red">*</span></label>
                                         <input id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email" required>
                                         <div class="help-block with-errors"></div>
@@ -68,9 +68,10 @@
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="telepon">telepon<span class="text-red">*</span></label>
+                                        <label for="telepon">Telepon<span class="text-red">*</span></label>
                                         <input id="telepon" type="text"
-                                            class="form-control @error('telepon') is-invalid @enderror" name="telepon">
+                                            class="form-control @error('telepon') is-invalid @enderror" name="telepon"
+                                            minlength="11" maxlength="13" onkeypress="return hanyaAngka(event)">
                                         <div class="help-block with-errors"></div>
                                         @error('telepon')
                                             <span class="invalid-feedback" role="alert">
@@ -83,15 +84,15 @@
                                     <div class="form-group">
                                         <div class="border-checkbox-section">
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" checked>
+                                                <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" value="1" checked="checked">
                                                 <label class="border-checkbox-label" for="pelanggan">{{ __('Pelanggan')}}</label>
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" checked>
+                                                <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" value="1" checked="checked">
                                                 <label class="border-checkbox-label" for="Pemasok">{{ __('Pemasok')}}</label>
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" checked>
+                                                <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" value="1" checked="checked">
                                                 <label class="border-checkbox-label" for="karyawan">{{ __('Karyawan')}}</label>
                                             </div>
                                         </div>
@@ -152,7 +153,7 @@
                                     <div class="form-group">
                                         <label for="kode_kontak">Kode Kontak</label>
                                         <input id="kode_kontak" type="text"
-                                            class="form-control @error('kode_kontak') is-invalid @enderror" name="kode_kontak">
+                                            class="form-control @error('kode_kontak') is-invalid @enderror" name="kode_kontak" required>
                                         <div class="help-block with-errors"></div>
                                         @error('kode_kontak')
                                             <span class="invalid-feedback" role="alert">
@@ -177,22 +178,66 @@
                                     </div>
                                 </div>
 
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="nik">NIK</label>
+                                        <input id="nik" type="text"
+                                            class="form-control @error('nik') is-invalid @enderror" name="nik"
+                                            onkeypress="return hanyaAngka(event)" minlength="16" maxlength="16">
+                                        <div class="help-block with-errors"></div>
+                                        @error('nik')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="kontak_person">Kontak Person</label>
+                                        <input id="kontak_person" type="text"
+                                            class="form-control @error('kontak_person') is-invalid @enderror" name="kontak_person">
+                                        <div class="help-block with-errors"></div>
+                                        @error('kontak_person')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="website">Website</label>
+                                        <input id="website" type="text"
+                                            class="form-control @error('website') is-invalid @enderror" name="website">
+                                        <div class="help-block with-errors"></div>
+                                        @error('website')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-12 col-xl-4 mb-30">
                                     <p><strong>Aktif</strong></p>
-                                    <input type="checkbox" class="js-single" checked />
+                                    <input type="checkbox" class="js-single" name="aktif" value="1" checked="checked" />
                                 </div>
                             </div>
 
 
                                 <div class="col-md-12 mt-4">
                                     <div class="form-group">
-                                        <a href="{{ route('admin.jurnalumum.index') }}"
+                                        <a href="{{ route('admin.kontak.index') }}"
                                             class="btn btn-danger">KEMBALI</a>
                                         <button type="submit" class="btn btn-primary">
                                             TAMBAH</button>
                                     </div>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -200,3 +245,15 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        function hanyaAngka(e){
+            let charCode = (e.which) ? e.which : e.keyCode
+            if (charCode > 32 && (charCode < 48 || charCode > 57)) {
+                return false
+            }
+            return true
+        }
+    </script>
+@endpush

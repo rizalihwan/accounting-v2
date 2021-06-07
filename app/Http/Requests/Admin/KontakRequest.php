@@ -26,13 +26,18 @@ class KontakRequest extends FormRequest
         return [
             'nama' => 'required',
             'email' => 'required',
-            'telepon' => 'required',
+            'telepon' => 'nullable',
             'pelanggan' => 'required|boolean',
             'pemasok' => 'required|boolean',
             'karyawan' => 'required|boolean',
-            'nik' => 'numeric|min:16|max:16',
-            'telepon' => 'numeric',
-            'kode_pos' = 'numeric',
+            'alamat' => 'nullable',
+            'kota' => 'nullable',
+            'kode_pos' => 'nullable',
+            'kode_kontak' => 'nullable',
+            'mata_uang' => 'nullable',
+            'nik' => 'nullable',
+            'kontak_person' => 'nullable',
+            'website' => 'nullable',
             'aktif' => 'required|boolean',
         ];
     }

@@ -38,6 +38,7 @@ class KontakController extends Controller
      */
     public function store(KontakRequest $request)
     {
+        dd($request->all());
         try {
             Kontak::create($request->all());
         } catch (\Exception $e) {
