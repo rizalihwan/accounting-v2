@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('kategori', 'KategoriController');
         // Kontak
         Route::resource('kontak', 'KontakController');
+        Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');
         // Rekening
         Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
         // Bank
