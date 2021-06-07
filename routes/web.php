@@ -8,7 +8,7 @@ Route::middleware('guest')->group(function () {
     //auth management
     Route::get('/login', 'AuthController@loginView');
     Route::post('/login', 'AuthController@login')->name('login');
-    
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@home')->name('home');
