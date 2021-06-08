@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\KontakRequest;
 use App\Models\{Kategori, Kontak};
+use Illuminate\Support\Facades\DB;
 
 class KontakController extends Controller
 {
@@ -16,6 +17,7 @@ class KontakController extends Controller
     public function index()
     {
         $kontak = Kontak::get();
+        // ->where('aktif', 1);
 
         return view('admin.kontak.index', [
             'kontak' => $kontak
@@ -40,8 +42,34 @@ class KontakController extends Controller
      */
     public function store(KontakRequest $request)
     {
+        $attr = $request->all();
+        if(!request('pelanggan'))
+        {
+            $attr['pelanggan'] = 0;
+        } else {
+            $attr['pelanggan'] = 1;
+        }
+        if(!request('pemasok'))
+        {
+            $attr['pemasok'] = 0;
+        } else {
+            $attr['pemasok'] = 1;
+        }
+        if(!request('karyawan'))
+        {
+            $attr['karyawan'] = 0;
+        } else {
+            $attr['karyawan'] = 1;
+        }
+        if(!request('aktif'))
+        {
+            $attr['aktif'] = 0;
+        } else {
+            $attr['aktif'] = 1;
+        }
+
         try {
-            Kontak::create($request->all());
+            Kontak::create($attr);
         } catch (\Exception $e) {
             return back()->with('error', 'Data Gagal Disimpan!');
         }
@@ -77,14 +105,40 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, KontakRequest $request)
+    public function update(Kontak $kontak, KontakRequest $request)
     {
-        try {
-            Kontak::update($request->all());
-        } catch (\Exception $e) {
-            return back()->with('error', 'Data Gagal Disimpan!');
+        $attr = $request->all();
+        if(!request('pelanggan'))
+        {
+            $attr['pelanggan'] = 0;
+        } else {
+            $attr['pelanggan'] = 1;
         }
-        return back()->with('success', 'Data Berhasil Disimpan');
+        if(!request('pemasok'))
+        {
+            $attr['pemasok'] = 0;
+        } else {
+            $attr['pemasok'] = 1;
+        }
+        if(!request('karyawan'))
+        {
+            $attr['karyawan'] = 0;
+        } else {
+            $attr['karyawan'] = 1;
+        }
+        if(!request('aktif'))
+        {
+            $attr['aktif'] = 0;
+        } else {
+            $attr['aktif'] = 1;
+        }
+
+        try {
+            $kontak->update($attr);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Data Gagal diupdate!');
+        }
+        return redirect()->route('admin.kontak.index')->with('success', 'Data Berhasil DIupdate');
     }
 
     /**
@@ -99,5 +153,24 @@ class KontakController extends Controller
 
         return redirect()->route('admin.kontak.index')
                         ->with('success','Data Berhasil Dihapus');
+    }
+    
+    public function kontakKode()
+    {
+        $nama = request()->nama;
+        $kontak = Kontak::select('id', 'nama')
+            ->where(DB::raw('LEFT(nama, 1)'), $nama)
+            ->count();
+
+        $huruf = ucfirst($nama) . "-";
+
+        if ($kontak > 0) {
+            $jumlah = $kontak + 1;
+            $result = $huruf . sprintf("%05s", $jumlah);
+        } else {
+            $result = $huruf . "00001";
+        }
+
+        return response()->json(['success' => $result]);
     }
 }

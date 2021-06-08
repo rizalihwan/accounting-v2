@@ -27,9 +27,6 @@ class KontakRequest extends FormRequest
             'nama' => 'required',
             'email' => 'required',
             'telepon' => 'nullable',
-            'pelanggan' => 'boolean',
-            'pemasok' => 'boolean',
-            'karyawan' => 'boolean',
             'alamat' => 'nullable',
             'kota' => 'nullable',
             'kode_pos' => 'nullable',
@@ -38,7 +35,6 @@ class KontakRequest extends FormRequest
             'nik' => 'nullable',
             'kontak_person' => 'nullable',
             'website' => 'nullable',
-            'aktif' => 'boolean',
         ];
     }
 }
