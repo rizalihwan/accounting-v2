@@ -1,6 +1,6 @@
 <div class="app-sidebar colored">
     <div class="sidebar-header">
-        <a class="header-brand" href="home">
+        <a class="header-brand" href="{{ route('home') }}">
             <div class="logo-img">
                <h4>ACCOUNTING</h4>
             </div>
@@ -18,37 +18,63 @@
         <div class="nav-container">
             <nav id="main-menu-navigation" class="navigation-main">
                 <div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('home') }}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                </div>
+                <div class="nav-item has-sub">
+                    <a href="#"><i class="ik ik-users"></i><span>{{ __('Data Master')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('admin.category.index') }}" class="menu-item">{{ __('Category')}}</a>
+                        <a href="{{ route('admin.product.index') }}" class="menu-item">{{ __('Product')}}</a>
+                    </div>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'jurnal umum') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-book"></i><span>{{ __('Jurnal Umum')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('admin.jurnalumum.index') }}"><i class="ik ik-book"></i><span>{{ __('Jurnal Umum')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                </div>
+                <div class="nav-item has-sub">
+                    <a href="#"><i class="ik ik-users"></i><span>{{ __('Akun Management')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('admin.akun.index') }}" class="menu-item">{{ __('Daftar Akun')}}</a>
+                        <a href="{{ route('admin.subklasifikasi.index') }}" class="menu-item">{{ __('Data Subklasifikasi')}}</a>
+                    </div>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'buku besar') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-book-open"></i><span>{{ __('Buku Besar')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('admin.bukubesar.index') }}"><i class="ik ik-book-open"></i><span>{{ __('Buku Besar')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'laporan laba rugi') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-bookmark"></i><span>{{ __('Laporan Laba Rugi')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('home') }}"><i class="ik ik-bookmark"></i><span>{{ __('Laporan Laba Rugi')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'buku kas') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-book"></i><span>{{ __('Buku Kas')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                <div class="nav-item has-sub">
+                    <a href="#"><i class="ik ik-book"></i><span>{{ __('Buku Kas')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('admin.bkm.create') }}" class="menu-item">{{ __('Buku Kas Masuk')}}</a>
+                        <a href="{{ route('admin.bkk.index') }}" class="menu-item">{{ __('Buku Kas Keluar')}}</a>
+                    </div>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'pembelian pembayaran') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-plus"></i><span>{{ __('Pembelian Pembayaran')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('home') }}"><i class="ik ik-plus"></i><span>{{ __('Pembelian Pembayaran')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'bagan akun') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-user"></i><span>{{ __('Bagan Akun')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+
+                <div class="nav-item has-sub">
+                    <a href="#"><i class="ik ik-user"></i><span>{{ __('Bagan Akun (COA)')}}</span></a>
+                    <div class="submenu-content">
+                        <a href="{{ route('admin.kontak.index') }}" class="menu-item">{{ __('Data Kontak')}}</a>
+                        <a href="{{ route('admin.rekening.index') }}" class="menu-item">{{ __('Data Rekening')}}</a>
+                        <a href="{{ route('admin.bank.index') }}" class="menu-item">{{ __('Data Bank')}}</a>
+                        <a href="{{ route('admin.divisi.index') }}" class="menu-item">{{ __('Data Divisi')}}</a>
+                    </div>
                 </div>
+
                 <div class="nav-item {{ ($segment1 == 'neraca keuangan') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-bar-chart-line-"></i><span>{{ __('Neraca Keuangan')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href=""><i class="ik ik-bar-chart-line-"></i><span>{{ __('Neraca Keuangan')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'pos') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-dollar-sign"></i><span>{{ __('POS')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('home') }}"><i class="ik ik-dollar-sign"></i><span>{{ __('POS')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'penjualan penerimaan') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-dollar-sign"></i><span>{{ __('Penjualan Penerimaan')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('home') }}"><i class="ik ik-dollar-sign"></i><span>{{ __('Penjualan Penerimaan')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'simpan pinjam') ? 'active' : '' }}">
-                    <a href="home"><i class="ik ik-check-circle"></i><span>{{ __('Simpan Pinjam')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
+                    <a href="{{ route('home') }}"><i class="ik ik-check-circle"></i><span>{{ __('Simpan Pinjam')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item has-sub">
                     <a href="#"><i class="ik ik-rotate-ccw"></i><span>{{ __('Backup Data')}}</span></a>

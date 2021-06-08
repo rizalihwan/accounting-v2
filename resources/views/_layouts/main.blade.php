@@ -19,8 +19,8 @@
 	    		@yield('content')
 	    	</div>
 
-	    	<!-- initiate chat section-->
-	    	@include('_include.chat')
+	    	{{-- <!-- initiate chat section-->
+	    	@include('_include.chat') --}}
 
 
 	    	<!-- initiate footer section-->
@@ -31,8 +31,9 @@
 
 	<!-- initiate modal menu section-->
 	@include('_include.modalmenu')
-
 	<!-- initiate scripts-->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	@include('_include.script')
+	@include('_include.alert')
 </body>
 </html>
