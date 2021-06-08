@@ -37,43 +37,45 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-light table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Kode</th>
-                                    <th>Email</th>
-                                    <th>Tipe</th>
-                                    <th>Website</th>
-                                    <th>Telepon</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($kontak as $key)
-                                <tr>
-                                    <td>{{ $key->nama }}</td>
-                                    <td><a href="{{ route('admin.kontak.show',$key->id) }}" style="color: blue;">{{ $key->kode_kontak }}</a></td>
-                                    <td>{{ $key->email }}</td>
-                                    <td>
-                                        {{ $key->pelanggan ? 'Pelanggan' . ($key->pemasok == true || $key->karyawan == true ? ', ' : '') : '' }}
-                                        {{ $key->pemasok ? 'Pemasok' . ($key->pelanggan == true || $key->karyawan == true ? ', ' : '') : '' }}
-                                        {{ $key->karyawan ? 'Karyawan' . ($key->pelanggan == true || $key->pemasok == true ? ', ' : '') : '' }}
-                                    </td>
-                                    <td>{{ $key->website }}</td>
-                                    <td>{{ $key->telepon }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.kontak.edit',$key->id) }}" class="btn btn-info btn-sm mr-1" style="float: left;"><i class="fa fa-edit"></i></a>
-                                        <form action="{{ route('admin.kontak.destroy', $key->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="button delete-confirm btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-light table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Kode</th>
+                                        <th>Email</th>
+                                        <th>Tipe</th>
+                                        <th>Website</th>
+                                        <th>Telepon</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($kontak as $key)
+                                    <tr>
+                                        <td>{{ $key->nama }}</td>
+                                        <td><a href="{{ route('admin.kontak.show',$key->id) }}" style="color: blue;">{{ $key->kode_kontak }}</a></td>
+                                        <td>{{ $key->email }}</td>
+                                        <td>
+                                            {{ $key->pelanggan ? 'Pelanggan' . ($key->pemasok == true || $key->karyawan == true ? ', ' : '') : '' }}
+                                            {{ $key->pemasok ? 'Pemasok' . ($key->pelanggan == true || $key->karyawan == true ? ', ' : '') : '' }}
+                                            {{ $key->karyawan ? 'Karyawan' . ($key->pelanggan == true || $key->pemasok == true ? ', ' : '') : '' }}
+                                        </td>
+                                        <td>{{ $key->website }}</td>
+                                        <td>{{ $key->telepon }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.kontak.edit',$key->id) }}" class="btn btn-info btn-sm mr-1" style="float: left;"><i class="fa fa-edit"></i></a>
+                                            <form action="{{ route('admin.kontak.destroy', $key->id)}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="button delete-confirm btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

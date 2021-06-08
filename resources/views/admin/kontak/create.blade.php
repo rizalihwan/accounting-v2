@@ -106,9 +106,7 @@
                                     <div class="form-group">
                                         <label for="alamat">alamat</label>
                                         <textarea name="alamat" id="alamat"
-                                            class="form-control @error('alamat') is-invalid @enderror">
-
-                                                    </textarea>
+                                            class="form-control @error('alamat') is-invalid @enderror"></textarea>
                                         <div class="help-block with-errors"></div>
                                         @error('alamat')
                                             <span class="invalid-feedback" role="alert">
