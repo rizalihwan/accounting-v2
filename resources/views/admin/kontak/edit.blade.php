@@ -9,7 +9,7 @@
                         <i class="ik ik-user-plus bg-blue"></i>
                         <div class="d-inline">
                             <h5>Kontak</h5>
-                            <span>Form tambah kontak person</span>
+                            <span>Form edit kontak person</span>
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                                 <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Tambah Kontak Person</a>
+                                <a href="#">Edit Kontak Person</a>
                             </li>
                         </ol>
                     </nav>
@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
-                        <h3>Tambah Kontak Person</h3>
+                        <h3>Edit Kontak Person</h3>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" method="POST" action="{{ route('admin.kontak.update', $kontak->id) }}">
