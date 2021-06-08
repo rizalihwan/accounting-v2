@@ -24,6 +24,7 @@
                     <a href="#"><i class="ik ik-users"></i><span>{{ __('Data Master')}}</span></a>
                     <div class="submenu-content">
                         <a href="{{ route('admin.category.index') }}" class="menu-item">{{ __('Category')}}</a>
+                        <a href="{{ route('admin.unit.index') }}" class="menu-item">{{ __('Unit')}}</a>
                         <a href="{{ route('admin.product.index') }}" class="menu-item">{{ __('Product')}}</a>
                     </div>
                 </div>
@@ -93,7 +94,14 @@
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="javascript:void(0)" class="disabled"><i class="ik ik-slash"></i><span>{{ __('Disabled Menu')}}</span></a>
+                    <a href="javascript:void(0)" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();" class="text-danger">
+                        <i class="ik ik-log-out text-danger"></i>
+                        <span>{{ __('Logout')}}</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
 
         </div>
