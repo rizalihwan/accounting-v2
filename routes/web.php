@@ -36,7 +36,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('bkm', 'BkmController');
         //Category
         Route::view('category', 'admin.category.index')->name('category.index');
-
+        // Unit
+        Route::view('unit', 'admin.unit.index')->name('unit.index');
+        // Produk
         Route::resource('product', 'ProductController');
         // Subklasifikasi
         Route::resource('subklasifikasi', 'SubklasifikasiController');
