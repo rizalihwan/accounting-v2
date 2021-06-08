@@ -67,7 +67,6 @@ class KontakController extends Controller
         } else {
             $attr['aktif'] = 1;
         }
-
         try {
             Kontak::create($attr);
         } catch (\Exception $e) {
@@ -132,7 +131,6 @@ class KontakController extends Controller
         } else {
             $attr['aktif'] = 1;
         }
-
         try {
             $kontak->update($attr);
         } catch (\Exception $e) {
