@@ -94,7 +94,14 @@
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="javascript:void(0)" class="disabled"><i class="ik ik-slash"></i><span>{{ __('Disabled Menu')}}</span></a>
+                    <a href="javascript:void(0)" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();" class="text-danger">
+                        <i class="ik ik-log-out text-danger"></i>
+                        <span>{{ __('Logout')}}</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
 
         </div>
