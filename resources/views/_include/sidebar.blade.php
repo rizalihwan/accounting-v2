@@ -24,6 +24,7 @@
                     <a href="#"><i class="ik ik-users"></i><span>{{ __('Data Master')}}</span></a>
                     <div class="submenu-content">
                         <a href="{{ route('admin.category.index') }}" class="menu-item">{{ __('Category')}}</a>
+                        <a href="{{ route('admin.unit.index') }}" class="menu-item">{{ __('Unit')}}</a>
                         <a href="{{ route('admin.product.index') }}" class="menu-item">{{ __('Product')}}</a>
                     </div>
                 </div>
