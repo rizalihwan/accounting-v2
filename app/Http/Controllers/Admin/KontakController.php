@@ -40,8 +40,33 @@ class KontakController extends Controller
      */
     public function store(KontakRequest $request)
     {
+        $attr = $request->all();
+        if(!request('pelanggan'))
+        {
+            $attr['pelanggan'] = 0;
+        } else {
+            $attr['pelanggan'] = 1;
+        }
+        if(!request('pemasok'))
+        {
+            $attr['pemasok'] = 0;
+        } else {
+            $attr['pemasok'] = 1;
+        }
+        if(!request('karyawan'))
+        {
+            $attr['karyawan'] = 0;
+        } else {
+            $attr['karyawan'] = 1;
+        }
+        if(!request('aktif'))
+        {
+            $attr['aktif'] = 0;
+        } else {
+            $attr['aktif'] = 1;
+        }
         try {
-            Kontak::create($request->all());
+            Kontak::create($attr);
         } catch (\Exception $e) {
             return back()->with('error', 'Data Gagal Disimpan!');
         }
@@ -77,14 +102,39 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, KontakRequest $request)
+    public function update(Kontak $kontak, KontakRequest $request)
     {
+        $attr = $request->all();
+        if(!request('pelanggan'))
+        {
+            $attr['pelanggan'] = 0;
+        } else {
+            $attr['pelanggan'] = 1;
+        }
+        if(!request('pemasok'))
+        {
+            $attr['pemasok'] = 0;
+        } else {
+            $attr['pemasok'] = 1;
+        }
+        if(!request('karyawan'))
+        {
+            $attr['karyawan'] = 0;
+        } else {
+            $attr['karyawan'] = 1;
+        }
+        if(!request('aktif'))
+        {
+            $attr['aktif'] = 0;
+        } else {
+            $attr['aktif'] = 1;
+        }
         try {
-            Kontak::update($request->all());
+            $kontak->update($attr);
         } catch (\Exception $e) {
             return back()->with('error', 'Data Gagal Disimpan!');
         }
-        return back()->with('success', 'Data Berhasil Disimpan');
+        return redirect()->route('admin.kontak.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
