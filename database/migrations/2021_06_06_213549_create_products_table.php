@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('name', 30);
             $table->bigInteger('price_buy');
             $table->bigInteger('price_sell');
+            $table->enum('status', [0, 1])->default(1);
             $table->timestamps();
         });
     }

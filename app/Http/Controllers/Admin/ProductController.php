@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Kontak;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::select('id','name')->get();
+        $suppliers = Kontak::select('id','pemasok', 'nama')->where('pemasok', true)->get();
+
+        return view('admin.product.create', compact('categories', 'suppliers'));
     }
 
     /**
