@@ -253,5 +253,30 @@
             }
             return true
         }
+        
+        $(document).ready(function(){
+            let csrf = '{{ csrf_token() }}'
+
+            let inputNama = document.getElementById('nama')
+            inputNama.addEventListener('keyup', function(e){
+                if (this.selectionStart == 1) {
+                    let nama = this.value
+                    $.ajax({
+                        url: '{{ route('admin.kontak.kode') }}',
+                        type: 'post',
+                        data: {
+                            _token: csrf,
+                            nama: nama
+                        },
+                        success: data => {
+                            $("#kode_kontak").val(data.success)
+                        },
+                        // error: err => {
+                        //     console.log(err)
+                        // }
+                    })
+                }
+            })
+        })
     </script>
 @endpush

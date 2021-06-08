@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\KontakRequest;
 use App\Models\{Kategori, Kontak};
+use Illuminate\Support\Facades\DB;
 
 class KontakController extends Controller
 {
@@ -16,6 +17,7 @@ class KontakController extends Controller
     public function index()
     {
         $kontak = Kontak::get();
+        // ->where('aktif', 1);
 
         return view('admin.kontak.index', [
             'kontak' => $kontak
@@ -132,9 +134,9 @@ class KontakController extends Controller
         try {
             $kontak->update($attr);
         } catch (\Exception $e) {
-            return back()->with('error', 'Data Gagal Disimpan!');
+            return back()->with('error', 'Data Gagal diupdate!');
         }
-        return redirect()->route('admin.kontak.index')->with('success', 'Data Berhasil Disimpan');
+        return redirect()->route('admin.kontak.index')->with('success', 'Data Berhasil DIupdate');
     }
 
     /**
@@ -149,5 +151,24 @@ class KontakController extends Controller
 
         return redirect()->route('admin.kontak.index')
                         ->with('success','Data Berhasil Dihapus');
+    }
+    
+    public function kontakKode()
+    {
+        $nama = request()->nama;
+        $kontak = Kontak::select('id', 'nama')
+            ->where(DB::raw('LEFT(nama, 1)'), $nama)
+            ->count();
+
+        $huruf = ucfirst($nama) . "-";
+
+        if ($kontak > 0) {
+            $jumlah = $kontak + 1;
+            $result = $huruf . sprintf("%05s", $jumlah);
+        } else {
+            $result = $huruf . "00001";
+        }
+
+        return response()->json(['success' => $result]);
     }
 }

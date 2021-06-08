@@ -8,7 +8,7 @@ Route::middleware('guest')->group(function () {
     //auth management
     Route::get('/login', 'AuthController@loginView');
     Route::post('/login', 'AuthController@login')->name('login');
-    
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@home')->name('home');
@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('kategori', 'KategoriController');
         // Kontak
         Route::resource('kontak', 'KontakController');
+        Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');
         // Rekening
         Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
         // Bank
@@ -33,5 +34,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('bkk', 'BkkController');
         // Bkm
         Route::resource('bkm', 'BkmController');
+        //Category
+        Route::view('category', 'admin.category.index')->name('category.index');
+
+        Route::resource('product', 'ProductController');
+        // Subklasifikasi
+        Route::resource('subklasifikasi', 'SubklasifikasiController');
+        // Akun
+        Route::resource('akun', 'AkunController');
     });
 });

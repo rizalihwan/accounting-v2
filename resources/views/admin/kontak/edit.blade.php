@@ -9,7 +9,7 @@
                         <i class="ik ik-user-plus bg-blue"></i>
                         <div class="d-inline">
                             <h5>Kontak</h5>
-                            <span>Form edit kontak person</span>
+                            <span>Form tambah kontak person</span>
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                                 <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Edit Kontak Person</a>
+                                <a href="#">Tambah Kontak Person</a>
                             </li>
                         </ol>
                     </nav>
@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
-                        <h3>Edit Kontak Person</h3>
+                        <h3>Tambah Kontak Person</h3>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" method="POST" action="{{ route('admin.kontak.update', $kontak->id) }}">
@@ -43,7 +43,7 @@
                                     <div class="form-group">
                                         <label for="nama">{{ __('Nama') }}<span class="text-red">*</span></label>
                                         <input id="nama" type="text" value="{{$kontak->nama}}"
-                                        class="form-control @error('nama') is-invalid @enderror" name="nama" required>
+                                            class="form-control @error('nama') is-invalid @enderror" name="nama" required>
                                         <div class="help-block with-errors"></div>
                                         @error('nama')
                                             <span class="invalid-feedback" role="alert">
@@ -85,15 +85,15 @@
                                     <div class="form-group">
                                         <div class="border-checkbox-section">
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" @if(old('pelanggan', $kontak->pelanggan)) checked @endif>
+                                                <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" {{ ($kontak->pelanggan == 1 ? ' checked' : '') }}>
                                                 <label class="border-checkbox-label" for="pelanggan">{{ __('Pelanggan')}}</label>
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" @if(old('pemasok', $kontak->pemasok)) checked @endif>
+                                                <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" {{ ($kontak->pemasok == 1 ? ' checked' : '') }}>
                                                 <label class="border-checkbox-label" for="pemasok">{{ __('Pemasok')}}</label>
                                             </div>
                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" @if(old('karyawan', $kontak->karyawan)) checked @endif>
+                                                <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" {{ ($kontak->karyawan == 1 ? ' checked' : '') }}>
                                                 <label class="border-checkbox-label" for="karyawan">{{ __('Karyawan')}}</label>
                                             </div>
                                         </div>
@@ -107,7 +107,7 @@
                                     <div class="form-group">
                                         <label for="alamat">alamat</label>
                                         <textarea name="alamat" id="alamat"
-                                        class="form-control @error('alamat') is-invalid @enderror">{{$kontak->alamat}}</textarea>
+                                            class="form-control @error('alamat') is-invalid @enderror">{{$kontak->alamat}}</textarea>
                                         <div class="help-block with-errors"></div>
                                         @error('alamat')
                                             <span class="invalid-feedback" role="alert">
@@ -222,7 +222,7 @@
 
                                 <div class="col-sm-12 col-xl-4 mb-30">
                                     <p><strong>Aktif</strong></p>
-                                    <input type="checkbox" class="js-single" name="aktif" @if(old('aktif', $kontak->aktif)) checked @endif />
+                                    <input type="checkbox" class="js-single" name="aktif" {{ ($kontak->aktif == 1 ? ' checked' : '') }} />
                                 </div>
                             </div>
 
