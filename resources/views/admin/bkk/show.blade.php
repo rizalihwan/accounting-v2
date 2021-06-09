@@ -68,10 +68,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($show->rekenings as $item)
+                                @foreach ($show->uraians as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->rekenings}}</td>
+                                    <td>{{$item->rekening->nama}}</td>
                                     <td>{{$item->jml_uang}}</td>
                                     <td>{{$item->catatan}}</td>
                                     <td>{{$item->uang}}</td>
