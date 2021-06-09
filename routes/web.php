@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
         // Divisi
         Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
         // Bkk
-        Route::resource('bkk', 'BkkController');
+        Route::resource('bkk', 'BkkController')->except('calculateResult');
+        Route::get('calculate/', 'BkkController@calculateResult')->name('bkk.calculate');
         // Bkm
         Route::resource('bkm', 'BkmController');
         //Category
