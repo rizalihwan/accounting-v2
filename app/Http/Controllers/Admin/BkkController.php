@@ -20,7 +20,7 @@ class BkkController extends Controller
     {
         $indeks = DB::table('bkks')->get();
         $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
-        return view('admin.bkk.index',compact('indeks','row'));
+        return view('admin.bkk.index', compact('indeks', 'row'));
     }
 
     /**
@@ -32,7 +32,7 @@ class BkkController extends Controller
     {
         $rekening = DB::table('rekenings')->get();
         $kontak = DB::table('kontaks')->get();
-        return view('admin.bkk.create',compact('rekening','kontak'));
+        return view('admin.bkk.create', compact('rekening', 'kontak'));
     }
 
     /**
@@ -78,7 +78,24 @@ class BkkController extends Controller
         // return back()->with('message','Kas berhasil Tersimpan');
     }
 
-    /**
+    public function calculateResult()
+    {
+        // $req = int()request('jumlah');
+        $p = [];
+        foreach (request('jumlah') as $j => $value) {
+            $p[] = (int)$value;
+        }
+        dd($p);
+        // foreach (request('jumlah') as $key => $value) {
+        //     print_r(intval($value));
+        // }
+        // $req = count(request('jumlah'));
+        // for ($i = 0; $i < $req; $i++) {
+        //     $nama = request('jumlah')[$i] + $req;
+        // }
+    }
+
+    /** 
      * Display the specified resource.
      *
      * @param  \App\Models\Bkk  $bkk
@@ -87,7 +104,7 @@ class BkkController extends Controller
     public function show(Bkk $bkk)
     {
         $show = Bkk::find($bkk)->first();
-        return view('admin.bkk.show',compact('show'));
+        return view('admin.bkk.show', compact('show'));
     }
 
     /**
