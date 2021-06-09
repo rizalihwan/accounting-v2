@@ -45,7 +45,7 @@
                                 <div class="col-sm-5">
                                     <div class="form-group">
                                         <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
-                                        <input id="tanggal" type="date"
+                                        <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
                                             class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
                                         <div class="help-block with-errors"></div>
                                         @error('tanggal')
@@ -125,7 +125,7 @@
                                                 <tr>
                                                     <th>Difference</th>
                                                     <td></td>
-                                                    <td id="difference">0</td>
+                                                    <td id="difference" tit>0</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -137,7 +137,7 @@
                             <div class="col-md-12 mt-4">
                                 <div class="form-group">
                                     <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" id="btn-submit">
                                         TAMBAH</button>
                                 </div>
                             </div>
@@ -216,10 +216,10 @@
                         <select name="jurnals[${index}][akun_id]" class="form-control select-${index}"></select>
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][debit]" class="form-control" placeholder="0" onkeypress="return onlyNumber(event)">
+                        <input type="text" name="jurnals[${index}][debit]" class="form-control debit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)">
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][kredit]" class="form-control" placeholder="0" onkeypress="return onlyNumber(event)">
+                        <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)">
                     </td>
             `
             if (index >= 1) {
@@ -291,6 +291,44 @@
                 return false
             }
             return true
+        }
+
+        function jumlahin() {
+            let total_debit = 0
+            let total_kredit = 0
+            let difference = 0
+
+            let cols_debit = document.querySelectorAll('.debit')
+            let cols_kredit = document.querySelectorAll('.kredit')
+
+            for (let i = 0; i < cols_debit.length; i++) {
+                let e_debit = cols_debit[i]
+                let e_kredit = cols_kredit[i]
+
+                total_debit += e_debit.value == "" ? 0 : parseInt(e_debit.value)
+                total_kredit += e_kredit.value == "" ? 0 : parseInt(e_kredit.value)
+            }
+
+            if (total_debit > total_kredit) {
+                difference = total_kredit - total_debit
+            } else if (total_debit < total_kredit) {
+                difference = total_debit - total_kredit
+            } else {
+                difference = 0
+            }
+
+
+            $("#total_debit").text(total_debit)
+            $("#total_kredit").text(total_kredit)
+            $("#difference").text(difference)
+
+            if (difference === 0) {
+                $("#btn-submit").attr('disabled', false)
+                $("#btn-submit").attr('hidden', false)
+            } else {
+                $("#btn-submit").attr('disabled', true)
+                $("#btn-submit").attr('hidden', true)
+            }
         }
     </script>
 @endpush
