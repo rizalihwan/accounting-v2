@@ -47,7 +47,7 @@
                 <div class="nav-item has-sub">
                     <a href="#"><i class="ik ik-book"></i><span>{{ __('Buku Kas')}}</span></a>
                     <div class="submenu-content">
-                        <a href="{{ route('admin.bkm.create') }}" class="menu-item">{{ __('Buku Kas Masuk')}}</a>
+                        <a href="{{ route('admin.bkm.index') }}" class="menu-item">{{ __('Buku Kas Masuk')}}</a>
                         <a href="{{ route('admin.bkk.index') }}" class="menu-item">{{ __('Buku Kas Keluar')}}</a>
                     </div>
                 </div>

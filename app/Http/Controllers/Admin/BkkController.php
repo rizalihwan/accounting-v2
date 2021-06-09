@@ -18,7 +18,8 @@ class BkkController extends Controller
      */
     public function index()
     {
-        $indeks = DB::table('bkks')->get();
+        $indeks = DB::table('bkks')->where('status','BKK')
+                                    ->get();
         $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
         return view('admin.bkk.index',compact('indeks','row'));
     }
@@ -70,10 +71,10 @@ class BkkController extends Controller
             ]);
             $jml = $jml + $request->invoice[$i]["jumlah"];
         }
-        DB::table('bkks')->where('id',6)->update([
-            'value'=>$jml
+        DB::table('bkks')->where('id',$id->id)->update([
+            'value' => $jml
         ]);
-        return back()->with('message','Kas berhasil Tersimpan');
+        return back()->with('success','Kas berhasil Tersimpan');
     }
 
     /**
@@ -119,6 +120,8 @@ class BkkController extends Controller
      */
     public function destroy(Bkk $bkk)
     {
-        //
+        $bkk->delete();
+
+        return back()->with('success','Data Berhasil Dihapus');
     }
 }
