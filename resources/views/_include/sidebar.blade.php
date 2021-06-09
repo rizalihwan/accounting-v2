@@ -47,7 +47,7 @@
                 <div class="nav-item has-sub @if(request()->routeIs('admin.bkm.create') || request()->routeIs('admin.bkk.index')) active @endif">
                     <a href="#"><i class="ik ik-book"></i><span>{{ __('Buku Kas')}}</span></a>
                     <div class="submenu-content">
-                        <a href="{{ route('admin.bkm.create') }}" class="menu-item @if(request()->routeIs('admin.bkm.create')) active @endif">{{ __('Buku Kas Masuk')}}</a>
+                        <a href="{{ route('admin.bkm.index') }}" class="menu-item @if(request()->routeIs('admin.bkm.index')) active @endif">{{ __('Buku Kas Masuk')}}</a>
                         <a href="{{ route('admin.bkk.index') }}" class="menu-item @if(request()->routeIs('admin.bkk.index')) active @endif">{{ __('Buku Kas Keluar')}}</a>
                     </div>
                 </div>
