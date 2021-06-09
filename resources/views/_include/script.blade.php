@@ -1,5 +1,5 @@
 <script src="{{ asset('all.js') }}"></script>
-
+<script src="{{ asset('js/datasearch.js') }}"></script>
 <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->
 
