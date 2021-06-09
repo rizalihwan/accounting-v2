@@ -36,13 +36,11 @@
                             <a href="{{ route('admin.subklasifikasi.create') }}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> TAMBAH SUBKLASIFIKASI</a>
                         </div>
                         <div class="d-flex">
-                            <input type="date" class="form-control mx-1" name="" id="">
-                            <input type="date" class="form-control mr-2" name="" id="">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>
+                            <input id="myInput" type="text" class="form-control" onkeyup="searchData()" placeholder="Search...">
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-light table-hover">
+                        <table id="myTable" class="table table-light table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -65,10 +63,13 @@
                                     </td>
                                 </tr>
                                 @empty
-                                    
+                                <tr>
+                                    <th colspan="3" style="color: red; text-align: center;">Data Empty!</th>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $data->links() }}
                     </div>
                 </div>
             </div>
