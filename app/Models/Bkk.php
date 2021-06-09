@@ -12,7 +12,7 @@ class Bkk extends Model
     protected $table = 'bkks';
     protected $guarded = [];
 
-    public function rekenings()
+    public function uraians()
     {
         return $this->hasMany(Uraian::class);
     }
