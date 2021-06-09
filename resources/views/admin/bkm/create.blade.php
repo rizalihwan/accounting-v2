@@ -20,7 +20,7 @@
                             <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ route('admin.bukubesar.index') }}">Buku Besar</a>
+                            <a href="{{ route('admin.bkm.index') }}">Kas Masuk</a>
                         </li>
                     </ol>
                 </nav>
@@ -30,7 +30,7 @@
     <div class="row">
         <!-- end message area-->
         <div class="col-md-12">
-            <form action="{{route('admin.bkk.store')}}" method="POST" class="invoice-repeater">
+            <form action="{{route('admin.bkm.store')}}" method="POST" class="invoice-repeater">
                 @csrf
                 <div class="card mb-2 ">
                     <div class="card-body ml-4">
@@ -96,7 +96,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 col-12" id="app">
+                                        <div class="col-md-2 col-12" id="app">
                                           <div class="form-group">
                                               <label for="jumlah">Jumlah uang</label>
                                               <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" />
@@ -113,8 +113,11 @@
 
                                         <div class="col-md-2 col-12">
                                             <div class="form-group">
-                                                <label for="matauang">uang</label>
-                                                <input type="text" class="form-control" id="matauang" placeholder="1" name="matauang" />
+                                                <label for="matauang">Mata Uang</label>
+                                                <select name="matauang" id="matauang" class="form-control">
+                                                  <option value="RP">RP</option>
+                                                  <option value="USD">USD</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -140,7 +143,6 @@
                                         Simpan</button>
                                 </div>
                                 <div class="d-flex">
-                                    <button id="hitung" class="btn mr-2 btn-outline-primary">Hitung</button>
                                     <input type="text" class="form-control" id="total">
                                 </div>
                             </div>
