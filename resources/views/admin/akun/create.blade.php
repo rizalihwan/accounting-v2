@@ -41,7 +41,7 @@
                                     <div class="form-group">    
                                         <label for="kode">{{ __('Kode') }}<span class="text-red">*</span></label>
                                         <input id="kode" type="text"
-                                            class="form-control @error('kode') is-invalid @enderror" name="kode"
+                                            class="form-control @error('kode') is-invalid @enderror" name="kode" value="{{ $kode }}"
                                             required>
                                         <div class="help-block with-errors"></div>
                                         @error('kode')
@@ -69,6 +69,7 @@
                                     <div class="form-group">    
                                         <label for="subklasifikasi_id">{{ __('Subklasifikasi') }}<span class="text-red">*</span></label>
                                         <select name="subklasifikasi_id" id="subklasifikasi_id" class="form-control" required>
+                                            <option disabled selected>-- Pilih Subklasifikasi --</option>
                                             @foreach($subklasifikasi_id as $value)
                                                 <option value="{{ $value->id }}">{{ $value->name }}</option>
                                             @endforeach

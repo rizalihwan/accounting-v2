@@ -17,51 +17,51 @@
     <div class="sidebar-content">
         <div class="nav-container">
             <nav id="main-menu-navigation" class="navigation-main">
-                <div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
+                <div class="nav-item @if(request()->routeIs('home')) active @endif">
                     <a href="{{ route('home') }}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
-                <div class="nav-item has-sub">
+                <div class="nav-item has-sub @if(request()->is('admin/category') || request()->is('admin/unit') || request()->is('admin/product')) active @endif">
                     <a href="#"><i class="ik ik-users"></i><span>{{ __('Data Master')}}</span></a>
                     <div class="submenu-content">
-                        <a href="{{ route('admin.category.index') }}" class="menu-item">{{ __('Category')}}</a>
-                        <a href="{{ route('admin.unit.index') }}" class="menu-item">{{ __('Unit')}}</a>
-                        <a href="{{ route('admin.product.index') }}" class="menu-item">{{ __('Product')}}</a>
+                        <a href="{{ route('admin.category.index') }}" class="menu-item @if(request()->is('admin/category')) active @endif">{{ __('Category')}}</a>
+                        <a href="{{ route('admin.unit.index') }}" class="menu-item @if(request()->is('admin/unit')) active @endif">{{ __('Unit')}}</a>
+                        <a href="{{ route('admin.product.index') }}" class="menu-item @if(request()->is('admin/product')) active @endif">{{ __('Product')}}</a>
                     </div>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'jurnal umum') ? 'active' : '' }}">
+                <div class="nav-item @if(request()->routeIs('admin.jurnalumum.index')) active @endif">
                     <a href="{{ route('admin.jurnalumum.index') }}"><i class="ik ik-book"></i><span>{{ __('Jurnal Umum')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
-                <div class="nav-item has-sub">
+                <div class="nav-item has-sub @if(request()->routeIs('admin.akun.index') || request()->routeIs('admin.subklasifikasi.index')) active @endif">
                     <a href="#"><i class="ik ik-users"></i><span>{{ __('Akun Management')}}</span></a>
                     <div class="submenu-content">
-                        <a href="{{ route('admin.akun.index') }}" class="menu-item">{{ __('Daftar Akun')}}</a>
-                        <a href="{{ route('admin.subklasifikasi.index') }}" class="menu-item">{{ __('Data Subklasifikasi')}}</a>
+                        <a href="{{ route('admin.akun.index') }}" class="menu-item @if(request()->routeIs('admin.akun.index')) active @endif">{{ __('Daftar Akun')}}</a>
+                        <a href="{{ route('admin.subklasifikasi.index') }}" class="menu-item @if(request()->routeIs('admin.subklasifikasi.index')) active @endif">{{ __('Data Subklasifikasi')}}</a>
                     </div>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'buku besar') ? 'active' : '' }}">
+                <div class="nav-item @if(request()->routeIs('admin.bukubesar.index')) active @endif">
                     <a href="{{ route('admin.bukubesar.index') }}"><i class="ik ik-book-open"></i><span>{{ __('Buku Besar')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'laporan laba rugi') ? 'active' : '' }}">
                     <a href="{{ route('home') }}"><i class="ik ik-bookmark"></i><span>{{ __('Laporan Laba Rugi')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
-                <div class="nav-item has-sub">
+                <div class="nav-item has-sub @if(request()->routeIs('admin.bkm.create') || request()->routeIs('admin.bkk.index')) active @endif">
                     <a href="#"><i class="ik ik-book"></i><span>{{ __('Buku Kas')}}</span></a>
                     <div class="submenu-content">
-                        <a href="{{ route('admin.bkm.create') }}" class="menu-item">{{ __('Buku Kas Masuk')}}</a>
-                        <a href="{{ route('admin.bkk.index') }}" class="menu-item">{{ __('Buku Kas Keluar')}}</a>
+                        <a href="{{ route('admin.bkm.create') }}" class="menu-item @if(request()->routeIs('admin.bkm.create')) active @endif">{{ __('Buku Kas Masuk')}}</a>
+                        <a href="{{ route('admin.bkk.index') }}" class="menu-item @if(request()->routeIs('admin.bkk.index')) active @endif">{{ __('Buku Kas Keluar')}}</a>
                     </div>
                 </div>
                 <div class="nav-item {{ ($segment1 == 'pembelian pembayaran') ? 'active' : '' }}">
                     <a href="{{ route('home') }}"><i class="ik ik-plus"></i><span>{{ __('Pembelian Pembayaran')}}</span>{{--<span class="badge badge-danger">{{ __('150+')}}</span>--}}</a>
                 </div>
 
-                <div class="nav-item has-sub">
+                <div class="nav-item has-sub @if(request()->routeIs('admin.kontak.index') || request()->routeIs('admin.rekening.index') || request()->routeIs('admin.bank.index') || request()->routeIs('admin.divisi.index')) active @endif">
                     <a href="#"><i class="ik ik-user"></i><span>{{ __('Bagan Akun (COA)')}}</span></a>
                     <div class="submenu-content">
-                        <a href="{{ route('admin.kontak.index') }}" class="menu-item">{{ __('Data Kontak')}}</a>
-                        <a href="{{ route('admin.rekening.index') }}" class="menu-item">{{ __('Data Rekening')}}</a>
-                        <a href="{{ route('admin.bank.index') }}" class="menu-item">{{ __('Data Bank')}}</a>
-                        <a href="{{ route('admin.divisi.index') }}" class="menu-item">{{ __('Data Divisi')}}</a>
+                        <a href="{{ route('admin.kontak.index') }}" class="menu-item @if(request()->routeIs('admin.kontak.index')) active @endif">{{ __('Data Kontak')}}</a>
+                        <a href="{{ route('admin.rekening.index') }}" class="menu-item @if(request()->routeIs('admin.rekening.index')) active @endif">{{ __('Data Rekening')}}</a>
+                        <a href="{{ route('admin.bank.index') }}" class="menu-item @if(request()->routeIs('admin.bank.index')) active @endif">{{ __('Data Bank')}}</a>
+                        <a href="{{ route('admin.divisi.index') }}" class="menu-item @if(request()->routeIs('admin.divisi.index')) active @endif">{{ __('Data Divisi')}}</a>
                     </div>
                 </div>
 

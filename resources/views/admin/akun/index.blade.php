@@ -71,10 +71,13 @@
                                     </td>
                                 </tr>
                                 @empty
-                                    
+                                    <tr>
+                                        <th colspan="5" style="color: red; text-align: center;">Data Empty!</th>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $data->links() }}
                     </div>
                 </div>
             </div>

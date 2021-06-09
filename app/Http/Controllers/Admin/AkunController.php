@@ -9,6 +9,28 @@ use Illuminate\Http\Request;
 
 class AkunController extends Controller
 {
+    private $kode; 
+
+    public function __construct()
+    {
+        $number = Akun::count();
+        if($number > 0)
+        {
+            $number = Akun::max('kode');
+            $strnum = substr($number, 2, 3);
+            $strnum = $strnum + 1;
+            if (strlen($strnum) == 3) {
+                $kode = 'AC' . $strnum;
+            } else if (strlen($strnum) == 2) {
+                $kode = 'AC' . "0" . $strnum;
+            } else if (strlen($strnum) == 1) {
+                $kode = 'AC' . "00" . $strnum;
+            }
+        } else {
+            $kode = 'AC' . "001";
+        }
+        $this->kode = $kode;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +39,7 @@ class AkunController extends Controller
     public function index()
     {
         return view('admin.akun.index', [
-            'data' => Akun::orderBy('name', 'ASC')->paginate(5)
+            'data' => Akun::orderBy('kode', 'ASC')->paginate(5)
         ]);
     }
 
@@ -29,7 +51,8 @@ class AkunController extends Controller
     public function create()
     {
         return view('admin.akun.create',[
-            'subklasifikasi_id' => Subklasifikasi::get()
+            'subklasifikasi_id' => Subklasifikasi::get(),
+            'kode' => $this->kode
         ]);
     }
 
