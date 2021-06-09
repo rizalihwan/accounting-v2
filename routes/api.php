@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::name('api.')->group(function () {
+    // Select2
+    Route::prefix('select2')->name('select2.')->group(function () {
+        // Kontak
+        Route::post('/get-kontak', 'Admin\JurnalUmumController@getKontak')->name('get-kontak');
+        // Akun
+        Route::get('/get-akun', 'Admin\JurnalUmumController@getAkun')->name('get-akun');
+    });
+});

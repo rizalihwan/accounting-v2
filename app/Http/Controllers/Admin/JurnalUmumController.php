@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Akun;
+use App\Models\Kontak;
 use Illuminate\Http\Request;
 
 class JurnalUmumController extends Controller
@@ -35,7 +37,7 @@ class JurnalUmumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->except('_token'));
     }
 
     /**
@@ -81,5 +83,54 @@ class JurnalUmumController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // API
+    public function getKontak(Request $request)
+    {
+        $search = $request->search;
+        $contacts = Kontak::select('id', 'nama', 'email', 'nik', 'telepon')
+            ->where('nama', 'like', "%{$search}%")
+            ->orWhere('email', 'like', "%{$search}%")
+            ->orWhere('nik', 'like', "%{$search}%")
+            ->orWhere('telepon', 'like', "%{$search}%")
+            ->orderBy('nama', 'ASC')->get()->take(20);
+
+        $result = [];
+
+        foreach ($contacts as $kontak) {
+            $result[] = [
+                "id" => $kontak->id,
+                "text" => "{$kontak->nama} ({$kontak->nik})",
+                "nama" => $kontak->nama,
+                "email" => $kontak->email,
+                "telepon" => $kontak->telepon
+            ];
+        }
+
+        return $result;
+    }
+
+    public function getAkun(Request $request)
+    {
+        $search = $request->search;
+        $accounts = Akun::select('id', 'kode', 'name', 'status')
+            ->where('status', '1')
+            ->where('kode', 'like', "%{$search}%")
+            ->orWhere('name', 'like', "%{$search}%")
+            ->orderBy('name', 'ASC')->get();
+
+        $result = [];
+
+        foreach ($accounts as $a) {
+            $result[] = [
+                'id' => $a->id,
+                'text' => "{$a->name} ({$a->kode})",
+                'kode' => $a->kode,
+                'name' => $a->name
+            ];
+        }
+
+        return $result;
     }
 }
