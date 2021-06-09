@@ -39,15 +39,14 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="#">
+                        <form class="forms-sample" action="{{ route('admin.jurnalumum.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="form-group">
                                         <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
                                         <input id="tanggal" type="date"
-                                            class="form-control @error('tanggal') is-invalid @enderror" name="tanggal"
-                                            required>
+                                            class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
                                         <div class="help-block with-errors"></div>
                                         @error('tanggal')
                                             <span class="invalid-feedback" role="alert">
@@ -58,13 +57,13 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="kontak">{{ __('Kontak') }}<span class="text-red">*</span></label>
-                                        <select name="kontak" id="kontak"
-                                            class="form-control @error('kontak') is-invalid @enderror" required>
-                                            <option value="Tes">Tes</option>
+                                        <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
+                                        <select name="kontak_id" id="kontak_id"
+                                            class="form-control select2 @error('kontak_id') is-invalid @enderror">
+                                            <option value="" selected>Pilih Kontak</option>
                                         </select>
                                         <div class="help-block with-errors"></div>
-                                        @error('kontak')
+                                        @error('kontak_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -75,8 +74,9 @@
                                     <div class="form-group"></div>
                                     <div class="form-group">
                                         <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger"> <i
-                                                class="fa fa-plus"></i> TAMBAH
-                                            KONTAK</a>
+                                            class="fa fa-plus"></i>
+                                            TAMBAH KONTAK
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                     <div class="form-group">
                                         <label for="uraian">{{ __('Uraian') }}<span class="text-red">*</span></label>
                                         <input type="text" name="uraian" id="uraian" class="form-control"
-                                            placeholder="uraian..." required>
+                                            placeholder="uraian...">
                                         <div class="help-block with-errors"></div>
                                         @error('uraian')
                                             <span class="invalid-feedback" role="alert">
@@ -96,105 +96,44 @@
                                 </div>
                             </div>
 
-                            <div class="field_wrapper">
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="nama_akun">Nama Akun<span class="text-red">*</span></label>
-                                            <select name="nama_akun[]" id="nama_akun"
-                                                class="form-control @error('nama_akun') is-invalid @enderror">
-                                                <option disabled selected>-- Pilih --</option>
-                                                <option value="tono">tono</option>
-                                            </select>
-                                            <div class="help-block with-errors"></div>
-                                            @error('nama_akun')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless">
+                                            <thead>
+                                                <td>Akun</td>
+                                                <td>Debit</td>
+                                                <td>Kredit</td>
+                                                <td style="width: 1px"></td>
+                                            </thead>
+                                            <tbody id="dynamic_field"></tbody>
+                                        </table>
+                                        <button type="button" id="add"
+                                            class="btn btn-success my-2"
+                                            style="width: 100%; height: 40px">
+                                            <i class="ik ik-plus"></i>
+                                            Tambah Row Baru
+                                        </button>
+                                        <table class="table table-borderless col-sm-6 ml-auto">
+                                            <hr class="col-sm-6 ml-auto">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="width: 180px">Total</th>
+                                                    <td id="total_debit">0</td>
+                                                    <td id="total_kredit">0</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Difference</th>
+                                                    <td></td>
+                                                    <td id="difference">0</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="debit">Debit</label>
-                                            <input id="debit" type="text"
-                                                class="form-control @error('debit') is-invalid @enderror" name="debit[]"
-                                                required>
-                                            <div class="help-block with-errors"></div>
-                                            @error('debit')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="kredit">Kredit</label>
-                                            <input id="kredit" type="text"
-                                                class="form-control @error('kredit') is-invalid @enderror" name="kredit[]"
-                                                required>
-                                            <div class="help-block with-errors"></div>
-                                            @error('kredit')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="catatan">Catatan</label>
-                                            <input id="catatan" type="text"
-                                                class="form-control @error('catatan') is-invalid @enderror" name="catatan[]"
-                                                required>
-                                            <div class="help-block with-errors"></div>
-                                            @error('catatan')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="kurs">kurs</span></label>
-                                            <input id="kurs" type="number"
-                                                class="form-control @error('kurs') is-invalid @enderror" name="kurs[]"
-                                                required>
-                                            <div class="help-block with-errors"></div>
-                                            @error('kurs')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="valas">Valas</label>
-                                            <input id="valas" type="number"
-                                                class="form-control @error('valas') is-invalid @enderror" name="valas[]"
-                                                required>
-                                            <div class="help-block with-errors"></div>
-                                            @error('valas')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 mb-3">
-                                        <a href="javascript:void(0);" id="add_button" class="btn btn-success btn-sm"><i
-                                                class="fa fa-plus ml-1"></i></a>
-                                    </div>
+                                    <hr>
                                 </div>
                             </div>
+
                             <div class="col-md-12 mt-4">
                                 <div class="form-group">
                                     <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
@@ -210,42 +149,148 @@
     </div>
 @endsection
 
-@push('script')
-    <script>
-        $(document).ready(function() {
-            var maxField = 10;
-            var addButton = $('#add_button');
-            var wrapper = $('.field_wrapper');
-            var fieldHTML = '<div class="form-group add"><div class="row">';
-            fieldHTML = fieldHTML +
-                '<div class="col-sm-2"><div class="form-group"><label for="nama_akun">Nama Akun<span class="text-red">*</span></label><select name="nama_akun[]" id="nama_akun" class="form-control @error('nama_akun') is-invalid @enderror"><option disabled="disabled" selected="selected">-- Pilih --</option><option value="tono">tono</option></select><div class="help-block with-errors"></div>@error('nama_akun') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>';
-            fieldHTML = fieldHTML +
-                '<div class="col-sm-2"><div class="form-group"><label for="debit">Debit</label><input id="debit" type="text" class="form-control @error('debit') is-invalid @enderror" name="debit[]" required><div class="help-block with-errors"></div>@error('debit') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>';
-            fieldHTML = fieldHTML +
-                '<div class="col-sm-2"><div class="form-group"><label for="kredit">Kredit</label><input id="kredit" type="text" class="form-control @error('kredit') is-invalid @enderror" name="kredit[]" required><div class="help-block with-errors"></div>@error('kredit') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
-            fieldHTML = fieldHTML +
-                '<div class="col-sm-2"><div class="form-group"><label for="catatan">Catatan</label><input id="catatan" type="text" class="form-control @error('catatan') is-invalid @enderror" name="catatan[]" required><div class="help-block with-errors"></div>@error('catatan') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
-            fieldHTML = fieldHTML +
-                '<div class="col-sm-2"><div class="form-group"><label for="kurs">kurs</label><input id="kurs" type="number" class="form-control @error('kurs') is-invalid @enderror" name="kurs[]" required><div class="help-block with-errors"></div>@error('kurs') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
-            fieldHTML = fieldHTML +
-                '<div class="col-sm-2"><div class="form-group"><label for="valas">Valas</label><input id="valas" type="number" class="form-control @error('valas') is-invalid @enderror" name="valas[]" required><div class="help-block with-errors"></div>@error('valas') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror</div></div>'
-            fieldHTML = fieldHTML +
-                '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger"><i class="fa fa-trash ml-1"></i></a></div>';
-            fieldHTML = fieldHTML + '</div></div>';
-            var x = 1;
-            $(addButton).click(function() {
-                if (x < maxField) {
-                    x++;
-                    $(wrapper).append(fieldHTML);
-                }
-            });
+@push('head')
+    <style>
+        .select2 {
+            width: 100%!important;
+        }
+    </style>
+@endpush
 
-            $(wrapper).on('click', '.remove_button', function(e) {
-                e.preventDefault();
-                $(this).parent('').parent('').remove();
-                x--;
-            });
+@push('script')
+    <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script>
+        let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
+
+        $(document).ready(function() {
+            $("#kontak_id").select2({
+                placeholder: "Pilih Kontak",
+                ajax: {
+                    url: '{{ route('api.select2.get-kontak') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
+                templateSelection: data => {
+                    return data.nama
+                }
+            })
         });
 
+        async function jurnalEachColumn(index) {
+            let fetchData = await fetch(`{{ route('api.select2.get-akun') }}`)
+            let response = JSON.parse(await fetchData.text())
+
+            let $select2 = $('select[name="jurnals['+index+'][akun_id]"]').select2({
+                placeholder: "Pilih Akun"
+            }).empty()
+
+            $select2.append($("<option></option>").attr("value", '').text('Choose Type'))
+
+            $.each(response, function(key, data){
+                $select2.append($("<option></option>").attr("value", data.id).text(data.name))
+            })
+        }
+
+        function field_dinamis() {
+            let index = $('#dynamic_field tr').length
+            let uuid = generateUUID()
+            let html = `
+                <tr class="rowComponent">
+                    <input type="hidden" width="10px" name="jurnals[${index}][id]" value="${uuid}">
+                    <td class="no" hidden>
+                        <input type="text" value="${index + 1}" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <select name="jurnals[${index}][akun_id]" class="form-control select-${index}"></select>
+                    </td>
+                    <td>
+                        <input type="text" name="jurnals[${index}][debit]" class="form-control" placeholder="0" onkeypress="return onlyNumber(event)">
+                    </td>
+                    <td>
+                        <input type="text" name="jurnals[${index}][kredit]" class="form-control" placeholder="0" onkeypress="return onlyNumber(event)">
+                    </td>
+            `
+            if (index >= 1) {
+                html += `
+                    <td>
+                        <button type="button" name="remove" 
+                            class="btn btn-danger text-white btn_remove">
+                            <i class="ik ik-trash-2"></i>
+                        </button>
+                    </td></tr>
+                `
+                $("#dynamic_field").append(html)
+            } else {
+                $("#dynamic_field").append(html)
+            }
+
+            jurnalEachColumn(index)
+        }
+
+        field_dinamis()
+
+        $(document).ready(function(){
+            getNumberOfTr()
+
+            $('#add').click(function(){
+                field_dinamis()
+            })
+
+            $(document).on('click', '.btn_remove', function() {
+                let parent = $(this).parent()
+                let id = parent.data('id')
+
+                let delete_data = $("input[name='delete_data']").val()
+                if(id !== 'undefined' && id !== undefined) {
+                    $("input[name='delete_data']").val(delete_data + ';' + id)
+                }
+
+                $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
+                getNumberOfTr()
+            })
+        })
+
+        function getNumberOfTr() {
+            $('#dynamic_field tr').each(function(index, tr) {
+                $(this).find("td.no input").val(index + 1)
+            })
+        }
+
+        function generateUUID() {
+            var d = new Date().getTime();
+            var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16;
+                if (d > 0) {
+                    r = (d + r)%16 | 0;
+                    d = Math.floor(d/16);
+                } else {
+                    r = (d2 + r)%16 | 0;
+                    d2 = Math.floor(d2/16);
+                }
+
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+        }
+
+        function onlyNumber(evt){
+            let charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 32 && (charCode < 48 || charCode > 57)) {
+                return false
+            }
+            return true
+        }
     </script>
 @endpush
