@@ -39,6 +39,7 @@
 
     <!-- SCRIPT -->
     @include('_includes.script')
+    @include('_include.alert')
 </body>
 
 </html>

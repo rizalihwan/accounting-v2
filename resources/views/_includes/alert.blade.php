@@ -23,21 +23,28 @@
 <script>
     window.addEventListener('swal:modal', event => {
         Swal.fire({
-            icon: event.detail.type,
             title: event.detail.title,
             text: event.detail.text
+            icon: event.detail.type,
+            customClass: {
+                confirmButton: "btn btn-primary"
+            },
+            buttonsStyling: !1
         })
     })
 
     window.addEventListener('swal:confirm', event => {
         Swal.fire({
-            icon: event.detail.type,
             title: event.detail.title,
             text: event.detail.text,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus ini!'
+            icon: event.detail.type,
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            customClass:{
+                confirmButton: "btn btn-primary",
+                cancelButton: "btn btn-outline-danger ml-1"
+            },
+            buttonsStyling:!1
         }).then((willDelete) => {
             if (willDelete.isConfirmed) {
                 window.livewire.emit('delete', event.detail.id)

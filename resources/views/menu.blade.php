@@ -7,12 +7,12 @@
     @endpush
     <section id="card-content-types">
         <div class="row">
-            <div class="col-md-6 col-xl-4">
+            <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.category.index') }}">
                     <div class="card border-0 text-white shadow">
                         <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Category" />
                         <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
-                            <h1 class="card-text display-4 text-white font-weight-bold">Category</h1>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Category</h1>
                             {{-- <p class="card-text">
                                 This is a wider card with supporting text below as a natural lead-in to additional content. This content is
                                 a little bit longer.
@@ -24,21 +24,25 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-0 text-white shadow">
-                    <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Unit" />
-                    <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
-                        <h1 class="card-text display-4 text-white font-weight-bold">Unit</h1>
+            <div class="col-md-3 col-xl-3">
+                <a href="{{ route('admin.unit.index') }}">
+                    <div class="card border-0 text-white shadow">
+                        <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Unit" />
+                        <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Unit</h1>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="col-md-6 col-xl-4">
-                <div class="card border-0 text-white shadow">
-                    <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Product" />
-                    <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
-                        <h1 class="card-text display-4 text-white font-weight-bold">Product</h1>
+            <div class="col-md-3 col-xl-3">
+                <a href="{{ route('admin.product.index') }}">
+                    <div class="card border-0 text-white shadow">
+                        <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Product" />
+                        <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Product</h1>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>

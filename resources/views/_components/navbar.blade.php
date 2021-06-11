@@ -413,25 +413,25 @@
                             <span data-i18n="Sales">Sales</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_active('admin/purchase/*') ? 'active' : '' }}">
+                    <li class="nav-item {{ set_active('admin/purchase*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.purchase') }}">
                             <i data-feather="shopping-bag"></i>
                             <span data-i18n="Purchase">Purchase</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_active('admin/cash/*-bank') ? 'active' : '' }}">
+                    <li class="nav-item {{ set_active('admin/cash-bank*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.cash-bank') }}">
                             <i data-feather="credit-card"></i>
                             <span data-i18n="Card & Bank">Card & Bank</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_active('admin/inventory/*') ? 'active' : '' }}">
+                    <li class="nav-item {{ set_active('admin/inventory*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.inventory') }}">
                             <i data-feather="box"></i>
                             <span data-i18n="Inventory">Inventory</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_active('admin/report/*') ? 'active' : '' }}">
+                    <li class="nav-item {{ set_active('admin/report*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.report') }}">
                             <i data-feather="file"></i>
                             <span data-i18n="Report">Report</span>
