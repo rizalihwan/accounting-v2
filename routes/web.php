@@ -10,6 +10,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', 'AuthController@login')->name('login');
 });
 Route::middleware('auth')->group(function () {
+
+    Route::prefix('/menu')->name('menu.')->group(function(){
+        Route::get('/');
+    });
+
     Route::get('/', 'HomeController@home')->name('home');
     Route::post('/logout', 'AuthController@logout')->name('logout');
 
@@ -46,3 +51,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('akun', 'AkunController');
     });
 });
+
+
+Route::view('/data_store','menu');
+Route::view('/ledger','menu');
+Route::view('/sales','menu');
+Route::view('/purchase','menu');
+Route::view('/cash_and_bank','menu');
+Route::view('/inventory','menu');
+Route::view('/report','menu');
