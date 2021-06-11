@@ -42,9 +42,8 @@ class BkmController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $imam = count($request->invoice);
+
         // foreach($id->rekenings as $s){
         //    echo $s->jml_uang ;
         // }
@@ -52,9 +51,9 @@ class BkmController extends Controller
         $jml=0;
         DB::table('bkks')->insert([
             'tanggal' => $request->tanggal,
-            'kontak_id' => $request->kontak,
+            'kontak_id' =>$request->kontak,
             'desk' => $request->desk,
-            'rekening_id' => $request->rek,
+            'rekening_id' =>$request->rek,
             'status' => 'BKM',
         ]);
         $id = DB::table('bkks')->select('id')

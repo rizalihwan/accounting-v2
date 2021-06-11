@@ -95,85 +95,29 @@
                                                   </select>
                                               </div>
                                           </div>
-  
+
                                           <div class="col-md-2 col-12" id="app">
                                             <div class="form-group">
                                                 <label for="jumlah">Jumlah uang</label>
                                                 <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" />
-  
-                                            </div>   
-                                        </div>
-<<<<<<< HEAD
-                                        <div class="col-md-2 col-12">
-                                            <div class="form-group">
-                                                <label for="staticprice">vales</label>
-                                                <input type="text" class="form-control" id="staticprice" name="vales" />
+
                                             </div>
                                         </div>
 
-                                        <div class="col-md-2 col-12">
-                                            <div class="form-group">
-                                                <button class="btn btn-outline-danger " data-repeater-delete type="button">
-                                                    <i class="fa fa-times"></i>
-                                                    <span>Delete</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                </div>
-                                {{-- </div> --}}
-                                <div class="row ">
-                                    <div class="col-8">
-                                        <button class="btn btn-outline-primary" id="add_button" type="button">
-                                            <i class="ik ik-plus"></i>
-                                            <span>Add New</span>
-                                        </button>
-                                        <button type="submit ml-auto" class="btn btn-outline-primary">Simpan</button>
-                                    </div>
-                                    <div class="d-flex">
-                                        <button id="hitung" class="btn mr-2 btn-outline-primary">Hitung</button>
-                                        <input type="number" id="total" readonly class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.getElementById('hitung').addEventListener('click', function() {
-        event.preventDefault()
-        let total = []
-        let nd = document.querySelectorAll('.jumlah')
-        for (let i = 0; i < nd.length; i++) {
-            total.push(parseInt(nd[i].value))
-        }
-        console.log(total)
-        let sum = total.reduce(function(totalValue, currentValue) {
-            return totalValue + currentValue
-        })
-        console.log(sum)
-        document.getElementById('total').value = sum
-    })
-=======
-  
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <label for="catatan">catatan</label>
                                                   <input type="text" class="form-control" id="catatan" name="catatan" />
                                               </div>
                                           </div>
-  
+
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <label for="matauang">uang</label>
                                                   <input type="text" class="form-control" id="matauang" placeholder="1" name="matauang" />
                                               </div>
                                           </div>
-  
+
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <button class="btn btn-outline-danger " onclick="calculate(event)" data-repeater-delete type="button">
@@ -233,8 +177,5 @@
             console.log(sum)
             document.getElementById('total').value = sum
         })
->>>>>>> 75afbf73aeb7124941b068c6c8bd76134f9527e8
     </script>
 @endsection
-
-

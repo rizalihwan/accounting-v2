@@ -106,9 +106,7 @@
                                     <div class="form-group">
                                         <label for="alamat">alamat</label>
                                         <textarea name="alamat" id="alamat"
-                                            class="form-control @error('alamat') is-invalid @enderror">
-
-                                                    </textarea>
+                                            class="form-control @error('alamat') is-invalid @enderror"></textarea>
                                         <div class="help-block with-errors"></div>
                                         @error('alamat')
                                             <span class="invalid-feedback" role="alert">
@@ -264,7 +262,7 @@
                 if (this.selectionStart == 1) {
                     let nama = this.value
                     $.ajax({
-                        url: `{{ route('admin.kontak.kode') }}`,
+                        url: '{{ route('admin.kontak.kode') }}',
                         type: 'post',
                         data: {
                             _token: csrf,
