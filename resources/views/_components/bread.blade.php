@@ -6,7 +6,11 @@
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}">Home</a>
+                            @if(request()->routeIs('home'))
+                                Home
+                            @else
+                                <a href="{{ route('home') }}">Home</a>
+                            @endif
                         </li>
                         @stack('breadcrumb')
                     </ol>
