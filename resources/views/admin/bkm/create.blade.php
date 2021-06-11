@@ -101,7 +101,7 @@
                                               <label for="jumlah">Jumlah uang</label>
                                               <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" />
 
-                                          </div>   
+                                          </div>
                                       </div>
 
                                         <div class="col-md-2 col-12">

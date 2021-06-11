@@ -43,7 +43,7 @@ class BkmController extends Controller
     public function store(Request $request)
     {
         $imam = count($request->invoice);
-        
+
         // foreach($id->rekenings as $s){
         //    echo $s->jml_uang ;
         // }
@@ -59,7 +59,7 @@ class BkmController extends Controller
         $id = DB::table('bkks')->select('id')
                               ->orderByDesc('id')
                               ->first();
-        for ($i=0; $i < $imam; $i++) { 
+        for ($i=0; $i < $imam; $i++) {
             DB::table('uraians')->insert([
                 'rekening_id'=> $request->invoice[$i]["rekening"],
                 'bkk_id'=> $id->id,

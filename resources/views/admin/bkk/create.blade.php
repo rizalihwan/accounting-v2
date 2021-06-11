@@ -95,29 +95,29 @@
                                                   </select>
                                               </div>
                                           </div>
-  
+
                                           <div class="col-md-2 col-12" id="app">
                                             <div class="form-group">
                                                 <label for="jumlah">Jumlah uang</label>
                                                 <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" />
-  
-                                            </div>   
+
+                                            </div>
                                         </div>
-  
+
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <label for="catatan">catatan</label>
                                                   <input type="text" class="form-control" id="catatan" name="catatan" />
                                               </div>
                                           </div>
-  
+
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <label for="matauang">uang</label>
                                                   <input type="text" class="form-control" id="matauang" placeholder="1" name="matauang" />
                                               </div>
                                           </div>
-  
+
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <button class="btn btn-outline-danger " onclick="calculate(event)" data-repeater-delete type="button">
@@ -179,5 +179,3 @@
         })
     </script>
 @endsection
-
-

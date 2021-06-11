@@ -1,39 +1,45 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-	<title>@yield('title','') | Accounting</title>
-	<!-- initiate head with meta tags, css and script -->
-	@include('_include.head')
+    <title>@yield('title','') | Accounting</title>
+    <!-- initiate head with meta tags, css and script -->
+    @include('_includes.head')
 
 </head>
-<body id="app" >
-    <div class="wrapper">
-    	<!-- initiate header-->
-    	@include('_include.header')
-    	<div class="page-wrap">
-	    	<!-- initiate sidebar-->
-	    	@include('_include.sidebar')
 
-	    	<div class="main-content">
-	    		<!-- yeild contents here -->
-	    		@yield('content')
-	    	</div>
+<body class="horizontal-layout horizontal-menu navbar-floating footer-static" data-open="hover" data-menu="horizontal-menu" data-col="">
+    <!-- BEGIN: NAVBAR -->
+    @include('_components.navbar')
+    <!-- END: NAVBAR -->
+    <!-- BEGIN:CONTENT -->
+    <div class="app-content content">
 
-	    	{{-- <!-- initiate chat section-->
-	    	@include('_include.chat') --}}
+        @include('_components.overlay')
 
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            @include('_components.bread')
 
-	    	<!-- initiate footer section-->
-	    	@include('_include.footer')
+            <div class="content-body">
+                <!-- BADGE INFO -->
+                @include('_includes.info')
 
-    	</div>
+                <!-- BEGIN:CONTENT -->
+                @yield('content')
+                <!-- END:CONTENT -->
+            </div>
+        </div>
+
     </div>
+    <!-- END: CONTENT -->
 
-	<!-- initiate modal menu section-->
-	@include('_include.modalmenu')
-	<!-- initiate scripts-->
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	@include('_include.script')
-	@include('_include.alert')
+    <!-- BEGIN: FOOTER -->
+    @include('_components.footer')
+    <!-- END: FOOTER -->
+
+    <!-- SCRIPT -->
+    @include('_includes.script')
 </body>
+
 </html>
