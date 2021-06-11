@@ -3,7 +3,7 @@
 <head>
 	<title>@yield('title','') | Accounting</title>
 	<!-- initiate head with meta tags, css and script -->
-	@include('_include.he   ad')
+	@include('_include.head')
 
 </head>
 <body id="app" >
