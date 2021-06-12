@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     //auth management
-    Route::get('/login', 'AuthController@loginView');
-    Route::post('/login', 'AuthController@login')->name('login');
+    Route::get('/login', 'AuthController@loginView')->name('login');
+    // Route::post('/login', 'AuthController@login')->name('login');
 });
 Route::middleware('auth')->group(function () {
 
@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
             Route::resource('kategori', 'KategoriController');
             //Category
             Route::view('category', 'admin.category.index')->name('category.index');
+            // Divisi
+            Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
             // Unit
             Route::view('unit', 'admin.unit.index')->name('unit.index');
             // Produk
@@ -46,7 +48,7 @@ Route::middleware('auth')->group(function () {
             // Akun
             Route::resource('akun', 'AkunController');
             // Subklasifikasi
-            Route::resource('subklasifikasi', 'SubklasifikasiController');
+            Route::view('subklasifikasi', 'admin.subklasifikasi.index')->name('subklasifikasi.index');
             // Kontak
             Route::resource('kontak', 'KontakController');
             Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');
@@ -54,8 +56,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
             // Bank
             Route::resource('bank', 'BankController');
-            // Divisi
-            Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
 
             // Buku Besar
             Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
