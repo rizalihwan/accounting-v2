@@ -20,6 +20,7 @@ class KontakController extends Controller
         // ->where('aktif', 1);
 
         return view('admin.kontak.index', [
+            'countkontak' => Kontak::count(), 
             'kontak' => $kontak
         ]);
     }

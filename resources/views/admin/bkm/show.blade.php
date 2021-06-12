@@ -1,32 +1,12 @@
 @extends('_layouts.main')
-@section('title', 'Buku Kas Keluar')
+@section('title', 'Buku Kas Masuk')
 @section('content')
+@push('breadcrumb')
+    <li class="breadcrumb-item active">Cash & Bank</li>
+    <li class="breadcrumb-item active">Income</li>
+    <li class="breadcrumb-item active">Create</li>
+@endpush
     <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-book bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>Buku Kas Keluar (Show)</h5>
-                            <span>List Buku Kas Keluar (BKK)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.bkk.index') }}">Buku Kas Keluar</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <!-- end message area-->
             <div class="col-md-12">
@@ -39,9 +19,9 @@
                                 <td>{{$show->kontaks->nama}}</td>
                             </tr>
                             <tr>
-                                <td>Nomor Kas Keluar </td>
+                                <td>Nomor Kas Masuk </td>
                                 <td>:</td>
-                                <td>KK000{{$show->id}}</td>
+                                <td>KM000{{$show->id}}</td>
                             </tr>
                             <tr>
                                 <td>Deskripsi</td>
