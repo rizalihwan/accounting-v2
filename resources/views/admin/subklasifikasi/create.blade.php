@@ -1,32 +1,11 @@
 @extends('_layouts.main')
 @section('title', 'Subklasifikasi')
+    @push('breadcrumb')
+        <li class="breadcrumb-item">Subklasifikasi Akun</li>
+        <li class="breadcrumb-item active">Tambah Subklasifikasi</li>
+    @endpush
 @section('content')
     <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-user-plus bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>Subklasifikasi</h5>
-                            <span>Form tambah subklasifikasi</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.subklasifikasi.create') }}">Tambah subklasifikasi</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">

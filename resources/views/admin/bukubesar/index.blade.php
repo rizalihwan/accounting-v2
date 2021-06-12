@@ -45,23 +45,21 @@
                         <table class="table table-light table-hover">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Bulan Dan Tahun</th>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Jumlah</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($transaksi as $item)
                                 <tr>
-                                    <td>1.</td>
-                                    <td>Tono</td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-sm mr-1" style="float: left;"><i class="fa fa-edit"></i></a>
-                                        <form action="#" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->tanggal}}</td>
+                                    <td>{{$jumlah}}</td>
+                                    <td>{{$item->status}}</td>
+                                </tr>  
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
