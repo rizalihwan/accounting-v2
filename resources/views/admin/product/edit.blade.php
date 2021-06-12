@@ -7,7 +7,7 @@
 <li class="breadcrumb-item">
     <a href="{{ route('admin.product.index') }}">Product</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Tambah Product</li>
+<li class="breadcrumb-item" aria-current="page">Edit Product</li>
 @endpush
 @section('content')
 
