@@ -12,22 +12,55 @@ class Data extends Component
 
     public $search = null;
 
-    protected $listeners = ['refresh', 'delete'];
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = [
+        'refresh', 'error', 'delete'
+    ];
 
     public function render(Divisi $divitions)
     {
         $divitions = $divitions->where('nama', 'like', "%{$this->search}%")
             ->orWhere('kode', 'like', "%{$this->search}%")
-            ->latest()->paginate(10);
+            ->latest()->paginate(5);
 
         return view('livewire.admin.divisi.data', compact('divitions'));
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function refresh(string $message)
     {
-        $this->search = null;
-        session()->flash('success', $message);
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'title' => $message,
+            'text' => '',
+        ]);
+
+        $this->search = '';
+    }
+
+    public function error(string $message)
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'error',
+            'title' => $message,
+            'text' => '',
+        ]);
+
+        $this->search = '';
+    }
+
+    public function deleteConfirm($id)
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Apakah Anda yakin?',
+            'text' => '',
+            'id' => $id
+        ]);
     }
 
     public function delete(Divisi $divisi)
