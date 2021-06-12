@@ -25,8 +25,6 @@ Route::middleware('auth')->group(function () {
         // Bkm
         Route::resource('bkm', 'BkmController');
 
-
-
         Route::prefix('data-store')->group(function () {
             Route::view('/', 'menu')->name('data-store');
 

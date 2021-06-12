@@ -25,7 +25,7 @@ class KontakRequest extends FormRequest
     {
         return [
             'nama' => 'required',
-            'email' => 'required',
+            'email' => 'nullable',
             'telepon' => 'nullable',
             'alamat' => 'nullable',
             'kota' => 'nullable',
