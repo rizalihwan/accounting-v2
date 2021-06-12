@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
             Route::resource('kategori', 'KategoriController');
             //Category
             Route::view('category', 'admin.category.index')->name('category.index');
+            // Divisi
+            Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
             // Unit
             Route::view('unit', 'admin.unit.index')->name('unit.index');
             // Produk
@@ -54,8 +56,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
             // Bank
             Route::resource('bank', 'BankController');
-            // Divisi
-            Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
 
             // Buku Besar
             Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
