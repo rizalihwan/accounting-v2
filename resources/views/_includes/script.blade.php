@@ -2,9 +2,7 @@
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     @livewireScripts()
     <!-- BEGIN Vendor JS-->
-
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+    
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
