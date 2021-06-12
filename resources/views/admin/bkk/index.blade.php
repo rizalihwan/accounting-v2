@@ -1,36 +1,15 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Keluar')
+@push('breadcrumb')
+    <li class="breadcrumb-item active">Cash & Bank</li>
+    <li class="breadcrumb-item active">Expanse</li>
+@endpush
 @section('content')
     <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-book bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>Buku Kas Keluar</h5>
-                            <span>List Buku Kas Keluar (BKK)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.bukubesar.index') }}">Buku Besar</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <!-- end message area-->
             <div class="col-md-12">
-                <div class="card p-3">
+                <div class="card ">
                     <div class="card-header justify-content-between d-flex">
                         <div>
                             <a href="{{ route('admin.bkk.create') }}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Tambah Buku Kas Keluar</a>
@@ -38,64 +17,68 @@
                         <div class="d-flex">
                             <input type="date" class="form-control mx-1" name="" id="">
                             <input type="date" class="form-control mr-2" name="" id="">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>
+                            <button type="button" class="btn btn-icon rounded-circle btn-primary waves-effect pr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-light table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Tanggal</th>
-                                    <th>Nomor Kas Keluar</th>
-                                    <th>nama rekening</th>
-                                    <th>untuk Pembayaran</th>
-                                    <th>Value</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($indeks as $item)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->tanggal}}</td>
-                                    @if ($row > 0)
-                                    @if ($item->id < 9)
-                                    <td>KK0000{{ $item->id }}</td>
-                                    @elseif ($item->id < 99)
-                                    <td>KK000{{ $item->id  }}</td>
-                                    @elseif ($item->id < 999)
-                                    <td>KK00{{ $item->id }}</td>
-                                    @elseif ($item->id < 9999)
-                                    <td>KK0{{ $item->id }}</td>
-                                    @else
-                                    <td>KK{{ $item->id  }}</td>
-                                    @endif
-                                    @endif
-                                    <td>{{ $item->rekening_id  }}</td>
-                                    <td>{{ $item->desk  }}</td>
-                                    <td>{{ $item->value  }}</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                 <i class="fa fa-ellipsis-v ml-1"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                              <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-info btn-sm mb-2 col-md-12" ><i class="fa fa-edit"></i>Edit</a></li>
-                                              <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <li><a type="submit" class="btn btn-outline-danger mb-2 btn-sm col-md-12"><i class="fa fa-trash"></i>Hapus</a></li>
-                                            </form>
-                                               <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-success btn-sm mb-2 col-md-12"><i class="fa fa-eye"></i>Show</a></li>
-                                            </ul>
-                                          </div>
-                                        
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Tanggal</th>
+                                        <th>Nomor Kas Keluar</th>
+                                        <th>nama rekening</th>
+                                        <th>untuk Pembayaran</th>
+                                        <th>Value</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($indeks as $item)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$item->tanggal}}</td>
+                                        @if ($row > 0)
+                                        @if ($item->id < 9)
+                                        <td>KK0000{{ $item->id }}</td>
+                                        @elseif ($item->id < 99)
+                                        <td>KK000{{ $item->id  }}</td>
+                                        @elseif ($item->id < 999)
+                                        <td>KK00{{ $item->id }}</td>
+                                        @elseif ($item->id < 9999)
+                                        <td>KK0{{ $item->id }}</td>
+                                        @else
+                                        <td>KK{{ $item->id  }}</td>
+                                        @endif
+                                        @endif
+                                        <td>{{ $item->rekening_id  }}</td>
+                                        <td>{{ $item->desk  }}</td>
+                                        <td>{{ $item->value  }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-flat-dark waves-effect" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-feather='more-vertical'></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-dark p-2" aria-labelledby="dropdownMenuButton2">
+                                                <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
+                                                <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <li><a type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>Hapus</a></li>
+                                                </form>
+                                                <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
+                                                </ul>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
