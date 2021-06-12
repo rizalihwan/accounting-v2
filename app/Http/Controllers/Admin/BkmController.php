@@ -16,7 +16,10 @@ class BkmController extends Controller
      */
     public function index()
     {
-        //
+        $indeks = DB::table('bkks')->where('status','BKM')
+                                    ->get();
+        $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
+        return view('admin.bkm.index',compact('indeks','row'));
     }
 
     /**
@@ -40,7 +43,7 @@ class BkmController extends Controller
     public function store(Request $request)
     {
         $imam = count($request->invoice);
-        
+
         // foreach($id->rekenings as $s){
         //    echo $s->jml_uang ;
         // }
@@ -56,7 +59,7 @@ class BkmController extends Controller
         $id = DB::table('bkks')->select('id')
                               ->orderByDesc('id')
                               ->first();
-        for ($i=0; $i < $imam; $i++) { 
+        for ($i=0; $i < $imam; $i++) {
             DB::table('uraians')->insert([
                 'rekening_id'=> $request->invoice[$i]["rekening"],
                 'bkk_id'=> $id->id,
@@ -66,10 +69,10 @@ class BkmController extends Controller
             ]);
             $jml = $jml + $request->invoice[$i]["jumlah"];
         }
-        DB::table('bkks')->find($id)->update([
-            'value'=>$jml
+        DB::table('bkks')->where('id',$id->id)->update([
+            'value' => $jml
         ]);
-        return back()->with('message','Kas berhasil Tersimpan');
+        return back()->with('success','Kas berhasil Tersimpan');
     }
 
     /**
@@ -80,7 +83,10 @@ class BkmController extends Controller
      */
     public function show(Bkk $bkm)
     {
-        //
+        $bkm->delete();
+
+        return redirect()->route('bank.index')
+                        ->with('success','Data Berhasil Dihapus');
     }
 
     /**

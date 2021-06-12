@@ -253,7 +253,7 @@
             }
             return true
         }
-        
+
         $(document).ready(function(){
             let csrf = '{{ csrf_token() }}'
 

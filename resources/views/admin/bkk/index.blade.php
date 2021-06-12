@@ -61,15 +61,15 @@
                                     <td>{{$item->tanggal}}</td>
                                     @if ($row > 0)
                                     @if ($item->id < 9)
-                                    <td>KM0000{{ $item->id }}</td>
+                                    <td>KK0000{{ $item->id }}</td>
                                     @elseif ($item->id < 99)
-                                    <td>KM000{{ $item->id  }}</td>
+                                    <td>KK000{{ $item->id  }}</td>
                                     @elseif ($item->id < 999)
-                                    <td>KM00{{ $item->id }}</td>
+                                    <td>KK00{{ $item->id }}</td>
                                     @elseif ($item->id < 9999)
-                                    <td>KM0{{ $item->id }}</td>
+                                    <td>KK0{{ $item->id }}</td>
                                     @else
-                                    <td>KM{{ $item->id  }}</td>
+                                    <td>KK{{ $item->id  }}</td>
                                     @endif
                                     @endif
                                     <td>{{ $item->rekening_id  }}</td>
@@ -82,8 +82,9 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                               <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-info btn-sm mb-2 col-md-12" ><i class="fa fa-edit"></i>Edit</a></li>
-                                              <form action="#" method="post">
+                                              <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post">
                                                 @csrf
+                                                @method('delete')
                                                 <li><a type="submit" class="btn btn-outline-danger mb-2 btn-sm col-md-12"><i class="fa fa-trash"></i>Hapus</a></li>
                                             </form>
                                                <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-success btn-sm mb-2 col-md-12"><i class="fa fa-eye"></i>Show</a></li>
