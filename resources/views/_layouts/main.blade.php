@@ -1,11 +1,9 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 
 <head>
-    <title>@yield('title','') | Accounting</title>
     <!-- initiate head with meta tags, css and script -->
     @include('_includes.head')
-
 </head>
 
 <body class="horizontal-layout horizontal-menu navbar-floating footer-static" data-open="hover" data-menu="horizontal-menu" data-col="">
@@ -22,9 +20,6 @@
             @include('_components.bread')
 
             <div class="content-body">
-                <!-- BADGE INFO -->
-                @include('_includes.info')
-
                 <!-- BEGIN:CONTENT -->
                 @yield('content')
                 <!-- END:CONTENT -->
@@ -33,6 +28,10 @@
 
     </div>
     <!-- END: CONTENT -->
+    
+    <!-- Begin: Customizer -->
+    @include('_components.customizer')
+    <!-- End: Customizer -->
 
     <!-- BEGIN: FOOTER -->
     @include('_components.footer')
@@ -40,6 +39,7 @@
 
     <!-- SCRIPT -->
     @include('_includes.script')
+    @include('_include.alert')
 </body>
 
 </html>
