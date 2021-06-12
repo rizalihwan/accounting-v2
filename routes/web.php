@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
             // Akun
             Route::resource('akun', 'AkunController');
             // Subklasifikasi
-            Route::resource('subklasifikasi', 'SubklasifikasiController');
+            Route::view('subklasifikasi', 'admin.subklasifikasi.index')->name('subklasifikasi.index');
             // Kontak
             Route::resource('kontak', 'KontakController');
             Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');

@@ -2,9 +2,11 @@
     <script src="{{ asset('all.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     @livewireScripts()
-    <!-- BEGIN Vendor JS-->
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
+    
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
     <!-- END: Page Vendor JS-->
+
     <script src="{{ asset('app-assets/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
 
     <!-- BEGIN: Theme JS-->
