@@ -1,5 +1,5 @@
 @extends('_layouts.main')
-@section('title', 'Data Divisi')
+@section('title', 'Data Category')
 @push('breadcrumb')
     <li class="breadcrumb-item">
         <a href="{{ route('admin.data-store') }}">Data Store</a>
@@ -8,6 +8,6 @@
 @endpush
 @section('content')
     
-        @livewire('admin.category.data')
+    @livewire('admin.category.data')
     
 @endsection
