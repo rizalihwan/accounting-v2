@@ -1,38 +1,21 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Masuk')
 @section('content')
+@push('breadcrumb')
+    <li class="breadcrumb-item active">Cash & Bank</li>
+    <li class="breadcrumb-item active">Income</li>
+    <li class="breadcrumb-item active">Create</li>
+@endpush
 <div class="container-fluid">
-    <div class="page-header">
-        <div class="row align-items-end">
-            <div class="col-lg-8">
-                <div class="page-header-title">
-                    <i class="ik ik-book bg-blue"></i>
-                    <div class="d-inline">
-                        <h5>Buku Kas Masuk</h5>
-                        <span>List Buku Kas Masuk (BKM)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <nav class="breadcrumb-container" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('admin.bkm.index') }}">Kas Masuk</a>
-                        </li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <!-- end message area-->
         <div class="col-md-12">
             <form action="{{route('admin.bkm.store')}}" method="POST" class="invoice-repeater">
                 @csrf
                 <div class="card mb-2 ">
+                    <div class="card-header">
+                        <h4>Create Income</h4>
+                    </div>
                     <div class="card-body ml-4">
                         <div class="row d-flex align-items-end">
                             <div class="col-md-4 col-12 ">
@@ -154,31 +137,31 @@
     </div>
 </div>
 <script>
-  function HowAboutIt()
-    {
-        let total = 0;
-        let coll = document.querySelectorAll('.jumlah')
-        for(let i = 0;i<coll.length;i++)
-        {
-            let ele = coll[i]
-            total += parseInt(ele.value)
-        }
-        let res = document.getElementById('total')
-        res.value = total
-    }
-    document.getElementById('hitung').addEventListener('click', function() {
-        event.preventDefault()
-        let total = []
-        let nd = document.querySelectorAll('.jumlah')
-        for (let i = 0; i < nd.length; i++) {
-            total.push(parseInt(nd[i].value))
-        }
-        console.log(total)
-        let sum = total.reduce(function(totalValue, currentValue) {
-            return totalValue + currentValue
-        })
-        console.log(sum)
-        document.getElementById('total').value = sum
-    })
-</script>
+    function HowAboutIt()
+      {
+          let total = 0;
+          let coll = document.querySelectorAll('.jumlah')
+          for(let i = 0;i<coll.length;i++)
+          {
+              let ele = coll[i]
+              total += parseInt(ele.value)
+          }
+          let res = document.getElementById('total')
+          res.value = total
+      }
+      document.getElementById('hitung').addEventListener('click', function() {
+          event.preventDefault()
+          let total = []
+          let nd = document.querySelectorAll('.jumlah')
+          for (let i = 0; i < nd.length; i++) {
+              total.push(parseInt(nd[i].value))
+          }
+          console.log(total)
+          let sum = total.reduce(function(totalValue, currentValue) {
+              return totalValue + currentValue
+          })
+          console.log(sum)
+          document.getElementById('total').value = sum
+      })
+  </script>
 @endsection

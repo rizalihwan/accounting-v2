@@ -73,10 +73,41 @@
     @endif
 
     @if(request()->routeIs('admin.cash-bank'))
-        @section('title', 'Cash & Bank')
+        @section('title', 'Cash & imam')
         @push('breadcrumb')
             <li class="breadcrumb-item active">Cash & Bank</li>
         @endpush
+        <section id="card-content-types">
+            <div class="row">
+                <div class="col-md-3 col-xl-3">
+                    <a href="{{ route('admin.bkk.index') }}">
+                        <div class="card border-0 text-white shadow">
+                            <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Category" />
+                            <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                                <h1 class="card-text display-5 text-white font-weight-bold">Expense</h1>
+                                {{-- <p class="card-text">
+                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
+                                    a little bit longer.
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </p> --}}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-xl-3">
+                    <a href="{{ route('admin.bkm.index') }}">
+                        <div class="card border-0 text-white shadow">
+                            <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Unit" />
+                            <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                                <h1 class="card-text display-5 text-white font-weight-bold">Income</h1>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
         {{--  --}}
     @endif
     @if(request()->routeIs('admin.inventory'))

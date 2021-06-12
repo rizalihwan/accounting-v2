@@ -419,7 +419,7 @@
                             <span data-i18n="Purchase">Purchase</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/cash-bank') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/cash-bank') ? 'active' : '' }}{{ request()->is('admin/bkk') ? 'active' : '' }}{{ request()->is('admin/bkk/create') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.cash-bank') }}">
                             <i data-feather="credit-card"></i>
                             <span data-i18n="Card & Bank">Card & Bank</span>
