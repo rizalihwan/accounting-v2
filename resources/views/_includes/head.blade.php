@@ -33,4 +33,24 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <!-- END: Custom CSS-->
 
+    <script>
+        function deleteConfirm(form_id, id) {
+            Swal.fire({
+                title:"Are you sure?",
+                text:"You won't be able to revert this!",
+                icon:"warning",
+                showCancelButton:!0,
+                confirmButtonText:"Yes, delete it!",
+                customClass:{
+                    confirmButton:"btn btn-primary",
+                    cancelButton:"btn btn-outline-danger ml-1"
+                },
+                buttonsStyling:!1
+            }).then((willDelete) => {
+                if (willDelete.value) {
+                    $(`#${form_id}${id}`).submit();
+                }
+            })
+        }
+    </script>
 @stack('head')
