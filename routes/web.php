@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
         Route::prefix('data-store')->group(function () {
             Route::view('/', 'menu')->name('data-store');
 
+            // Kontak
+            Route::resource('kontak', 'KontakController');
+            Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');
             // Kategori
             Route::resource('kategori', 'KategoriController');
             //Category
@@ -49,9 +52,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('akun', 'AkunController');
             // Subklasifikasi
             Route::view('subklasifikasi', 'admin.subklasifikasi.index')->name('subklasifikasi.index');
-            // Kontak
-            Route::resource('kontak', 'KontakController');
-            Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');
             // Rekening
             Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
             // Bank
