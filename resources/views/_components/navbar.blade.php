@@ -358,14 +358,14 @@
         <div class="navbar-container main-menu-content" data-menu="menu-container">
             <!-- include ../../../includes/mixins-->
             <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/" data-i18n="Input"><i data-feather="home"></i><span data-i18n="dashboard">dashboard</span></a></li>
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/data_store" data-i18n="Input"><i data-feather="grid"></i><span data-i18n="data store">data store</span></a></li>
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/ledger" data-i18n="Input"><i data-feather="book-open"></i><span data-i18n="ledger">ledger</span></a></li>
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/sales" data-i18n="Input"><i data-feather="shopping-cart"></i><span data-i18n="sales">Sales</span></a></li>
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/purchase" data-i18n="Input"><i data-feather="shopping-bag"></i><span data-i18n="purchase">purchase</span></a></li>
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/cash_and_bank" data-i18n="Input"><i data-feather="credit-card"></i><span data-i18n="cash & bank">cash & bank</span></a></li>
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/inventory" data-i18n="Input"><i data-feather="box"></i><span data-i18n="inventory">inventory</span></a></li>
-                <li class="nav-item" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/report" data-i18n="Input"><i data-feather="file"></i><span data-i18n="report">report</span></a></li>
+                <li class="{{ request()->is('/') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/" data-i18n="Input"><i data-feather="home"></i><span data-i18n="dashboard">dashboard</span></a></li>
+                <li class="{{ request()->is('data_store') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/data_store" data-i18n="Input"><i data-feather="grid"></i><span data-i18n="data store">data store</span></a></li>
+                <li class="{{ request()->is('ledger') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/ledger" data-i18n="Input"><i data-feather="book-open"></i><span data-i18n="ledger">ledger</span></a></li>
+                <li class="{{ request()->is('sales') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/sales" data-i18n="Input"><i data-feather="shopping-cart"></i><span data-i18n="sales">Sales</span></a></li>
+                <li class="{{ request()->is('purchase') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/purchase" data-i18n="Input"><i data-feather="shopping-bag"></i><span data-i18n="purchase">purchase</span></a></li>
+                <li class="{{ request()->is('cash_and_bank') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/cash_and_bank" data-i18n="Input"><i data-feather="credit-card"></i><span data-i18n="cash & bank">cash & bank</span></a></li>
+                <li class="{{ request()->is('inventory') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/inventory" data-i18n="Input"><i data-feather="box"></i><span data-i18n="inventory">inventory</span></a></li>
+                <li class="{{ request()->is('report') ? 'active' : 'nav-item'}}" data-menu=""><a class="dropdown-item d-flex align-items-center" href="/report" data-i18n="Input"><i data-feather="file"></i><span data-i18n="report">report</span></a></li>
 
             </ul>
         </div>

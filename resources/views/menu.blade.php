@@ -5,21 +5,28 @@
 <section>
     <div class="row">
         <div class="col-md-3">
-            <div class="card text-center">
+            <div class="card text-center bg-info">
                 <div class="card-body">
                     <h4 class="card-title"></h4>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-center">
+            <div class="card text-center bg-danger">
                 <div class="card-body">
                     <h4 class="card-title"></h4>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-center">
+            <div class="card text-center bg-success">
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-warning">
                 <div class="card-body">
                     <h4 class="card-title"></h4>
                 </div>
@@ -41,7 +48,38 @@
 
 @endif
 @if(request()->is('inventory'))
-
+<section>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-center bg-info">
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-danger">
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-success">
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-warning">
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @endif
 @if(request()->is('report'))
 
