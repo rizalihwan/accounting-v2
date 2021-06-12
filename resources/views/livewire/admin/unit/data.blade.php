@@ -2,34 +2,22 @@
     <div class="row">
         @livewire('admin.unit.create')
 
-        <div class="col-md-7">
-            <div class="card p-3">
+        <div class="col-lg-7 col-md-6 col-12">
+            <div class="card">
                 <div class="card-header">
-                    <div class="row col-md-5">
-                        <div class="inputcontainer w-48 float-right">
-                            <input type="search" class="form-control" placeholder="Search" wire:model="search">
-                            <div class="icon-container">
-                                <div wire:loading wire:target="search">
-                                    <i class="loader"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" wire:click="$refresh"
-                        class="btn btn-light ml-2">
-                        <i class="ik ik-refresh-cw m-auto"></i>
-                    </button>
+                    <h4 class="card-title">List Unit</h4>
+                    <input type="search" wire:model="search" class="form-control col-sm-5" placeholder="Search">
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-light table-hover">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th style="width: 1px;">#</th>
                                     <th>Nama</th>
                                     <th>Deskripsi</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th style="width: 1px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,29 +34,39 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <button class="btn btn-info btn-sm" 
-                                                wire:click="$emit('edit', '{{ $u->id }}')">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="remove()" 
-                                                wire:click="deleteConfirm({{ $u->id }})">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                                    <x-feathericon-more-vertical/>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="javascript:void('edit');"
+                                                        wire:click="$emit('edit', '{{ $u->id }}')">
+                                                        <x-feathericon-edit-2 />
+                                                        <span class="ml-1">Edit</span>
+                                                    </a>
+                                                    <a class="dropdown-item text-danger" href="javascript:void('delete');" 
+                                                        wire:click="deleteConfirm({{ $u->id }})">
+                                                        <x-feathericon-trash />
+                                                        <span class="ml-1">Delete</span>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="5" align="center">
                                             @if($search != null)
-                                                Maaf, <b><i>{{ $search }}</i></b> tidak ditemukan.
+                                                Sorry, <b><i>{{ $search }}</i></b> not found.
                                             @else
-                                                Data kosong
+                                                Empty.
                                             @endif
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
+                        <hr style="margin-top: -1px">
                         {{ $units->links() }}
                     </div>
                 </div>

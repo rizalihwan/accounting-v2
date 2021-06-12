@@ -83,10 +83,8 @@ class BkmController extends Controller
      */
     public function show(Bkk $bkm)
     {
-        $bkm->delete();
-
-        return redirect()->route('bank.index')
-                        ->with('success','Data Berhasil Dihapus');
+        $show = Bkk::find($bkm)->first();
+        return view('admin.bkm.show',compact('show'));
     }
 
     /**

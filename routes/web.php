@@ -11,7 +11,7 @@ Route::middleware('guest')->group(function () {
 });
 Route::middleware('auth')->group(function () {
 
-    Route::prefix('/menu')->name('menu.')->group(function(){
+    Route::prefix('/menu')->name('menu.')->group(function () {
         Route::get('/');
     });
 
@@ -19,44 +19,67 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', 'AuthController@logout')->name('logout');
 
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
-        // Jurnal Umum
-        Route::resource('jurnalumum', 'JurnalUmumController');
-        // Buku Besar
-        Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
-        // Kategori
-        Route::resource('kategori', 'KategoriController');
-        // Kontak
-        Route::resource('kontak', 'KontakController');
-        Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');
-        // Rekening
-        Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
-        // Bank
-        Route::resource('bank', 'BankController');
-        // Divisi
-        Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
         // Bkk
         Route::resource('bkk', 'BkkController')->except('calculateResult');
         Route::get('calculate/', 'BkkController@calculateResult')->name('bkk.calculate');
         // Bkm
         Route::resource('bkm', 'BkmController');
-        //Category
-        Route::view('category', 'admin.category.index')->name('category.index');
-        // Unit
-        Route::view('unit', 'admin.unit.index')->name('unit.index');
-        // Produk
-        Route::resource('product', 'ProductController');
-        // Subklasifikasi
-        Route::resource('subklasifikasi', 'SubklasifikasiController');
-        // Akun
-        Route::resource('akun', 'AkunController');
+
+
+
+        Route::prefix('data-store')->group(function () {
+            Route::view('/', 'menu')->name('data-store');
+
+            // Kategori
+            Route::resource('kategori', 'KategoriController');
+            //Category
+            Route::view('category', 'admin.category.index')->name('category.index');
+            // Unit
+            Route::view('unit', 'admin.unit.index')->name('unit.index');
+            // Produk
+            Route::resource('product', 'ProductController');
+        });
+
+        Route::prefix('ledger')->group(function () {
+            Route::view('/', 'menu')->name('ledger');
+
+            // Akun
+            Route::resource('akun', 'AkunController');
+            // Subklasifikasi
+            Route::resource('subklasifikasi', 'SubklasifikasiController');
+            // Kontak
+            Route::resource('kontak', 'KontakController');
+            Route::post('/kontak/kode-kontak', 'KontakController@kontakKode')->name('kontak.kode');
+            // Rekening
+            Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
+            // Bank
+            Route::resource('bank', 'BankController');
+            // Divisi
+            Route::view('divisi', 'admin.divisi.index')->name('divisi.index');
+
+            // Buku Besar
+            Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
+            // Jurnal Umum
+            Route::resource('jurnalumum', 'JurnalUmumController');
+        });
+
+        Route::prefix('sales')->group(function () {
+            Route::view('/', 'menu')->name('sales');
+        });
+
+        Route::prefix('purchase')->group(function () {
+            Route::view('/', 'menu')->name('purchase');
+        });
+        Route::prefix('cash-bank')->group(function () {
+            Route::view('/', 'menu')->name('cash-bank');
+        });
+
+        Route::prefix('inventory')->group(function () {
+            Route::view('/', 'menu')->name('inventory');
+        });
+
+        Route::prefix('report')->group(function () {
+            Route::view('/', 'menu')->name('report');
+        });
     });
 });
-
-
-Route::view('/data_store','menu');
-Route::view('/ledger','menu');
-Route::view('/sales','menu');
-Route::view('/purchase','menu');
-Route::view('/cash_and_bank','menu');
-Route::view('/inventory','menu');
-Route::view('/report','menu');

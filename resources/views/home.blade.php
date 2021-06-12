@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Statistics</h4>
                     <div class="d-flex align-items-center">
-                        <p class="card-text font-small-2 mr-25 mb-0">{{ Carbon\Carbon::now()->format('Y-m-d') }}</p>
+                        <p class="card-text font-small-2 mr-25 mb-0">{{ date('Y-m-d') }}</p>
                     </div>
                 </div>
                 <div class="card-body statistics-body">
@@ -720,3 +720,17 @@
 </section>
 <!-- Dashboard Ecommerce ends -->
 @endsection
+
+@push('head')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/dashboard-ecommerce.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.min.css') }}">
+@endpush
+
+@push('script')
+    <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
+    <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.min.js') }}"></script>    
+    <script src="{{ asset('app-assets/js/scripts/extensions/ext-component-sweet-alerts.min.js') }}"></script>
+@endpush

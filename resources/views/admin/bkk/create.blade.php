@@ -1,38 +1,21 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Keluar')
+@push('breadcrumb')
+    <li class="breadcrumb-item active">Cash & Bank</li>
+    <li class="breadcrumb-item active">Expanse</li>
+    <li class="breadcrumb-item active">Create</li>
+@endpush
 @section('content')
     <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-book bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>Buku Kas Keluar</h5>
-                            <span>Form Buku Kas Keluar (BKK)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.bukubesar.index') }}">Buku Kas Keluar</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
           <!-- end message area-->
           <div class="col-md-12">
               <form action="{{route('admin.bkk.store')}}" method="POST" class="invoice-repeater">
                   @csrf
                   <div class="card mb-2 ">
+                      <div class="card-header">
+                          <h4>Create Expanse</h4>
+                      </div>
                       <div class="card-body ml-4">
                           <div class="row d-flex align-items-end">
                               <div class="col-md-4 col-12 ">
