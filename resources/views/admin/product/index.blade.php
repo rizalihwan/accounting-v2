@@ -52,11 +52,14 @@
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
-                                            <a class="dropdown-item text-danger"
-                                                href="{{ route('admin.product.destroy', $product->id) }}">
-                                                <i data-feather="trash"></i>
-                                                <span class="ml-1">Delete</span>
-                                            </a>
+                                            <div class="dropdown-item">
+                                                <form action="{{ route('admin.product.destroy', $product->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
+                                                        <span class="ml-1">Delete</span></button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>

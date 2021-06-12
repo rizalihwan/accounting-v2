@@ -92,7 +92,6 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <select class="select2 form-control form-control" name="unit_id">
-                                                <option value="1">Test</option>
                                                 @foreach ($units as $unit )
                                                     <option value="{{ $unit->id }}"> {{ $unit->name }} </option>
                                                 @endforeach
@@ -112,7 +111,6 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <select class="select2 form-control form-control" name="category_id">
-                                                <option value="1">Test</option>
                                                 @foreach ($categories as $category )
                                                     <option value="{{ $category->id }}"> {{ $category->name }} </option>
                                                 @endforeach
@@ -132,9 +130,8 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <select class="select2 form-control form-control" name="supplier_id">
-                                                <option value="1">Test</option>
                                                 @foreach ($suppliers as $sup )
-                                                    <option value="{{ $sup->id }}"> {{ $sup->name }} </option>
+                                                    <option value="{{ $sup->id }}"> {{ $sup->nama }} </option>
                                                 @endforeach
                                             </select>
 
@@ -176,7 +173,10 @@
 <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
 <script>
     $(function () {
-			$('.select2').select2();
+			$('.select2').select2({
+                placeholder: "Select a Item",
+                allowClear: true
+            });
 		})
 </script>
 <script src="{{ asset('js/helpers.js') }}"></script>

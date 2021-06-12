@@ -31,9 +31,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('id','name')->where('status', 1)->get();
+        $categories = Category::select('id','name', 'status')->where('status', '1')->get();
         $suppliers = Kontak::select('id','pemasok', 'nama')->where('pemasok', true)->get();
-        $units = Unit::select('id', 'name')->where('status', 1)->get();
+        $units = Unit::select('id', 'name', 'status')->where('status', '1')->get();
 
         return view('admin.product.create', compact('categories', 'suppliers', 'units'));
     }
@@ -59,7 +59,7 @@ class ProductController extends Controller
         ]);
 
         if($request->hasFile('image')){
-            $file = $request->photo;
+            $file = $request->image;
             $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $fileName = $fileName . '_' . time() . '.' . $file->extension();
 
@@ -82,7 +82,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('unit', 'category', 'supplier')->findOrFail($id);
         $images = Imagesproduct::select('id', 'images', 'product_id')->where('product_id', $id);
 
         return view('admin.product.show', compact('product', 'images'));
@@ -96,10 +96,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
-        $images = Imagesproduct::select('id', 'images', 'product_id')->where('product_id', $id);
+        $categories = Category::select('id','name', 'status')->where('status', '1')->get();
+        $suppliers = Kontak::select('id','pemasok', 'nama')->where('pemasok', true)->get();
+        $units = Unit::select('id', 'name', 'status')->where('status', '1')->get();
 
-        return view('admin.product.edit', compact('product', 'images'));
+        $product = Product::findOrFail($id);
+        $images = Imagesproduct::select('id', 'image', 'product_id')->where('product_id', $id)->get();
+
+        return view('admin.product.edit', compact('product', 'images', 'categories', 'suppliers', 'units'));
     }
 
     /**
@@ -109,9 +113,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequst $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+
+        return redirect()->route('admin.product.index')->with('success', 'Berhasil Mengupdate');
     }
 
     /**
@@ -122,7 +129,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('admin.product.index')->with('success', 'Berhasil Mendelete');
     }
 
     public function getDatatables()

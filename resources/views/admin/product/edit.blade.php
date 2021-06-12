@@ -40,7 +40,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" id="first-name"
                                                 class="form-control @error('name') is-invalid @enderror" name="name"
-                                                placeholder="Nama Produk" value="{{ old('name') }}">
+                                                placeholder="Nama Produk" value="{{ $product->name }}">
 
                                             @error('name')
                                             <div class="d-block invalid-feedback"> {{ $message }} </div>
@@ -58,7 +58,7 @@
                                             <input type="text" id="price_buy"
                                                 class="form-control @error('price_buy') is-invalid @enderror"
                                                 name="price_buy" placeholder="Harga Jual"
-                                                value="{{ old('price_buy') }}">
+                                                value="{{ $product->price_buy }}">
 
                                             @error('price_buy')
                                             <span class="d-block invalid-feedback"> {{ $message }} </span>
@@ -76,7 +76,7 @@
                                             <input type="text" id="price_sell"
                                                 class="form-control @error('price_sell') is-invalid @enderror"
                                                 name="price_sell" placeholder="Harga Jual"
-                                                value="{{ old('price_sell') }}">
+                                                value="{{ $product->price_sell }}">
 
                                             @error('price_sell')
                                             <span class="d-block invalid-feedback"> {{ $message }} </span>
@@ -92,9 +92,8 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <select class="select2 form-control form-control" name="unit_id">
-                                                <option value="1">Test</option>
                                                 @foreach ($units as $unit )
-                                                    <option value="{{ $unit->id }}"> {{ $unit->name }} </option>
+                                                    <option value="{{ $unit->id }}" {{$product->unit_id == $unit->id ? 'selected' : ''}}> {{ $unit->name }} </option>
                                                 @endforeach
                                             </select>
 
@@ -112,9 +111,8 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <select class="select2 form-control form-control" name="category_id">
-                                                <option value="1">Test</option>
                                                 @foreach ($categories as $category )
-                                                    <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                                                    <option value="{{ $category->id }}" {{$product->category_id == $category->id ? 'selected' : ''}}> {{ $category->name }} </option>
                                                 @endforeach
                                             </select>
 
@@ -132,9 +130,8 @@
                                         </div>
                                         <div class="col-sm-10">
                                             <select class="select2 form-control form-control" name="supplier_id">
-                                                <option value="1">Test</option>
                                                 @foreach ($suppliers as $sup )
-                                                    <option value="{{ $sup->id }}"> {{ $sup->name }} </option>
+                                                    <option value="{{ $sup->id }}" {{$product->supplier_id == $sup->id ? 'selected' : ''}}> {{ $sup->nama }} </option>
                                                 @endforeach
                                             </select>
 
@@ -148,16 +145,17 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
-                            {{-- <form action="#" class="dropzone dropzone-area dz-clickable" id="dpz-multiple-files">
-                                    <div class="dz-message">Drop files here or click to upload.</div>
-                                </form> --}}
-                            <input type="file" name="image">
+                            @forelse ( $images as $image )
+                                <img src="{{ asset('storage/images/product/'. $image->image) }}" alt="{{$image->image}}">
+                            @empty
+                                <p>Tidak memiliki photo</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>
 
                 <div class="card-footer">
-                    <button class="btn btn-primary shadow" type="submit">Tambah</button>
+                    <button class="btn btn-primary shadow" type="submit">Update</button>
                     <a href="{{ route('admin.product.index') }}" class="btn btn-secondary shadow">Batal</a>
                 </div>
             </form>
