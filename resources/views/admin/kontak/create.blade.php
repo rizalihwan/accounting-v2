@@ -1,37 +1,17 @@
 @extends('_layouts.main')
-@section('title', 'Kontak')
+@section('title', 'Add Contact')
+    @push('breadcrumb')
+        <li class="breadcrumb-item active">Add Contact</li>
+    @endpush
+@section('content')
 @section('content')
     <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-user-plus bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>Kontak</h5>
-                            <span>Form tambah kontak person</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">Tambah Kontak Person</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
-                        <h3>Tambah Kontak Person</h3>
+                        <h3><i class="fa fa-user"></i></h3>
+                        <h4>Add Contact Person</h4>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" method="POST" action="{{ route('admin.kontak.store') }}">
@@ -56,7 +36,7 @@
                                     <div class="form-group">
                                         <label for="email">{{ __('Email') }}<span class="text-red">*</span></label>
                                         <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email" required>
+                                            class="form-control @error('email') is-invalid @enderror" name="email">
                                         <div class="help-block with-errors"></div>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -66,7 +46,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="telepon">Telepon<span class="text-red">*</span></label>
                                         <input id="telepon" type="text"

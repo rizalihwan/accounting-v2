@@ -8,11 +8,11 @@
     <section id="card-content-types">
         <div class="row">
             <div class="col-md-3 col-xl-3">
-                <a href="{{ route('admin.category.index') }}">
+                <a href="{{ route('admin.kontak.index') }}">
                     <div class="card border-0 text-white shadow">
-                        <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Category" />
+                        <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Contact Data" />
                         <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Category</h1>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Contact Data</h1>
                             {{-- <p class="card-text">
                                 This is a wider card with supporting text below as a natural lead-in to additional content. This content is
                                 a little bit longer.

@@ -16,7 +16,7 @@ class CreateKontaksTable extends Migration
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('telepon')->nullable();
             $table->boolean('pelanggan')->default(true);
             $table->boolean('pemasok')->default(true);
