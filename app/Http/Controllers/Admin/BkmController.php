@@ -118,8 +118,6 @@ class BkmController extends Controller
      */
     public function destroy(Bkk $bkm)
     {
-        $bkm->delete();
-
-        return back()->with('success','Data Berhasil Dihapus');
+        //
     }
 }

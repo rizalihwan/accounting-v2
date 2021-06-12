@@ -64,11 +64,10 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-dark p-2" aria-labelledby="dropdownMenuButton2">
                                                 <li><a href="{{ route('admin.bkm.show',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
-                                                <form action="{{ route('admin.bkm.destroy', $item->id) }}" method="post"
-                                                    onclick="return confirm('Apakah yakin?')">
+                                                <form action="{{ route('admin.bkm.destroy', $item->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>hapus</button>
+                                                    <li><a type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>Hapus</a></li>
                                                 </form>
                                                 <li><a href="{{ route('admin.bkm.show',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
                                                 </ul>

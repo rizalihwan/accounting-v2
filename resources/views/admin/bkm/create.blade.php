@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card ">
+                <div class="card p-3">
                     <div class="card-body mt-0">
                         <hr>
                         <div class="col-12 ">
