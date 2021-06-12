@@ -1,5 +1,6 @@
     <!-- BEGIN: Vendor JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+    @livewireScripts()
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->

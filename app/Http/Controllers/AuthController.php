@@ -21,8 +21,8 @@ class AuthController extends Controller
         ];
         $remember = !empty($request->remember);
 
-        if(Auth::attempt($credentials, $remember)){
-            return redirect()->route('home')->with('success', 'Login Sukses');
+        if (Auth::attempt($credentials, $remember)) {
+            return redirect()->route('home');
         } else {
             return redirect()->back()->with('username atau password salah');
         }
