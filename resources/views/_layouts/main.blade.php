@@ -40,7 +40,6 @@
     <!-- SCRIPT -->
     @include('_includes.script')
     @include('_include.alert')
-    {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 </body>
 
 </html>
