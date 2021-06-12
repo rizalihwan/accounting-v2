@@ -1,5 +1,9 @@
 @extends('_layouts.main')
 @section('title', 'Data Bank')
+    @push('breadcrumb')
+        <li class="breadcrumb-item">Data Bank</li>
+        <li class="breadcrumb-item active">Detail Data</li>
+    @endpush
 @section('content')
 
 <div class="container-fluid">
