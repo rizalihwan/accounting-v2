@@ -5,7 +5,6 @@
     <meta name="keywords" content="Accounting Website">
     <meta name="author" content="Accounting">
     <title>@yield('title','') | Accounting</title>
-    <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.html') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
