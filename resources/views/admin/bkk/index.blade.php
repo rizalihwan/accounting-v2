@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -64,10 +64,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-dark p-2" aria-labelledby="dropdownMenuButton2">
                                                 <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
-                                                <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post"
+                                                    onclick="return confirm('Apakah yakin?')">
                                                     @csrf
                                                     @method('delete')
-                                                    <li><a type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>Hapus</a></li>
+                                                    <button type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>hapus</button>
                                                 </form>
                                                 <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
                                                 </ul>
