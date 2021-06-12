@@ -61,7 +61,7 @@
                           </div>
                       </div>
                   </div>
-                  <div class="card p-3">
+                  <div class="card ">
                       <div class="card-body mt-0">
                           <hr>
                           <div class="col-12 ">
@@ -95,11 +95,14 @@
                                           </div>
 
                                           <div class="col-md-2 col-12">
-                                              <div class="form-group">
-                                                  <label for="matauang">uang</label>
-                                                  <input type="text" class="form-control" id="matauang" placeholder="1" name="matauang" />
-                                              </div>
-                                          </div>
+                                            <div class="form-group">
+                                                <label for="matauang">Mata Uang</label>
+                                                <select name="matauang" id="matauang" class="form-control">
+                                                  <option value="RP">RP</option>
+                                                  <option value="USD">USD</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">

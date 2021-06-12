@@ -4,7 +4,7 @@
 @push('breadcrumb')
     <li class="breadcrumb-item active">Cash & Bank</li>
     <li class="breadcrumb-item active">Income</li>
-    <li class="breadcrumb-item active">Create</li>
+    <li class="breadcrumb-item active">Show</li>
 @endpush
     <div class="container-fluid">
         <div class="row">
