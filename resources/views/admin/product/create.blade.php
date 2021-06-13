@@ -165,17 +165,17 @@
 
 @endsection
 
-@push('head')
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+@push('select2')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
 @endpush
 
 @push('script')
-<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+<script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
 <script>
     $(function () {
 			$('.select2').select2({
                 placeholder: "Select a Item",
-                allowClear: true
             });
 		})
 </script>
