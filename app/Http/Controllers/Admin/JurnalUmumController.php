@@ -106,17 +106,19 @@ class JurnalUmumController extends Controller
             return redirect()->route('admin.jurnalumum.index')->with('error', 'Data tidak ditemukan');
         }
 
-        $selectKode = Jurnalumum::where('id', $id)->distinct()->pluck('kode_jurnal');
-        $jurnal = Jurnalumum::whereIn('kode_jurnal', $selectKode)
+        $kode = Jurnalumum::where('id', $id)->distinct()->pluck('kode_jurnal')->first();
+        $jurnal = Jurnalumum::where('kode_jurnal', $kode)
             ->select('id', 'tanggal', 'kode_jurnal', 'kontak_id', 'uraian')
             ->groupBy('kode_jurnal')->first();
-        $jurnals = Jurnalumum::where('kode_jurnal', $selectKode)
-            ->select('id', 'akun_id', 'debit', 'kredit', 'status')
-            ->get();
+        $jurnals = Jurnalumum::where('kode_jurnal', $kode)
+            ->select('id', 'akun_id', 'debit', 'kredit', 'status');
 
-        dd($selectKode, $jurnal, $jurnals);
-
-        return view('admin.jurnalumum.edit', compact('jurnal', 'jurnals'));
+        return view('admin.jurnalumum.edit', [
+            'kode' => $kode,
+            'jurnal' => $jurnal,
+            'jurnals' => $jurnals->get(),
+            'totalJurnals' => $jurnal->count()
+        ]);
     }
 
     /**
@@ -128,7 +130,56 @@ class JurnalUmumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jurnals = Jurnalumum::where('kode_jurnal', $id);
+        $arrReq = count($request->jurnals);
+
+        // for ($i = 0; $i < $arrReq; $i++) {
+        //     echo $request->jurnals[$i]['kredit'];
+        // }
+        // dd();
+
+        if ($arrReq > $jurnals->count()) {
+            for ($i = 0; $i < $arrReq; $i++) {
+                try {
+                    Jurnalumum::create([
+                        'kode_jurnal' => $request->kode_jurnal,
+                        'tanggal' => $request->tanggal,
+                        'kontak_id' => $request->kontak_id,
+                        'uraian' => $request->uraian,
+                        'status' => 1,
+                        'akun_id' => $request->jurnals[$i]['akun_id'],
+                        'debit' => $request->jurnals[$i]['debit'],
+                        'kredit' => $request->jurnals[$i]['kredit']
+                    ]);
+                } catch (\Exception $e) {
+                    return back()->with('error', 'Jurnal tidak Tersimpan!' . $e->getMessage());
+                }
+            }
+        } else {
+            try {
+                /**
+                 * UPDATE INI MASIH ERROR ZAL.
+                 * pang benerken wkwkwk.
+                 */
+                for ($i = 0; $i < $arrReq; $i++) {
+                    foreach ($jurnals->get() as $index => $item) {
+                        $item->update([
+                            'tanggal' => $request->tanggal,
+                            'kontak_id' => $request->kontak_id,
+                            'uraian' => $request->uraian,
+                            'status' => 1,
+                            'akun_id' => $request->jurnals[$i]['akun_id'],
+                            'debit' => $request->jurnals[$i]['debit'],
+                            'kredit' => $request->jurnals[$i]['kredit']
+                        ]);
+                    }
+                }
+            } catch (\Exception $e) {
+                return back()->with('error', 'Jurnal gagal diubah!');
+            }
+        }
+
+        return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil diubah!');
     }
 
     /**
@@ -170,6 +221,23 @@ class JurnalUmumController extends Controller
         return $result;
     }
 
+    public function kontakSelected($id)
+    {
+        $jurnal = Jurnalumum::with('kontak')->find($id);
+        $kontak = $jurnal->kontak;
+
+        $nik = empty($kontak->nik) ? ' - ' : $kontak->nik;
+        $result = [
+            'id' => $kontak->id,
+            'text' => "{$kontak->nama} ({$nik})",
+            'nama' => $kontak->nama,
+            'email' => $kontak->email,
+            'telepon' => $kontak->telepon
+        ];
+
+        return $result;
+    }
+
     public function getAkun(Request $request)
     {
         $search = $request->search;
@@ -184,11 +252,23 @@ class JurnalUmumController extends Controller
         foreach ($accounts as $a) {
             $result[] = [
                 'id' => $a->id,
-                'text' => "{$a->name} ({$a->kode})",
+                'text' => "{$a->name}",
                 'kode' => $a->kode,
                 'name' => $a->name
             ];
         }
+
+        return $result;
+    }
+
+    public function akunSelected(Akun $akun)
+    {
+        $result = [
+            'id' => $akun->id,
+            'text' => "{$akun->name}",
+            'kode' => $akun->kode,
+            'name' => $akun->name
+        ];
 
         return $result;
     }
