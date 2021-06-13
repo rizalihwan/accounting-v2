@@ -1,7 +1,12 @@
 @extends('_layouts.main')
-@section('title', 'akun')
+@section('title', 'Edit Akun')
     @push('breadcrumb')
-        <li class="breadcrumb-item">Chart of Account</li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.data-store') }}">Data Master</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.akun.index') }}">Chart of Account</a>
+        </li>
         <li class="breadcrumb-item active">Edit Akun</li>
     @endpush
 @section('content')
