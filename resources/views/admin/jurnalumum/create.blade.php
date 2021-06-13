@@ -90,7 +90,7 @@
                                         <button type="button" id="add"
                                             class="btn btn-success my-2"
                                             style="width: 100%; height: 40px">
-                                            <i class="ik ik-plus"></i>
+                                            <i data-feather="plus"></i>
                                             Tambah Row Baru
                                         </button>
                                         <table class="table table-borderless col-sm-6 ml-auto">
@@ -128,6 +128,9 @@
     </div>
 @endsection
 
+@push('select2')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+@endpush
 @push('head')
     <style>
         .select2 {
@@ -138,6 +141,8 @@
 
 @push('script')
     <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
 
@@ -206,7 +211,7 @@
                     <td>
                         <button type="button" name="remove" 
                             class="btn btn-danger text-white btn_remove">
-                            <i class="ik ik-trash-2"></i>
+                            <i data-feather="trash-2"></i>
                         </button>
                     </td></tr>
                 `
