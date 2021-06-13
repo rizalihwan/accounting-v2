@@ -35,11 +35,6 @@ Route::middleware('auth')->group(function () {
             Route::view('unit', 'admin.unit.index')->name('unit.index');
             // Produk
             Route::resource('product', 'ProductController');
-        });
-
-        Route::prefix('ledger')->group(function () {
-            Route::view('/', 'menu')->name('ledger');
-
             // Akun
             Route::resource('akun', 'AkunController');
             // Subklasifikasi
@@ -48,6 +43,10 @@ Route::middleware('auth')->group(function () {
             Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
             // Bank
             Route::resource('bank', 'BankController');
+        });
+
+        Route::prefix('ledger')->group(function () {
+            Route::view('/', 'menu')->name('ledger');
 
             // Buku Besar
             Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
