@@ -71,7 +71,7 @@ class JurnalUmumController extends Controller
                     'tanggal' => $request->tanggal,
                     'kontak_id' => $request->kontak_id,
                     'uraian' => $request->uraian,
-                    'status' => $request->status,
+                    'status' => 1,
                     'akun_id' => $request->jurnals[$i]['akun_id'],
                     'debit' => $request->jurnals[$i]['debit'],
                     'kredit' => $request->jurnals[$i]['kredit']
@@ -139,13 +139,7 @@ class JurnalUmumController extends Controller
      */
     public function destroy($id)
     {
-        $jurnal = Jurnalumum::findOrFail($id);
-        $selectKode = Jurnalumum::distinct()->pluck('kode_jurnal');
-        try {
-            Jurnalumum::whereIn($jurnal->kode_jurnal, $selectKode)->delete();
-        } catch (\Exception $e) {
-            return back()->with('error', 'Jurnal tidak Terhapus!' . $e->getMessage());
-        }
+        Jurnalumum::findOrFail($id)->delete();
         return back()->with('success', 'Jurnal Umum berhasil Dihapus');
     }
 

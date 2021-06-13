@@ -23,7 +23,6 @@
                         <form class="forms-sample" action="{{ route('admin.jurnalumum.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="kode_jurnal" value="{{ $kode }}">
-                            <input type="hidden" name="status" value="1">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="form-group">
