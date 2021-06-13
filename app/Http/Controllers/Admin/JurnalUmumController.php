@@ -35,7 +35,12 @@ class JurnalUmumController extends Controller
 
     public function index()
     {
-        return view('admin.jurnalumum.index');
+        $selectKode = Jurnalumum::distinct()->pluck('kode_jurnal');
+        $data = Jurnalumum::whereIn('kode_jurnal', $selectKode)->groupBy('kode_jurnal');
+        return view('admin.jurnalumum.index', [
+            'data' => $data->get(),
+            'countJurnal' => $data->count()
+        ]);
     }
 
     /**
@@ -58,8 +63,25 @@ class JurnalUmumController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->except('_token'));
-        
+        // dd($request->except('_token'));
+        $arrReq = count($request->jurnals);
+        for($i = 0; $i < $arrReq; $i++){
+            try {
+                Jurnalumum::create([
+                    'kode_jurnal' => $request->kode_jurnal,
+                    'tanggal' => $request->tanggal,
+                    'kontak_id' => $request->kontak_id,
+                    'uraian' => $request->uraian,
+                    'status' => $request->status,
+                    'akun_id' => $request->jurnals[$i]['akun_id'],
+                    'debit' => $request->jurnals[$i]['debit'],
+                    'kredit' => $request->jurnals[$i]['kredit']
+                ]);
+            } catch(\Exception $e) {
+                return back()->with('error','Jurnal tidak Tersimpan!' . $e->getMessage());
+            }
+        }
+        return back()->with('success','Jurnal Umum berhasil Tersimpan');
     }
 
     /**
@@ -104,7 +126,14 @@ class JurnalUmumController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jurnal = Jurnalumum::findOrFail($id);
+        $selectKode = Jurnalumum::distinct()->pluck('kode_jurnal');
+        try {
+            Jurnalumum::whereIn($jurnal->kode_jurnal, $selectKode)->delete();
+        } catch(\Exception $e) {
+            return back()->with('error','Jurnal tidak Terhapus!' . $e->getMessage());
+        }
+        return back()->with('success','Jurnal Umum berhasil Dihapus');
     }
 
     // API

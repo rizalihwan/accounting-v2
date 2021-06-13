@@ -20,8 +20,8 @@ class CreateJurnalumumsTable extends Migration
             $table->foreignId('kontak_id')->constrained();
             $table->string('uraian');
             $table->foreignId('akun_id')->constrained();
-            $table->integer('debit');
-            $table->integer('kredit');
+            $table->bigInteger('debit');
+            $table->bigInteger('kredit');
             $table->boolean('status');
             $table->timestamps();
         });

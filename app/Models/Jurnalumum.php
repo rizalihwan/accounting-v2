@@ -10,4 +10,19 @@ class Jurnalumum extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function kontak()
+    {
+        return $this->belongsTo(Kontak::class);
+    }
+
+    public function akun()
+    {
+        return $this->belongsTo(Akun::class);
+    }
+
+    public function getStatusTypeAttribute()
+    {
+        return $this->status == 1 ? '<span class="badge badge-success">Approve</span>' : '<span class="badge badge-danger">Not Approve</span>';
+    }
 }

@@ -20,4 +20,9 @@ class Kontak extends Model
     {
         return $this->hasMany(Bkk::class);
     }
+    
+    public function jurnalumums()
+    {
+        return $this->hasMany(Jurnalumum::class);
+    }
 }
