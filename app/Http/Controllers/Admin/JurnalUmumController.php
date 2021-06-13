@@ -15,8 +15,7 @@ class JurnalUmumController extends Controller
     public function __construct()
     {
         $number = Jurnalumum::count();
-        if($number > 0)
-        {
+        if ($number > 0) {
             $number = Jurnalumum::max('kode_jurnal');
             $strnum = substr($number, 2, 3);
             $strnum = $strnum + 1;
@@ -65,7 +64,7 @@ class JurnalUmumController extends Controller
     {
         // dd($request->except('_token'));
         $arrReq = count($request->jurnals);
-        for($i = 0; $i < $arrReq; $i++){
+        for ($i = 0; $i < $arrReq; $i++) {
             try {
                 Jurnalumum::create([
                     'kode_jurnal' => $request->kode_jurnal,
@@ -77,11 +76,11 @@ class JurnalUmumController extends Controller
                     'debit' => $request->jurnals[$i]['debit'],
                     'kredit' => $request->jurnals[$i]['kredit']
                 ]);
-            } catch(\Exception $e) {
-                return back()->with('error','Jurnal tidak Tersimpan!' . $e->getMessage());
+            } catch (\Exception $e) {
+                return back()->with('error', 'Jurnal tidak Tersimpan!' . $e->getMessage());
             }
         }
-        return back()->with('success','Jurnal Umum berhasil Tersimpan');
+        return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil Tersimpan');
     }
 
     /**
@@ -103,7 +102,21 @@ class JurnalUmumController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (empty(Jurnalumum::find($id))) {
+            return redirect()->route('admin.jurnalumum.index')->with('error', 'Data tidak ditemukan');
+        }
+
+        $selectKode = Jurnalumum::where('id', $id)->distinct()->pluck('kode_jurnal');
+        $jurnal = Jurnalumum::whereIn('kode_jurnal', $selectKode)
+            ->select('id', 'tanggal', 'kode_jurnal', 'kontak_id', 'uraian')
+            ->groupBy('kode_jurnal')->first();
+        $jurnals = Jurnalumum::where('kode_jurnal', $selectKode)
+            ->select('id', 'akun_id', 'debit', 'kredit', 'status')
+            ->get();
+
+        dd($selectKode, $jurnal, $jurnals);
+
+        return view('admin.jurnalumum.edit', compact('jurnal', 'jurnals'));
     }
 
     /**
@@ -130,10 +143,10 @@ class JurnalUmumController extends Controller
         $selectKode = Jurnalumum::distinct()->pluck('kode_jurnal');
         try {
             Jurnalumum::whereIn($jurnal->kode_jurnal, $selectKode)->delete();
-        } catch(\Exception $e) {
-            return back()->with('error','Jurnal tidak Terhapus!' . $e->getMessage());
+        } catch (\Exception $e) {
+            return back()->with('error', 'Jurnal tidak Terhapus!' . $e->getMessage());
         }
-        return back()->with('success','Jurnal Umum berhasil Dihapus');
+        return back()->with('success', 'Jurnal Umum berhasil Dihapus');
     }
 
     // API
