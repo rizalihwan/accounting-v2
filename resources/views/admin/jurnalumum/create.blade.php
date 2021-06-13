@@ -1,8 +1,10 @@
 @extends('_layouts.main')
 @section('title', 'Jurnal Umum')
     @push('breadcrumb')
-        <li class="breadcrumb-item">Jurnal Umum</li>
-        <li class="breadcrumb-item active">Buat Jurnal Umum</li>
+    <li class="breadcrumb-item">
+        <a href="{{ route('admin.jurnalumum.index') }}">Jurnal Umum</a>
+    </li>
+    <li class="breadcrumb-item" aria-current="page">Buat Jurnal Umum</li>
     @endpush
 @section('content')
     <div class="container-fluid">
@@ -14,12 +16,14 @@
                             <h3>Tambah Jurnal Umum</h3>
                         </div>
                         <div>
-                            No. Jurnal : <strong>JU000043</strong>
+                            No. Jurnal : <strong>{{ $kode }}</strong>
                         </div>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" action="{{ route('admin.jurnalumum.store') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="kode_jurnal" value="{{ $kode }}">
+                            <input type="hidden" name="status" value="1">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="form-group">
@@ -208,7 +212,7 @@
                     <td>
                         <button type="button" name="remove" 
                             class="btn btn-danger text-white btn_remove">
-                            <i data-feather="trash-2"></i>
+                            <i class="fa fa-trash"></i>
                         </button>
                     </td></tr>
                 `
