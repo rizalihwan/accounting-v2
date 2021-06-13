@@ -26,7 +26,8 @@
                     </li>
                 </ul>
             </div>
-            <form class="form form-horizontal" action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+            <form class="form form-horizontal" action="{{ route('admin.product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
