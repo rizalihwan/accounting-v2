@@ -134,8 +134,13 @@ class AkunController extends Controller
      */
     public function destroy($id)
     {
+        $akun = Akun::findOrFail($id);
         try{
-            Akun::findOrFail($id)->delete();
+            if($akun->jurnalumums())
+            {
+                $akun->jurnalumums()->delete();
+            }
+            $akun->delete();
         }catch(\Exception $e){
             return back()->with('error', 'Data Gagal Dihapus'.$e->getMessage());
         }
