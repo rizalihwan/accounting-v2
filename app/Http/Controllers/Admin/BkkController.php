@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bkk;
+use App\Models\Akun;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,8 +19,7 @@ class BkkController extends Controller
      */
     public function index()
     {
-        $indeks = DB::table('bkks')->where('status','BKK')
-                                    ->get();
+        $indeks = BKK::where('status','BKK')->get();
         $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
         return view('admin.bkk.index',compact('indeks','row'));
     }
@@ -31,7 +31,7 @@ class BkkController extends Controller
      */
     public function create()
     {
-        $rekening = DB::table('rekenings')->get();
+        $rekening = Akun::get();
         $kontak = DB::table('kontaks')->get();
         return view('admin.bkk.create',compact('rekening','kontak'));
     }

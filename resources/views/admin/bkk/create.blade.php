@@ -53,7 +53,7 @@
                                       <label for="kontak">Rek.Kas/Bank[K]</label>
                                       <select name="rek" id="rek" class="form-control">
                                           @foreach ($rekening as $item)
-                                          <option value="{{$item->id}}">{{$item->nomor}}-{{$item->nama}}</option>
+                                          <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
                                           @endforeach
                                       </select>
                                   </div>
@@ -73,7 +73,7 @@
                                                   <label for="itemname">no rek</label>
                                                   <select name="rekening" id="rekening" class="form-control">
                                                       @foreach ($rekening as $item)
-                                                      <option value="{{$item->id}}">{{$item->nomor}}-{{$item->nama}}</option>
+                                                      <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
                                                       @endforeach
                                                   </select>
                                               </div>
@@ -97,7 +97,10 @@
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <label for="matauang">uang</label>
-                                                  <input type="text" class="form-control" id="matauang" placeholder="1" name="matauang" />
+                                                  <select name="matauang" id="matauang" class="form-control">
+                                                    <option value="RP">RP</option>
+                                                    <option value="USD">USD</option>
+                                                  </select>
                                               </div>
                                           </div>
 
