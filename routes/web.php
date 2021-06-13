@@ -19,14 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', 'AuthController@logout')->name('logout');
 
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
-        // Bkk
-        Route::resource('bkk', 'BkkController')->except('calculateResult');
-        Route::get('calculate/', 'BkkController@calculateResult')->name('bkk.calculate');
-        // Bkm
-        Route::resource('bkm', 'BkmController');
-
-
-
         Route::prefix('data-store')->group(function () {
             Route::view('/', 'menu')->name('data-store');
 
@@ -72,6 +64,12 @@ Route::middleware('auth')->group(function () {
         });
         Route::prefix('cash-bank')->group(function () {
             Route::view('/', 'menu')->name('cash-bank');
+            
+            // Bkk
+            Route::resource('bkk', 'BkkController')->except('calculateResult');
+            Route::get('calculate/', 'BkkController@calculateResult')->name('bkk.calculate');
+            // Bkm
+            Route::resource('bkm', 'BkmController');
         });
 
         Route::prefix('inventory')->group(function () {
