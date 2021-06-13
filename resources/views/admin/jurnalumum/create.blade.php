@@ -39,7 +39,10 @@
                                         <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
                                         <select name="kontak_id" id="kontak_id"
                                             class="form-control select2 @error('kontak_id') is-invalid @enderror">
-                                            <option value="" selected>Pilih Kontak</option>
+                                            <option disabled selected>-- Pilih Kontak --</option>
+                                            @foreach ($contacts as $contact)
+                                                <option value="{{ $contact->id }}">{{ $contact->nama }}</option>
+                                            @endforeach
                                         </select>
                                         <div class="help-block with-errors"></div>
                                         @error('kontak_id')
@@ -49,7 +52,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-3 mt-2">
+                                <div class="col-sm-3" style="margin-top: 8px">
                                     <div class="form-group"></div>
                                     <div class="form-group">
                                         <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger"> <i
@@ -206,7 +209,7 @@
                     <td>
                         <button type="button" name="remove" 
                             class="btn btn-danger text-white btn_remove">
-                            <i class="ik ik-trash-2"></i>
+                            <i class="fa fa-trash"></i>
                         </button>
                     </td></tr>
                 `
@@ -301,13 +304,13 @@
             $("#total_kredit").text(total_kredit)
             $("#difference").text(difference)
 
-            if (difference === 0) {
-                $("#btn-submit").attr('disabled', false)
-                $("#btn-submit").attr('hidden', false)
-            } else {
-                $("#btn-submit").attr('disabled', true)
-                $("#btn-submit").attr('hidden', true)
-            }
+            // if (difference === 0) {
+            //     $("#btn-submit").attr('disabled', false)
+            //     $("#btn-submit").attr('hidden', false)
+            // } else {
+            //     $("#btn-submit").attr('disabled', true)
+            //     $("#btn-submit").attr('hidden', true)
+            // }
         }
     </script>
 @endpush
