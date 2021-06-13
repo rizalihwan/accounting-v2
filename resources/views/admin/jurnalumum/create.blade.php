@@ -14,12 +14,13 @@
                             <h3>Tambah Jurnal Umum</h3>
                         </div>
                         <div>
-                            No. Jurnal : <strong>JU000043</strong>
+                            No. Jurnal : <strong>{{ $kode }}</strong>
                         </div>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" action="{{ route('admin.jurnalumum.store') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="kode_jurnal" value="{{ $kode }}">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="form-group">
@@ -208,7 +209,7 @@
                     <td>
                         <button type="button" name="remove" 
                             class="btn btn-danger text-white btn_remove">
-                            <i data-feather="trash-2"></i>
+                            <i class="fa fa-trash"></i>
                         </button>
                     </td></tr>
                 `

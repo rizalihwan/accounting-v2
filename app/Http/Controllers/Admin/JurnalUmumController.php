@@ -4,16 +4,35 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Akun;
+use App\Models\Jurnalumum;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
 
 class JurnalUmumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $kode;
+
+    public function __construct()
+    {
+        $number = Jurnalumum::count();
+        if($number > 0)
+        {
+            $number = Jurnalumum::max('kode_jurnal');
+            $strnum = substr($number, 2, 3);
+            $strnum = $strnum + 1;
+            if (strlen($strnum) == 3) {
+                $kode = 'JU' . $strnum;
+            } else if (strlen($strnum) == 2) {
+                $kode = 'JU' . "0" . $strnum;
+            } else if (strlen($strnum) == 1) {
+                $kode = 'JU' . "00" . $strnum;
+            }
+        } else {
+            $kode = 'JU' . "001";
+        }
+        $this->kode = $kode;
+    }
+
     public function index()
     {
         return view('admin.jurnalumum.index');
@@ -26,7 +45,9 @@ class JurnalUmumController extends Controller
      */
     public function create()
     {
-        return view('admin.jurnalumum.create');
+        return view('admin.jurnalumum.create', [
+            'kode' => $this->kode
+        ]);
     }
 
     /**
@@ -38,6 +59,7 @@ class JurnalUmumController extends Controller
     public function store(Request $request)
     {
         dd($request->except('_token'));
+        
     }
 
     /**

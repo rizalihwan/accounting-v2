@@ -16,11 +16,13 @@ class CreateJurnalumumsTable extends Migration
         Schema::create('jurnalumums', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
+            $table->string('kode_jurnal');
             $table->foreignId('kontak_id')->constrained();
             $table->string('uraian');
             $table->foreignId('akun_id')->constrained();
             $table->integer('debit');
             $table->integer('kredit');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
