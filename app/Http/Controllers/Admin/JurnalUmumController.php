@@ -26,9 +26,7 @@ class JurnalUmumController extends Controller
      */
     public function create()
     {
-        return view('admin.jurnalumum.create', [
-            'contacts' => Kontak::orderBy('nama', 'ASC')->get()
-        ]);
+        return view('admin.jurnalumum.create');
     }
 
     /**
