@@ -59,8 +59,8 @@
                                 <div class="col-sm-3" style="margin-top: 8px">
                                     <div class="form-group"></div>
                                     <div class="form-group">
-                                        <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger"> <i
-                                            class="fa fa-plus"></i>
+                                        <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
+                                            <i data-feather="plus"></i>
                                             TAMBAH KONTAK
                                         </a>
                                     </div>
@@ -85,23 +85,24 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="table-responsive">
-                                        <table class="table table-borderless">
+                                        <table class="table table-borderless mt-2">
                                             <thead>
-                                                <td>Akun</td>
-                                                <td>Debit</td>
-                                                <td>Kredit</td>
-                                                <td style="width: 1px"></td>
+                                                <tr class="rowHead">
+                                                    <td>Akun</td>
+                                                    <td>Debit</td>
+                                                    <td>Kredit</td>
+                                                    <td style="width: 1px"></td>
+                                                </tr>
                                             </thead>
                                             <tbody id="dynamic_field"></tbody>
                                         </table>
                                         <button type="button" id="add"
                                             class="btn btn-success my-2"
-                                            style="width: 100%; height: 40px">
+                                            style="width: 100%; height: 50px">
                                             <i data-feather="plus"></i>
                                             Tambah Row Baru
                                         </button>
-                                        <table class="table table-borderless col-sm-6 ml-auto">
-                                            <hr class="col-sm-6 ml-auto">
+                                        <table class="table table-borderless col-sm-6 ml-auto border-top">
                                             <tbody>
                                                 <tr>
                                                     <th style="width: 180px">Total</th>
@@ -116,9 +117,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <hr>
                                 </div>
                             </div>
+
+                            <hr>
 
                             <div class="col-md-12 mt-4">
                                 <div class="form-group">
@@ -142,6 +144,15 @@
     <style>
         .select2 {
             width: 100%!important;
+        }
+        .rowComponent td{
+            padding: 0px 8px 16px 0 !important
+        }
+        .rowHead td{
+            padding: 0px 8px 16px 0 !important
+        }
+        .rowComponent td .form-control{
+            border-radius:0px !important;
         }
     </style>
 @endpush
@@ -206,21 +217,17 @@
                     <td>
                         <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)">
                     </td>
-            `
-            if (index >= 1) {
-                html += `
                     <td>
                         <button type="button" name="remove" 
-                            class="btn btn-danger text-white btn_remove">
-                            <i class="fa fa-trash"></i>
+                            class="btn btn-danger btn-sm text-white btn_remove">
+                            <i data-feather="trash-2"></i>
                         </button>
-                    </td></tr>
-                `
-                $("#dynamic_field").append(html)
-            } else {
-                $("#dynamic_field").append(html)
-            }
+                    </td>
+                </tr>
+            `
+            $("#dynamic_field").append(html)
             jurnalEachColumn(index)
+            feather.replace()
         }
         field_dinamis()
         $(document).ready(function(){
