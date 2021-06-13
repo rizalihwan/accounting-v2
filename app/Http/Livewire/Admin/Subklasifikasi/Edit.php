@@ -40,7 +40,7 @@ class Edit extends Component
             $this->emit('error', 'Data gagal diedit');
         }
 
+        $this->reset(['isOpen', 'subklasifikasi']);
         $this->emit('refresh', 'Data berhasil diedit');
-        $this->reset('isOpen');
     }
 }
