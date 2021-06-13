@@ -15,5 +15,15 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Kontak::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
     
 }

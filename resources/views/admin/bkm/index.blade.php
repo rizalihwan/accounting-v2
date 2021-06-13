@@ -1,8 +1,10 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Masuk')
 @push('breadcrumb')
-    <li class="breadcrumb-item active">Cash & Bank</li>
-    <li class="breadcrumb-item active">Income</li>
+    <li class="breadcrumb-item">
+        <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Income</li>
 @endpush
 @section('content')
     <div class="container-fluid">

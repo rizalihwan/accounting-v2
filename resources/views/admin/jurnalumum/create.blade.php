@@ -39,7 +39,10 @@
                                         <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
                                         <select name="kontak_id" id="kontak_id"
                                             class="form-control select2 @error('kontak_id') is-invalid @enderror">
-                                            <option value="" selected>Pilih Kontak</option>
+                                            <option disabled selected>-- Pilih Kontak --</option>
+                                            {{-- @foreach ($contacts as $contact)
+                                                <option value="{{ $contact->id }}">{{ $contact->nama }}</option>
+                                            @endforeach --}}
                                         </select>
                                         <div class="help-block with-errors"></div>
                                         @error('kontak_id')
@@ -49,7 +52,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-3 mt-2">
+                                <div class="col-sm-3" style="margin-top: 8px">
                                     <div class="form-group"></div>
                                     <div class="form-group">
                                         <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger"> <i
@@ -90,7 +93,7 @@
                                         <button type="button" id="add"
                                             class="btn btn-success my-2"
                                             style="width: 100%; height: 40px">
-                                            <i class="ik ik-plus"></i>
+                                            <i data-feather="plus"></i>
                                             Tambah Row Baru
                                         </button>
                                         <table class="table table-borderless col-sm-6 ml-auto">
@@ -128,6 +131,9 @@
     </div>
 @endsection
 
+@push('select2')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+@endpush
 @push('head')
     <style>
         .select2 {
@@ -138,9 +144,10 @@
 
 @push('script')
     <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
-
         $(document).ready(function() {
             $("#kontak_id").select2({
                 placeholder: "Pilih Kontak",
@@ -166,22 +173,17 @@
                 }
             })
         });
-
         async function jurnalEachColumn(index) {
             let fetchData = await fetch(`{{ route('api.select2.get-akun') }}`)
             let response = JSON.parse(await fetchData.text())
-
             let $select2 = $('select[name="jurnals['+index+'][akun_id]"]').select2({
                 placeholder: "Pilih Akun"
             }).empty()
-
             $select2.append($("<option></option>").attr("value", '').text('Choose Type'))
-
             $.each(response, function(key, data){
                 $select2.append($("<option></option>").attr("value", data.id).text(data.name))
             })
         }
-
         function field_dinamis() {
             let index = $('#dynamic_field tr').length
             let uuid = generateUUID()
@@ -206,7 +208,7 @@
                     <td>
                         <button type="button" name="remove" 
                             class="btn btn-danger text-white btn_remove">
-                            <i class="ik ik-trash-2"></i>
+                            <i data-feather="trash-2"></i>
                         </button>
                     </td></tr>
                 `
@@ -214,39 +216,30 @@
             } else {
                 $("#dynamic_field").append(html)
             }
-
             jurnalEachColumn(index)
         }
-
         field_dinamis()
-
         $(document).ready(function(){
             getNumberOfTr()
-
             $('#add').click(function(){
                 field_dinamis()
             })
-
             $(document).on('click', '.btn_remove', function() {
                 let parent = $(this).parent()
                 let id = parent.data('id')
-
                 let delete_data = $("input[name='delete_data']").val()
                 if(id !== 'undefined' && id !== undefined) {
                     $("input[name='delete_data']").val(delete_data + ';' + id)
                 }
-
                 $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
                 getNumberOfTr()
             })
         })
-
         function getNumberOfTr() {
             $('#dynamic_field tr').each(function(index, tr) {
                 $(this).find("td.no input").val(index + 1)
             })
         }
-
         function generateUUID() {
             var d = new Date().getTime();
             var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
@@ -259,11 +252,9 @@
                     r = (d2 + r)%16 | 0;
                     d2 = Math.floor(d2/16);
                 }
-
                 return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
             });
         }
-
         function onlyNumber(evt){
             let charCode = (evt.which) ? evt.which : evt.keyCode
             if (charCode > 32 && (charCode < 48 || charCode > 57)) {
@@ -271,23 +262,18 @@
             }
             return true
         }
-
         function jumlahin() {
             let total_debit = 0
             let total_kredit = 0
             let difference = 0
-
             let cols_debit = document.querySelectorAll('.debit')
             let cols_kredit = document.querySelectorAll('.kredit')
-
             for (let i = 0; i < cols_debit.length; i++) {
                 let e_debit = cols_debit[i]
                 let e_kredit = cols_kredit[i]
-
                 total_debit += e_debit.value == "" ? 0 : parseInt(e_debit.value)
                 total_kredit += e_kredit.value == "" ? 0 : parseInt(e_kredit.value)
             }
-
             if (total_debit > total_kredit) {
                 difference = total_kredit - total_debit
             } else if (total_debit < total_kredit) {
@@ -295,12 +281,9 @@
             } else {
                 difference = 0
             }
-
-
             $("#total_debit").text(total_debit)
             $("#total_kredit").text(total_kredit)
             $("#difference").text(difference)
-
             if (difference === 0) {
                 $("#btn-submit").attr('disabled', false)
                 $("#btn-submit").attr('hidden', false)

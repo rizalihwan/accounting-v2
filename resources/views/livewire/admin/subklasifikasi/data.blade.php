@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-
-        @livewire('admin.subklasifikasi.edit')
     </div>
+
+    @livewire('admin.subklasifikasi.edit')
 </div>
