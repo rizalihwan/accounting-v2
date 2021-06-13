@@ -66,10 +66,9 @@ class Data extends Component
     {
         try {
             $subklasifikasi->delete();
+            $this->refresh('Data berhasil dihapus');
         } catch (\Throwable $th) {
             $this->error('Data gagal dihapus');
         }
-
-        $this->refresh('Data berhasil dihapus');
     }
 }

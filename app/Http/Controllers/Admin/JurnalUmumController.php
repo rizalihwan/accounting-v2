@@ -101,9 +101,10 @@ class JurnalUmumController extends Controller
         $result = [];
 
         foreach ($contacts as $kontak) {
+            $nik = empty($kontak->nik) ? ' - ' : $kontak->nik;
             $result[] = [
                 "id" => $kontak->id,
-                "text" => "{$kontak->nama} ({$kontak->nik})",
+                "text" => "{$kontak->nama} ({$nik})",
                 "nama" => $kontak->nama,
                 "email" => $kontak->email,
                 "telepon" => $kontak->telepon
