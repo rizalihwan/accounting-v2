@@ -35,7 +35,7 @@ class Edit extends Component
         ]));
 
         try {
-            $this->category->save();
+            $this->subklasifikasi->save();
         } catch (\Throwable $th) {
             $this->emit('error', 'Data gagal diedit');
         }
