@@ -51,7 +51,7 @@
                                 @foreach ($show->uraians as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->rekening->name}} - {{$item->subklasifikasi->name}}</td>
+                                    <td>{{$item->rekening->name}} - {{$item->rekening->subklasifikasi->name}}</td>
                                     <td>{{$item->jml_uang}}</td>
                                     <td>{{$item->catatan}}</td>
                                     <td>{{$item->uang}}</td>
