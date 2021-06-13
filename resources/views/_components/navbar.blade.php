@@ -9,9 +9,9 @@
     </div>
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
-            {{-- <ul class="nav navbar-nav d-xl-none">
+            <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a></li>
-            </ul> --}}
+            </ul>
             {{-- <ul class="nav navbar-nav bookmark-icons">
                 <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-email.html" data-toggle="tooltip" data-placement="top" title="Email"><i class="ficon" data-feather="mail"></i></a></li>
                 <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-toggle="tooltip" data-placement="top" title="Chat"><i class="ficon" data-feather="message-square"></i></a></li>
@@ -359,46 +359,46 @@
                             <span data-i18n="Dashboard">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/data-store') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/data-store*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.data-store') }}">
                             <i data-feather="grid"></i>
                             <span data-i18n="Data Store">Data Master</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/ledger') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/ledger*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.ledger') }}">
                             <i data-feather="book-open"></i>
                             <span data-i18n="Ledger">Jurnal</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/sales') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/sales*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.sales') }}">
                             <i data-feather="shopping-cart"></i>
                             <span data-i18n="Sales">Penjualan</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/purchase') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/purchase*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.purchase') }}">
                             <i data-feather="shopping-bag"></i>
                             <span data-i18n="Purchase">Pembelian</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/cash-bank') ? 'active' : '' }}{{ request()->is('admin/bkk') ? 'active' : '' }}{{ request()->is('admin/bkk/create') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/cash-bank*') ? 'active' : '' }}{{ request()->is('admin/bkk') ? 'active' : '' }}{{ request()->is('admin/bkk/create') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.cash-bank') }}">
                             <i data-feather="credit-card"></i>
                             <span data-i18n="Card & Bank">Kas & Bank</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/inventory') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/inventory*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.inventory') }}">
                             <i data-feather="box"></i>
                             <span data-i18n="Inventory">Persediaan Barang</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/report') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('admin/report*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.report') }}">
                             <i data-feather="file"></i>
-                            <span data-i18n="Report">Laporan</span>
+                            <span data-i18n="Report">Report</span>
                         </a>
                     </li>
                     

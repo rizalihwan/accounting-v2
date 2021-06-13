@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Divisi;
+namespace App\Http\Livewire\Admin\Subklasifikasi;
 
-use App\Models\Divisi;
+use App\Models\Subklasifikasi;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,20 +10,19 @@ class Data extends Component
 {
     use WithPagination;
 
-    public $search = null;
-
     protected $paginationTheme = 'bootstrap';
     protected $listeners = [
         'refresh', 'error', 'delete'
     ];
 
-    public function render(Divisi $divitions)
+    public $search = null;
+
+    public function render()
     {
-        $divitions = $divitions->where('nama', 'like', "%{$this->search}%")
-            ->orWhere('kode', 'like', "%{$this->search}%")
+        $subklasifikasi = Subklasifikasi::where('name', 'like', "%{$this->search}%")
             ->latest()->paginate(5);
 
-        return view('livewire.admin.divisi.data', compact('divitions'));
+        return view('livewire.admin.subklasifikasi.data', compact('subklasifikasi'));
     }
 
     public function updatingSearch()
@@ -63,10 +62,13 @@ class Data extends Component
         ]);
     }
 
-    public function delete(Divisi $divisi)
+    public function delete(Subklasifikasi $subklasifikasi)
     {
-        $divisi->delete();
-
-        $this->refresh('Data berhasil dihapus');
+        try {
+            $subklasifikasi->delete();
+            $this->refresh('Data berhasil dihapus');
+        } catch (\Throwable $th) {
+            $this->error('Data gagal dihapus');
+        }
     }
 }

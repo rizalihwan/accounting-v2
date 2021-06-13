@@ -1,9 +1,13 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Keluar')
 @push('breadcrumb')
-    <li class="breadcrumb-item active">Cash & Bank</li>
-    <li class="breadcrumb-item active">Expanse</li>
-    <li class="breadcrumb-item active">Create</li>
+    <li class="breadcrumb-item">
+        <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="{{ route('admin.bkk.index') }}">Expanse</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Create</li>
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -53,7 +57,7 @@
                                       <label for="kontak">Rek.Kas/Bank[K]</label>
                                       <select name="rek" id="rek" class="form-control">
                                           @foreach ($rekening as $item)
-                                          <option value="{{$item->id}}">{{$item->nomor}}-{{$item->nama}}</option>
+                                          <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
                                           @endforeach
                                       </select>
                                   </div>
@@ -73,7 +77,7 @@
                                                   <label for="itemname">no rek</label>
                                                   <select name="rekening" id="rekening" class="form-control">
                                                       @foreach ($rekening as $item)
-                                                      <option value="{{$item->id}}">{{$item->nomor}}-{{$item->nama}}</option>
+                                                      <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
                                                       @endforeach
                                                   </select>
                                               </div>
@@ -97,7 +101,10 @@
                                           <div class="col-md-2 col-12">
                                               <div class="form-group">
                                                   <label for="matauang">uang</label>
-                                                  <input type="text" class="form-control" id="matauang" placeholder="1" name="matauang" />
+                                                  <select name="matauang" id="matauang" class="form-control">
+                                                    <option value="RP">RP</option>
+                                                    <option value="USD">USD</option>
+                                                  </select>
                                               </div>
                                           </div>
 

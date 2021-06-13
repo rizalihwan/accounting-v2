@@ -1,32 +1,11 @@
 @extends('_layouts.main')
 @section('title', 'Jurnal Umum')
+    @push('breadcrumb')
+        <li class="breadcrumb-item">Jurnal Umum</li>
+        <li class="breadcrumb-item active">Buat Jurnal Umum</li>
+    @endpush
 @section('content')
     <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-user-plus bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>Jurnal Umum</h5>
-                            <span>Form tambah jurnal umum</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.jurnalumum.create') }}">Tambah Jurnal Umum</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
@@ -111,7 +90,7 @@
                                         <button type="button" id="add"
                                             class="btn btn-success my-2"
                                             style="width: 100%; height: 40px">
-                                            <i class="ik ik-plus"></i>
+                                            <i data-feather="plus"></i>
                                             Tambah Row Baru
                                         </button>
                                         <table class="table table-borderless col-sm-6 ml-auto">
@@ -149,6 +128,9 @@
     </div>
 @endsection
 
+@push('select2')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+@endpush
 @push('head')
     <style>
         .select2 {
@@ -159,6 +141,8 @@
 
 @push('script')
     <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
 
@@ -227,7 +211,7 @@
                     <td>
                         <button type="button" name="remove" 
                             class="btn btn-danger text-white btn_remove">
-                            <i class="ik ik-trash-2"></i>
+                            <i data-feather="trash-2"></i>
                         </button>
                     </td></tr>
                 `
