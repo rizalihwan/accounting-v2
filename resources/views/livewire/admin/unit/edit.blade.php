@@ -38,16 +38,16 @@
                                 <div class="form-group">
                                     <div class="demo-inline-spacing">
                                         <div class="custom-control custom-control-primary custom-radio">
-                                            <input type="radio" id="status1" wire:model="unit.status" 
+                                            <input type="radio" id="status1-edit" wire:model="unit.status" 
                                                 name="status" class="custom-control-input" value="1"
                                                 {{ $unit->status == '1' ? 'checked' : '' }} />
-                                            <label class="custom-control-label" for="status1">Active</label>
+                                            <label class="custom-control-label" for="status1-edit">Active</label>
                                             </div>
                                             <div class="custom-control custom-control-primary custom-radio">
-                                            <input type="radio" id="status2" wire:model="unit.status"
+                                            <input type="radio" id="status2-edit" wire:model="unit.status"
                                                 name="status" class="custom-control-input" value="0"
                                                 {{ $unit->status == '0' ? 'checked' : '' }} />
-                                            <label class="custom-control-label" for="status2">Non active</label>
+                                            <label class="custom-control-label" for="status2-edit">Non active</label>
                                         </div>
                                     </div>
                                 </div>

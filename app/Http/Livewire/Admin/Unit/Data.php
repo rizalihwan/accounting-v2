@@ -20,9 +20,11 @@ class Data extends Component
     public function render()
     {
         $search = $this->search;
-        $units = Unit::where('name', 'like', "%{$search}%")->latest()->paginate(5);
+        $unit = Unit::where('name', 'like', "%{$search}%")->latest();
+        $totalUnit = $unit->count();
+        $units = $unit->paginate(5);
 
-        return view('livewire.admin.unit.data', compact('units'));
+        return view('livewire.admin.unit.data', compact('units', 'unit', 'totalUnit'));
     }
 
     public function updatingSearch()
