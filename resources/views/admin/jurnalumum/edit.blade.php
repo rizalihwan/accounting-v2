@@ -123,7 +123,7 @@
                                 <div class="form-group">
                                     <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
                                     <button type="submit" class="btn btn-primary" id="btn-submit">
-                                        TAMBAH</button>
+                                        UPDATE</button>
                                 </div>
                             </div>
                         </form>
