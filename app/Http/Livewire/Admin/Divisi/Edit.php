@@ -36,9 +36,13 @@ class Edit extends Component
             'divisi.nama' => 'required'
         ]));
 
-        $this->divisi->save();
+        try {
+            $this->divisi->save();
+        } catch (\Throwable $th) {
+            $this->emit('error', 'Data gagal diedit');
+        }
 
+        $this->reset(['isOpen', 'divisi']);
         $this->emit('refresh', 'Data berhasil diedit');
-        $this->reset('isOpen');
     }
 }
