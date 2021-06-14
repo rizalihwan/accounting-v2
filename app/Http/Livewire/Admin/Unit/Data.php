@@ -66,11 +66,9 @@ class Data extends Component
     {
         try {
             $unit->delete();
-
-            $this->search = '';
-            $this->refresh("Data berhasil dihapus");
+            $this->refresh('Data berhasil dihapus');
         } catch (\Throwable $th) {
-            $this->error("Data gagal dihapus");
+            $this->error('Data gagal dihapus');
         }
     }
 }

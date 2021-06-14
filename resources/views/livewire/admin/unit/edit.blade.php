@@ -119,7 +119,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" data-dismiss="modal" class="btn btn-primary" style="width: 100px">
+                                <button type="submit" data-dismiss="modal" class="btn btn-primary" style="width: 100px"
+                                    wire:loading.attr="disabled" wire:target="update">
                                     <span wire:loading.remove wire:target="update">Save</span>
                                     <span wire:loading wire:target="update" class="mx-auto">
                                         <div class="spinner-border spinner-border-sm" role="status">

@@ -49,7 +49,8 @@
                         </div>
                     </div>
                     <div class="col-sm-9 offset-sm-3">
-                        <button type="submit" class="btn btn-primary" style="width: 100px">
+                        <button type="submit" class="btn btn-primary" style="width: 100px"
+                            wire:loading.attr="disabled" wire:target="store">
                             <span wire:loading.remove wire:target="store">Submit</span>
                             <span wire:loading wire:target="store" class="mx-auto">
                                 <div class="spinner-border spinner-border-sm" role="status">
