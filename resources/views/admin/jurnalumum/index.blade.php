@@ -53,11 +53,11 @@
                                                             <span class="ml-1">Edit</span>
                                                         </a>
                                                         <a href="javascript:void('delete')" class="dropdown-item text-danger" 
-                                                            onclick="deleteConfirm('form-delete', '{{ $key->id }}')">
+                                                            onclick="deleteConfirm('form-delete', '{{ $key->kode_jurnal }}')">
                                                             <i data-feather="trash"></i>
                                                             <span class="ml-1">Delete</span>
                                                         </a>
-                                                        <form id="form-delete{{ $key->id }}" action="{{ route('admin.jurnalumum.destroy', $key->id) }}" method="POST">
+                                                        <form id="form-delete{{ $key->kode_jurnal }}" action="{{ route('admin.jurnalumum.destroy', $key->kode_jurnal) }}" method="POST">
                                                             @csrf
                                                             @method('delete')
                                                         </form>

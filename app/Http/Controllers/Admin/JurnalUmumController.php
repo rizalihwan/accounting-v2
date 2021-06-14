@@ -190,7 +190,12 @@ class JurnalUmumController extends Controller
      */
     public function destroy($id)
     {
-        Jurnalumum::findOrFail($id)->delete();
+        $jurnals = Jurnalumum::where('kode_jurnal', $id);
+        try {
+            $jurnals->delete();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Jurnal tidak Terhapus!' . $e->getMessage());
+        }
         return back()->with('success', 'Jurnal Umum berhasil Dihapus');
     }
 
