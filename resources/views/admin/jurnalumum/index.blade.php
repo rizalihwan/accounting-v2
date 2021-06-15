@@ -37,11 +37,11 @@
                                 <tbody>
                                     @forelse ($data as $key)
                                         <tr>
-                                            <td>{{ $key->tanggal }}</td>
-                                            <td>{{ $key->kode_jurnal }}</td>
-                                            <td>{{ $key->uraian }}</td>
+                                            <td>{{ $key->jurnalumum->tanggal }}</td>
+                                            <td>{{ $key->jurnalumum->kode_jurnal }}</td>
+                                            <td>{{ $key->jurnalumum->uraian }}</td>
                                             <td>{{ $key->debit }}</td>
-                                            <td>{!! $key->StatusType !!}</td>
+                                            <td>{!! $key->jurnalumum->StatusType !!}</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
@@ -53,11 +53,11 @@
                                                             <span class="ml-1">Edit</span>
                                                         </a>
                                                         <a href="javascript:void('delete')" class="dropdown-item text-danger" 
-                                                            onclick="deleteConfirm('form-delete', '{{ $key->kode_jurnal }}')">
+                                                            onclick="deleteConfirm('form-delete', '{{ $key->jurnalumum_id }}')">
                                                             <i data-feather="trash"></i>
                                                             <span class="ml-1">Delete</span>
                                                         </a>
-                                                        <form id="form-delete{{ $key->kode_jurnal }}" action="{{ route('admin.jurnalumum.destroy', $key->kode_jurnal) }}" method="POST">
+                                                        <form id="form-delete{{ $key->jurnalumum_id }}" action="{{ route('admin.jurnalumum.destroy', $key->jurnalumum_id) }}" method="POST">
                                                             @csrf
                                                             @method('delete')
                                                         </form>
@@ -72,6 +72,7 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{ $data->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJurnalumumsTable extends Migration
+class CreateJurnalumumdetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateJurnalumumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jurnalumums', function (Blueprint $table) {
+        Schema::create('jurnalumumdetails', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->string('kode_jurnal');
-            $table->foreignId('kontak_id')->constrained();
-            $table->string('uraian');
-            $table->boolean('status');
+            $table->foreignId('akun_id')->constrained();
+            $table->foreignId('jurnalumum_id')->constrained();
+            $table->bigInteger('debit');
+            $table->bigInteger('kredit');   
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateJurnalumumsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jurnalumums');
+        Schema::dropIfExists('jurnalumumdetails');
     }
 }
