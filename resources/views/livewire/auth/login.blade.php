@@ -1,74 +1,84 @@
 <div>
-    <div class="card mb-0">
-        <div class="card-body">
-            <a href="javascript:void(0);" class="brand-logo">
-                <img src="{{ asset ('img/logo-tni.png') }}" alt="logo tni" style="width: 50px; height: 70px;">
-                <h2 class="brand-text text-primary ml-1 mt-2">DITKUAD</h2>
-            </a>
 
-            <h4 class="card-title mb-1" style="text-align: center;">Selamat Datang di Aplikasi Akunting TNI AD</h4>
-            <p class="card-text mb-2">Mohon masukan username dan password anda untuk Sign-in</p>
+    <div class="auth-inner row m-0">
+        <!-- Brand logo-->
+        <span class="brand-logo" style="margin-top: -15px">
+            <img src="{{ asset ('img/logo-tni.png') }}" alt="Logo TNI" style="width: 38px; height: 58px; object-fit: contain">
+            <h2 class="brand-text text-primary ml-1 my-auto">DITKUAD</h2>
+        </span>
+        <!-- /Brand logo-->
 
-            <form class="auth-login-form mt-2" wire:submit.prevent="login">
-                @if (session()->has('error'))
-                    <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
-                        <div class="alert-body">
-                            <x-feathericon-info class="mr-50 align-middle" />
-                            <span>{{ session('error') }}</span>
-                        </div>
-                    </div>
-                @endif
-                @if ($errors->any())
-                    <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
-                        <div class="alert-body">
-                            @foreach ($errors->all() as $error)
-                            <ul style="margin: 0 12px 0 -11px">
-                                <li>{{ $error }}</li>
-                            </ul>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" wire:model="username" class="form-control"
-                        placeholder="Username" aria-describedby="username" tabindex="1" autofocus />
-                </div>
-
-                <div class="form-group">
-                    <div class="d-flex justify-content-between">
-                        <label for="password">Password</label>
-                    </div>
-                    <div class="input-group input-group-merge form-password-toggle">
-                        <input type="password" id="password" name="password" wire:model="password"
-                            class="form-control form-control-merge" tabindex="2"
-                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                            aria-describedby="password" />
-                        <div class="input-group-append">
-                            <span class="input-group-text cursor-pointer">
-                                <x-feathericon-eye />
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group my-2">
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="remember-me" wire:model="remember"
-                            tabindex="3" />
-                        <label class="custom-control-label" for="remember-me"> Remember Me </label>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block" tabindex="4" 
-                    wire:loading.attr="disabled" wire:target="login">
-                    <span wire:loading.remove wire:target="login">Sign in</span>
-                    <span wire:loading wire:target="login" class="mx-auto">
-                        <div class="spinner-border spinner-border-sm" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </span>
-                </button>
-            </form>	
-
+        <!-- Left Text-->
+        <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
+            <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
+                <img class="img-fluid" src="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/images/pages/login-v2.svg" alt="Login V2"/>
+            </div>
         </div>
+        <!-- /Left Text-->
+
+        <!-- Login-->
+        <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+                <h2 class="card-title font-weight-bold mb-1">Selamat Datang di Aplikasi Akunting TNI AD!</h2>
+                <p class="card-text mb-2">Mohon untuk masuk ke akun Anda</p>
+                <form class="auth-login-form mt-2" wire:submit.prevent="login">
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+                            <div class="alert-body">
+                                <x-feathericon-info class="mr-50 align-middle" />
+                                <span>{{ session('error') }}</span>
+                            </div>
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+                            <div class="alert-body">
+                                @foreach ($errors->all() as $error)
+                                <ul style="margin: 0 12px 0 -11px">
+                                    <li>{{ $error }}</li>
+                                </ul>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                    <div class="form-group">
+                        <label class="form-label" for="username">Username</label>
+                        <input id="username" type="text" name="username" wire:model="username" 
+                            class="form-control" placeholder="Username" aria-describedby="username" autofocus tabindex="1"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="input-group input-group-merge form-password-toggle">
+                            <input type="password" id="password" name="password" wire:model="password" aria-describedby="password" 
+                            class="form-control form-control-merge" placeholder="············" tabindex="2"/>
+                            <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer">
+                                    <x-feathericon-eye />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox my-2">
+                            <input type="checkbox" id="remember-me" wire:model="remember"
+                                class="custom-control-input" tabindex="3"/>
+                            <label class="custom-control-label" for="remember-me"> Remember Me</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" tabindex="4"
+                        wire:loading.attr="disabled" wire:target="login">
+                        <span wire:loading.remove wire:target="login">Sign in</span>
+                        <span wire:loading wire:target="login" class="mx-auto">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- /Login-->
+
     </div>
+
 </div>

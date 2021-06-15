@@ -11,7 +11,8 @@
     {{-- <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.html') }}"> --}}
     {{-- <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/images/ico/favicon.ico"> --}}
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
+	<!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -27,12 +28,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/horizontal-menu.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-validation.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/page-auth.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/ui-feather.min.css') }}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <!-- END: Custom CSS-->
     @livewireStyles()
+    @livewireScripts()
 </head>
 <body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="blank-page">
 
@@ -45,7 +47,8 @@
         </div>
     </div>
 
-	<script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+	<!-- BEGIN: Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
@@ -60,7 +63,6 @@
 
     <!-- BEGIN: Page JS-->
     <script src="{{ asset('app-assets/js/scripts/pages/page-auth-login.js') }}"></script>
-    <script src="{{ asset('app-assets/js/scripts/ui/ui-feather.min.js') }}"></script>
     <!-- END: Page JS-->
 
     <script>
@@ -70,7 +72,6 @@
 			}
 		})
     </script>
-    @livewireScripts()
 
 </body>
 </html>
