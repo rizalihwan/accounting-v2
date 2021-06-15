@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sale\PenawaranSale;
 use Illuminate\Http\Request;
 
 class PenawaranController extends Controller
@@ -13,8 +14,11 @@ class PenawaranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.sales.penawaran.index');
+    { 
+        $penawarans = PenawaranSale::select('tanggal', 'kode', 'pelanggan_id', 'total', 'status')
+                        ->with('pelanggan:nama')
+                        ->paginate(5);
+        return view('admin.sales.penawaran.index', compact('penawarans'));
     }
 
     /**
@@ -24,7 +28,7 @@ class PenawaranController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sales.penawaran.create');
     }
 
     /**

@@ -2,9 +2,9 @@
 @section('title', 'Data Product')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.data-store') }}">Data Store</a>
+    <a href="{{ route('admin.sales') }}">Penjualan</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Product</li>
+<li class="breadcrumb-item" aria-current="page">Penawaran Harga</li>
 @endpush
 @section('content')
 
@@ -12,8 +12,8 @@
     <div class="col-lg-12 col-md-12 col-12">
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                <h4 class="card-title">List Product</h4>
-                <a href="{{ route('admin.product.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
+                <h4 class="card-title">Penawaran Harga</h4>
+                <a href="{{ route('admin.penawaran.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -21,49 +21,17 @@
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>
-                                <th>Nama Product</th>
-                                <th>Harga Jual</th>
-                                <th>Harga Beli</th>
+                                <th>Tanggal</th>
+                                <th>No Penawaran</th>
+                                <th>Nama Pelanggan</th>
+                                <th>Nilai</th>
                                 <th>Status</th>
                                 <th style="width: 1px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($products as $product)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ 'Rp. ' . number_format($product->price_buy, 0, ',', '.') }}</td>
-                                <td>{{ 'Rp. ' . number_format($product->price_sell, 0, ',', '.') }}</td>
-                                <td>{{ $product->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
-                                            data-toggle="dropdown">
-                                            <i data-feather="more-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item"
-                                                href="{{ route('admin.product.show', $product->id) }}">
-                                                <i data-feather="eye"></i>
-                                                <span class="ml-1">Show</span>
-                                            </a>
-                                            <a class="dropdown-item" href="{{ route('admin.product.edit', $product->id) }}">
-                                                <i data-feather="edit"></i>
-                                                <span class="ml-1">Edit</span>
-                                            </a>
-                                            <div class="dropdown-item">
-                                                <form action="{{ route('admin.product.destroy', $product->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
-                                                        <span class="ml-1">Delete</span></button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @forelse ($penawarans as $penawaran)
+                            
                             @empty
                             <tr>
                                 <td colspan="6" align="center">
@@ -74,7 +42,7 @@
                         </tbody>
                     </table>
                     <hr style="margin-top: -1px">
-                    {{ $products->links() }}
+                    {{ $penawarans->links() }}
                 </div>
             </div>
         </div>

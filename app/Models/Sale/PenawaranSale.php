@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PenawaranSale extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function pelanggan()
+    {
+        return $this->belongsTo(Kontak::class);
+    }
 }
