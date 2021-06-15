@@ -1,22 +1,19 @@
 @extends('_layouts.main')
 @push('head')
 <style>
+    a{
+        display: block;
+    }
     .card {
         height: 300px;
         position: relative;
-        display: flex;
         align-items: flex-end;
         transition: 0.5s;
         border-radius: 0;
-    }
-
-    .card:hover .info {
-        opacity: 1;
-        transform: translateY(-40px);
+        display: block;
     }
 
     .card:before {
-        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -26,6 +23,13 @@
         transition: 0.5s;
         opacity: 0;
     }
+    .card:hover .info p{
+        display: inline-flex;
+    }
+    .card:hover .title{
+        display: none;
+        transition: 0s;
+    }
 
     .card .info {
         position: relative;
@@ -34,19 +38,29 @@
         transform: translateY(100px);
         transition: 0.5s;
     }
+    .card .info p{
+        display:none;
+        transition: 0.5s;
+    }
+    .card:hover .info {
+        display: inline-block;
+        opacity: 1;
+        transform: translateY(-100px);
+    }
+    .card .title{
+        display: inline-flex;
+    }
 
     .card .title {
         position: relative;
         margin-top: 100px;
         transition: 0.5s;
-
     }
 
     .card:hover .title {
-        position: relative;
+        display: block;
         color: white;
         opacity: 0;
-        margin-top: 1px;
         transform: translateY(-100px);
         transition: 0.5s;
     }
@@ -65,14 +79,14 @@
         <div class="row">
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.kontak.index') }}">
-                    <div class="card bg-danger border-0 text-white shadow">
+                    <div class="card bg-danger border-0 text-white">
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Kontak</h1>
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Data Kontak</h1>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Data Kontak</h1>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -88,7 +102,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.akun.index') }}">
-                    <div class="card bg-warning border-0 text-white shadow">
+                    <div class="card bg-warning border-0 text-white">
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Chart Of Account</h1>
@@ -111,7 +125,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.subklasifikasi.index') }}">
-                    <div class="card bg-info border-0 text-white shadow">
+                    <div class="card bg-info border-0 text-white">
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Subklasifikasi Akun</h1>
@@ -134,7 +148,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.bank.index') }}">
-                    <div class="card bg-success border-0 text-white shadow">
+                    <div class="card bg-success border-0 text-white">
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Bank</h1>
@@ -157,7 +171,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.divisi.index') }}">
-                    <div class="card bg-dark border-0 text-white shadow">
+                    <div class="card bg-dark border-0 text-white">
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Divisi</h1>
@@ -180,7 +194,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.unit.index') }}">
-                    <div class="card bg-secondary border-0 text-white shadow">
+                    <div class="card bg-secondary border-0 text-white">
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Unit</h1>
@@ -203,7 +217,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.product.index') }}">
-                    <div class="card bg-primary border-0 text-white shadow">
+                    <div class="card bg-primary border-0 text-white">
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Produk</h1>
@@ -238,7 +252,7 @@
     <div class="row">
         <div class="col-md-3 col-xl-3">
             <a href="{{ route('admin.bukubesar.index') }}">
-                <div class="card border-0 text-white shadow">
+                <div class="card border-0 text-white">
                     <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Buku Besar" />
                     <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
                         <h1 class="card-text display-5 text-white font-weight-bold">Buku Besar</h1>
@@ -248,7 +262,7 @@
         </div>
         <div class="col-md-3 col-xl-3">
             <a href="{{ route('admin.jurnalumum.index') }}">
-                <div class="card border-0 text-white shadow">
+                <div class="card border-0 text-white">
                     <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Jurnal Umum" />
                     <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
                         <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
@@ -285,7 +299,7 @@
     <div class="row">
         <div class="col-md-3 col-xl-3">
             <a href="{{ route('admin.bkk.index') }}">
-                <div class="card border-0 text-white shadow">
+                <div class="card border-0 text-white">
                     <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Category" />
                     <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
                         <h1 class="card-text display-5 text-white font-weight-bold">Expense</h1>
@@ -302,7 +316,7 @@
         </div>
         <div class="col-md-3 col-xl-3">
             <a href="{{ route('admin.bkm.index') }}">
-                <div class="card border-0 text-white shadow">
+                <div class="card border-0 text-white">
                     <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Unit" />
                     <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
                         <h1 class="card-text display-5 text-white font-weight-bold">Income</h1>
