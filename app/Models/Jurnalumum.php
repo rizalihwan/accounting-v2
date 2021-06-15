@@ -23,7 +23,7 @@ class Jurnalumum extends Model
 
     public function getStatusTypeAttribute()
     {
-        return $this->status == 1 ? '<span class="badge badge-success">Approve</span>' : '<span class="badge badge-danger">Not Approve</span>';
+        return $this->status == 1 ? '<span class="badge badge-success">Approved</span>' : '<span class="badge badge-danger">Not Approved</span>';
     }
 
     public function jurnalumumdetails()
