@@ -15,4 +15,9 @@ class Divisi extends Model
     {
         return $this->hasMany(Rekening::class);
     }
+
+    public function jurnalumums()
+    {
+        return $this->hasMany(Jurnalumum::class);
+    }
 }

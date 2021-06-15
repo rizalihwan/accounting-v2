@@ -16,9 +16,9 @@ class Jurnalumum extends Model
         return $this->belongsTo(Kontak::class);
     }
 
-    public function akun()
+    public function divisi()
     {
-        return $this->belongsTo(Akun::class);
+        return $this->belongsTo(Divisi::class);
     }
 
     public function getStatusTypeAttribute()
