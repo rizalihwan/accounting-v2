@@ -16,13 +16,18 @@ class Jurnalumum extends Model
         return $this->belongsTo(Kontak::class);
     }
 
-    public function akun()
+    public function divisi()
     {
-        return $this->belongsTo(Akun::class);
+        return $this->belongsTo(Divisi::class);
     }
 
     public function getStatusTypeAttribute()
     {
         return $this->status == 1 ? '<span class="badge badge-success">Approve</span>' : '<span class="badge badge-danger">Not Approve</span>';
+    }
+
+    public function jurnalumumdetails()
+    {
+        return $this->hasMany(Jurnalumumdetail::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Divisi;
 
 use App\Models\Divisi;
+use App\Models\Jurnalumum;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,20 +11,22 @@ class Data extends Component
 {
     use WithPagination;
 
-    public $search = null;
-
     protected $paginationTheme = 'bootstrap';
     protected $listeners = [
         'refresh', 'error', 'delete'
     ];
 
+    public $search = null;
+
     public function render(Divisi $divitions)
     {
-        $divitions = $divitions->where('nama', 'like', "%{$this->search}%")
+        $divition = $divitions->where('nama', 'like', "%{$this->search}%")
             ->orWhere('kode', 'like', "%{$this->search}%")
-            ->latest()->paginate(5);
+            ->latest();
+        $totalDivition = $divition->count();
+        $divitions = $divition->paginate(5);
 
-        return view('livewire.admin.divisi.data', compact('divitions'));
+        return view('livewire.admin.divisi.data', compact('divitions', 'totalDivition'));
     }
 
     public function updatingSearch()
@@ -65,8 +68,16 @@ class Data extends Component
 
     public function delete(Divisi $divisi)
     {
-        $divisi->delete();
-
-        $this->refresh('Data berhasil dihapus');
+        try {
+            // sintak dibawah masih salah dan.
+            // jadi kalau si divisi punya jurnalumum pas hapus data selected ke hapus juga si ju nya.
+            if($divisi->jurnalumums())
+            {
+                $divisi->jurnalumums()->delete();
+            }
+            $this->refresh('Data berhasil dihapus');
+        } catch (\Throwable $th) {
+            $this->error('Data gagal dihapus' . $th->getMessage());
+        }
     }
 }

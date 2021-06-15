@@ -37,11 +37,11 @@
                                 <tbody>
                                     @forelse ($data as $key)
                                         <tr>
-                                            <td>{{ $key->tanggal }}</td>
-                                            <td>{{ $key->kode_jurnal }}</td>
-                                            <td>{{ $key->uraian }}</td>
-                                            <td>{{ $key->debit }}</td>
-                                            <td>{!! $key->StatusType !!}</td>
+                                            <td>{{ $key->jurnalumum->tanggal }}</td>
+                                            <td>{{ $key->jurnalumum->kode_jurnal }}</td>
+                                            <td>{{ $key->jurnalumum->uraian }}</td>
+                                            <td>{{ 'IDR ' . number_format($key->debit, 0, ',', '.') }}</td>
+                                            <td>{!! $key->jurnalumum->StatusType !!}</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
@@ -49,18 +49,23 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{ route('admin.jurnalumum.edit', $key->id) }}">
-                                                            <i data-feather="edit"></i>
+                                                            <i data-feather="edit" style="color: rgb(184, 184, 36)"></i>
                                                             <span class="ml-1">Edit</span>
                                                         </a>
                                                         <a href="javascript:void('delete')" class="dropdown-item text-danger" 
-                                                            onclick="deleteConfirm('form-delete', '{{ $key->id }}')">
+                                                            onclick="deleteConfirm('form-delete', '{{ $key->jurnalumum_id }}')">
                                                             <i data-feather="trash"></i>
                                                             <span class="ml-1">Delete</span>
                                                         </a>
-                                                        <form id="form-delete{{ $key->id }}" action="{{ route('admin.jurnalumum.destroy', $key->id) }}" method="POST">
+                                                        <form id="form-delete{{ $key->jurnalumum_id }}" action="{{ route('admin.jurnalumum.destroy', $key->jurnalumum_id) }}" method="POST">
                                                             @csrf
                                                             @method('delete')
                                                         </form>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.jurnalumum.show', $key->jurnalumum_id) }}">
+                                                            <i data-feather="eye" style="color: blue"></i>
+                                                            <span class="ml-1">Show</span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -72,6 +77,7 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{ $data->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>

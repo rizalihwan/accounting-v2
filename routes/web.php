@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     //auth management
     Route::get('/login', 'AuthController@loginView')->name('login');
-    // Route::post('/login', 'AuthController@login')->name('login');
+    Route::post('/login', 'AuthController@login')->name('login');
 });
 Route::middleware('auth')->group(function () {
 
@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
         });
         Route::prefix('cash-bank')->group(function () {
             Route::view('/', 'menu')->name('cash-bank');
-            
+
             // Bkk
             Route::resource('bkk', 'BkkController')->except('calculateResult');
             Route::get('calculate/', 'BkkController@calculateResult')->name('bkk.calculate');

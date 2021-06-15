@@ -7,11 +7,12 @@ use Livewire\Component;
 
 class Create extends Component
 {
-    public $name, $description, $status;
+    public $name, $description, $status = 1;
 
     protected $rules = [
         'name' => 'required|string',
-        'description' => 'required|string|max:255'
+        'description' => 'required|string|max:255',
+        'status' => 'sometimes'
     ];
 
     public function render()
@@ -21,18 +22,12 @@ class Create extends Component
 
     public function resets()
     {
-        $this->reset(['name', 'description']);
+        $this->reset(['name', 'description', 'status']);
     }
 
     public function store()
     {
         $data = $this->validate();
-
-        if ($this->status == null) {
-            $this->status = '0';
-        }
-
-        $data["status"] = $this->status;
 
         try {
             Unit::create($data);

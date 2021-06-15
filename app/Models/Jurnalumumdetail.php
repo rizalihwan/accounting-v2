@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Divisi extends Model
+class Jurnalumumdetail extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function rekenings()
+    public function akun()
     {
-        return $this->hasMany(Rekening::class);
+        return $this->belongsTo(Akun::class);
     }
 
-    public function jurnalumums()
+    public function jurnalumum()
     {
-        return $this->hasMany(Jurnalumum::class);
+        return $this->belongsTo(Jurnalumum::class);
     }
 }

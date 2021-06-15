@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Akun;
+use App\Models\Divisi;
 use App\Models\Jurnalumum;
+use App\Models\Jurnalumumdetail;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
 
@@ -34,10 +36,11 @@ class JurnalUmumController extends Controller
 
     public function index()
     {
-        $selectKode = Jurnalumum::distinct()->pluck('kode_jurnal');
-        $data = Jurnalumum::whereIn('kode_jurnal', $selectKode)->groupBy('kode_jurnal');
+        $selectJu = Jurnalumumdetail::distinct()->pluck('jurnalumum_id');
+        $data = Jurnalumumdetail::whereIn('jurnalumum_id', $selectJu)->groupBy('jurnalumum_id');
         return view('admin.jurnalumum.index', [
-            'data' => $data->get(),
+            'data' => $data->paginate(5),
+            // count dihandap can bener, pangomeken tuh kwkwk.
             'countJurnal' => $data->count()
         ]);
     }
@@ -50,7 +53,8 @@ class JurnalUmumController extends Controller
     public function create()
     {
         return view('admin.jurnalumum.create', [
-            'kode' => $this->kode
+            'kode' => $this->kode,
+            'divisis' => Divisi::orderBy('nama', 'ASC')->get()
         ]);
     }
 
@@ -63,16 +67,20 @@ class JurnalUmumController extends Controller
     public function store(Request $request)
     {
         // dd($request->except('_token'));
+        $jurnal = new Jurnalumum;
+        $jurnal->kode_jurnal = $request->kode_jurnal;
+        $jurnal->tanggal = $request->tanggal;
+        $jurnal->kontak_id = $request->kontak_id;
+        $jurnal->divisi_id = $request->divisi_id;
+        $jurnal->uraian = $request->uraian;
+        $jurnal->status = 1;
+        $jurnal->save();
         $arrReq = count($request->jurnals);
         for ($i = 0; $i < $arrReq; $i++) {
             try {
-                Jurnalumum::create([
-                    'kode_jurnal' => $request->kode_jurnal,
-                    'tanggal' => $request->tanggal,
-                    'kontak_id' => $request->kontak_id,
-                    'uraian' => $request->uraian,
-                    'status' => 1,
+                Jurnalumumdetail::create([
                     'akun_id' => $request->jurnals[$i]['akun_id'],
+                    'jurnalumum_id' => $jurnal->id,
                     'debit' => $request->jurnals[$i]['debit'],
                     'kredit' => $request->jurnals[$i]['kredit']
                 ]);
@@ -82,7 +90,7 @@ class JurnalUmumController extends Controller
         }
         return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil Tersimpan');
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -91,7 +99,8 @@ class JurnalUmumController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Jurnalumum::findOrFail($id);
+        return view('admin.jurnalumum.show', compact('data'));
     }
 
     /**
@@ -190,7 +199,13 @@ class JurnalUmumController extends Controller
      */
     public function destroy($id)
     {
-        Jurnalumum::findOrFail($id)->delete();
+        $jurnals = Jurnalumumdetail::where('jurnalumum_id', $id);
+        try {
+            $jurnals->delete();
+            Jurnalumum::where('id', $id)->delete();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Jurnal tidak Terhapus!' . $e->getMessage());
+        }
         return back()->with('success', 'Jurnal Umum berhasil Dihapus');
     }
 
