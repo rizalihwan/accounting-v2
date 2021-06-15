@@ -223,10 +223,9 @@ class JurnalUmumController extends Controller
         $result = [];
 
         foreach ($contacts as $kontak) {
-            $nik = empty($kontak->nik) ? ' - ' : $kontak->nik;
             $result[] = [
                 "id" => $kontak->id,
-                "text" => "{$kontak->nama} ({$nik})",
+                "text" => $kontak->nama,
                 "nama" => $kontak->nama,
                 "email" => $kontak->email,
                 "telepon" => $kontak->telepon
@@ -241,10 +240,9 @@ class JurnalUmumController extends Controller
         $jurnal = Jurnalumum::with('kontak')->find($id);
         $kontak = $jurnal->kontak;
 
-        $nik = empty($kontak->nik) ? ' - ' : $kontak->nik;
         $result = [
             'id' => $kontak->id,
-            'text' => "{$kontak->nama} ({$nik})",
+            'text' => $kontak->nama,
             'nama' => $kontak->nama,
             'email' => $kontak->email,
             'telepon' => $kontak->telepon
