@@ -212,7 +212,7 @@
                         <span class="user-status">{{ auth()->user()->role }}</span>
                     </div>
                     <span class="avatar">
-                        <img class="round" src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40">
+                        <img class="round" src="{{ asset('img/avatar.png') }}" alt="avatar" height="40" width="40">
                         <span class="avatar-status-online"></span>
                     </span>
                 </a>
@@ -401,7 +401,7 @@
                             <span data-i18n="Report">Report</span>
                         </a>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>

@@ -148,8 +148,11 @@ class KontakController extends Controller
      */
     public function destroy(Kontak $kontak)
     {
+        if($kontak->jurnalumums())
+        {
+            $kontak->jurnalumums()->delete();
+        }
         $kontak->delete();
-
         return redirect()->route('admin.kontak.index')
                         ->with('success','Data Berhasil Dihapus');
     }

@@ -15,10 +15,17 @@ class AdminSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'admin ganteng',
-            'username' => 'adminganteng',
-            'password' => 'adminganteng',
+            'name' => 'Admin',
+            'username' => 'admin',
+            'password' => 'admin12345',
             'role' => 'admin',
+        ]);
+
+        User::create([
+            'name' => 'User',
+            'username' => 'user',
+            'password' => 'user12345',
+            'role' => 'user',
         ]);
     }
 }

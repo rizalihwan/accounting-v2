@@ -13,4 +13,8 @@ class Akun extends Model
     {
         return $this->belongsTo(Subklasifikasi::class);
     }
+    public function jurnalumums()
+    {
+        return $this->hasMany(Jurnalumum::class);
+    }
 }

@@ -20,14 +20,16 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form class="forms-sample" action="{{ route('admin.jurnalumum.store') }}" method="POST">
+                        <form class="forms-sample" action="{{ route('admin.jurnalumum.update', $jurnal->kode_jurnal) }}" method="POST">
                             @csrf
+                            @method('put')
                             <input type="hidden" name="kode_jurnal" value="{{ $kode }}">
+                            <input type="hidden" name="status" value="1">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="form-group">
                                         <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
-                                        <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
+                                        <input id="tanggal" type="date" value="{{ old('tanggal') ?? $jurnal->tanggal }}"
                                             class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
                                         <div class="help-block with-errors"></div>
                                         @error('tanggal')
@@ -66,7 +68,7 @@
                                     <div class="form-group">
                                         <label for="uraian">{{ __('Uraian') }}<span class="text-red">*</span></label>
                                         <input type="text" name="uraian" id="uraian" class="form-control"
-                                            placeholder="uraian...">
+                                            value="{{ old('uraian') ?? $jurnal->uraian }}" placeholder="uraian...">
                                         <div class="help-block with-errors"></div>
                                         @error('uraian')
                                             <span class="invalid-feedback" role="alert">
@@ -121,7 +123,7 @@
                                 <div class="form-group">
                                     <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
                                     <button type="submit" class="btn btn-primary" id="btn-submit">
-                                        TAMBAH</button>
+                                        UPDATE</button>
                                 </div>
                             </div>
                         </form>
@@ -177,22 +179,49 @@
                     cache: true
                 },
                 placeholder: "Pilih Kontak",
+                allowClear: true
             })
-        });
-        async function jurnalEachColumn(index) {
-            let fetchData = await fetch(`{{ route('api.select2.get-akun') }}`)
-            let response = JSON.parse(await fetchData.text())
-            let $select2 = $('select[name="jurnals['+index+'][akun_id]"]').select2({
-                placeholder: "Pilih Akun"
-            }).empty()
-            $select2.append($("<option></option>").attr("value", '').text('Choose Type'))
-            $.each(response, function(key, data){
-                $select2.append($("<option></option>").attr("value", data.id).text(data.name))
+            let kontakSelect = $("#kontak_id")
+            let kontak_url = '{{ route('api.select2.get-kontak.selected', ':id') }}'
+            let url = kontak_url.replace(':id', '{{ $jurnal->id }}')
+            $.ajax({
+                type: 'get',
+                url: url,
+                error: err => {
+                    console.log(err)
+                }
+            }).then((data) => {
+                let option = new Option(data.text, data.id, true, true)
+                kontakSelect.append(option).trigger('change')
+                kontakSelect.trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                })
             })
-        }
+        })
+
         function field_dinamis() {
+            Object.keys(arguments).forEach(el => {
+                arguments[el] = parseInt(arguments[el])
+            })
+
+            let akun_id = arguments[0]
+            let debit = arguments[1]
+            let kredit = arguments[2]
+
+            if (debit == undefined) {
+                debit = ''
+            }
+            if (kredit == undefined) {
+                kredit = ''
+            }
             let index = $('#dynamic_field tr').length
             let uuid = generateUUID()
+            let akun_url = '{{ route('api.select2.get-akun.selected', ':id') }}'
+            let url = akun_url.replace(':id', akun_id)
+
             let html = `
                 <tr class="rowComponent">
                     <input type="hidden" width="10px" name="jurnals[${index}][id]" value="${uuid}">
@@ -203,10 +232,12 @@
                         <select name="jurnals[${index}][akun_id]" class="form-control select-${index}"></select>
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][debit]" class="form-control debit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)">
+                        <input type="text" name="jurnals[${index}][debit]" class="form-control debit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)"
+                            value="${debit}">
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)">
+                        <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)"
+                            value="${kredit}">
                     </td>
                     <td>
                         <button type="button" name="remove" 
@@ -217,8 +248,9 @@
                 </tr>
             `
             $("#dynamic_field").append(html)
-            // jurnalEachColumn(index)
             feather.replace()
+            jumlahin()
+
             $('select[name="jurnals['+index+'][akun_id]"]').select2({
                 ajax: {
                     url: '{{ route('api.select2.get-akun') }}',
@@ -236,11 +268,28 @@
                     },
                     cache: true
                 },
-                placeholder: 'Pilih Akun',
+                placeholder: "Pilih Akun",
                 allowClear: true
             })
+
+            let akunSelect = $('select[name="jurnals['+index+'][akun_id]"]')
+            $.ajax({
+                type: 'get',
+                url: url
+            }).then((data) => {
+                let option = new Option(data.name, data.id, true, true)
+                akunSelect.append(option).trigger('change')
+                akunSelect.trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                })
+            })
         }
-        field_dinamis()
+        @foreach ($jurnals as $index => $item)
+            field_dinamis('{{ $item->akun_id }}', '{{ $item->debit }}', '{{ $item->kredit }}')
+        @endforeach
         $(document).ready(function(){
             getNumberOfTr()
             $('#add').click(function(){

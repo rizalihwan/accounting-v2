@@ -5,8 +5,18 @@
         <div class="col-lg-7 col-md-6 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">List Divisi</h4>
-                    <input type="search" wire:model="search" class="form-control col-sm-5" placeholder="Search">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">List Divisi</h4>
+                        <h4 class="card-title" wire:loading.remove wire:target="search">
+                            <span class="text-muted ml-1">{{ $totalDivition }}</span>
+                        </h4>
+                        <span wire:loading wire:target="search" class="text-muted ml-1">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </span>
+                    </div>
+                    <input type="search" id="search" wire:model="search" class="form-control col-sm-5" placeholder="Search">
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -68,3 +78,13 @@
 
     @livewire('admin.divisi.edit')
 </div>
+
+@push('head')
+    <style>
+        @media only screen and (max-width: 575px) {
+            #search {
+                width: 200px;
+            }
+        }
+    </style>
+@endpush
