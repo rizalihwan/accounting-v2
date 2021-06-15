@@ -25,4 +25,9 @@ class Jurnalumum extends Model
     {
         return $this->status == 1 ? '<span class="badge badge-success">Approve</span>' : '<span class="badge badge-danger">Not Approve</span>';
     }
+
+    public function jurnalumumdetails()
+    {
+        return $this->hasMany(Jurnalumumdetail::class);
+    }
 }
