@@ -21,11 +21,6 @@ class Jurnalumum extends Model
         return $this->belongsTo(Divisi::class);
     }
 
-    public function akun()
-    {
-        return $this->belongsTo(Akun::class);
-    }
-
     public function getStatusTypeAttribute()
     {
         return $this->status == 1 ? '<span class="badge badge-success">Approve</span>' : '<span class="badge badge-danger">Not Approve</span>';

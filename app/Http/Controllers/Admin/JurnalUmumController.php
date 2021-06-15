@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Akun;
+use App\Models\Divisi;
 use App\Models\Jurnalumum;
 use App\Models\Jurnalumumdetail;
 use App\Models\Kontak;
@@ -52,7 +53,8 @@ class JurnalUmumController extends Controller
     public function create()
     {
         return view('admin.jurnalumum.create', [
-            'kode' => $this->kode
+            'kode' => $this->kode,
+            'divisis' => Divisi::orderBy('nama', 'ASC')->get()
         ]);
     }
 
@@ -69,6 +71,7 @@ class JurnalUmumController extends Controller
         $jurnal->kode_jurnal = $request->kode_jurnal;
         $jurnal->tanggal = $request->tanggal;
         $jurnal->kontak_id = $request->kontak_id;
+        $jurnal->divisi_id = $request->divisi_id;
         $jurnal->uraian = $request->uraian;
         $jurnal->status = 1;
         $jurnal->save();
@@ -96,7 +99,8 @@ class JurnalUmumController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Jurnalumum::findOrFail($id);
+        return view('admin.jurnalumum.show', compact('data'));
     }
 
     /**

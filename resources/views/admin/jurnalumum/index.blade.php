@@ -40,7 +40,7 @@
                                             <td>{{ $key->jurnalumum->tanggal }}</td>
                                             <td>{{ $key->jurnalumum->kode_jurnal }}</td>
                                             <td>{{ $key->jurnalumum->uraian }}</td>
-                                            <td>{{ $key->debit }}</td>
+                                            <td>{{ 'IDR ' . number_format($key->debit, 0, ',', '.') }}</td>
                                             <td>{!! $key->jurnalumum->StatusType !!}</td>
                                             <td>
                                                 <div class="dropdown">
@@ -49,7 +49,7 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{ route('admin.jurnalumum.edit', $key->id) }}">
-                                                            <i data-feather="edit"></i>
+                                                            <i data-feather="edit" style="color: rgb(184, 184, 36)"></i>
                                                             <span class="ml-1">Edit</span>
                                                         </a>
                                                         <a href="javascript:void('delete')" class="dropdown-item text-danger" 
@@ -61,6 +61,11 @@
                                                             @csrf
                                                             @method('delete')
                                                         </form>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.jurnalumum.show', $key->jurnalumum_id) }}">
+                                                            <i data-feather="eye" style="color: blue"></i>
+                                                            <span class="ml-1">Show</span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>

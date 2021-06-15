@@ -11,6 +11,11 @@ class Jurnalumumdetail extends Model
 
     protected $guarded = [];
 
+    public function akun()
+    {
+        return $this->belongsTo(Akun::class);
+    }
+
     public function jurnalumum()
     {
         return $this->belongsTo(Jurnalumum::class);
