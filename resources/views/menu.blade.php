@@ -120,10 +120,34 @@
     @endif
 
     @if(request()->routeIs('admin.sales'))
-        @section('title', 'Sales')
+        @section('title', 'Penjualan')
         @push('breadcrumb')
-            <li class="breadcrumb-item active">Sales</li>
+            <li class="breadcrumb-item active">Penjualan</li>
         @endpush
+        <section>
+            <div class="row">
+                <div class="col-md-3 col-xl-3">
+                    <a href="{{ route('admin.penawaran.index') }}">
+                        <div class="card border-0 text-white shadow">
+                            <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Buku Besar" />
+                            <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                                <h1 class="card-text display-5 text-white font-weight-bold">Penawaran Harga</h1>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{-- <div class="col-md-3 col-xl-3">
+                    <a href="{{ route('admin.jurnalumum.index') }}">
+                        <div class="card border-0 text-white shadow">
+                            <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Jurnal Umum" />
+                            <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                                <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
+                            </div>
+                        </div>
+                    </a>
+                </div> --}}
+            </div>
+        </section>
         {{--  --}}
     @endif
 
