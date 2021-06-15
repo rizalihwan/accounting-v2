@@ -22,7 +22,7 @@ class Uraian extends Model
     }
     public function rekening()
     {
-        return $this->belongsTo(Rekening::class, 'rekening_id', 'id');
+        return $this->belongsTo(Akun::class, 'rekening_id', 'id');
     }
     
 }

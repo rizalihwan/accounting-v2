@@ -1,72 +1,81 @@
 @extends('_layouts.main')
 @section('title', 'Jurnal Umum')
+@push('breadcrumb')
+    <li class="breadcrumb-item">
+        <a href="{{ route('admin.ledger') }}">Jurnal</a>
+    </li>
+    <li class="breadcrumb-item" aria-current="page">Jurnal Umum</li>
+@endpush
 @section('content')
-    <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-users bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>Jurnal Umum</h5>
-                            <span>List data Jurnal Umum</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.jurnalumum.index') }}">Jurnal Umum</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <!-- end message area-->
-            <div class="col-md-12">
-                <div class="card p-3">
-                    <div class="card-header justify-content-between d-flex">
-                        <div>
-                            <a href="{{ route('admin.jurnalumum.create') }}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> TAMBAH JURNAL</a>
-                        </div>
+            <div class="col-lg-12 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
                         <div class="d-flex">
-                            <input type="date" class="form-control mx-1" name="" id="">
-                            <input type="date" class="form-control mr-2" name="" id="">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>
+                            <h4 class="card-title">List Jurnal Umum</h4>
+                            <h4><span class="text-muted ml-1">{{ $countJurnal }}</span></h4>
                         </div>
+                        <a href="{{ route('admin.jurnalumum.create') }}" class="btn btn-success">
+                            <i data-feather="plus"></i>
+                            Create New
+                        </a>
                     </div>
                     <div class="card-body">
-                        <table class="table table-light table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Bulan Dan Tahun</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Tono</td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-sm mr-1" style="float: left;"><i class="fa fa-edit"></i></a>
-                                        <form action="#" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="height: {{ $countJurnal == 1 ? '100px' : '' }}">
+                                <thead>
+                                    <tr>
+                                        <th>TANGGAL</th>
+                                        <th>NO. REFERENSI</th>
+                                        <th>URAIAN</th>
+                                        <th>NILAI</th>
+                                        <th>STATUS</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($data as $key)
+                                        <tr>
+                                            <td>{{ $key->jurnalumum->tanggal }}</td>
+                                            <td>{{ $key->jurnalumum->kode_jurnal }}</td>
+                                            <td>{{ $key->jurnalumum->uraian }}</td>
+                                            <td>{{ $key->debit }}</td>
+                                            <td>{!! $key->jurnalumum->StatusType !!}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                                        <i data-feather="more-vertical"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{{ route('admin.jurnalumum.edit', $key->id) }}">
+                                                            <i data-feather="edit"></i>
+                                                            <span class="ml-1">Edit</span>
+                                                        </a>
+                                                        <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                                            onclick="deleteConfirm('form-delete', '{{ $key->jurnalumum_id }}')">
+                                                            <i data-feather="trash"></i>
+                                                            <span class="ml-1">Delete</span>
+                                                        </a>
+                                                        <form id="form-delete{{ $key->jurnalumum_id }}" action="{{ route('admin.jurnalumum.destroy', $key->jurnalumum_id) }}" method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" align="center">Data kosong.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                            {{ $data->links('pagination::bootstrap-4') }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 @endsection

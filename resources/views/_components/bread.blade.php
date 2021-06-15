@@ -1,3 +1,4 @@
+@if (!request()->routeIs('home'))
 <div class="content-header row">
     <div class="content-header-left col-md-9 col-12 mb-2">
         <div class="row breadcrumbs-top">
@@ -19,7 +20,7 @@
         </div>
     </div>
     <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-        <div class="form-group breadcrumb-right">
+        {{-- <div class="form-group breadcrumb-right">
             <div class="dropdown">
                 <button type="button" class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" 
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,6 +45,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
+@endif

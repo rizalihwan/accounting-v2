@@ -1,5 +1,14 @@
 @extends('_layouts.main')
 @section('title', 'Data Bank')
+    @push('breadcrumb')
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.data-store') }}">Data Master</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.akun.index') }}">Data Bank</a>
+        </li>
+        <li class="breadcrumb-item active">Detail Data</li>
+    @endpush
 @section('content')
 
 <div class="container-fluid">

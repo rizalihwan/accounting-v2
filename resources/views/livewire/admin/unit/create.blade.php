@@ -39,17 +39,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-9 offset-sm-3">
+                    <div class="col-sm-9 offset-sm-3" style="margin-top: -15px">
                         <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" id="status" name="status" wire:model="status"
-                                    class="custom-control-input" value="1"/>
-                                <label class="custom-control-label" for="status">Active</label>
+                            <div class="demo-inline-spacing">
+                                <div class="custom-control custom-control-primary custom-radio">
+                                    <input type="radio" id="status1" wire:model="status" 
+                                        name="status" class="custom-control-input" value="1" />
+                                    <label class="custom-control-label" for="status1">Active</label>
+                                    </div>
+                                    <div class="custom-control custom-control-primary custom-radio">
+                                    <input type="radio" id="status2" wire:model="status"
+                                        name="status" class="custom-control-input" value="0" />
+                                    <label class="custom-control-label" for="status2">Non active</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-9 offset-sm-3">
-                        <button type="submit" class="btn btn-primary" style="width: 100px">
+                    <div class="col-sm-9 offset-sm-3 mt-1">
+                        <button type="submit" class="btn btn-primary" style="width: 100px"
+                            wire:loading.attr="disabled" wire:target="store">
                             <span wire:loading.remove wire:target="store">Submit</span>
                             <span wire:loading wire:target="store" class="mx-auto">
                                 <div class="spinner-border spinner-border-sm" role="status">

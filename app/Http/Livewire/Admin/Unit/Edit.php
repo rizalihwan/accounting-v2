@@ -40,10 +40,11 @@ class Edit extends Component
 
         try {
             $this->unit->save();
-            $this->emit('refresh', 'Data berhasil diedit');
-            $this->reset('isOpen');
         } catch (\Throwable $th) {
             $this->emit('error', 'Data gagal diedit');
         }
+
+        $this->reset(['isOpen', 'unit']);
+        $this->emit('refresh', 'Data berhasil diedit');
     }
 }

@@ -1,32 +1,16 @@
 @extends('_layouts.main')
-@section('title', 'akun')
+@section('title', 'Edit Akun')
+    @push('breadcrumb')
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.data-store') }}">Data Master</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.akun.index') }}">Chart of Account</a>
+        </li>
+        <li class="breadcrumb-item active">Edit Akun</li>
+    @endpush
 @section('content')
     <div class="container-fluid">
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-user-plus bg-blue"></i>
-                        <div class="d-inline">
-                            <h5>akun</h5>
-                            <span>Form edit akun</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.akun.create') }}">Edit akun</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">

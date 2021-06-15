@@ -1,5 +1,11 @@
 @extends('_layouts.main')
 @section('title','Dashboard')
+@push('breadcrumb')
+    <li class="breadcrumb-item">
+        Dashboard
+    </li>
+@endpush
+
 @section('content')
 <section id="dashboard-ecommerce">
     <div class="row match-height">

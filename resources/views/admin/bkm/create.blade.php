@@ -2,9 +2,13 @@
 @section('title', 'Buku Kas Masuk')
 @section('content')
 @push('breadcrumb')
-    <li class="breadcrumb-item active">Cash & Bank</li>
-    <li class="breadcrumb-item active">Income</li>
-    <li class="breadcrumb-item active">Create</li>
+    <li class="breadcrumb-item">
+        <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="{{ route('admin.bkm.index') }}">Income</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Create</li>
 @endpush
 <div class="container-fluid">
     <div class="row">
@@ -53,7 +57,7 @@
                                     <label for="kontak">Rek.Kas/Bank[K]</label>
                                     <select name="rek" id="rek" class="form-control">
                                         @foreach ($rekening as $item)
-                                        <option value="{{$item->id}}">{{$item->nomor}}-{{$item->nama}}</option>
+                                        <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -73,7 +77,7 @@
                                                 <label for="itemname">no rek</label>
                                                 <select name="rekening" id="rekening" class="form-control">
                                                     @foreach ($rekening as $item)
-                                                    <option value="{{$item->id}}">{{$item->nomor}}-{{$item->nama}}</option>
+                                                    <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

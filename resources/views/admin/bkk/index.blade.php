@@ -1,8 +1,10 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Keluar')
 @push('breadcrumb')
-    <li class="breadcrumb-item active">Cash & Bank</li>
-    <li class="breadcrumb-item active">Expanse</li>
+    <li class="breadcrumb-item">
+        <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Expanse</li>
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -54,7 +56,7 @@
                                         <td>KK{{ $item->id  }}</td>
                                         @endif
                                         @endif
-                                        <td>{{ $item->rekening_id  }}</td>
+                                        <td>{{ $item->akuns->name  }} - {{ $item->akuns->subklasifikasi->name  }}</td>
                                         <td>{{ $item->desk  }}</td>
                                         <td>{{ $item->value  }}</td>
                                         <td>
@@ -64,10 +66,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-dark p-2" aria-labelledby="dropdownMenuButton2">
                                                 <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
-                                                <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post"
+                                                    onclick="return confirm('Apakah yakin?')">
                                                     @csrf
                                                     @method('delete')
-                                                    <li><a type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>Hapus</a></li>
+                                                    <button type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>hapus</button>
                                                 </form>
                                                 <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
                                                 </ul>

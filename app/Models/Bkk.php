@@ -20,4 +20,8 @@ class Bkk extends Model
     {
         return $this->belongsTo(Kontak::class,'kontak_id','id');
     }
+    public function akuns()
+    {
+        return $this->belongsTo(Akun::class,'rekening_id','id');
+    }
 }
