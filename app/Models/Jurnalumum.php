@@ -16,6 +16,11 @@ class Jurnalumum extends Model
         return $this->belongsTo(Kontak::class);
     }
 
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class);
+    }
+
     public function akun()
     {
         return $this->belongsTo(Akun::class);
