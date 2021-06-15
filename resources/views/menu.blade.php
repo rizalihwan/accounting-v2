@@ -7,7 +7,6 @@
     .card {
         height: 300px;
         position: relative;
-        display: flex;
         align-items: flex-end;
         transition: 0.5s;
         border-radius: 0;
@@ -15,7 +14,6 @@
     }
 
     .card:before {
-        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -42,12 +40,12 @@
     }
     .card .info p{
         display:none;
-        transition: 0s;
+        transition: 0.5s;
     }
     .card:hover .info {
         display: inline-block;
         opacity: 1;
-        transform: translateY(-50px);
+        transform: translateY(-100px);
     }
     .card .title{
         display: inline-flex;
@@ -63,7 +61,6 @@
         display: block;
         color: white;
         opacity: 0;
-        margin-top: 1px;
         transform: translateY(-100px);
         transition: 0.5s;
     }
