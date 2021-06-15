@@ -58,7 +58,7 @@
                         <label class="custom-control-label" for="remember-me"> Remember Me </label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" tabindex="4" 
+                <button type="submit" class="btn btn-primary btn-block" tabindex="4"
                     wire:loading.attr="disabled" wire:target="login">
                     <span wire:loading.remove wire:target="login">Sign in</span>
                     <span wire:loading wire:target="login" class="mx-auto">
@@ -67,7 +67,7 @@
                         </div>
                     </span>
                 </button>
-            </form>	
+            </form>
 
         </div>
     </div>
