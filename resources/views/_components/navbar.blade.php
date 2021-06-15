@@ -401,7 +401,7 @@
                             <span data-i18n="Report">Report</span>
                         </a>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
