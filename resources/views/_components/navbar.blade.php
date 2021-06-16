@@ -251,10 +251,13 @@
     <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper" data-menu-type="floating-nav">
         <div class="navbar-header">
                 <ul class="nav navbar-nav flex-row">
-                    <li class="nav-item mr-auto"><a class="navbar-brand" href="index-2.html"><span class="brand-logo">
-                        <h2 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1" style="width: 40px; height: 30px;">Digkuad</a>
+                    <li class="nav-item mr-auto"><a class="navbar-brand" href="index-2.html">
+                        <span class="brand-logo">
+                            <img src="{{ asset('img/c.png') }}" style="width: 40px; height: 30px" />
+                        </span>
+                        <h2 class="brand-text mb-0 text-warning">Digkuad</h2></a>
                     </li>
-                <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i></a></li>
+                <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-warning toggle-icon font-medium-4" data-feather="x"></i></a></li>
             </ul>
             </div>
             <div class="shadow-bottom"></div>
