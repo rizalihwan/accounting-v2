@@ -172,7 +172,7 @@
                                     Mengelola klasifikasi akun
                                 </p>
                                 <p class="card-text">
-                                    <small class="text-light">Last updated 3 mins ago</small>
+                                    <small class="text-light"></small>
                                 </p>
                             </div>
                         </div>
