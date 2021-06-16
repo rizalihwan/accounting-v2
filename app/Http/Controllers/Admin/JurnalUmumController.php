@@ -148,48 +148,56 @@ class JurnalUmumController extends Controller
             return response()->json(['error'  => $error->errors()->all()]);
         }
 
+        $jurnal = Jurnalumum::find($id);
+        $jurnal->update([
+            'tanggal' => $request->tanggal,
+            'kontak_id' => $request->kontak_id,
+            'divisi_id' => $request->divisi_id,
+            'uraian' => $request->uraian,
+        ]);
+
         $detail_id = [];
 
         foreach ($input['jurnals'] as $value) {
             $detail_id[] = $value['id'];
         }
 
+        $jurnals = array_values(array_filter($detail_id, fn ($value) => is_null($value) && $value == ''));
+        $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
+
         $detail_jurnals_except = Jurnalumumdetail::select('id')->whereNotIn('id', $detail_id)->get();
-        if ($detail_jurnals_except > 0) {
-            foreach ($detail_jurnals_except as $detail) {
-                try {
+
+        try {
+            if ($detail_jurnals_except->count() > 0) {
+                foreach ($detail_jurnals_except as $detail) {
                     $detail->delete();
-                } catch (\Exception $e) {
-                    return back()->with('error', 'Ada yang salah. Mohon periksa kembali form yang Anda isi');
                 }
             }
-        }
 
-        $detail_jurnals = Jurnalumumdetail::$jurnal = Jurnalumum::find($id);
+            foreach ($jurnals as $value) {
+                foreach ($input['jurnals'] as $item) {
+                    if ($value == $item['id']) {
+                        Jurnalumumdetail::create([
+                            'akun_id' => $item['akun_id'],
+                            'jurnalumum_id' => $jurnal->id,
+                            'debit' => $item['debit'],
+                            'kredit' => $item['kredit']
+                        ]);
+                    }
+                }
+            }
 
-        DB::beginTransaction();
-        try {
-            Jurnalumumdetail::where('jurnalumum_id', $jurnal->id)->each(function ($detail_jurnal) use ($input) {
-                foreach ($input['jurnals'] as $value) {
-                    $detail_jurnal->update([
-                        'akun_id' => $value['akun_id'],
-                        'debit' => $value['debit'],
-                        'kredit' => $value['kredit'],
+            foreach ($input['jurnals'] as $index => $item) {
+                if ($item['id'] != null) {
+                    Jurnalumumdetail::where('id', $item['id'])->update([
+                        'akun_id' => $item['akun_id'],
+                        'debit' => $item['debit'],
+                        'kredit' => $item['kredit'],
                     ]);
                 }
-            });
-
-            $jurnal->update([
-                'status' => $input['status'],
-                'tanggal' => $input['tanggal'],
-                'kontak_id' => $input['kontak_id'],
-                'divisi_id' => $input['divisi_id'],
-                'uraian' => $input['uraian']
-            ]);
-            DB::commit();
+            }
         } catch (\Exception $e) {
-            DB::rollback();
-            return back()->with('error', 'Ada yang salah. Mohon periksa kembali form yang Anda isi!');
+            return back()->with('error', 'Oops, something went wrong');
         }
 
         return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil diubah!');
