@@ -22,6 +22,7 @@ class User extends Authenticatable
         'username',
         'password',
         'role',
+        'avatar',
     ];
 
     /**
@@ -47,5 +48,4 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($password);
     }
-
 }
