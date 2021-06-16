@@ -34,6 +34,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <!-- END: Custom CSS-->
 
+    <link rel="icon" href="{{ asset ('img/c.png') }}">
+
     <script>
         function deleteConfirm(form_id, id) {
             Swal.fire({

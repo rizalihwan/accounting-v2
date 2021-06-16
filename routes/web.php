@@ -18,6 +18,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@home')->name('home');
     Route::post('/logout', 'AuthController@logout')->name('logout');
 
+    //edit profile
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/setting', 'ProfileController@edit')->name('setting');
+        Route::patch('/setting/update', 'ProfileController@update')->name('update');
+    });
+    // change password
+    Route::prefix('account')->name('password.')->group(function () {
+        Route::get('/password', 'ProfileController@changePassword')->name('edit');
+        Route::patch('/password', 'ProfileController@updatePassword')->name('edit');
+    });
+
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
         Route::prefix('data-store')->group(function () {
             Route::view('/', 'menu')->name('data-store');
