@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="height: {{ $countJurnal == 1 ? '100px' : '' }}">
+                            <table class="table table-hover" @if($countJurnal == 1) style="height: 140px" @endif>
                                 <thead>
                                     <tr>
                                         <th>TANGGAL</th>
@@ -37,11 +37,11 @@
                                 <tbody>
                                     @forelse ($data as $key)
                                         <tr>
-                                            <td>{{ $key->jurnalumum->tanggal }}</td>
-                                            <td>{{ $key->jurnalumum->kode_jurnal }}</td>
-                                            <td>{{ $key->jurnalumum->uraian }}</td>
-                                            <td>{{ 'IDR ' . number_format($key->debit, 0, ',', '.') }}</td>
-                                            <td>{!! $key->jurnalumum->StatusType !!}</td>
+                                            <td>{{ $key->tanggal }}</td>
+                                            <td>{{ $key->kode_jurnal }}</td>
+                                            <td>{{ $key->uraian }}</td>
+                                            <td>{{ 'IDR ' . number_format($key->jurnalumumdetails[0]->debit, 0, ',', '.') }}</td>
+                                            <td>{!! $key->StatusType !!}</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
@@ -49,23 +49,23 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{ route('admin.jurnalumum.edit', $key->id) }}">
-                                                            <i data-feather="edit" style="color: rgb(184, 184, 36)"></i>
+                                                            <i data-feather="edit" class="text-warning"></i>
                                                             <span class="ml-1">Edit</span>
                                                         </a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.jurnalumum.show', $key->id) }}">
+                                                            <i data-feather="eye"></i>
+                                                            <span class="ml-1">Show</span>
+                                                        </a>
                                                         <a href="javascript:void('delete')" class="dropdown-item text-danger" 
-                                                            onclick="deleteConfirm('form-delete', '{{ $key->jurnalumum_id }}')">
+                                                            onclick="deleteConfirm('form-delete', '{{ $key->id }}')">
                                                             <i data-feather="trash"></i>
                                                             <span class="ml-1">Delete</span>
                                                         </a>
-                                                        <form id="form-delete{{ $key->jurnalumum_id }}" action="{{ route('admin.jurnalumum.destroy', $key->jurnalumum_id) }}" method="POST">
+                                                        <form id="form-delete{{ $key->id }}" action="{{ route('admin.jurnalumum.destroy', $key->id) }}" method="POST">
                                                             @csrf
                                                             @method('delete')
                                                         </form>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('admin.jurnalumum.show', $key->jurnalumum_id) }}">
-                                                            <i data-feather="eye" style="color: blue"></i>
-                                                            <span class="ml-1">Show</span>
-                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>

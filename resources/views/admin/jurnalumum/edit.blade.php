@@ -7,127 +7,137 @@
     <li class="breadcrumb-item" aria-current="page">Buat Jurnal Umum</li>
     @endpush
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header justify-content-between d-flex">
-                        <div>
-                            <h3>Tambah Jurnal Umum</h3>
-                        </div>
-                        <div>
-                            No. Jurnal : <strong>{{ $kode }}</strong>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header justify-content-between d-flex">
+                    <div>
+                        <h3>Tambah Jurnal Umum</h3>
                     </div>
-                    <div class="card-body">
-                        <form class="forms-sample" action="{{ route('admin.jurnalumum.update', $jurnal->kode_jurnal) }}" method="POST">
-                            @csrf
-                            @method('put')
-                            <input type="hidden" name="kode_jurnal" value="{{ $kode }}">
-                            <input type="hidden" name="status" value="1">
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
-                                        <input id="tanggal" type="date" value="{{ old('tanggal') ?? $jurnal->tanggal }}"
-                                            class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
-                                        <div class="help-block with-errors"></div>
-                                        @error('tanggal')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
-                                        <select name="kontak_id" id="kontak_id"
-                                            class="form-control select2 @error('kontak_id') is-invalid @enderror">
-                                        </select>
-                                        <div class="help-block with-errors"></div>
-                                        @error('kontak_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-3" style="margin-top: 8px">
-                                    <div class="form-group"></div>
-                                    <div class="form-group">
-                                        <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
-                                            <i data-feather="plus"></i>
-                                            TAMBAH KONTAK
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-11">
-                                    <div class="form-group">
-                                        <label for="uraian">{{ __('Uraian') }}<span class="text-red">*</span></label>
-                                        <input type="text" name="uraian" id="uraian" class="form-control"
-                                            value="{{ old('uraian') ?? $jurnal->uraian }}" placeholder="uraian...">
-                                        <div class="help-block with-errors"></div>
-                                        @error('uraian')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless mt-2">
-                                            <thead>
-                                                <tr class="rowHead">
-                                                    <td>Akun</td>
-                                                    <td>Debit</td>
-                                                    <td>Kredit</td>
-                                                    <td style="width: 1px"></td>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="dynamic_field"></tbody>
-                                        </table>
-                                        <button type="button" id="add"
-                                            class="btn btn-success my-2"
-                                            style="width: 100%; height: 50px">
-                                            <i data-feather="plus"></i>
-                                            Tambah Row Baru
-                                        </button>
-                                        <table class="table table-borderless col-sm-6 ml-auto border-top">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 180px">Total</th>
-                                                    <td id="total_debit">0</td>
-                                                    <td id="total_kredit">0</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Difference</th>
-                                                    <td></td>
-                                                    <td id="difference" tit>0</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="col-md-12 mt-4">
+                    <div>
+                        No. Jurnal : <strong>{{ $jurnal->kode_jurnal }}</strong>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="forms-sample" action="{{ route('admin.jurnalumum.update', $jurnal->id) }}" method="POST">
+                        @csrf
+                        @method('put')
+                        <input type="hidden" name="kode_jurnal" value="{{ $jurnal->kode_jurnal }}">
+                        <input type="hidden" name="status" value="1">
+                        <div class="row">
+                            <div class="col-sm-5">
                                 <div class="form-group">
-                                    <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
-                                    <button type="submit" class="btn btn-primary" id="btn-submit">
-                                        UPDATE</button>
+                                    <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
+                                    <input id="tanggal" type="date" value="{{ old('tanggal') ?? $jurnal->tanggal }}"
+                                        class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
+                                    <div class="help-block with-errors"></div>
+                                    @error('tanggal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
+                                    <select name="kontak_id" id="kontak_id"
+                                        class="form-control select2 @error('kontak_id') is-invalid @enderror">
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                    @error('kontak_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top: 8px">
+                                <div class="form-group"></div>
+                                <div class="form-group">
+                                    <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
+                                        <i data-feather="plus"></i>
+                                        TAMBAH KONTAK
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="divisi_id">{{ __('Divisi') }}<span class="text-red">*</span></label>
+                                    <select name="divisi_id" id="divisi_id"
+                                        class="form-control select2 @error('divisi_id') is-invalid @enderror">
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                    @error('divisi_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="uraian">{{ __('Uraian') }}<span class="text-red">*</span></label>
+                                    <input type="text" name="uraian" id="uraian" class="form-control"
+                                        value="{{ old('uraian') ?? $jurnal->uraian }}" placeholder="Uraian...">
+                                    <div class="help-block with-errors"></div>
+                                    @error('uraian')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless mt-2" id="table-dynamic_field">
+                                        <thead>
+                                            <tr class="rowHead">
+                                                <td>Akun</td>
+                                                <td>Debit</td>
+                                                <td>Kredit</td>
+                                                <td style="width: 1px"></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dynamic_field"></tbody>
+                                    </table>
+                                    <button type="button" id="add"
+                                        class="btn btn-success my-2"
+                                        style="width: 100%; height: 50px">
+                                        <i data-feather="plus"></i>
+                                        Tambah Row Baru
+                                    </button>
+                                    <table class="table table-borderless col-sm-6 ml-auto border-top">
+                                        <tbody>
+                                            <tr>
+                                                <th style="width: 180px">Total</th>
+                                                <td id="total_debit">0</td>
+                                                <td id="total_kredit">0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Difference</th>
+                                                <td></td>
+                                                <td id="difference" tit>0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="col-md-12 mt-4">
+                            <div class="form-group">
+                                <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
+                                <button type="submit" class="btn btn-primary" id="btn-submit">
+                                    UPDATE</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -164,10 +174,11 @@
             $("#kontak_id").select2({
                 ajax: {
                     url: '{{ route('api.select2.get-kontak') }}',
-                    type: 'get',
+                    type: 'post',
                     dataType: 'json',
                     data: params => {
                         return {
+                            _token: CSRF_TOKEN,
                             search: params.term
                         }
                     },
@@ -200,6 +211,47 @@
                     }
                 })
             })
+
+            $("#divisi_id").select2({
+                ajax: {
+                    url: '{{ route('api.select2.get-divisi') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
+                placeholder: "Pilih Divisi",
+                allowClear: true
+            })
+            let divisiSelect = $("#divisi_id")
+            let divisi_url = '{{ route('api.select2.get-divisi.selected', ':id') }}'
+            let url_divisi = divisi_url.replace(':id', '{{ $jurnal->kontak_id }}')
+            $.ajax({
+                type: 'get',
+                url: url_divisi,
+                error: err => {
+                    console.log(err)
+                }
+            }).then((data) => {
+                let option = new Option(data.text, data.id, true, true)
+                divisiSelect.append(option).trigger('change')
+                divisiSelect.trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                })
+            })
         })
 
         function field_dinamis() {
@@ -207,10 +259,14 @@
                 arguments[el] = parseInt(arguments[el])
             })
 
-            let akun_id = arguments[0]
-            let debit = arguments[1]
-            let kredit = arguments[2]
+            let id = arguments[0]
+            let akun_id = arguments[1]
+            let debit = arguments[2]
+            let kredit = arguments[3]
 
+            if (id == undefined) {
+                id = ''
+            }
             if (debit == undefined) {
                 debit = ''
             }
@@ -224,7 +280,7 @@
 
             let html = `
                 <tr class="rowComponent">
-                    <input type="hidden" width="10px" name="jurnals[${index}][id]" value="${uuid}">
+                    <input type="hidden" width="10px" name="jurnals[${index}][id]" value="${id}">
                     <td class="no" hidden>
                         <input type="text" value="${index + 1}" class="form-control" disabled>
                     </td>
@@ -250,14 +306,16 @@
             $("#dynamic_field").append(html)
             feather.replace()
             jumlahin()
+            countTr()
 
             $('select[name="jurnals['+index+'][akun_id]"]').select2({
                 ajax: {
                     url: '{{ route('api.select2.get-akun') }}',
-                    type: 'get',
+                    type: 'post',
                     dataType: 'json',
                     data: params => {
                         return {
+                            _token: CSRF_TOKEN,
                             search: params.term
                         }
                     },
@@ -287,8 +345,8 @@
                 })
             })
         }
-        @foreach ($jurnals as $index => $item)
-            field_dinamis('{{ $item->akun_id }}', '{{ $item->debit }}', '{{ $item->kredit }}')
+        @foreach ($jurnal->jurnalumumdetails as $item)
+            field_dinamis('{{ $item->id }}', '{{ $item->akun_id }}', '{{ $item->debit }}', '{{ $item->kredit }}')
         @endforeach
         $(document).ready(function(){
             getNumberOfTr()
@@ -303,13 +361,25 @@
                     $("input[name='delete_data']").val(delete_data + ';' + id)
                 }
                 $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
+                jumlahin()
                 getNumberOfTr()
+                countTr()
             })
         })
         function getNumberOfTr() {
             $('#dynamic_field tr').each(function(index, tr) {
                 $(this).find("td.no input").val(index + 1)
             })
+        }
+        function countTr() {
+            let table = document.getElementById('table-dynamic_field')
+            let tbodyCount = table.tBodies[0].rows.length
+            
+            if (tbodyCount == 0) {
+                $("#btn-submit").attr('disabled', true);
+            } else {
+                $("#btn-submit").attr('disabled', false);
+            }
         }
         function generateUUID() {
             var d = new Date().getTime();
@@ -357,10 +427,8 @@
             $("#difference").text(difference)
             if (difference === 0) {
                 $("#btn-submit").attr('disabled', false)
-                $("#btn-submit").attr('hidden', false)
             } else {
                 $("#btn-submit").attr('disabled', true)
-                $("#btn-submit").attr('hidden', true)
             }
         }
     </script>

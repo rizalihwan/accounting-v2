@@ -159,7 +159,7 @@ class KontakController extends Controller
     
     public function kontakKode()
     {
-        $nama = request()->nama;
+        $nama = ltrim(request()->nama)[0];
         $kontak = Kontak::select('id', 'nama')
             ->where(DB::raw('LEFT(nama, 1)'), $nama)
             ->count();
