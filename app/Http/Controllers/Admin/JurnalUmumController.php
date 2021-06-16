@@ -167,6 +167,7 @@ class JurnalUmumController extends Controller
 
         $detail_jurnals_except = Jurnalumumdetail::select('id')->whereNotIn('id', $detail_id)->get();
 
+        DB::beginTransaction();
         try {
             if ($detail_jurnals_except->count() > 0) {
                 foreach ($detail_jurnals_except as $detail) {
@@ -196,7 +197,9 @@ class JurnalUmumController extends Controller
                     ]);
                 }
             }
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollback();
             return back()->with('error', 'Oops, something went wrong');
         }
 
