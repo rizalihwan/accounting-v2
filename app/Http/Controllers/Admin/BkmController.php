@@ -95,7 +95,10 @@ class BkmController extends Controller
      */
     public function edit(Bkk $bkm)
     {
-        //
+        $rekening = Akun::get();
+        $kontak = DB::table('kontaks')->get();
+        $datas = Bkk::find($bkm)->first();
+        return view('admin.bkk.edit',compact('datas','kontak','rekening'));
     }
 
     /**

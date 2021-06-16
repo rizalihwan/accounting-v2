@@ -82,11 +82,13 @@
                     <div class="card bg-danger border-0 text-white">
                         <div class="card-body">
                             <div class="title">
-                                <h1 class="text-light">Kontak</h1>
+                                <h1 class="text-light mr-1">Kontak</h1>
+                                <i class="fa fa-users fa-lg fa-5x"></i>
                             </div>
                             <div class="info">
                                 <p class="card-text">
                                     <h1 class="card-text display-5 text-white font-weight-bold">Data Kontak</h1>
+                                    <i class="fa fa-users"></i>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -106,10 +108,12 @@
                         <div class="card-body">
                             <div class="title">
                                 <h1 class="text-light">Chart Of Account</h1>
+                                <i class="fa fa-clipboard-list fa-lg fa-5x"></i>
                             </div>
                             <div class="info">
                                 <p class="card-text">
                                 <h1 class="card-text display-5 text-white font-weight-bold">Chart Of Account</h1>
+                                <i class="fa fa-clipboard-list"></i>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -128,11 +132,13 @@
                     <div class="card bg-info border-0 text-white">
                         <div class="card-body">
                             <div class="title">
-                                <h1 class="text-light">Subklasifikasi Akun</h1>
+                                <h1 class="text-light" style="margin-right:8px">Subklasifikasi Akun</h1>
+                                <i class="fa fa-check-square fa-lg fa-5x"></i>
                             </div>
                             <div class="info">
                                 <p class="card-text">
                                 <h1 class="card-text display-5 text-white font-weight-bold">Subklasifikasi Akun</h1>
+                                <i class="fa fa-check-square"></i>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -151,11 +157,13 @@
                     <div class="card bg-success border-0 text-white">
                         <div class="card-body">
                             <div class="title">
-                                <h1 class="text-light">Bank</h1>
+                                <h1 class="text-light mr-1">Bank</h1>
+                                <i class="fa fa-money-bill-alt fa-lg fa-5x"></i>
                             </div>
                             <div class="info">
                                 <p class="card-text">
                                 <h1 class="card-text display-5 text-white font-weight-bold">Bank</h1>
+                                <i class="fa fa-money-bill-alt"></i>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -174,11 +182,13 @@
                     <div class="card bg-dark border-0 text-white">
                         <div class="card-body">
                             <div class="title">
-                                <h1 class="text-light">Divisi</h1>
+                                <h1 class="text-light mr-1">Divisi</h1>
+                                <i class="fa fa-divide fa-lg fa-5x"></i>
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Divisi</h1>
+                                <h1 class="card-text display-5 text-white font-weight-bold mr-1">Divisi</h1>
+                                <i class="fa fa-divide"></i>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -197,11 +207,13 @@
                     <div class="card bg-secondary border-0 text-white">
                         <div class="card-body">
                             <div class="title">
-                                <h1 class="text-light">Unit</h1>
+                                <h1 class="text-light mr-1">Unit</h1>
+                                <i class="fa fa-address-book fa-lg fa-5x"></i>
                             </div>
                             <div class="info">
                                 <p class="card-text">
                                 <h1 class="card-text display-5 text-white font-weight-bold">Unit</h1>
+                                <i class="fa fa-address-book"></i>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -220,11 +232,13 @@
                     <div class="card bg-primary border-0 text-white">
                         <div class="card-body">
                             <div class="title">
-                                <h1 class="text-light">Produk</h1>
+                                <h1 class="text-light mr-1">Produk</h1>
+                                <i class="fa fa-chart-line fa-lg fa-5x"></i>
                             </div>
                             <div class="info">
                                 <p class="card-text">
                                 <h1 class="card-text display-5 text-white font-weight-bold">Produk</h1>
+                                <i class="fa fa-chart-line"></i>
                                 </p>
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural lead-in to additional content. This content is
@@ -274,13 +288,37 @@
 </section>
 @endif
 
-@if(request()->routeIs('admin.sales'))
-@section('title', 'Sales')
-@push('breadcrumb')
-<li class="breadcrumb-item active">Sales</li>
-@endpush
-{{-- --}}
-@endif
+    @if(request()->routeIs('admin.sales'))
+        @section('title', 'Penjualan')
+        @push('breadcrumb')
+            <li class="breadcrumb-item active">Penjualan</li>
+        @endpush
+        <section>
+            <div class="row">
+                <div class="col-md-3 col-xl-3">
+                    <a href="{{ route('admin.penawaran.index') }}">
+                        <div class="card border-0 text-white shadow">
+                            <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Buku Besar" />
+                            <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                                <h1 class="card-text display-5 text-white font-weight-bold">Penawaran Harga</h1>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{-- <div class="col-md-3 col-xl-3">
+                    <a href="{{ route('admin.jurnalumum.index') }}">
+                        <div class="card border-0 text-white shadow">
+                            <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Jurnal Umum" />
+                            <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
+                                <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
+                            </div>
+                        </div>
+                    </a>
+                </div> --}}
+            </div>
+        </section>
+        {{--  --}}
+    @endif
 
 @if(request()->routeIs('admin.purchase'))
 @section('title', 'Purchases')
