@@ -18,7 +18,7 @@ class AkunController extends Controller
         {
             $number = Akun::max('kode');
             $strnum = substr($number, 2, 3);
-            $strnum = $strnum + 1;
+            //$strnum = $strnum + 1;
             if (strlen($strnum) == 3) {
                 $kode = 'AC' . $strnum;
             } else if (strlen($strnum) == 2) {
@@ -75,7 +75,7 @@ class AkunController extends Controller
             return back()->with('error', 'Data Gagal Disimpan'.$e->getMessage());
         }
         
-        return redirect()->route('admin.akun.index')->with('success', 'Data Berhasil Disimpan');
+        return back()->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -122,7 +122,7 @@ class AkunController extends Controller
         }catch(\Exception $e){
             return back()->with('error', 'Data Gagal Diupdate'.$e->getMessage());
         }
-        return redirect()->route('admin.akun.index')->with('success', 'Data Berhasil Diupdate');
+        return back()->with('success', 'Data Berhasil Diupdate');
 
     }
 
@@ -134,16 +134,12 @@ class AkunController extends Controller
      */
     public function destroy($id)
     {
-        $akun = Akun::findOrFail($id);
         try{
-            if($akun->jurnalumums())
-            {
-                $akun->jurnalumums()->delete();
-            }
-            $akun->delete();
+            Akun::findOrFail($id)->delete();
         }catch(\Exception $e){
             return back()->with('error', 'Data Gagal Dihapus'.$e->getMessage());
         }
-        return redirect()->route('admin.akun.index')->with('success', 'Data Berhasil Dihapus');
+        return back()->with('success', 'Data Berhasil Dihapus');
     }
+    
 }

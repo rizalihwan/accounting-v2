@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Divisi;
 
 use App\Models\Divisi;
+use App\Models\Jurnalumum;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -68,10 +69,15 @@ class Data extends Component
     public function delete(Divisi $divisi)
     {
         try {
-            $divisi->delete();
+            // sintak dibawah masih salah dan.
+            // jadi kalau si divisi punya jurnalumum pas hapus data selected ke hapus juga si ju nya.
+            if($divisi->jurnalumums())
+            {
+                $divisi->jurnalumums()->delete();
+            }
             $this->refresh('Data berhasil dihapus');
         } catch (\Throwable $th) {
-            $this->error('Data gagal dihapus');
+            $this->error('Data gagal dihapus' . $th->getMessage());
         }
     }
 }

@@ -72,7 +72,7 @@
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>hapus</button>
                                                 </form>
-                                                <li><a href="{{ route('admin.bkm.show',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
+                                                <li><a href="{{ route('admin.bkm.edit',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
                                                 </ul>
                                             </div>
                                             

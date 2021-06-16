@@ -18,6 +18,7 @@ class CreateJurnalumumsTable extends Migration
             $table->date('tanggal');
             $table->string('kode_jurnal');
             $table->foreignId('kontak_id')->constrained();
+            $table->foreignId('divisi_id')->references('id')->on('divisis')->onDelete('cascade');
             $table->string('uraian');
             $table->boolean('status');
             $table->timestamps();

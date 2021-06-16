@@ -85,6 +85,7 @@ class BkkController extends Controller
      */
     public function show(Bkk $bkk)
     {
+        
         $show = Bkk::find($bkk)->first();
         return view('admin.bkk.show',compact('show'));
     }
@@ -97,7 +98,10 @@ class BkkController extends Controller
      */
     public function edit(Bkk $bkk)
     {
-        //
+        $rekening = Akun::get();
+        $kontak = DB::table('kontaks')->get();
+        $datas = Bkk::find($bkk)->first();
+        return view('admin.bkk.edit',compact('datas','kontak','rekening'));
     }
 
     /**
@@ -109,7 +113,34 @@ class BkkController extends Controller
      */
     public function update(Request $request, Bkk $bkk)
     {
-        //
+        dd($bkk->id);
+        //$bkk->delete();
+        $imam = count($request->invoice);
+
+        $jml=0;
+        DB::table('bkks')->insert([
+            'tanggal' => $request->tanggal,
+            'kontak_id' =>$request->kontak,
+            'desk' => $request->desk,
+            'rekening_id' =>$request->rek,
+            'status' => 'BKK',
+        ]);
+        $id = DB::table('bkks')->select('id')
+                              ->orderByDesc('id')
+                              ->first();
+        for ($i=0; $i < $imam; $i++) { 
+            DB::table('uraians')->insert([
+                'rekening_id'=> $request->invoice[$i]["rekening"],
+                'bkk_id'=> $id->id,
+                'jml_uang'=> $request->invoice[$i]["jumlah"],
+                'catatan'=> $request->invoice[$i]["catatan"],
+                'uang'=> $request->invoice[$i]["matauang"],
+            ]);
+            $jml = $jml + $request->invoice[$i]["jumlah"];
+        }
+        DB::table('bkks')->where('id',$id->id)->update([
+            'value' => $jml
+        ]);
     }
 
     /**

@@ -60,9 +60,25 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-11">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="divisi_id">{{ __('Divisi') }}<span class="text-red">*</span></label>
+                                        <select name="divisi_id" id="divisi_id"
+                                            class="form-control select2 @error('divisi_id') is-invalid @enderror">
+                                            <option disabled selected>-- Pilih Divisi --</option>
+                                            @foreach ($divisis as $divisi)
+                                                <option value="{{ $divisi->id }}">{{ $divisi->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                        @error('divisi_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
                                     <div class="form-group">
                                         <label for="uraian">{{ __('Uraian') }}<span class="text-red">*</span></label>
                                         <input type="text" name="uraian" id="uraian" class="form-control"
@@ -76,7 +92,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="table-responsive">
@@ -176,7 +191,7 @@
                     },
                     cache: true
                 },
-                placeholder: "Pilih Kontak",
+                placeholder: "-- Pilih Kontak --",
             })
         });
         async function jurnalEachColumn(index) {
@@ -236,7 +251,7 @@
                     },
                     cache: true
                 },
-                placeholder: 'Pilih Akun',
+                placeholder: '-- Pilih Akun --',
                 allowClear: true
             })
         }
