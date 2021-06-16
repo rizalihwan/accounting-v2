@@ -260,7 +260,6 @@
 </section>
 @endif
 
-<<<<<<< HEAD
     @if(request()->routeIs('admin.sales'))
         @section('title', 'Penjualan')
         @push('breadcrumb')
