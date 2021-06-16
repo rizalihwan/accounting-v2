@@ -1,7 +1,9 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Keluar')
 @push('breadcrumb')
-    <li class="breadcrumb-item active">Cash & Bank</li>
+<li class="breadcrumb-item">
+    <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+</li>
     <li class="breadcrumb-item active">Expanse</li>
 @endpush
 @section('content')

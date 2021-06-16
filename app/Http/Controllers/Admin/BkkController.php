@@ -31,9 +31,27 @@ class BkkController extends Controller
      */
     public function create()
     {
+        $getRow = Bkk::orderBy('id', 'DESC')->get();
+        $rowCount = $getRow->count();
+        
+        $lastId = $getRow->first();
+        $kode = "";
+        if ($rowCount > 0) {
+            if ($lastId->id < 9) {
+                    $kode = "KK0000".''.($lastId->id + 1);
+            } else if ($lastId->id < 99) {
+                    $kode = "KK000".''.($lastId->id + 1);
+            } else if ($lastId->id < 999) {
+                    $kode = "KK00".''.($lastId->id + 1);
+            } else if ($lastId->id < 9999) {
+                    $kode = "KK0".''.($lastId->id + 1);
+            } else {
+                   $kode = "KK".''.($lastId->id + 1);
+            }
+        }
         $rekening = Akun::get();
         $kontak = DB::table('kontaks')->get();
-        return view('admin.bkk.create',compact('rekening','kontak'));
+        return view('admin.bkk.create',compact('rekening','kontak','kode'));
     }
 
     /**
@@ -74,7 +92,7 @@ class BkkController extends Controller
         DB::table('bkks')->where('id',$id->id)->update([
             'value' => $jml
         ]);
-        return back()->with('success','Kas berhasil Tersimpan');
+        return redirect()->route('admin.bkk.index')->with('success', 'Buku Kas berhasil Tersimpan');
     }
 
     /**
@@ -113,34 +131,32 @@ class BkkController extends Controller
      */
     public function update(Request $request, Bkk $bkk)
     {
-        dd($bkk->id);
-        //$bkk->delete();
+        $bkk->delete();
         $imam = count($request->invoice);
 
         $jml=0;
         DB::table('bkks')->insert([
+            'id' => $bkk->id,
             'tanggal' => $request->tanggal,
             'kontak_id' =>$request->kontak,
             'desk' => $request->desk,
             'rekening_id' =>$request->rek,
             'status' => 'BKK',
         ]);
-        $id = DB::table('bkks')->select('id')
-                              ->orderByDesc('id')
-                              ->first();
         for ($i=0; $i < $imam; $i++) { 
             DB::table('uraians')->insert([
                 'rekening_id'=> $request->invoice[$i]["rekening"],
-                'bkk_id'=> $id->id,
+                'bkk_id'=> $bkk->id,
                 'jml_uang'=> $request->invoice[$i]["jumlah"],
                 'catatan'=> $request->invoice[$i]["catatan"],
                 'uang'=> $request->invoice[$i]["matauang"],
             ]);
             $jml = $jml + $request->invoice[$i]["jumlah"];
         }
-        DB::table('bkks')->where('id',$id->id)->update([
+        DB::table('bkks')->where('id',$bkk->id)->update([
             'value' => $jml
         ]);
+        return redirect()->route('admin.bkk.index')->with('success', 'Buku Kas berhasil Terupdate');
     }
 
     /**

@@ -25,13 +25,13 @@
                               <div class="col-md-4 col-12 ">
                                   <div class="form-group">
                                       <label for="itemname">Tanggal</label>
-                                      <input type="date" class="form-control" name="tanggal" />
+                                      <input type="date" class="form-control" name="tanggal" required/>
                                   </div>
                               </div>
                               <div class="col-md-3 col-12 ml-auto mr-4">
                                   <div class="form-group">
                                       <label for="id">No Jurnal</label>
-                                      <input type="text" class="form-control" placeholder="auto number" disabled />
+                                      <input type="text" class="form-control" placeholder="auto number" disabled value="{{$kode}}" />
                                   </div>
                               </div>
                           </div>
@@ -40,6 +40,7 @@
                                   <div class="form-group">
                                       <label for="kontak">Sudah Bayar Ke</label>
                                       <select name="kontak" id="kontak" class="form-control">
+                                        <option value="">Pilih Kontak</option>
                                           @foreach ($kontak as $item)
                                           <option value="{{$item->id}}">{{$item->nama}}</option>
                                           @endforeach
