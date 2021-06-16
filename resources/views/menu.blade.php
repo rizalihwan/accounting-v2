@@ -17,7 +17,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        display: block;
+        display: block; 
         width: 100%;
         height: 100%;
         transition: 0.5s;
@@ -25,6 +25,7 @@
     }
     .card:hover .info p{
         display: inline-flex;
+        transition: 0.5s;
     }
     .card:hover .title{
         display: none;
@@ -32,8 +33,9 @@
     }
 
     .card .info {
-        position: relative;
+        position: absolute;
         color: white;
+        margin-top: 100px;
         opacity: 0;
         transform: translateY(100px);
         transition: 0.5s;
@@ -46,13 +48,14 @@
         display: inline-block;
         opacity: 1;
         transform: translateY(-100px);
+        transition: 0.5s;
     }
     .card .title{
         display: inline-flex;
     }
 
     .card .title {
-        position: relative;
+        position: absolute;
         margin-top: 100px;
         transition: 0.5s;
     }
