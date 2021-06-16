@@ -7,140 +7,134 @@
     <li class="breadcrumb-item" aria-current="page">Buat Jurnal Umum</li>
     @endpush
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header justify-content-between d-flex">
-                        <div>
-                            <h3>Tambah Jurnal Umum</h3>
-                        </div>
-                        <div>
-                            No. Jurnal : <strong>{{ $kode }}</strong>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header justify-content-between d-flex">
+                    <div>
+                        <h3>Tambah Jurnal Umum</h3>
                     </div>
-                    <div class="card-body">
-                        <form class="forms-sample" action="{{ route('admin.jurnalumum.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="kode_jurnal" value="{{ $kode }}">
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
-                                        <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
-                                            class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
-                                        <div class="help-block with-errors"></div>
-                                        @error('tanggal')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
-                                        <select name="kontak_id" id="kontak_id"
-                                            class="form-control select2 @error('kontak_id') is-invalid @enderror">
-                                        </select>
-                                        <div class="help-block with-errors"></div>
-                                        @error('kontak_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-3" style="margin-top: 8px">
-                                    <div class="form-group"></div>
-                                    <div class="form-group">
-                                        <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
-                                            <i data-feather="plus"></i>
-                                            TAMBAH KONTAK
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="divisi_id">{{ __('Divisi') }}<span class="text-red">*</span></label>
-                                        <select name="divisi_id" id="divisi_id"
-                                            class="form-control select2 @error('divisi_id') is-invalid @enderror">
-                                            <option disabled selected>-- Pilih Divisi --</option>
-                                            @foreach ($divisis as $divisi)
-                                                <option value="{{ $divisi->id }}">{{ $divisi->nama }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="help-block with-errors"></div>
-                                        @error('divisi_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class="form-group">
-                                        <label for="uraian">{{ __('Uraian') }}<span class="text-red">*</span></label>
-                                        <input type="text" name="uraian" id="uraian" class="form-control"
-                                            placeholder="uraian...">
-                                        <div class="help-block with-errors"></div>
-                                        @error('uraian')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless mt-2">
-                                            <thead>
-                                                <tr class="rowHead">
-                                                    <td>Akun</td>
-                                                    <td>Debit</td>
-                                                    <td>Kredit</td>
-                                                    <td style="width: 1px"></td>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="dynamic_field"></tbody>
-                                        </table>
-                                        <button type="button" id="add"
-                                            class="btn btn-success my-2"
-                                            style="width: 100%; height: 50px">
-                                            <i data-feather="plus"></i>
-                                            Tambah Row Baru
-                                        </button>
-                                        <table class="table table-borderless col-sm-6 ml-auto border-top">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 180px">Total</th>
-                                                    <td id="total_debit">0</td>
-                                                    <td id="total_kredit">0</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Difference</th>
-                                                    <td></td>
-                                                    <td id="difference" tit>0</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="col-md-12 mt-4">
+                    <div>
+                        No. Jurnal : <strong>{{ $kode }}</strong>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="forms-sample" action="{{ route('admin.jurnalumum.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="kode_jurnal" value="{{ $kode }}">
+                        <div class="row">
+                            <div class="col-sm-5">
                                 <div class="form-group">
-                                    <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
-                                    <button type="submit" class="btn btn-primary" id="btn-submit">
-                                        TAMBAH</button>
+                                    <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
+                                    <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
+                                        class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
+                                    <div class="help-block with-errors"></div>
+                                    @error('tanggal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
+                                    <select name="kontak_id" id="kontak_id"
+                                        class="form-control select2 @error('kontak_id') is-invalid @enderror">
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                    @error('kontak_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top: 8px">
+                                <div class="form-group"></div>
+                                <div class="form-group">
+                                    <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
+                                        <i data-feather="plus"></i>
+                                        TAMBAH KONTAK
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="divisi_id">{{ __('Divisi') }}<span class="text-red">*</span></label>
+                                    <select name="divisi_id" id="divisi_id"
+                                        class="form-control select2 @error('divisi_id') is-invalid @enderror">
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                    @error('divisi_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="uraian">{{ __('Uraian') }}<span class="text-red">*</span></label>
+                                    <input type="text" name="uraian" id="uraian" class="form-control"
+                                        placeholder="uraian...">
+                                    <div class="help-block with-errors"></div>
+                                    @error('uraian')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless mt-2">
+                                        <thead>
+                                            <tr class="rowHead">
+                                                <td>Akun</td>
+                                                <td>Debit</td>
+                                                <td>Kredit</td>
+                                                <td style="width: 1px"></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dynamic_field"></tbody>
+                                    </table>
+                                    <button type="button" id="add"
+                                        class="btn btn-success my-2"
+                                        style="width: 100%; height: 50px">
+                                        <i data-feather="plus"></i>
+                                        Tambah Row Baru
+                                    </button>
+                                    <table class="table table-borderless col-sm-6 ml-auto border-top">
+                                        <tbody>
+                                            <tr>
+                                                <th style="width: 180px">Total</th>
+                                                <td id="total_debit">0</td>
+                                                <td id="total_kredit">0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Difference</th>
+                                                <td></td>
+                                                <td id="difference" tit>0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="col-md-12 mt-4">
+                            <div class="form-group">
+                                <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
+                                <button type="submit" class="btn btn-primary" id="btn-submit">
+                                    TAMBAH</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -175,12 +169,14 @@
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
         $(document).ready(function() {
             $("#kontak_id").select2({
+                placeholder: "-- Pilih Kontak --",
                 ajax: {
                     url: '{{ route('api.select2.get-kontak') }}',
-                    type: 'get',
+                    type: 'post',
                     dataType: 'json',
                     data: params => {
                         return {
+                            _token: CSRF_TOKEN,
                             search: params.term
                         }
                     },
@@ -191,20 +187,40 @@
                     },
                     cache: true
                 },
-                placeholder: "-- Pilih Kontak --",
+            })
+            
+            $("#divisi_id").select2({
+                placeholder: "-- Pilih Divisi --",
+                ajax: {
+                    url: '{{ route('api.select2.get-divisi') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
             })
         });
-        async function jurnalEachColumn(index) {
-            let fetchData = await fetch(`{{ route('api.select2.get-akun') }}`)
-            let response = JSON.parse(await fetchData.text())
-            let $select2 = $('select[name="jurnals['+index+'][akun_id]"]').select2({
-                placeholder: "Pilih Akun"
-            }).empty()
-            $select2.append($("<option></option>").attr("value", '').text('Choose Type'))
-            $.each(response, function(key, data){
-                $select2.append($("<option></option>").attr("value", data.id).text(data.name))
-            })
-        }
+        // async function jurnalEachColumn(index) {
+        //     let fetchData = await fetch(`{{ route('api.select2.get-akun') }}`)
+        //     let response = JSON.parse(await fetchData.text())
+        //     let $select2 = $('select[name="jurnals['+index+'][akun_id]"]').select2({
+        //         placeholder: "Pilih Akun"
+        //     }).empty()
+        //     $select2.append($("<option></option>").attr("value", '').text('Choose Type'))
+        //     $.each(response, function(key, data){
+        //         $select2.append($("<option></option>").attr("value", data.id).text(data.name))
+        //     })
+        // }
         function field_dinamis() {
             let index = $('#dynamic_field tr').length
             let uuid = generateUUID()
@@ -235,12 +251,14 @@
             // jurnalEachColumn(index)
             feather.replace()
             $('select[name="jurnals['+index+'][akun_id]"]').select2({
+                placeholder: '-- Pilih Akun --',
                 ajax: {
                     url: '{{ route('api.select2.get-akun') }}',
-                    type: 'get',
+                    type: 'post',
                     dataType: 'json',
                     data: params => {
                         return {
+                            _token: CSRF_TOKEN,
                             search: params.term
                         }
                     },
@@ -251,7 +269,6 @@
                     },
                     cache: true
                 },
-                placeholder: '-- Pilih Akun --',
                 allowClear: true
             })
         }
@@ -270,6 +287,7 @@
                 }
                 $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
                 getNumberOfTr()
+                jumlahin()
             })
         })
         function getNumberOfTr() {
@@ -323,10 +341,8 @@
             $("#difference").text(difference)
             if (difference === 0) {
                 $("#btn-submit").attr('disabled', false)
-                $("#btn-submit").attr('hidden', false)
             } else {
                 $("#btn-submit").attr('disabled', true)
-                $("#btn-submit").attr('hidden', true)
             }
         }
     </script>

@@ -9,6 +9,8 @@ use App\Models\Jurnalumum;
 use App\Models\Jurnalumumdetail;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class JurnalUmumController extends Controller
 {
@@ -36,11 +38,9 @@ class JurnalUmumController extends Controller
 
     public function index()
     {
-        $selectJu = Jurnalumumdetail::distinct()->pluck('jurnalumum_id');
-        $data = Jurnalumumdetail::whereIn('jurnalumum_id', $selectJu)->groupBy('jurnalumum_id');
+        $data = Jurnalumum::with('jurnalumumdetails')->latest();
         return view('admin.jurnalumum.index', [
-            'data' => $data->paginate(5),
-            // count dihandap can bener, pangomeken tuh kwkwk.
+            'data' => $data->paginate(10),
             'countJurnal' => $data->count()
         ]);
     }
@@ -90,7 +90,7 @@ class JurnalUmumController extends Controller
         }
         return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil Tersimpan');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -115,18 +115,11 @@ class JurnalUmumController extends Controller
             return redirect()->route('admin.jurnalumum.index')->with('error', 'Data tidak ditemukan');
         }
 
-        $kode = Jurnalumum::where('id', $id)->distinct()->pluck('kode_jurnal')->first();
-        $jurnal = Jurnalumum::where('kode_jurnal', $kode)
-            ->select('id', 'tanggal', 'kode_jurnal', 'kontak_id', 'uraian')
-            ->groupBy('kode_jurnal')->first();
-        $jurnals = Jurnalumum::where('kode_jurnal', $kode)
-            ->select('id', 'akun_id', 'debit', 'kredit', 'status');
+        $jurnal = Jurnalumum::find($id);
 
         return view('admin.jurnalumum.edit', [
-            'kode' => $kode,
             'jurnal' => $jurnal,
-            'jurnals' => $jurnals->get(),
-            'totalJurnals' => $jurnal->count()
+            'totalJurnals' => $jurnal->jurnalumumdetails->count()
         ]);
     }
 
@@ -139,53 +132,64 @@ class JurnalUmumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jurnals = Jurnalumum::where('kode_jurnal', $id);
-        $arrReq = count($request->jurnals);
+        $input = $request->except('_token', '_method');
 
-        // for ($i = 0; $i < $arrReq; $i++) {
-        //     echo $request->jurnals[$i]['kredit'];
-        // }
-        // dd();
+        $error = Validator::make($input, [
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'kontak_id'  => 'required|exists:kontaks,id',
+            'divisi_id' => 'required|exists:divisis,id',
+            'uraian' => 'required|string',
+            'jurnals.*.akun_id' => 'required|exists:akuns,id',
+            'jurnals.*.debit' => 'required_without:jurnals.*.kredit',
+            'jurnals.*.kredit' => 'required_without:jurnals.*.debit',
+        ]);
 
-        if ($arrReq > $jurnals->count()) {
-            for ($i = 0; $i < $arrReq; $i++) {
+        if ($error->fails()) {
+            return response()->json(['error'  => $error->errors()->all()]);
+        }
+
+        $detail_id = [];
+
+        foreach ($input['jurnals'] as $value) {
+            $detail_id[] = $value['id'];
+        }
+
+        $detail_jurnals_except = Jurnalumumdetail::select('id')->whereNotIn('id', $detail_id)->get();
+        if ($detail_jurnals_except > 0) {
+            foreach ($detail_jurnals_except as $detail) {
                 try {
-                    Jurnalumum::create([
-                        'kode_jurnal' => $request->kode_jurnal,
-                        'tanggal' => $request->tanggal,
-                        'kontak_id' => $request->kontak_id,
-                        'uraian' => $request->uraian,
-                        'status' => 1,
-                        'akun_id' => $request->jurnals[$i]['akun_id'],
-                        'debit' => $request->jurnals[$i]['debit'],
-                        'kredit' => $request->jurnals[$i]['kredit']
-                    ]);
+                    $detail->delete();
                 } catch (\Exception $e) {
-                    return back()->with('error', 'Jurnal tidak Tersimpan!' . $e->getMessage());
+                    return back()->with('error', 'Ada yang salah. Mohon periksa kembali form yang Anda isi');
                 }
             }
-        } else {
-            try {
-                /**
-                 * UPDATE INI MASIH ERROR ZAL.
-                 * pang benerken wkwkwk.
-                 */
-                for ($i = 0; $i < $arrReq; $i++) {
-                    foreach ($jurnals->get() as $index => $item) {
-                        $item->update([
-                            'tanggal' => $request->tanggal,
-                            'kontak_id' => $request->kontak_id,
-                            'uraian' => $request->uraian,
-                            'status' => 1,
-                            'akun_id' => $request->jurnals[$i]['akun_id'],
-                            'debit' => $request->jurnals[$i]['debit'],
-                            'kredit' => $request->jurnals[$i]['kredit']
-                        ]);
-                    }
+        }
+
+        $detail_jurnals = Jurnalumumdetail::$jurnal = Jurnalumum::find($id);
+
+        DB::beginTransaction();
+        try {
+            Jurnalumumdetail::where('jurnalumum_id', $jurnal->id)->each(function ($detail_jurnal) use ($input) {
+                foreach ($input['jurnals'] as $value) {
+                    $detail_jurnal->update([
+                        'akun_id' => $value['akun_id'],
+                        'debit' => $value['debit'],
+                        'kredit' => $value['kredit'],
+                    ]);
                 }
-            } catch (\Exception $e) {
-                return back()->with('error', 'Jurnal gagal diubah!');
-            }
+            });
+
+            $jurnal->update([
+                'status' => $input['status'],
+                'tanggal' => $input['tanggal'],
+                'kontak_id' => $input['kontak_id'],
+                'divisi_id' => $input['divisi_id'],
+                'uraian' => $input['uraian']
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'Ada yang salah. Mohon periksa kembali form yang Anda isi!');
         }
 
         return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil diubah!');
@@ -237,15 +241,12 @@ class JurnalUmumController extends Controller
 
     public function kontakSelected($id)
     {
-        $jurnal = Jurnalumum::with('kontak')->find($id);
-        $kontak = $jurnal->kontak;
+        $kontak = Kontak::find($id);
 
         $result = [
             'id' => $kontak->id,
             'text' => $kontak->nama,
             'nama' => $kontak->nama,
-            'email' => $kontak->email,
-            'telepon' => $kontak->telepon
         ];
 
         return $result;
@@ -281,6 +282,39 @@ class JurnalUmumController extends Controller
             'text' => "{$akun->name}",
             'kode' => $akun->kode,
             'name' => $akun->name
+        ];
+
+        return $result;
+    }
+
+    public function getDivisi(Request $request)
+    {
+        $search = $request->search;
+        $divitions = Divisi::select('id', 'kode', 'nama')
+            ->where('kode', 'like', "%{$search}%")
+            ->orWhere('nama', 'like', "%{$search}%")
+            ->orderBy('nama', 'ASC')->get()->take(20);
+
+        $results = [];
+        foreach ($divitions as $d) {
+            $results[] = [
+                'id' => $d->id,
+                'text' => "{$d->nama} ({$d->kode})",
+                'kode' => $d->kode,
+                'nama' => $d->nama
+            ];
+        }
+
+        return $results;
+    }
+
+    public function divisiSelected(Divisi $divisi)
+    {
+        $result = [
+            'id' => $divisi->id,
+            'text' => "{$divisi->nama} ({$divisi->kode})",
+            'kode' => $divisi->kode,
+            'nama' => $divisi->nama
         ];
 
         return $result;
