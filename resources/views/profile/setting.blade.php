@@ -61,9 +61,13 @@
                 <!-- header media -->
                 <div class="media">
                     <a href="javascript:void(0);" class="mr-25">
-                    <img src="{{ asset('storage/avatar/'. auth()->user()->avatar) }}"
-                    style="width: 100px; height: 100px; object-fit: cover; object-position: center;"
-                    class="mb-2" alt="Img Profile" srcset="">
+                      @if (empty(auth()->user()->avatar))
+                        <img class="round" src="{{ asset('img/avatar.png') }}" alt="avatar" height="40" width="40">
+                      @else
+                        <img src="{{ asset('storage/avatar/'. auth()->user()->avatar) }}"
+                        style="width: 100px; height: 100px; object-fit: cover; object-position: center;"
+                        class="mb-2" alt="Img Profile" srcset="">
+                      @endif
                     </a>
                     <!-- upload and reset button -->
                     <div class="media-body mt-75 ml-1">

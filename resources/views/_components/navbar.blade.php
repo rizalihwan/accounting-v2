@@ -3,7 +3,7 @@
     <div class="navbar-header d-xl-block d-none">
         <ul class="nav navbar-nav">
             <li class="nav-item"><a class="navbar-brand" href="index-2.html"><span class="brand-logo">
-                <h1 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1">Digiku</h1>
+                <h1 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1">Digkuad</h1>
             </a></li>
         </ul>
     </div>
@@ -212,7 +212,11 @@
                         <span class="user-status">{{ auth()->user()->role }}</span>
                     </div>
                     <span class="avatar">
-                        <img class="round" src="{{ asset('storage/avatar/'. auth()->user()->avatar) }}" alt="avatar" height="40" width="40">
+                        @if (empty(auth()->user()->avatar))
+                         <img class="round" src="{{ asset('img/avatar.png') }}" alt="avatar" height="40" width="40">
+                        @else
+                         <img class="round" src="{{ asset('storage/avatar/'. auth()->user()->avatar) }}" alt="avatar" height="40" width="40">
+                        @endif
                         <span class="avatar-status-online"></span>
                     </span>
                 </a>
@@ -248,7 +252,7 @@
         <div class="navbar-header">
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mr-auto"><a class="navbar-brand" href="index-2.html"><span class="brand-logo">
-                        <h2 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1" style="width: 40px; height: 30px;">Digiku</a>
+                        <h2 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1" style="width: 40px; height: 30px;">Digkuad</a>
                     </li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i></a></li>
             </ul>
