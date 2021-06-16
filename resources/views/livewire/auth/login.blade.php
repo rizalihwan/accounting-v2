@@ -11,7 +11,7 @@
         <!-- Left Text-->
         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
             <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
-                <img class="img-fluid" src="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/images/pages/login-v2.svg" alt="Login V2"/>
+                <img class="img-fluid" src="{{ asset ('img/loginpage.png') }}" alt="Login V2"/>
             </div>
         </div>
         <!-- /Left Text-->

@@ -102,15 +102,15 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Data Kontak</h1>
-                                <i class="fa fa-users"></i>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Data Kontak</h1>
+                                    <i class="fa fa-users"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Membuat dan menyunting data pelanggan, pemasok, dan karyawan.
                                 </p>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                    a little bit longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-light">Last updated 3 mins ago</small>
+                                    <small class="text-light"></small>
                                 </p>
                             </div>
                         </div>
@@ -133,15 +133,15 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Chart Of Account</h1>
-                                <i class="fa fa-clipboard-list"></i>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Chart Of Account</h1>
+                                    <i class="fa fa-clipboard-list"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Membuat dan menyunting data rekening
                                 </p>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                    a little bit longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-light">Last updated 3 mins ago</small>
+                                    <small class="text-light"></small>
                                 </p>
                             </div>
                         </div>
@@ -164,12 +164,12 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Subklasifikasi Akun</h1>
-                                <i class="fa fa-check-square"></i>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Subklasifikasi Akun</h1>
+                                    <i class="fa fa-check-square"></i>
                                 </p>
+                                <hr class="mr-1">
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                    a little bit longer.
+                                    Mengelola klasifikasi akun
                                 </p>
                                 <p class="card-text">
                                     <small class="text-light">Last updated 3 mins ago</small>
@@ -195,15 +195,15 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Bank</h1>
-                                <i class="fa fa-money-bill-alt"></i>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Bank</h1>
+                                    <i class="fa fa-money-bill-alt"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Mengelola data bank
                                 </p>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                    a little bit longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-light">Last updated 3 mins ago</small>
+                                    <small class="text-light"></small>
                                 </p>
                             </div>
                         </div>
@@ -220,22 +220,21 @@
                                         <h1 class="text-light">Divisi</h1>
                                     </div>
                                     <div class="col">
-
                                         <i class="fa fa-divide fa-lg fa-5x"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Divisi</h1>
-                                <i class="fa fa-divide"></i>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Divisi</h1>
+                                    <i class="fa fa-divide"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Mengelola data divisi
                                 </p>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                    a little bit longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-light">Last updated 3 mins ago</small>
+                                    <small class="text-light"></small>
                                 </p>
                             </div>
                         </div>
@@ -253,22 +252,21 @@
                                         <h1 class="text-light">Unit</h1>
                                     </div>
                                     <div class="col">
-
                                         <i class="fa fa-address-book fa-lg fa-5x"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Unit</h1>
-                                <i class="fa fa-address-book"></i>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Unit</h1>
+                                    <i class="fa fa-address-book"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Mengelola data unit
                                 </p>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                    a little bit longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-light">Last updated 3 mins ago</small>
+                                    <small class="text-light"></small>
                                 </p>
                             </div>
                         </div>
@@ -291,15 +289,15 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Produk</h1>
-                                <i class="fa fa-chart-line"></i>
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Produk</h1>
+                                    <i class="fa fa-chart-line"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Mengelola data barang
                                 </p>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                    a little bit longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-light">Last updated 3 mins ago</small>
+                                    <small class="text-light"></small>
                                 </p>
                             </div>
                         </div>
@@ -328,21 +326,21 @@
                                     <h1 class="text-light">Buku Besar</h1>
                                 </div>
                                 <div class="col">
-                                    <i class="fa fa-book fa-lg fa-5x"></i>
+                                    <i class="fa fa-book-open fa-lg fa-5x"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Buku Besar</h1>
-                            <i class="fa fa-chart-line"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Buku Besar</h1>
+                                <i class="fa fa-book-open"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Menampilkan ikhtisar jurnal
                             </p>
                             <p class="card-text">
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                a little bit longer.
-                            </p>
-                            <p class="card-text">
-                                <small class="text-light">Last updated 3 mins ago</small>
+                                <small class="text-light"></small>
                             </p>
                         </div>
                     </div>
@@ -359,21 +357,21 @@
                                     <h1 class="text-light">Jurnal Umum</h1>
                                 </div>
                                 <div class="col">
-                                    <i class="fa fa-chart-line fa-lg fa-5x"></i>
+                                    <i class="fa fa-book fa-lg fa-5x"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
-                            <i class="fa fa-chart-line"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
+                                <i class="fa fa-book"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Mencatat transaksi keuangan dan menetapkan kredit dan debit
                             </p>
                             <p class="card-text">
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                a little bit longer.
-                            </p>
-                            <p class="card-text">
-                                <small class="text-light">Last updated 3 mins ago</small>
+                                <small class="text-light">  </small>
                             </p>
                         </div>
                     </div>
@@ -407,15 +405,15 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Penawaran Harga</h1>
-                            <i class="fa fa-chart-line"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Penawaran Harga</h1>
+                                <i class="fa fa-chart-line"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Membuat penawaran harga untuk pelanggan
                             </p>
                             <p class="card-text">
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                a little bit longer.
-                            </p>
-                            <p class="card-text">
-                                <small class="text-light">Last updated 3 mins ago</small>
+                                <small class="text-light"></small>
                             </p>
                         </div>
                     </div>
@@ -462,21 +460,21 @@
                                     <h1 class="text-light">Expense</h1>
                                 </div>
                                 <div class="col">
-                                    <i class="fa fa-chart-line fa-lg fa-5x"></i>
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Expense</h1>
-                            <i class="fa fa-chart-line"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Expense</h1>
+                                <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Mencatat pengeluaran kas/bank
                             </p>
                             <p class="card-text">
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                a little bit longer.
-                            </p>
-                            <p class="card-text">
-                                <small class="text-light">Last updated 3 mins ago</small>
+                                <small class="text-light"></small>
                             </p>
                         </div>
                     </div>
@@ -493,21 +491,21 @@
                                     <h1 class="text-light">Income</h1>
                                 </div>
                                 <div class="col">
-                                    <i class="fa fa-chart-line fa-lg fa-5x"></i>
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Income</h1>
-                            <i class="fa fa-chart-line"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Income</h1>
+                                <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Mencatat pemasukan kas/bank
                             </p>
                             <p class="card-text">
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                a little bit longer.
-                            </p>
-                            <p class="card-text">
-                                <small class="text-light">Last updated 3 mins ago</small>
+                                <small class="text-light"></small>
                             </p>
                         </div>
                     </div>
