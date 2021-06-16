@@ -3,7 +3,7 @@
     <div class="navbar-header d-xl-block d-none">
         <ul class="nav navbar-nav">
             <li class="nav-item"><a class="navbar-brand" href="index-2.html"><span class="brand-logo">
-                <h2 class="brand-text mb-0">Accounting</h2>
+                <h1 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1">Digiku</h1>
             </a></li>
         </ul>
     </div>
@@ -234,78 +234,6 @@
         </ul>
     </div>
 </nav>
-<ul class="main-search-list-defaultlist d-none">
-    <li class="d-flex align-items-center"><a href="javascript:void(0);">
-            <h6 class="section-label mt-75 mb-0">Files</h6>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="mr-75"><img src="app-assets/images/icons/xls.png" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Two new item submitted</p><small class="text-muted">Marketing Manager</small>
-                </div>
-            </div><small class="search-data-size mr-50 text-muted">&apos;17kb</small>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="mr-75"><img src="app-assets/images/icons/jpg.png" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">52 JPG file Generated</p><small class="text-muted">FontEnd Developer</small>
-                </div>
-            </div><small class="search-data-size mr-50 text-muted">&apos;11kb</small>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="mr-75"><img src="app-assets/images/icons/pdf.png" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">25 PDF File Uploaded</p><small class="text-muted">Digital Marketing Manager</small>
-                </div>
-            </div><small class="search-data-size mr-50 text-muted">&apos;150kb</small>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="mr-75"><img src="app-assets/images/icons/doc.png" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Anna_Strong.doc</p><small class="text-muted">Web Designer</small>
-                </div>
-            </div><small class="search-data-size mr-50 text-muted">&apos;256kb</small>
-        </a></li>
-    <li class="d-flex align-items-center"><a href="javascript:void(0);">
-            <h6 class="section-label mt-75 mb-0">Members</h6>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar mr-75"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-8.jpg') }}" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">John Doe</p><small class="text-muted">UI designer</small>
-                </div>
-            </div>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar mr-75"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-1.jpg') }}" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Michal Clark</p><small class="text-muted">FontEnd Developer</small>
-                </div>
-            </div>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar mr-75"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-14.jpg') }}" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Milena Gibson</p><small class="text-muted">Digital Marketing Manager</small>
-                </div>
-            </div>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar mr-75"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-6.jpg') }}" alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Anna Strong</p><small class="text-muted">Web Designer</small>
-                </div>
-            </div>
-        </a></li>
-</ul>
 <ul class="main-search-list-defaultlist-other-list d-none">
     <li class="auto-suggestion justify-content-between"><a class="d-flex align-items-center justify-content-between w-100 py-50">
             <div class="d-flex justify-content-start"><span class="mr-75" data-feather="alert-circle"></span><span>No results found.</span></div>
@@ -320,30 +248,7 @@
         <div class="navbar-header">
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mr-auto"><a class="navbar-brand" href="index-2.html"><span class="brand-logo">
-                        <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
-                        <defs>
-                            <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
-                            <stop stop-color="#000000" offset="0%"></stop>
-                            <stop stop-color="#FFFFFF" offset="100%"></stop>
-                            </lineargradient>
-                            <lineargradient id="linearGradient-2" x1="64.0437835%" y1="46.3276743%" x2="37.373316%" y2="100%">
-                            <stop stop-color="#EEEEEE" stop-opacity="0" offset="0%"></stop>
-                            <stop stop-color="#FFFFFF" offset="100%"></stop>
-                            </lineargradient>
-                        </defs>
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="Artboard" transform="translate(-400.000000, -178.000000)">
-                            <g id="Group" transform="translate(400.000000, 178.000000)">
-                                <path class="text-primary" id="Path" d="M-5.68434189e-14,2.84217094e-14 L39.1816085,2.84217094e-14 L69.3453773,32.2519224 L101.428699,2.84217094e-14 L138.784583,2.84217094e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L6.71554594,44.4188507 C2.46876683,39.9813776 0.345377275,35.1089553 0.345377275,29.8015838 C0.345377275,24.4942122 0.230251516,14.560351 -5.68434189e-14,2.84217094e-14 Z" style="fill:currentColor"></path>
-                                <path id="Path1" d="M69.3453773,32.2519224 L101.428699,1.42108547e-14 L138.784583,1.42108547e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L32.8435758,70.5039241 L69.3453773,32.2519224 Z" fill="url(#linearGradient-1)" opacity="0.2"></path>
-                                <polygon id="Path-2" fill="#000000" opacity="0.049999997" points="69.3922914 32.4202615 32.8435758 70.5039241 54.0490008 16.1851325"></polygon>
-                                <polygon id="Path-21" fill="#000000" opacity="0.099999994" points="69.3922914 32.4202615 32.8435758 70.5039241 58.3683556 20.7402338"></polygon>
-                                <polygon id="Path-3" fill="url(#linearGradient-2)" opacity="0.099999994" points="101.428699 0 83.0667527 94.1480575 130.378721 47.0740288"></polygon>
-                            </g>
-                            </g>
-                        </g>
-                        </svg></span>
-                        <h2 class="brand-text mb-0">Vuexy</h2></a>
+                        <h2 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1" style="width: 40px; height: 30px;">Digiku</a>
                     </li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i></a></li>
             </ul>
@@ -355,49 +260,49 @@
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('home') }}">
-                            <i data-feather="home"></i>
+                            <i data-feather="home" class="text-danger"></i>
                             <span data-i18n="Dashboard">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item {{ request()->is('admin/data-store*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.data-store') }}">
-                            <i data-feather="grid"></i>
+                            <i data-feather="grid" class="text-danger"></i>
                             <span data-i18n="Data Store">Data Master</span>
                         </a>
                     </li>
                     <li class="nav-item {{ request()->is('admin/ledger*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.ledger') }}">
-                            <i data-feather="book-open"></i>
+                            <i data-feather="book-open" class="text-danger"></i>
                             <span data-i18n="Ledger">Jurnal</span>
                         </a>
                     </li>
                     <li class="nav-item {{ request()->is('admin/sales*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.sales') }}">
-                            <i data-feather="shopping-cart"></i>
+                            <i data-feather="shopping-cart" class="text-danger"></i>
                             <span data-i18n="Sales">Penjualan</span>
                         </a>
                     </li>
                     <li class="nav-item {{ request()->is('admin/purchase*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.purchase') }}">
-                            <i data-feather="shopping-bag"></i>
+                            <i data-feather="shopping-bag" class="text-danger"></i>
                             <span data-i18n="Purchase">Pembelian</span>
                         </a>
                     </li>
                     <li class="nav-item {{ request()->is('admin/cash-bank*') ? 'active' : '' }}{{ request()->is('admin/bkk') ? 'active' : '' }}{{ request()->is('admin/bkk/create') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.cash-bank') }}">
-                            <i data-feather="credit-card"></i>
+                            <i data-feather="credit-card" class="text-danger"></i>
                             <span data-i18n="Card & Bank">Kas & Bank</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('admin/inventory*') ? 'active' : '' }}">
+                    {{-- <li class="nav-item {{ request()->is('admin/inventory*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.inventory') }}">
-                            <i data-feather="box"></i>
+                            <i data-feather="box" class="text-danger"></i>
                             <span data-i18n="Inventory">Persediaan Barang</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item {{ request()->is('admin/report*') ? 'active' : '' }}">
                         <a class="nav-link d-flex align-items-center" href="{{ route('admin.report') }}">
-                            <i data-feather="file"></i>
+                            <i data-feather="file" class="text-danger"></i>
                             <span data-i18n="Report">Report</span>
                         </a>
                     </li>
