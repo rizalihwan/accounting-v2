@@ -40,7 +40,7 @@
                               <div class="col-md-4 col-12 ">
                                   <div class="form-group">
                                       <label for="kontak">Sudah Bayar Ke</label>
-                                      <select name="kontak" id="kontak" class="form-control">
+                                      <select name="kontak" id="kontak" class="form-control" required>
                                         <option value="{{$datas->kontak_id}}">{{$datas->kontaks->nama}}</option>
                                           @foreach ($kontak as $item)
                                           <option value="{{$item->id}}">{{$item->nama}}</option>
@@ -91,7 +91,7 @@
                                           <div class="col-md-2 col-12" id="app">
                                             <div class="form-group">
                                                 <label for="jumlah">Jumlah uang</label>
-                                                <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" value="{{$datas->value}}" required/>
+                                                <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" value="{{$data->jml_uang}}" required/>
                                             </div>
                                         </div>
 

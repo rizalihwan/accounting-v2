@@ -65,7 +65,7 @@
                                                     <i data-feather='more-vertical'></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-dark p-2" aria-labelledby="dropdownMenuButton2">
-                                                <li><a href="{{ route('admin.bkm.show',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
+                                                <li><a href="{{ route('admin.bkm.edit',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
                                                 <form action="{{ route('admin.bkm.destroy', $item->id) }}" method="post"
                                                     onclick="return confirm('Apakah yakin?')">
                                                     @csrf
