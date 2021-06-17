@@ -7,7 +7,7 @@
                     <img src="{{ asset ('img/logo-tni.png') }}" alt="Logo TNI" style="width: 38px; height: 58px; object-fit: contain">
                     <h2 class="brand-text text-primary ml-1 my-auto text-light">DITKUAD</h2>
                 </span>
-                <img class="img-cover" width="110%" height="100%" src="{{ asset ('img/login.jpeg') }}" alt="Login V2" />
+                <img class="img-cover" width="105%" height="100%" src="{{ asset ('img/login.jpeg') }}" alt="Login V2" />
             </div>
             <!-- /Left Text-->
 
