@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-
-        @livewire('admin.category.edit')
     </div>
+
+    @livewire('admin.category.edit')
 </div>
