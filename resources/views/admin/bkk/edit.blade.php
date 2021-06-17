@@ -82,10 +82,8 @@
                                                   <label for="itemname">no rek</label>
                                                   <select name="rekening" id="rekening" class="form-control">
                                                     <option value="{{$data->rekening_id}}">{{$data->rekening->name}}-{{$data->rekening->subklasifikasi->name}}</option>
-                                                    @foreach ($rekening as $item)
-                                                    @if (!empty($item->subklasifikasi->name))
+                                                    @foreach ($rekenings as $item)
                                                     <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
-                                                    @endif
                                                     @endforeach
                                                   </select>
                                               </div>

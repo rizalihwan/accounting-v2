@@ -51,8 +51,9 @@ class BkmController extends Controller
             $query->where('name', 'like', '%kas%')
                   ->orWhere('name', 'like', '%bank%');
         }])->get();
+        $rekenings = Akun::all();
         $kontak = DB::table('kontaks')->get();
-        return view('admin.bkm.create',compact('rekening','kontak','kode'));
+        return view('admin.bkm.create',compact('rekening','kontak','kode','rekenings'));
     }
 
     /**
@@ -104,7 +105,7 @@ class BkmController extends Controller
      */
     public function show(Bkk $bkm)
     {
-        $show = Bkk::find($bkm)->first();
+        $show = Bkk::whereId($bkm->id)->first();
         return view('admin.bkm.show',compact('show'));
     }
 
@@ -120,9 +121,10 @@ class BkmController extends Controller
             $query->where('name', 'like', '%kas%')
                   ->orWhere('name', 'like', '%bank%');
         }])->get();
+        $rekenings = Akun::all();
         $kontak = DB::table('kontaks')->get();
         $datas = Bkk::find($bkm)->first();
-        return view('admin.bkm.edit',compact('datas','kontak','rekening'));
+        return view('admin.bkm.edit',compact('datas','kontak','rekening','rekenings'));
     }
 
     /**
