@@ -7,7 +7,6 @@
     <li class="breadcrumb-item active" aria-current="page">Income</li>
 @endpush
 @section('content')
-    <div class="container-fluid">
         <div class="row">
             <!-- end message area-->
             <div class="col-md-12">
@@ -86,5 +85,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection

@@ -10,7 +10,6 @@
     <li class="breadcrumb-item active" aria-current="page">Edit</li>
 @endpush
 @section('content')
-    <div class="container-fluid">
         <div class="row">
           <!-- end message area-->
           <div class="col-md-12">
@@ -145,7 +144,6 @@
               </form>
           </div>
       </div>
-    </div>
     <script>
       function HowAboutIt()
         {
