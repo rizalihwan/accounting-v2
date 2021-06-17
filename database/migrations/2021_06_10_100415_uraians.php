@@ -21,7 +21,7 @@ class Uraians extends Migration
             $table->string('catatan');
             $table->enum('uang',['RP','USD']);
             $table->timestamps();
-            $table->foreign('rekening_id')->references('id')->on('rekenings')->onDelete('cascade');
+            $table->foreign('rekening_id')->references('id')->on('akuns')->onDelete('cascade');
             $table->foreign('bkk_id')->references('id')->on('bkks')->onDelete('cascade');
 
         });
