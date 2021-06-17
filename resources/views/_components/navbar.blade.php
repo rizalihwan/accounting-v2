@@ -3,7 +3,7 @@
     <div class="navbar-header d-xl-block d-none">
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="navbar-brand" href="index-2.html">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <span class="brand-logo">
                         <h1 class="text-dark" style="font-weight: bold;">
                                 <img src="{{ asset('img/c.png') }}" alt="logo" class="mr-1" style="width: 38px; height: 58px; object-fit: contain">DIGKUAD
@@ -256,7 +256,7 @@
     <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper" data-menu-type="floating-nav">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="index-2.html">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="{{ route('home') }}">
                         <span class="brand-logo">
                             <img src="{{ asset('img/c.png') }}" style="width: 40px; height: 30px" />
                         </span>
