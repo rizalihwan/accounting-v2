@@ -181,7 +181,8 @@ class JurnalUmumController extends Controller
         $jurnals = array_values(array_filter($detail_id, fn ($value) => is_null($value) && $value == ''));
         $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
 
-        $detail_jurnals_except = Jurnalumumdetail::select('id')->whereNotIn('id', $detail_id)->get();
+        $detail_jurnals_except = Jurnalumumdetail::select('id')->where('jurnalumum_id', $id)
+            ->whereNotIn('id', $detail_id)->get();
 
         DB::beginTransaction();
         try {
