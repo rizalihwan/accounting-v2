@@ -11,7 +11,7 @@
         <!-- Left Text-->
         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
             <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
-                <img class="img-fluid" src="{{ asset ('img/loginpage.png') }}" alt="Login V2"/>
+                <img class="img-fluid" src="{{ asset ('img/login.jpeg') }}" alt="Login V2"/>
             </div>
         </div>
         <!-- /Left Text-->
@@ -43,13 +43,13 @@
                     @endif
                     <div class="form-group">
                         <label class="form-label" for="username">Username</label>
-                        <input id="username" type="text" name="username" wire:model="username" 
+                        <input id="username" type="text" name="username" wire:model="username"
                             class="form-control" placeholder="Username" aria-describedby="username" autofocus tabindex="1"/>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="password">Password</label>
                         <div class="input-group input-group-merge form-password-toggle">
-                            <input type="password" id="password" name="password" wire:model="password" aria-describedby="password" 
+                            <input type="password" id="password" name="password" wire:model="password" aria-describedby="password"
                             class="form-control form-control-merge" placeholder="············" tabindex="2"/>
                             <div class="input-group-append">
                                 <span class="input-group-text cursor-pointer">
