@@ -18,7 +18,7 @@ class Uraians extends Migration
             $table->unsignedBigInteger('rekening_id')->index('rekening_id');
             $table->unsignedBigInteger('bkk_id')->index('bkk_id');
             $table->integer('jml_uang');
-            $table->string('catatan');
+            $table->string('catatan')->nullable();
             $table->enum('uang',['RP','USD']);
             $table->timestamps();
             $table->foreign('rekening_id')->references('id')->on('akuns')->onDelete('cascade');
