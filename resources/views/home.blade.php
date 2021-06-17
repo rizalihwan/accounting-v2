@@ -15,7 +15,7 @@
         <div class="col-xl-12 col-md-12 col-12">
             <div class="card card-statistics">
                 <div class="card-header">
-                    <h4 class="card-title">Statistics</h4>
+                    <h4 class="card-title">Statistic</h4>
                     <div class="d-flex align-items-center">
                         <p class="card-text font-small-2 mr-25 mb-0">{{ date('Y-m-d') }}</p>
                     </div>
