@@ -6,7 +6,7 @@
                 <a class="navbar-brand" href="index-2.html">
                     <span class="brand-logo">
                         <h1 class="text-dark" style="font-weight: bold;">
-                                <img src="{{ asset('img/c.png') }}" alt="logo" class="mr-1" style="width: 38px; height: 58px; object-fit: contain">Digkuad
+                                <img src="{{ asset('img/c.png') }}" alt="logo" class="mr-1" style="width: 38px; height: 58px; object-fit: contain">DIGKUAD
                         </h1>
                     </span>
                 </a>
