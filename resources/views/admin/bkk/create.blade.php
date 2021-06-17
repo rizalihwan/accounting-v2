@@ -78,10 +78,9 @@
                                               <div class="form-group">
                                                   <label for="itemname">no rek</label>
                                                   <select name="rekening" id="rekening" class="form-control">
-                                                    @foreach ($rekening as $item)
-                                                    @if (!empty($item->subklasifikasi->name))
+                                                    @foreach ($rekenings as $item)
                                                     <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
-                                                    @endif
+                                                    
                                                     @endforeach
                                                   </select>
                                               </div>
