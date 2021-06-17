@@ -23,7 +23,7 @@ class CreateBkksTable extends Migration
             $table->enum('status',['BKM','BKK']);
             $table->timestamps();
             $table->foreign('kontak_id')->references('id')->on('kontaks')->onDelete('cascade');
-            $table->foreign('rekening_id')->references('id')->on('rekenings')->onDelete('cascade');
+            $table->foreign('rekening_id')->references('id')->on('akuns')->onDelete('cascade');
         });
     }
 
