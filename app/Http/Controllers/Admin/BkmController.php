@@ -47,7 +47,10 @@ class BkmController extends Controller
                    $kode = "KK".''.($lastId->id + 1);
             }
         }
-        $rekening = Akun::get();
+        $rekening = Akun::with(['subklasifikasi' => function ($query) {
+            $query->where('name', 'like', '%kas%')
+                  ->orWhere('name', 'like', '%bank%');
+        }])->get();
         $kontak = DB::table('kontaks')->get();
         return view('admin.bkm.create',compact('rekening','kontak','kode'));
     }
@@ -113,7 +116,10 @@ class BkmController extends Controller
      */
     public function edit(Bkk $bkm)
     {
-        $rekening = Akun::get();
+        $rekening = Akun::with(['subklasifikasi' => function ($query) {
+            $query->where('name', 'like', '%kas%')
+                  ->orWhere('name', 'like', '%bank%');
+        }])->get();
         $kontak = DB::table('kontaks')->get();
         $datas = Bkk::find($bkm)->first();
         return view('admin.bkm.edit',compact('datas','kontak','rekening'));
