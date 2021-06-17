@@ -282,12 +282,8 @@
     ul#main-menu-navigation
     > li.active
     > a {
-    background: -webkit-linear-gradient(
-        332deg,
-        #77f067,
-        rgba(96, 196, 71, 0.7)
-    );
-    background: linear-gradient(118deg, #77f067, rgba(103, 228, 72, 0.7));
+    background: #2697fe;
+    background: #2697fe;
     box-shadow: 0 0 6px 1px rgba(92, 231, 87, 0.6);
     color: #fff;
     border-radius: 4px;

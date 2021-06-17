@@ -4,7 +4,7 @@
         <!-- Brand logo-->
         <span class="brand-logo" style="margin-top: -15px">
             <img src="{{ asset ('img/logo-tni.png') }}" alt="Logo TNI" style="width: 38px; height: 58px; object-fit: contain">
-            <h2 class="brand-text text-primary ml-1 my-auto">DITKUAD</h2>
+            <h1 class="brand-text text-primary ml-1 my-auto text-warning">DITKUAD</h1>
         </span>
         <!-- /Brand logo-->
 
@@ -18,9 +18,13 @@
 
         <!-- Login-->
         <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
+            <span class="brand-logo ml-5" style="">
+                <img src="{{ asset ('img/c.png') }}" alt="Logo TNI" style="width: 38px; height: 58px; object-fit: contain">
+                <h1 class="brand-text text-primary ml-1 my-auto text-warning">DIGKUAD</h1>
+            </span>
             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-                <h2 class="card-title font-weight-bold mb-1">Selamat Datang di Aplikasi Akunting TNI AD!</h2>
-                <p class="card-text mb-2">Mohon untuk masuk ke akun Anda</p>
+                <h2 class="card-title font-weight-bold mb-1">Aplikasi Online Keuangan TNI AD</h2>
+                <p class="card-text mb-2">Silahkan masukan akun Anda</p>
                 <form class="auth-login-form mt-2" wire:submit.prevent="login">
                     @if (session()->has('error'))
                         <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
