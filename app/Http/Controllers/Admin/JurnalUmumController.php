@@ -96,8 +96,8 @@ class JurnalUmumController extends Controller
                 Jurnalumumdetail::create([
                     'akun_id' => $input_jurnal['akun_id'],
                     'jurnalumum_id' => $jurnal->id,
-                    'debit' => $input_jurnal['debit'],
-                    'kredit' => $input_jurnal['kredit']
+                    'debit' => $input_jurnal['debit'] == null ? '0' : $input_jurnal['debit'],
+                    'kredit' => $input_jurnal['kredit'] == null ? '0' : $input_jurnal['kredit']
                 ]);
             }
         } catch (\Exception $e) {
