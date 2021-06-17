@@ -3,11 +3,35 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontak;
+use App\Models\Product;
 use App\Models\Sale\PenawaranSale;
 use Illuminate\Http\Request;
 
 class PenawaranController extends Controller
 {
+    private $kode;
+
+    public function __construct()
+    {
+        $number = PenawaranSale::count();
+        if ($number > 0) {
+            $number = PenawaranSale::max('kode');
+            $strnum = substr($number, 2, 3);
+            $strnum = $strnum + 1;
+            if (strlen($strnum) == 3) {
+                $kode = 'PS' . $strnum;
+            } else if (strlen($strnum) == 2) {
+                $kode = 'PS' . "0" . $strnum;
+            } else if (strlen($strnum) == 1) {
+                $kode = 'PS' . "00" . $strnum;
+            }
+        } else {
+            $kode = 'PS' . "001";
+        }
+        $this->kode = $kode;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +52,16 @@ class PenawaranController extends Controller
      */
     public function create()
     {
-        return view('admin.sales.penawaran.create');
+        $pelanggan = Kontak::select('id','nama', 'pelanggan')
+                    ->where('pelanggan', TRUE)
+                    ->get();
+        $product = Product::select('id', 'name', 'price_sell', 'unit_id')->with('unit:name')->get();
+        
+        return view('admin.sales.penawaran.create', [
+            'kode' => $this->kode,
+            'pelanggan' => $pelanggan,
+            'product' => $product
+        ]);
     }
 
     /**
@@ -86,4 +119,5 @@ class PenawaranController extends Controller
     {
         //
     }
+
 }
