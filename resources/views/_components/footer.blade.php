@@ -5,7 +5,7 @@
             <a class="ml-25" href="javascript:void(0)">Ditkuad</a>
         </span>
         <span class="float-md-right d-none d-md-block">
-            Powered by aksimaya
+            Powered by Kreasi Asia
         </span>
     </p>
 </footer>

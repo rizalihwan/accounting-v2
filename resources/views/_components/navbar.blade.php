@@ -2,9 +2,11 @@
 <nav class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center" data-nav="brand-center">
     <div class="navbar-header d-xl-block d-none">
         <ul class="nav navbar-nav">
-            <li class="nav-item"><a class="navbar-brand" href="index-2.html"><span class="brand-logo">
-                <h1 class="brand-text mb-0 text-warning font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1">Digkuad</h1>
-            </a></li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="#"><span class="brand-logo">
+                    <h1 class="mb-0 font-weight-bold"><img src="{{ asset ('img/c.png') }}" alt="logo" class="mr-1" style="font-size: 20px; color: black;">DIGKUAD</h1>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="navbar-container d-flex content">
@@ -251,7 +253,7 @@
     <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper" data-menu-type="floating-nav">
         <div class="navbar-header">
                 <ul class="nav navbar-nav flex-row">
-                    <li class="nav-item mr-auto"><a class="navbar-brand" href="index-2.html">
+                    <li class="nav-item mr-auto"><a class="navbar-brand" href="#">
                         <span class="brand-logo">
                             <img src="{{ asset('img/c.png') }}" style="width: 40px; height: 30px" />
                         </span>
