@@ -19,6 +19,17 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-validation-msg" role="alert">
+                            <div class="alert-body">
+                                @foreach ($errors->all() as $error)
+                                <ul style="margin: 5px 12px 0 -11px">
+                                    <li>{{ $error }}</li>
+                                </ul>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                     <form class="forms-sample" action="{{ route('admin.jurnalumum.update', $jurnal->id) }}" method="POST">
                         @csrf
                         @method('put')
@@ -29,27 +40,17 @@
                                 <div class="form-group">
                                     <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
                                     <input id="tanggal" type="date" value="{{ old('tanggal') ?? $jurnal->tanggal }}"
-                                        class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
+                                        class="form-control" name="tanggal">
                                     <div class="help-block with-errors"></div>
-                                    @error('tanggal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="kontak_id">{{ __('Kontak') }}<span class="text-red">*</span></label>
                                     <select name="kontak_id" id="kontak_id"
-                                        class="form-control select2 @error('kontak_id') is-invalid @enderror">
+                                        class="form-control select2">
                                     </select>
                                     <div class="help-block with-errors"></div>
-                                    @error('kontak_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-3" style="margin-top: 8px">
@@ -65,14 +66,9 @@
                                 <div class="form-group">
                                     <label for="divisi_id">{{ __('Divisi') }}<span class="text-red">*</span></label>
                                     <select name="divisi_id" id="divisi_id"
-                                        class="form-control select2 @error('divisi_id') is-invalid @enderror">
+                                        class="form-control select2">
                                     </select>
                                     <div class="help-block with-errors"></div>
-                                    @error('divisi_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -81,11 +77,6 @@
                                     <input type="text" name="uraian" id="uraian" class="form-control"
                                         value="{{ old('uraian') ?? $jurnal->uraian }}" placeholder="Uraian...">
                                     <div class="help-block with-errors"></div>
-                                    @error('uraian')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -194,10 +185,10 @@
             })
             let kontakSelect = $("#kontak_id")
             let kontak_url = '{{ route('api.select2.get-kontak.selected', ':id') }}'
-            let url = kontak_url.replace(':id', '{{ $jurnal->id }}')
+            let url_kontak = kontak_url.replace(':id', '{{ $jurnal->kontak_id }}')
             $.ajax({
                 type: 'get',
-                url: url,
+                url: url_kontak,
                 error: err => {
                     console.log(err)
                 }
