@@ -37,7 +37,7 @@
                                         <td>{{ $u->name }}</td>
                                         <td>{{ $u->description }}</td>
                                         <td>
-                                            @if($u->status)
+                                            @if($u->status == '1')
                                                 <span class="badge badge-success">Aktif</span>
                                             @else
                                                 <span class="badge badge-danger">Non Aktif</span>

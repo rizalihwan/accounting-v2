@@ -28,6 +28,7 @@ class Create extends Component
     public function store()
     {
         $data = $this->validate();
+        $data['status'] = (string)$data['status'];
 
         try {
             Unit::create($data);
