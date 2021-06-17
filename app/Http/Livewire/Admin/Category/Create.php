@@ -10,7 +10,7 @@ class Create extends Component
     public $name;
 
     protected $rules = [
-        'name' => 'required|unique:categories'
+        'name' => 'required|unique:categories_products'
     ];
 
     private function clear()
