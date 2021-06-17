@@ -30,7 +30,7 @@
                               <div class="col-md-3 col-12 ml-auto mr-4">
                                   <div class="form-group">
                                       <label for="id">No Jurnal</label>
-                                      <input type="text" class="form-control" placeholder="auto number" disabled value="{{$kode}}" />
+                                      <input type="text" class="form-control" value="{{$kode}}"  disabled />
                                   </div>
                               </div>
                           </div>
@@ -56,9 +56,11 @@
                                   <div class="form-group">
                                       <label for="kontak">Rek.Kas/Bank[K]</label>
                                       <select name="rek" id="rek" class="form-control">
-                                          @foreach ($rekening as $item)
-                                          <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
-                                          @endforeach
+                                        @foreach ($rekening as $item)
+                                        @if (!empty($item->subklasifikasi->name))
+                                        <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
+                                        @endif
+                                        @endforeach
                                       </select>
                                   </div>
                               </div>
@@ -76,9 +78,11 @@
                                               <div class="form-group">
                                                   <label for="itemname">no rek</label>
                                                   <select name="rekening" id="rekening" class="form-control">
-                                                      @foreach ($rekening as $item)
-                                                      <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
-                                                      @endforeach
+                                                    @foreach ($rekening as $item)
+                                                    @if (!empty($item->subklasifikasi->name))
+                                                    <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
+                                                    @endif
+                                                    @endforeach
                                                   </select>
                                               </div>
                                           </div>
