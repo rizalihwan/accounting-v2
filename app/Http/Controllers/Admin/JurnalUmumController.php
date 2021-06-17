@@ -66,28 +66,44 @@ class JurnalUmumController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->except('_token'));
-        $jurnal = new Jurnalumum;
-        $jurnal->kode_jurnal = $request->kode_jurnal;
-        $jurnal->tanggal = $request->tanggal;
-        $jurnal->kontak_id = $request->kontak_id;
-        $jurnal->divisi_id = $request->divisi_id;
-        $jurnal->uraian = $request->uraian;
-        $jurnal->status = 1;
-        $jurnal->save();
-        $arrReq = count($request->jurnals);
-        for ($i = 0; $i < $arrReq; $i++) {
-            try {
-                Jurnalumumdetail::create([
-                    'akun_id' => $request->jurnals[$i]['akun_id'],
-                    'jurnalumum_id' => $jurnal->id,
-                    'debit' => $request->jurnals[$i]['debit'],
-                    'kredit' => $request->jurnals[$i]['kredit']
-                ]);
-            } catch (\Exception $e) {
-                return back()->with('error', 'Jurnal tidak Tersimpan!' . $e->getMessage());
-            }
+        $input = $request->except('_token');
+
+        $error = Validator::make($input, [
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'kontak_id'  => 'required|exists:kontaks,id',
+            'divisi_id' => 'required|exists:divisis,id',
+            'uraian' => 'required|string',
+            'jurnals.*.akun_id' => 'required|exists:akuns,id',
+            'jurnals.*.debit' => 'required_without:jurnals.*.kredit',
+            'jurnals.*.kredit' => 'required_without:jurnals.*.debit',
+        ]);
+
+        if ($error->fails()) {
+            return redirect()->back()->withErrors($error);
         }
+
+        try {
+            $jurnal = Jurnalumum::create([
+                'kode_jurnal' => $input['kode_jurnal'],
+                'tanggal' => $input['tanggal'],
+                'kontak_id' => $input['kontak_id'],
+                'divisi_id' => $input['divisi_id'],
+                'uraian' => $input['uraian'],
+                'status' => 1
+            ]);
+
+            foreach ($input['jurnals'] as $input_jurnal) {
+                Jurnalumumdetail::create([
+                    'akun_id' => $input_jurnal['akun_id'],
+                    'jurnalumum_id' => $jurnal->id,
+                    'debit' => $input_jurnal['debit'],
+                    'kredit' => $input_jurnal['kredit']
+                ]);
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'Jurnal tidak Tersimpan!' . $e->getMessage());
+        }
+
         return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil Tersimpan');
     }
 
@@ -145,7 +161,7 @@ class JurnalUmumController extends Controller
         ]);
 
         if ($error->fails()) {
-            return response()->json(['error'  => $error->errors()->all()]);
+            return redirect()->back()->withErrors($error);
         }
 
         $jurnal = Jurnalumum::find($id);
@@ -250,14 +266,14 @@ class JurnalUmumController extends Controller
         return $result;
     }
 
-    public function kontakSelected($id)
+    public function kontakSelected(Kontak $kontak)
     {
-        $kontak = Kontak::find($id);
-
         $result = [
-            'id' => $kontak->id,
-            'text' => $kontak->nama,
-            'nama' => $kontak->nama,
+            "id" => $kontak->id,
+            "text" => $kontak->nama,
+            "nama" => $kontak->nama,
+            "email" => $kontak->email,
+            "telepon" => $kontak->telepon
         ];
 
         return $result;
