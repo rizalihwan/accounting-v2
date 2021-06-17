@@ -212,7 +212,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.divisi.index') }}">
-                    <div class="card bg-dark border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #FFC107;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -243,7 +243,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.unit.index') }}">
-                    <div class="card bg-secondary border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #D7385E;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -295,6 +295,37 @@
                                 <hr class="mr-1">
                                 <p class="card-text">
                                     Mengelola data barang
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-light"></small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-xl-3">
+                <a href="{{ route('admin.category.index') }}">
+                    <div class="card border-0 text-white" style="background-color: #7952B3;">
+                        <div class="card-body">
+                            <div class="title">
+                                <div class="row">
+                                    <div class="col">
+                                        <h1 class="text-light">Category</h1>
+                                    </div>
+                                    <div class="col">
+                                        <i class="fa fa-box fa-lg fa-5x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info">
+                                <p class="card-text">
+                                    <h1 class="card-text display-5 text-white font-weight-bold">Category</h1>
+                                    <i class="fa fa-box"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Mengelola data Category
                                 </p>
                                 <p class="card-text">
                                     <small class="text-light"></small>
