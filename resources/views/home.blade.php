@@ -15,7 +15,7 @@
         <div class="col-xl-12 col-md-12 col-12">
             <div class="card card-statistics">
                 <div class="card-header">
-                    <h4 class="card-title">Statistic</h4>
+                    <h4 class="card-title">Statistics</h4>
                     <div class="d-flex align-items-center">
                         <p class="card-text font-small-2 mr-25 mb-0">{{ date('Y-m-d') }}</p>
                     </div>
@@ -114,7 +114,7 @@
         <!--/ Statistics Card -->
     </div>
 
-    {{--<div class="row match-height">
+    <div class="row match-height">
         <div class="col-lg-4 col-12">
             <div class="row match-height">
                 <!-- Bar Chart - Orders -->
@@ -210,8 +210,8 @@
         </div>
         <!--/ Revenue Report Card -->
     </div>
-
-    <div class="row match-height">
+    {{--
+        <div class="row match-height">
         <!-- Company Table Card -->
         <div class="col-lg-8 col-12">
             <div class="card card-company-table">
@@ -754,7 +754,10 @@
             </div>
         </div>
         <!--/ Transaction Card -->
-    </div>--}}
+    </div>
+
+    --}}
+
 </section>
 <!-- Dashboard Ecommerce ends -->
 @endsection
