@@ -13,7 +13,7 @@ class Edit extends Component
     protected $listeners = ['edit'];
 
     protected $rules = [
-        'category.name' => 'required|unique:categories',
+        'category.name' => 'required|unique:categories_products',
     ];
 
     public function edit(Category $category)
@@ -29,10 +29,14 @@ class Edit extends Component
             'category.name' => 'required'
         ]));
 
-        $this->category->save();
+        try {
+            $this->category->save();
+        } catch (\Exception $e) {
+            $this->emit('error', 'Data gagal diedit');
+        }
 
         $this->emit('refresh', 'Data berhasil diedit');
-        $this->reset('isOpen');
+        $this->reset('isOpen', 'category');
     }
 
     public function render()

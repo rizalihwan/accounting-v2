@@ -10,7 +10,6 @@
     </li>
     <li class="breadcrumb-item active" aria-current="page">Create</li>
 @endpush
-<div class="container-fluid">
     <div class="row">
         <!-- end message area-->
         <div class="col-md-12">
@@ -57,7 +56,9 @@
                                     <label for="kontak">Rek.Kas/Bank[K]</label>
                                     <select name="rek" id="rek" class="form-control">
                                         @foreach ($rekening as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
+                                        @if (!empty($item->subklasifikasi->name))
+                                        <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -76,8 +77,8 @@
                                             <div class="form-group">
                                                 <label for="itemname">no rek</label>
                                                 <select name="rekening" id="rekening" class="form-control">
-                                                    @foreach ($rekening as $item)
-                                                    <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
+                                                    @foreach ($rekenings as $item)
+                                                    <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -139,7 +140,6 @@
             </form>
         </div>
     </div>
-</div>
 <script>
     function HowAboutIt()
       {

@@ -6,7 +6,6 @@
     <li class="breadcrumb-item active">Income</li>
     <li class="breadcrumb-item active">Create</li>
 @endpush
-    <div class="container-fluid">
         <div class="row">
             <!-- end message area-->
             <div class="col-md-12">
@@ -72,5 +71,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection

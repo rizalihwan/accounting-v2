@@ -7,14 +7,13 @@
     <li class="breadcrumb-item active" aria-current="page">Income</li>
 @endpush
 @section('content')
-    <div class="container-fluid">
         <div class="row">
             <!-- end message area-->
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header justify-content-between d-flex">
                         <div>
-                            <a href="{{ route('admin.bkm.create') }}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Tambah Buku Kas Masuk</a>
+                            <a href="{{ route('admin.bkm.create') }}" class="btn btn-primary btn-lg"><i data-feather="plus"></i> Tambah Buku Kas Masuk</a>
                         </div>
                         <div class="d-flex">
                             <input type="date" class="form-control mx-1" name="" id="">
@@ -26,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table class="table table-hover" @if(count($indeks) == 1) style="height: 140px" @endif>
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -61,21 +60,30 @@
                                         <td>{{ $item->value  }}</td>
                                         <td>
                                             <div class="dropdown">
-                                                <button class="btn btn-flat-dark waves-effect" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i data-feather='more-vertical'></i>
+                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                                    <i data-feather="more-vertical"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-dark p-2" aria-labelledby="dropdownMenuButton2">
-                                                <li><a href="{{ route('admin.bkm.edit',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
-                                                <form action="{{ route('admin.bkm.destroy', $item->id) }}" method="post"
-                                                    onclick="return confirm('Apakah yakin?')">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>hapus</button>
-                                                </form>
-                                                <li><a href="{{ route('admin.bkm.edit',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
-                                                </ul>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="{{ route('admin.bkm.edit', $item->id) }}">
+                                                        <i data-feather="edit" class="text-warning"></i>
+                                                        <span class="ml-1">Edit</span>
+                                                    </a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('admin.bkm.show', $item->id) }}">
+                                                        <i data-feather="eye"></i>
+                                                        <span class="ml-1">Show</span>
+                                                    </a>
+                                                    <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                                        onclick="deleteConfirm('form-delete', '{{ $item->id }}')">
+                                                        <i data-feather="trash"></i>
+                                                        <span class="ml-1">Delete</span>
+                                                    </a>
+                                                    <form id="form-delete{{ $item->id }}" action="{{ route('admin.bkm.destroy', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                    </form>
+                                                </div>
                                             </div>
-                                            
                                         </td>
                                     </tr>
                                     @endforeach
@@ -86,5 +94,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection

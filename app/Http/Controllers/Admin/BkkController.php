@@ -35,7 +35,7 @@ class BkkController extends Controller
         $rowCount = $getRow->count();
         
         $lastId = $getRow->first();
-        $kode = "";
+        $kode = "KK00001";
         if ($rowCount > 0) {
             if ($lastId->id < 9) {
                     $kode = "KK0000".''.($lastId->id + 1);
@@ -49,9 +49,13 @@ class BkkController extends Controller
                    $kode = "KK".''.($lastId->id + 1);
             }
         }
-        $rekening = Akun::get();
+        $rekening = Akun::with(['subklasifikasi' => function ($query) {
+            $query->where('name', 'like', '%kas%')
+                  ->orWhere('name', 'like', '%bank%');
+        }])->get();
+        $rekenings = Akun::all();
         $kontak = DB::table('kontaks')->get();
-        return view('admin.bkk.create',compact('rekening','kontak','kode'));
+        return view('admin.bkk.create',compact('rekening','kontak','kode','rekenings'));
     }
 
     /**
@@ -103,8 +107,7 @@ class BkkController extends Controller
      */
     public function show(Bkk $bkk)
     {
-        
-        $show = Bkk::find($bkk)->first();
+        $show = Bkk::whereId($bkk->id)->first();
         return view('admin.bkk.show',compact('show'));
     }
 
@@ -116,10 +119,14 @@ class BkkController extends Controller
      */
     public function edit(Bkk $bkk)
     {
-        $rekening = Akun::get();
+        $rekening = Akun::with(['subklasifikasi' => function ($query) {
+            $query->where('name', 'like', '%kas%')
+                  ->orWhere('name', 'like', '%bank%');
+        }])->get();
+        $rekenings = Akun::all();
         $kontak = DB::table('kontaks')->get();
         $datas = Bkk::find($bkk)->first();
-        return view('admin.bkk.edit',compact('datas','kontak','rekening'));
+        return view('admin.bkk.edit',compact('datas','kontak','rekening','rekenings'));
     }
 
     /**

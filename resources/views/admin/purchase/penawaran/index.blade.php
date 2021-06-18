@@ -2,18 +2,19 @@
 @section('title', 'Buku Kas Keluar')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+    <a href="{{ route('admin.cash-bank') }}">Pembelian</a>
 </li>
-    <li class="breadcrumb-item active">Expanse</li>
+    <li class="breadcrumb-item active">Penawaran Harga</li>
 @endpush
 @section('content')
+    <div class="container-fluid">
         <div class="row">
             <!-- end message area-->
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header justify-content-between d-flex">
                         <div>
-                            <a href="{{ route('admin.bkk.create') }}" class="btn btn-primary"><i data-feather="plus"></i> Tambah Buku Kas Keluar</a>
+                            <a href="{{ route('admin.bkk.create') }}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Tambah Buku Kas Keluar</a>
                         </div>
                         <div class="d-flex">
                             <input type="date" class="form-control mx-1" name="" id="">
@@ -25,7 +26,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" @if(count($indeks) == 1) style="height: 140px" @endif>
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -60,29 +61,19 @@
                                         <td>{{ $item->value  }}</td>
                                         <td>
                                             <div class="dropdown">
-                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                                    <i data-feather="more-vertical"></i>
+                                                <button class="btn btn-flat-dark waves-effect" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-feather='more-vertical'></i>
                                                 </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('admin.bkk.edit', $item->id) }}">
-                                                        <i data-feather="edit" class="text-warning"></i>
-                                                        <span class="ml-1">Edit</span>
-                                                    </a>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('admin.bkk.show', $item->id) }}">
-                                                        <i data-feather="eye"></i>
-                                                        <span class="ml-1">Show</span>
-                                                    </a>
-                                                    <a href="javascript:void('delete')" class="dropdown-item text-danger" 
-                                                        onclick="deleteConfirm('form-delete', '{{ $item->id }}')">
-                                                        <i data-feather="trash"></i>
-                                                        <span class="ml-1">Delete</span>
-                                                    </a>
-                                                    <form id="form-delete{{ $item->id }}" action="{{ route('admin.bkk.destroy', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                    </form>
-                                                </div>
+                                                <ul class="dropdown-menu dropdown-menu-dark p-2" aria-labelledby="dropdownMenuButton2">
+                                                <li><a href="{{ route('admin.bkk.edit',$item->id) }}" class="btn btn-outline-info mb-1 col-md-12" ><i data-feather='edit'></i> <br>   Edit</a></li>
+                                                <form action="{{ route('admin.bkk.destroy', $item->id) }}" method="post"
+                                                    onclick="return confirm('Apakah yakin?')">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger mb-1 col-md-12"><i data-feather='trash-2'></i>hapus</button>
+                                                </form>
+                                                <li><a href="{{ route('admin.bkk.show',$item->id) }}" class="btn btn-outline-success mb-1 col-md-12"><i data-feather='eye'></i>Show</a></li>
+                                                </ul>
                                             </div>
                                         </td>
                                     </tr>
@@ -94,4 +85,5 @@
                 </div>
             </div>
         </div>
+    </div>
 @endsection

@@ -10,7 +10,6 @@
     <li class="breadcrumb-item active" aria-current="page">Edit</li>
 @endpush
 @section('content')
-    <div class="container-fluid">
         <div class="row">
           <!-- end message area-->
           <div class="col-md-12">
@@ -59,9 +58,11 @@
                                       <label for="kontak">Rek.Kas/Bank[K]</label>
                                       <select name="rek" id="rek" class="form-control">
                                         <option value="{{$datas->rekening_id}}">{{$datas->akuns->name}}-{{$datas->akuns->subklasifikasi->name}}</option>
-                                          @foreach ($rekening as $item)
-                                          <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
-                                          @endforeach
+                                        @foreach ($rekening as $item)
+                                        @if (!empty($item->subklasifikasi->name))
+                                        <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
+                                        @endif
+                                        @endforeach
                                       </select>
                                   </div>
                               </div>
@@ -81,9 +82,9 @@
                                                   <label for="itemname">no rek</label>
                                                   <select name="rekening" id="rekening" class="form-control">
                                                     <option value="{{$data->rekening_id}}">{{$data->rekening->name}}-{{$data->rekening->subklasifikasi->name}}</option>
-                                                      @foreach ($rekening as $item)
-                                                      <option value="{{$item->id}}">{{$item->name}}-{{$item->subklasifikasi->name}}</option>
-                                                      @endforeach
+                                                    @foreach ($rekenings as $item)
+                                                    <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
+                                                    @endforeach
                                                   </select>
                                               </div>
                                           </div>
@@ -145,7 +146,6 @@
               </form>
           </div>
       </div>
-    </div>
     <script>
       function HowAboutIt()
         {

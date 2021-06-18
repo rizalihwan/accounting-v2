@@ -23,7 +23,7 @@ Route::name('api.')->group(function () {
     Route::prefix('select2')->name('select2.')->group(function () {
         // Kontak
         Route::post('/get-kontak', 'Admin\JurnalUmumController@getKontak')->name('get-kontak');
-        Route::get('/get-kontak/{id}', 'Admin\JurnalUmumController@kontakSelected')->name('get-kontak.selected');
+        Route::get('/get-kontak/{kontak}', 'Admin\JurnalUmumController@kontakSelected')->name('get-kontak.selected');
         // Akun
         Route::post('/get-akun', 'Admin\JurnalUmumController@getAkun')->name('get-akun');
         Route::get('/get-akun/{akun}', 'Admin\JurnalUmumController@akunSelected')->name('get-akun.selected');

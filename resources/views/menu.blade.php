@@ -102,8 +102,8 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                    <h1 class="card-text display-5 text-white font-weight-bold">Data Kontak</h1>
-                                    <i class="fa fa-users"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Data Kontak</h1>
+                                <i class="fa fa-users"></i>
                                 </p>
                                 <hr class="mr-1">
                                 <p class="card-text">
@@ -133,8 +133,8 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                    <h1 class="card-text display-5 text-white font-weight-bold">Chart Of Account</h1>
-                                    <i class="fa fa-clipboard-list"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Chart Of Account</h1>
+                                <i class="fa fa-clipboard-list"></i>
                                 </p>
                                 <hr class="mr-1">
                                 <p class="card-text">
@@ -164,8 +164,8 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                    <h1 class="card-text display-5 text-white font-weight-bold">Subklasifikasi Akun</h1>
-                                    <i class="fa fa-check-square"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Subklasifikasi Akun</h1>
+                                <i class="fa fa-check-square"></i>
                                 </p>
                                 <hr class="mr-1">
                                 <p class="card-text">
@@ -195,8 +195,8 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                    <h1 class="card-text display-5 text-white font-weight-bold">Bank</h1>
-                                    <i class="fa fa-money-bill-alt"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Bank</h1>
+                                <i class="fa fa-money-bill-alt"></i>
                                 </p>
                                 <hr class="mr-1">
                                 <p class="card-text">
@@ -212,7 +212,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.divisi.index') }}">
-                    <div class="card bg-dark border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #FFC107;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -226,8 +226,8 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                    <h1 class="card-text display-5 text-white font-weight-bold">Divisi</h1>
-                                    <i class="fa fa-divide"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Divisi</h1>
+                                <i class="fa fa-divide"></i>
                                 </p>
                                 <hr class="mr-1">
                                 <p class="card-text">
@@ -243,7 +243,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.unit.index') }}">
-                    <div class="card bg-secondary border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #D7385E;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -258,8 +258,8 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                    <h1 class="card-text display-5 text-white font-weight-bold">Unit</h1>
-                                    <i class="fa fa-address-book"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Unit</h1>
+                                <i class="fa fa-address-book"></i>
                                 </p>
                                 <hr class="mr-1">
                                 <p class="card-text">
@@ -289,12 +289,43 @@
                             </div>
                             <div class="info">
                                 <p class="card-text">
-                                    <h1 class="card-text display-5 text-white font-weight-bold">Produk</h1>
-                                    <i class="fa fa-chart-line"></i>
+                                <h1 class="card-text display-5 text-white font-weight-bold">Produk</h1>
+                                <i class="fa fa-chart-line"></i>
                                 </p>
                                 <hr class="mr-1">
                                 <p class="card-text">
                                     Mengelola data barang
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-light"></small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-xl-3">
+                <a href="{{ route('admin.category.index') }}">
+                    <div class="card border-0 text-white" style="background-color: #7952B3;">
+                        <div class="card-body">
+                            <div class="title">
+                                <div class="row">
+                                    <div class="col">
+                                        <h1 class="text-light">Category</h1>
+                                    </div>
+                                    <div class="col">
+                                        <i class="fa fa-box fa-lg fa-5x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info">
+                                <p class="card-text">
+                                <h1 class="card-text display-5 text-white font-weight-bold">Category</h1>
+                                <i class="fa fa-box"></i>
+                                </p>
+                                <hr class="mr-1">
+                                <p class="card-text">
+                                    Mengelola data Category
                                 </p>
                                 <p class="card-text">
                                     <small class="text-light"></small>
@@ -332,8 +363,8 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Buku Besar</h1>
-                                <i class="fa fa-book-open"></i>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Buku Besar</h1>
+                            <i class="fa fa-book-open"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
@@ -363,15 +394,15 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
-                                <i class="fa fa-book"></i>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
+                            <i class="fa fa-book"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
                                 Mencatat transaksi keuangan dan menetapkan kredit dan debit
                             </p>
                             <p class="card-text">
-                                <small class="text-light">  </small>
+                                <small class="text-light"> </small>
                             </p>
                         </div>
                     </div>
@@ -405,8 +436,8 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Penawaran Harga</h1>
-                                <i class="fa fa-chart-line"></i>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Penawaran Harga</h1>
+                            <i class="fa fa-chart-line"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
@@ -466,8 +497,8 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Expense</h1>
-                                <i class="fa fa-hand-holding-usd"></i>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Expense</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
@@ -497,8 +528,8 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                                <h1 class="card-text display-5 text-white font-weight-bold">Income</h1>
-                                <i class="fa fa-hand-holding-usd"></i>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Income</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
@@ -528,6 +559,133 @@
 @push('breadcrumb')
 <li class="breadcrumb-item active">Report</li>
 @endpush
-{{-- --}}
+<section id="card-content-types">
+    <div class="row">
+        <div class="col-md-3 col-xl-3">
+            <a href="">
+                <div class="card border-0 text-white" style="background-color: #BF1363;">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Laporan Keuangan</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Laporan Keuangan</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Laporan Keuangan
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-xl-3">
+            <a href="">
+                <div class="card border-0 text-white" style="background-color : #39A9CB">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Laporan Penjualan dan Piutang</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Laporan Penjualan dan Piutang</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Laporan Penjualan dan Piutang
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-xl-3">
+            <a href="">
+                <div class="card border-0 text-white" style="background-color: #EB5E0B;">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Laporan Pembelian dan Utang</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Laporan Pembelian dan Utang</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Laporan Pembelian dan Utang
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-xl-3">
+            <a href="">
+                <div class="card border-0 text-white" style="background-color: #F05454;">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Laporan Produk</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Laporan Produk</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Laporan Produk
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 @endif
 @endsection

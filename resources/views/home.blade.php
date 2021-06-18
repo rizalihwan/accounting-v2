@@ -1,9 +1,9 @@
 @extends('_layouts.main')
 @section('title','Dashboard')
 @push('breadcrumb')
-    <li class="breadcrumb-item">
-        Dashboard
-    </li>
+<li class="breadcrumb-item">
+    Dashboard
+</li>
 @endpush
 
 @section('content')
@@ -22,20 +22,22 @@
                 </div>
                 <div class="card-body statistics-body">
                     <div class="row">
-                        <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="col-xl-4 col-sm-6 col-12">
                             <div class="media">
-                                <div class="avatar bg-light-primary mr-2">
+                                <div class="avatar bg-light-info mr-2">
                                     <div class="avatar-content">
-                                        <i data-feather="dollar-sign" class="avatar-icon"></i>
+                                        <h4 class="text-primary">
+                                            <strong>Rp</strong>
+                                        </h4>
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">$9745</h4>
+                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
                                     <p class="card-text font-small-3 mb-0">Kerugian</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
                             <div class="media">
                                 <div class="avatar bg-light-success mr-2">
                                     <div class="avatar-content">
@@ -43,12 +45,12 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">230k</h4>
+                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
                                     <p class="card-text font-small-3 mb-0">Penerimaan</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
                             <div class="media">
                                 <div class="avatar bg-light-danger mr-2">
                                     <div class="avatar-content">
@@ -56,25 +58,55 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">8.549k</h4>
+                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
                                     <p class="card-text font-small-3 mb-0">Pengeluaran</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                    </div>
+                </div>
+                <hr>
+                <div class="card-body statistics-body">
+                    <div class="row">
+                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-sm-0">
                             <div class="media">
-                                <div class="avatar bg-light-danger mr-2">
+                                <div class="avatar bg-light-primary mr-2">
                                     <div class="avatar-content">
-                                        <i data-feather="box" class="avatar-icon"></i>
+                                        <i data-feather="database" class="avatar-icon"></i>
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">1.423k</h4>
-                                    <p class="card-text font-small-3 mb-0">Products</p>
+                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <p class="card-text font-small-3 mb-0">Saldo Keseluruhan</p>
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-sm-0">
+                            <div class="media">
+                                <div class="avatar bg-light-dark mr-2">
+                                    <div class="avatar-content">
+                                        <i data-feather="log-in" class="avatar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body my-auto">
+                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <p class="card-text font-small-3 mb-0">Penerimaan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-sm-0">
+                            <div class="media">
+                                <div class="avatar bg-light-warning mr-2">
+                                    <div class="avatar-content">
+                                        <i data-feather="log-out" class="avatar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body my-auto">
+                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <p class="card-text font-small-3 mb-0">Pengeluaran</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,8 +210,8 @@
         </div>
         <!--/ Revenue Report Card -->
     </div>
-
-    <div class="row match-height">
+    {{--
+        <div class="row match-height">
         <!-- Company Table Card -->
         <div class="col-lg-8 col-12">
             <div class="card card-company-table">
@@ -723,20 +755,23 @@
         </div>
         <!--/ Transaction Card -->
     </div>
+
+    --}}
+
 </section>
 <!-- Dashboard Ecommerce ends -->
 @endsection
 
 @push('head')
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/dashboard-ecommerce.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/dashboard-ecommerce.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.min.css') }}">
 @endpush
 
 @push('script')
-    <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
-    <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.min.js') }}"></script>    
-    <script src="{{ asset('app-assets/js/scripts/extensions/ext-component-sweet-alerts.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
+<script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.min.js') }}"></script>
+<script src="{{ asset('app-assets/js/scripts/extensions/ext-component-sweet-alerts.min.js') }}"></script>
 @endpush
