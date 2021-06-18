@@ -44,6 +44,7 @@
                             <div class="form-group">
                                 <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-red">*</span></label>
                                 <select name="pelanggan_id" id="pelanggan_id" class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
+                                    <option> Pilih Pelanggan </option>
                                     @foreach($pelanggan as $pel)
                                         <option value="{{ $pel->id }}"> {{ $pel->nama }} </option>
                                     @endforeach
@@ -79,6 +80,10 @@
                                         <div class="form-group">
                                         <label for="product_id">{{ __('Product') }}</label>
                                         <select name="product_id" class="form-control select2" id="product_id">
+                                            <option> Pilih product</option>
+                                            @foreach($product as $prod)
+                                            <option value="{{ $prod->id }}"> {{ $prod->name }}</option>
+                                            @endforeach
                                         </select>
                                         </div>
                                     </div>

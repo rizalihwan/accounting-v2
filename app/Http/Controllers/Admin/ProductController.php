@@ -34,7 +34,7 @@ class ProductController extends Controller
         $categories = Category::select('id','name', 'status')->where('status', '1')->get();
         $suppliers = Kontak::select('id','pemasok', 'nama')->where('pemasok', true)->get();
         $units = Unit::select('id', 'name', 'status')->where('status', '1')->get();
-
+        
         return view('admin.product.create', compact('categories', 'suppliers', 'units'));
     }
 
