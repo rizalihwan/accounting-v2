@@ -554,7 +554,7 @@
 @endpush
 {{-- --}}
 @endif
-@if(request()->routeIs('admin.report'))
+@if(request()->routeIs('admin.report.menu'))
 @section('title', 'Report')
 @push('breadcrumb')
 <li class="breadcrumb-item active">Report</li>
@@ -562,7 +562,7 @@
 <section id="card-content-types">
     <div class="row">
         <div class="col-md-3 col-xl-3">
-            <a href="">
+            <a href="{{ route('admin.report.per.menu') }}">
                 <div class="card border-0 text-white" style="background-color: #BF1363;">
                     <div class="card-body">
                         <div class="title">
