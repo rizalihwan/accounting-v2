@@ -314,9 +314,9 @@
                 </a>
                 </li> --}}
                 <li class="nav-item {{ request()->is('admin/report*') ? 'active' : '' }}">
-                    <a class="nav-link d-flex align-items-center" href="{{ route('admin.report') }}">
+                    <a class="nav-link d-flex align-items-center" href="{{ route('admin.report.menu') }}">
                         <i data-feather="file" class="text-danger"></i>
-                        <span data-i18n="Report">Report</span>
+                        <span data-i18n="Report">Laporan</span>
                     </a>
                 </li>
 
