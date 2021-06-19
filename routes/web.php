@@ -96,6 +96,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('keuangan')->name('keuangan.')->group(function(){
                 // jurnal umum
                 Route::get('/jurnal-umum', 'ReportController@jurnalumum')->name('jurnalumum');
+                Route::get('/jurnal-umum/search', 'ReportController@jurnalumumcari')->name('jurnalumum.cari');
             });
         });
     });
