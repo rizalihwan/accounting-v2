@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PenawaranSale extends FormRequest
+class PenawaranSaleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class PenawaranSale extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class PenawaranSale extends FormRequest
     public function rules()
     {
         return [
-            //
+            'pelanggan_id' => 'required|exists:kontaks,id',
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'total' => 'required',
         ];
     }
 }

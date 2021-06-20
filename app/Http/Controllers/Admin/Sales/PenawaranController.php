@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PenawaranSale as AppPenawaranSale;
+use App\Http\Requests\Admin\PenawaranSaleRequest;
 use App\Models\Kontak;
 use App\Models\Product;
 use App\Models\Sale\PenawaranSale;
@@ -68,7 +70,7 @@ class PenawaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PenawaranSaleRequest $request)
     {
         $input = $request->except('_token');
 
@@ -137,7 +139,10 @@ class PenawaranController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $penawarans = PenawaranSale::findOrFail($id);
+        $penawarans->delete();
+
+        return redirect()->route('admin.penawaran.index')->with('success', 'Penawaran berhasil Dihapus');
     }
 
 }

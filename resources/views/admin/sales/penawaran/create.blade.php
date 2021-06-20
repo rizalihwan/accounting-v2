@@ -1,5 +1,5 @@
 @extends('_layouts.main')
-@section('title', 'Jurnal Umum')
+@section('title', 'Penjualan')
 @push('breadcrumb')
 <li class="breadcrumb-item">
     <a href="{{ route('admin.sales') }}">Penjualan</a>
