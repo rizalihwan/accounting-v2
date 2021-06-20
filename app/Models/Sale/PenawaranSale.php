@@ -13,6 +13,6 @@ class PenawaranSale extends Model
 
     public function pelanggan()
     {
-        return $this->belongsTo(Kontak::class);
+        return $this->belongsTo(\App\Models\Kontak::class);
     }
 }

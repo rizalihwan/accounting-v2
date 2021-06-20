@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('sales')->group(function () {
             Route::view('/', 'menu')->name('sales');
             Route::resource('penawaran', 'Sales\PenawaranController');
+            Route::resource('pesanan', 'Sales\PesananController');
         });
 
         Route::prefix('purchase')->group(function () {

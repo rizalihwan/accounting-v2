@@ -30,5 +30,12 @@ Route::name('api.')->group(function () {
         // Divisi
         Route::post('/get-divisi', 'Admin\JurnalUmumController@getDivisi')->name('get-divisi');
         Route::get('/get-divisi/{divisi}', 'Admin\JurnalUmumController@divisiSelected')->name('get-divisi.selected');
+
+        // pelanggan
+        Route::post('/get-pelanggan', 'Api\SalesController@getPelanggan')->name('get-pelanggan');
+        Route::get('/get-pelanggan/{id}', 'Api\SalesController@pelangganSelected')->name('get-pelanggan.selected');
+
+         //product
+         Route::post('/get-product', 'Api\SalesController@getProduct')->name('get-product');
     });
 });

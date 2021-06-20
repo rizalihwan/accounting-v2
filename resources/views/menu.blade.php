@@ -451,19 +451,42 @@
                 </div>
             </a>
         </div>
-        {{-- <div class="col-md-3 col-xl-3">
-                    <a href="{{ route('admin.jurnalumum.index') }}">
-        <div class="card border-0 text-white shadow">
-            <img class="card-img" src="{{ asset('app-assets/images/slider/10.jpg') }}" alt="Jurnal Umum" />
-            <div class="card-img-overlay bg-overlay align-items-center d-flex justify-content-center">
-                <h1 class="card-text display-5 text-white font-weight-bold">Jurnal Umum</h1>
-            </div>
+
+        <div class="col-md-3 col-xl-3">
+            <a href="{{ route('admin.pesanan.index') }}">
+                <div class="card bg-warning border-0 text-white shadow">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Pesanan Penjualan</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Pesanan Penjualan</h1>
+                            <i class="fa fa-chart-line"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Membuat pesanan penjualan untuk pelanggan
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
         </a>
-    </div> --}}
+    </div>
     </div>
 </section>
-{{-- --}}
 @endif
 
 @if(request()->routeIs('admin.purchase'))

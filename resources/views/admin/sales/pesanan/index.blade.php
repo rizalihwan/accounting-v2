@@ -22,7 +22,7 @@
                             <tr>
                                 <th style="width: 1px">#</th>
                                 <th>Tanggal</th>
-                                <th>kode Penawaran</th>
+                                <th>kode Pesanan</th>
                                 <th>Nama Pelanggan</th>
                                 <th>Total</th>
                                 <th>Status</th>
