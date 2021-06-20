@@ -81,7 +81,7 @@ class JurnalUmumController extends Controller
         if ($error->fails()) {
             return redirect()->back()->withErrors($error);
         }
-
+        DB::beginTransaction();
         try {
             $jurnal = Jurnalumum::create([
                 'kode_jurnal' => $input['kode_jurnal'],
@@ -100,7 +100,9 @@ class JurnalUmumController extends Controller
                     'kredit' => $input_jurnal['kredit'] == null ? '0' : $input_jurnal['kredit']
                 ]);
             }
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             return back()->with('error', 'Jurnal tidak Tersimpan!' . $e->getMessage());
         }
 

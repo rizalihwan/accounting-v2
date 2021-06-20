@@ -87,8 +87,17 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'menu')->name('inventory');
         });
 
-        Route::prefix('report')->group(function () {
-            Route::view('/', 'menu')->name('report');
+        Route::prefix('report')->name('report.')->group(function () {
+            // menu report
+            Route::view('/', 'menu')->name('menu');
+            // menu report per jenis 
+            Route::get('/menu', 'ReportController@menu')->name('per.menu');
+            // keuangan
+            Route::prefix('keuangan')->name('keuangan.')->group(function(){
+                // jurnal umum
+                Route::get('/jurnal-umum', 'ReportController@jurnalumum')->name('jurnalumum');
+                Route::get('/jurnal-umum/search', 'ReportController@jurnalumumcari')->name('jurnalumum.cari');
+            });
         });
     });
 });
