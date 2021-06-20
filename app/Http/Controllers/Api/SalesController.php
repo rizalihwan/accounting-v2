@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontak;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -36,5 +38,30 @@ class SalesController extends Controller
     public function pelangganSelected()
     {
 
+    }
+
+    public function getProduct(Request $request)
+    {
+        $search = $request->search;
+
+        $products = Product::select('id', 'unit_id', 'name', 'price_sell', 'status')
+                ->with('unit')
+                ->where('status', '1')
+                ->orWhere('name', 'like',"%{$search}%")
+                ->get()
+                ->take(5);
+
+        $result = [];
+
+        foreach($products as $product) {
+            $result[] = [
+                "id" => $product->id,
+                "text" => $product->name,
+                "unit" => $product->unit->name,
+                "price_sell" => $product->price_sell,
+            ];
+        }
+
+        return $result;
     }
 }

@@ -22,16 +22,50 @@
                             <tr>
                                 <th style="width: 1px">#</th>
                                 <th>Tanggal</th>
-                                <th>No Penawaran</th>
+                                <th>kode Penawaran</th>
                                 <th>Nama Pelanggan</th>
-                                <th>Nilai</th>
+                                <th>Total</th>
                                 <th>Status</th>
                                 <th style="width: 1px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($penawarans as $penawaran)
-                            
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $penawaran->tanggal }}</td>
+                                <td>{{ $penawaran->kode }}</td>
+                                <td>{{ $penawaran->pelanggan->nama }}</td>
+                                <td>{{ 'Rp. ' . number_format($penawaran->total, 0, ',', '.') }}</td>
+                                <td>{{ $penawaran->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
+                                            data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.penawaran.show', $penawaran->id) }}">
+                                                <i data-feather="eye"></i>
+                                                <span class="ml-1">Show</span>
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('admin.penawaran.edit', $penawaran->id) }}">
+                                                <i data-feather="edit"></i>
+                                                <span class="ml-1">Edit</span>
+                                            </a>
+                                            <div class="dropdown-item">
+                                                <form action="{{ route('admin.penawaran.destroy', $penawaran->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
+                                                        <span class="ml-1">Delete</span></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>      
                             @empty
                             <tr>
                                 <td colspan="6" align="center">

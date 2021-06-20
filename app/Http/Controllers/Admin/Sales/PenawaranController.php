@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Kontak;
 use App\Models\Product;
 use App\Models\Sale\PenawaranSale;
+use App\Models\Sale\PenawaranSaleDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PenawaranController extends Controller
 {
@@ -39,8 +41,8 @@ class PenawaranController extends Controller
      */
     public function index()
     { 
-        $penawarans = PenawaranSale::select('tanggal', 'kode', 'pelanggan_id', 'total', 'status')
-                        ->with('pelanggan:nama')
+        $penawarans = PenawaranSale::select('id','tanggal', 'kode', 'pelanggan_id', 'total', 'status')
+                        ->with('pelanggan')
                         ->paginate(5);
         return view('admin.sales.penawaran.index', compact('penawarans'));
     }
@@ -52,14 +54,10 @@ class PenawaranController extends Controller
      */
     public function create()
     {
-        $pelanggan = Kontak::select('id','nama', 'pelanggan')
-                    ->where('pelanggan', TRUE)
-                    ->get();
         $product = Product::select('id', 'name', 'price_sell', 'unit_id')->with('unit:name')->get();
         
         return view('admin.sales.penawaran.create', [
             'kode' => $this->kode,
-            'pelanggan' => $pelanggan,
             'product' => $product
         ]);
     }
@@ -72,7 +70,29 @@ class PenawaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->except('_token');
+
+        try {
+            $penawarans = PenawaranSale::create([
+                'kode' => $input['kode'],
+                'tanggal' => $input['tanggal'],
+                'pelanggan_id' => $input['pelanggan_id'],
+                'total' => $input['total'],
+                
+            ]);
+
+            foreach ($input['penawarans'] as $input_penawaran) {
+                PenawaranSaleDetail::create([
+                    'penawaran_id' => $penawarans->id,
+                    'product_id' => $input_penawaran['product_id'],
+                    'jumlah' => $input_penawaran['jumlah'],
+                ]);
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'Penawaran tidak Tersimpan!' . $e->getMessage());
+        }
+
+        return redirect()->route('admin.penawaran.index')->with('success', 'Penawaran berhasil Tersimpan');
     }
 
     /**

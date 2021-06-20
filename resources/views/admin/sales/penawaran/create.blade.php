@@ -12,7 +12,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <form class="forms-sample" class="invoice-repeater" action="{{ route('admin.penawaran.store') }}" method="POST">
+        <form class="forms-sample" class="repeater" action="{{ route('admin.penawaran.store') }}" method="POST">
             <div class="card ">
                 <div class="card-body">
                     @csrf
@@ -43,11 +43,8 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-red">*</span></label>
-                                <select name="pelanggan_id" id="pelanggan_id" class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
-                                    <option> Pilih Pelanggan </option>
-                                    @foreach($pelanggan as $pel)
-                                        <option value="{{ $pel->id }}"> {{ $pel->nama }} </option>
-                                    @endforeach
+                                <select name="pelanggan_id" id="pelanggan_id"
+                                    class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 @error('pelanggan_id')
@@ -71,99 +68,49 @@
             </div>
             <div class="card ">
                 <div class="card-body">
-                    <div class="invoice-repeater">
-                        <div data-repeater-list="invoice">
-
-                            <div data-repeater-item="" style="">
-                                <div class="row d-flex align-items-end">
-                                    <div class="col-md-2 col-12">
-                                        <div class="form-group">
-                                        <label for="product_id">{{ __('Product') }}</label>
-                                        <select name="product_id" class="form-control select2" id="product_id">
-                                            <option> Pilih product</option>
-                                            @foreach($product as $prod)
-                                            <option value="{{ $prod->id }}"> {{ $prod->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-2 col-12">
-                                        <div class="form-group">
-                                            <label for="itemquantity">Jumlah</label>
-                                            <input type="number" class="form-control" id="itemquantity"
-                                                aria-describedby="itemquantity" placeholder="1">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 col-12">
-                                        <div class="form-group">
-                                            <label for="itemcost">Satuan Ukur</label>
-                                            <input type="text" class="form-control" id="unit"
-                                                aria-describedby="itemcost" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 col-12">
-                                        <div class="form-group">
-                                            <label for="itemcost">Harga Satuan</label>
-                                            <input type="text" class="form-control" id="price_sell"
-                                                aria-describedby="itemcost" readonly>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-2 col-12">
-                                        <div class="form-group">
-                                            <label for="staticprice">Total</label>
-                                            <input type="text" readonly="" class="form-control"
-                                                id="staticprice">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 col-12 mb-50">
-                                        <div class="form-group">
-                                            <button class="btn btn-outline-danger text-nowrap px-1 waves-effect"
-                                                data-repeater-delete="" type="button">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-x mr-25">
-                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                                <span>Hapus</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <button class="btn btn-icon btn-primary waves-effect waves-float waves-light"
-                                    type="button" data-repeater-create="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-plus mr-25">
-                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    </svg>
-                                    <span>Tambah Baru</span>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-borderless mt-2">
+                                    <thead>
+                                        <tr class="rowHead">
+                                            <td>Product</td>
+                                            <td>Jumlah</td>
+                                            <td>Satuan Ukur</td>
+                                            <td>Harga Satuan</td>
+                                            <td>Total</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dynamic_field"></tbody>
+                                </table>
+                                <button type="button" id="add" class="btn btn-success my-2"
+                                    style="width: 100%; height: 50px">
+                                    <i data-feather="plus"></i>
+                                    Tambah Row Baru
                                 </button>
+                                <table class="table table-borderless col-sm-6 ml-auto border-top">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 180px">Total</th>
+                                            <td>
+                                                <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-        <hr>
-        <div class="col-md-12 mt-4">
-            <div class="form-group">
-                <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
-                <button type="submit" class="btn btn-primary" id="btn-submit">
-                    TAMBAH</button>
             </div>
-        </div>
+            <hr>
+            <div class="col-md-12 mt-4">
+                <div class="form-group">
+                    <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">
+                        TAMBAH</button>
+                </div>
+            </div>
     </div>
 </div>
 </form>
@@ -179,6 +126,15 @@
     .select2 {
         width: 100% !important;
     }
+    .rowComponent td{
+            padding: 0px 8px 16px 0 !important
+    }
+    .rowHead td{
+        padding: 0px 8px 16px 0 !important
+    }
+    .rowComponent td .form-control{
+        border-radius:0px !important;
+    }
 
 </style>
 @endpush
@@ -192,13 +148,168 @@
 
     $(document).ready(function () {
         $("#pelanggan_id").select2({
-            placeholder: "Pilih Pelanggan",
+            placeholder: "-- Pilih Pelanggan --",
+            ajax: {
+                url: '{{ route('api.select2.get-pelanggan') }}',
+                type: 'post',
+                dataType: 'json',
+                data: params => {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term
+                    }
+                },
+                error: (err) => {
+                    console.log(err)
+                },
+                processResults: data => {
+                    return {
+                        results: data
+                    }
+                },
+                cache: true
+            },
         });
-
-        $("#product_id").select2({
-            placeholder: "Pilih Product",
-        })
     });
 
+</script>
+<script>
+
+    function generateUUID() {
+        var d = new Date().getTime();
+        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16;
+            if (d > 0) {
+                r = (d + r)%16 | 0;
+                d = Math.floor(d/16);
+            } else {
+                r = (d2 + r)%16 | 0;
+                d2 = Math.floor(d2/16);
+            }
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+
+    function jumlahin() {
+        let total =  0
+        let cols_debit = document.querySelectorAll('.total')
+        for (let i = 0; i < cols_debit.length; i++) {
+            let e_debit = cols_debit[i];
+            total += e_debit.value == "" ? 0 : parseInt(e_debit.value)
+           
+        }
+        return total;
+    }
+
+    function field_dinamis() {
+            let index = $('#dynamic_field tr').length
+            let uuid = generateUUID()
+            let html = `
+                <tr class="rowComponent">
+                    <input type="hidden" width="10px" name="penawarans[${index}][id]" value="${uuid}">
+                    <td class="no" hidden>
+                        <input type="text" value="${index + 1}" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <select name="penawarans[${index}][product_id]" class="form-control select-${index}"></select>
+                    </td>
+                    <td>
+                        <input type="text" name="penawarans[${index}][jumlah]" class="form-control jumlah" placeholder="0" readonly>
+                    </td>
+                    <td>
+                        <input type="text" name="penawarans[${index}][satuan]" class="form-control satuan"  readonly>
+                    </td>
+                    <td>
+                        <input type="text" name="penawarans[${index}][harga]" class="form-control harga" readonly>
+                    </td>
+                    <td>
+                        <input type="text" name="penawarans[${index}][total]" class="form-control total"  placeholder="0" readonly>
+                    </td>
+                    <td>
+                        <button type="button" name="remove" 
+                            class="btn btn-danger btn-sm text-white btn_remove">
+                            <i data-feather="trash-2"></i>
+                        </button>
+                    </td>
+                </tr>
+            `
+            $("#dynamic_field").append(html)
+
+            // const jumlah = document.getElementsByName(`penawarans[${index}][jumlah]`);
+            // const total = document.getElementsByName(`penawarans[${index}][total]`);
+            // jumlah.addEventListener('change', function (e){
+            //     total.value = subTotal(index);
+            // });
+
+            $('[name="penawarans['+index+'][jumlah]"]').on('change', function () {
+                
+                const total = parseInt($('[name="penawarans['+index+'][harga]"]').val()) * parseInt($(this).val());
+                $('[name="penawarans['+index+'][total]"]').val(total);
+
+                $("#total").val(jumlahin())
+                
+            });
+            // jurnalEachColumn(index)
+            feather.replace()
+            $('select[name="penawarans['+index+'][product_id]"]').select2({
+                placeholder: '-- Pilih Product --',
+                ajax: {
+                    url: '{{ route('api.select2.get-product') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
+                allowClear: true
+            })
+
+            $('select[name="penawarans['+index+'][product_id]"]').on('select2:select', function (e) {
+				const unit = e.params.data.unit
+                const price = e.params.data.price_sell
+
+				$('[name="penawarans['+index+'][satuan]"]').val(unit)
+                $('[name="penawarans['+index+'][harga]"]').val(price)
+                $('[name="penawarans['+index+'][jumlah]"]').attr('readonly', false)
+			})
+
+
+    }
+
+    function getNumberOfTr() {
+        $('#dynamic_field tr').each(function(index, tr) {
+            $(this).find("td.no input").val(index + 1)
+        })
+    }
+</script>
+<script>
+    field_dinamis();
+    $(document).ready(function(){
+        getNumberOfTr()
+        $('#add').click(function(){
+            field_dinamis()
+        })
+        $(document).on('click', '.btn_remove', function() {
+            let parent = $(this).parent()
+            let id = parent.data('id')
+            let delete_data = $("input[name='delete_data']").val()
+            if(id !== 'undefined' && id !== undefined) {
+                $("input[name='delete_data']").val(delete_data + ';' + id)
+            }
+            $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
+            getNumberOfTr()
+            jumlahin()
+        })
+    })
 </script>
 @endpush
