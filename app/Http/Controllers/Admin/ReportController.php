@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurnalumum;
+use App\Models\Jurnalumumdetail;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -28,7 +29,7 @@ class ReportController extends Controller
         $to = $request->endDate;
         $startDate = $from;
         $endDate = $to;
-        $data = Jurnalumum::whereBetween('created_at', [$startDate,$endDate])->with('jurnalumumdetails')->latest()->paginate(10);
+        $data = Jurnalumumdetail::whereBetween('created_at', [$startDate,$endDate])->latest()->paginate(10);
         return view('report.keuangan.jurnalumum', compact('data', 'startDate', 'endDate'));
     }
 }

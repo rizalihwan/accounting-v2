@@ -64,13 +64,13 @@
                                             <tr>
                                                 <td>
                                                     <span class="badge badge-info">
-                                                        {{ $key->tanggal }}
+                                                        {{ $key->jurnalumum->tanggal }}
                                                     </span>
                                                 </td>
-                                                <td>{{ $key->uraian }}</td>
-                                                <td>{{ $key->kode_jurnal }}</td>
-                                                <td>{{ 'IDR ' . number_format($key->jurnalumumdetails[0]->debit, 0, ',', '.') }}</td>
-                                                <td>{{ 'IDR ' . number_format($key->jurnalumumdetails[0]->kredit, 0, ',', '.') }}</td>
+                                                <td>{{ $key->jurnalumum->uraian }}</td>
+                                                <td>{{ $key->jurnalumum->kode_jurnal }}</td>
+                                                <td>{{ 'IDR ' . number_format($key->debit, 0, ',', '.') }}</td>
+                                                <td>{{ 'IDR ' . number_format($key->kredit, 0, ',', '.') }}</td>
                                             </tr>
                                         @empty
                                             <tr>
