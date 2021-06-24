@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Sales;
+namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class PesananController extends Controller
      */
     public function index()
     {
-        return view('admin.sales.pesanan.index');
+        //
     }
 
     /**
