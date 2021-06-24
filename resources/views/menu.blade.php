@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.kontak.index') }}">
-                    <div class="card bg-danger border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #542E71;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -119,7 +119,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.akun.index') }}">
-                    <div class="card bg-warning border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #FB3640;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -150,7 +150,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.subklasifikasi.index') }}">
-                    <div class="card bg-info border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #FDCA40;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -181,7 +181,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.bank.index') }}">
-                    <div class="card bg-success border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #A799B7;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -212,7 +212,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.divisi.index') }}">
-                    <div class="card border-0 text-white" style="background-color: #FFC107;">
+                    <div class="card border-0 text-white" style="background-color: #194350;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -243,7 +243,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.unit.index') }}">
-                    <div class="card border-0 text-white" style="background-color: #D7385E;">
+                    <div class="card border-0 text-white" style="background-color: #FF8882;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -275,7 +275,7 @@
             </div>
             <div class="col-md-3 col-xl-3">
                 <a href="{{ route('admin.product.index') }}">
-                    <div class="card bg-primary border-0 text-white">
+                    <div class="card border-0 text-white" style="background-color: #008891;">
                         <div class="card-body">
                             <div class="title">
                                 <div class="row">
@@ -585,8 +585,8 @@
 <section id="card-content-types">
     <div class="row">
         <div class="col-md-3 col-xl-3">
-            <a href="{{ route('admin.report.per.menu') }}">
-                <div class="card border-0 text-white" style="background-color: #BF1363;">
+            <a href="{{ route('admin.report.keuangan.menu') }}">
+                <div class="card border-0 text-white" style="background-color: #72147E;">
                     <div class="card-body">
                         <div class="title">
                             <div class="row">
@@ -594,7 +594,7 @@
                                     <h1 class="text-light">Laporan Keuangan</h1>
                                 </div>
                                 <div class="col">
-                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                    <i class="fa fa-trello fa-lg fa-5x"></i>
                                 </div>
                             </div>
                         </div>
@@ -616,8 +616,8 @@
             </a>
         </div>
         <div class="col-md-3 col-xl-3">
-            <a href="">
-                <div class="card border-0 text-white" style="background-color : #39A9CB">
+            <a href="{{ route('admin.report.penjualandanpiutang.menu') }}">
+                <div class="card border-0 text-white" style="background-color : #F21170">
                     <div class="card-body">
                         <div class="title">
                             <div class="row">
@@ -647,8 +647,8 @@
             </a>
         </div>
         <div class="col-md-3 col-xl-3">
-            <a href="">
-                <div class="card border-0 text-white" style="background-color: #EB5E0B;">
+            <a href="{{ route('admin.report.pembeliandanutang.menu') }}">
+                <div class="card border-0 text-white" style="background-color: #FA9905;">
                     <div class="card-body">
                         <div class="title">
                             <div class="row">
@@ -678,8 +678,8 @@
             </a>
         </div>
         <div class="col-md-3 col-xl-3">
-            <a href="">
-                <div class="card border-0 text-white" style="background-color: #F05454;">
+            <a href="{{ route('admin.report.produk.menu') }}">
+                <div class="card border-0 text-white" style="background-color: #FF5200;">
                     <div class="card-body">
                         <div class="title">
                             <div class="row">
