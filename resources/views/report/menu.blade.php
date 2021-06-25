@@ -90,8 +90,8 @@
                     </div>
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href=""><i class=""></i> Jurnal Pengeluaran</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Jurnal Penerimaan</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.kas','Bkk') }}"><i class=""></i> Jurnal Pengeluaran</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.kas','Bkm') }}"><i class=""></i> Jurnal Penerimaan</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Rekonsiliasi Bank per Rekening Koran</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Rekonsiliasi Bank per Buku Besar</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Giro Masuk</a></li>
