@@ -1,12 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Sales;
+namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\Sale\PenawaranSale;
+use App\Models\Sale\PesananSale;
 use Illuminate\Http\Request;
 
 class PesananController extends Controller
 {
+    private $kode;
+
+    public function __construct()
+    {
+        $number = PesananSale::count();
+        if ($number > 0) {
+            $number = PesananSale::max('kode');
+            $strnum = substr($number, 2, 3);
+            $strnum = $strnum + 1;
+            if (strlen($strnum) == 3) {
+                $kode = 'PSN' . $strnum;
+            } else if (strlen($strnum) == 2) {
+                $kode = 'PSN' . "0" . $strnum;
+            } else if (strlen($strnum) == 1) {
+                $kode = 'PSN' . "00" . $strnum;
+            }
+        } else {
+            $kode = 'PSN' . "001";
+        }
+        $this->kode = $kode;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +39,11 @@ class PesananController extends Controller
      */
     public function index()
     {
-        return view('admin.sales.pesanan.index');
+        $pesanans = PesananSale::select('id','tanggal', 'kode', 'total','status')->with('pelanggan:id, nama');
+        return view('admin.sales.pesanan.index', [
+            'pesanans' => $pesanans->paginate(5),
+            'countPesanan' => $pesanans->count(),
+        ]);
     }
 
     /**
@@ -24,7 +53,13 @@ class PesananController extends Controller
      */
     public function create()
     {
-        //
+        $product = Product::select('id', 'name', 'price_sell', 'unit_id')->with('unit:name')->get();
+        $penawaran = PenawaranSale::count() >= 1 ? true : false;
+        return view('admin.sales.pesanan.create', [
+            'kode' => $this->kode,
+            'product' => $product,
+            'penawaran' => $penawaran,
+        ]);
     }
 
     /**
