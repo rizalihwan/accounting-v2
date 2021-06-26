@@ -13,11 +13,11 @@
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Penawaran Harga</h4>
-                <a href="{{ route('admin.penawaran.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
+                <a href="{{ route('admin.pesanan.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" @if($countPesanan == 1) style="height: 140px" @endif>
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>
@@ -30,14 +30,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($penawarans as $penawaran)
+                            @forelse ($pesanans as $pesanan)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $penawaran->tanggal }}</td>
-                                <td>{{ $penawaran->kode }}</td>
-                                <td>{{ $penawaran->pelanggan->nama }}</td>
-                                <td>{{ 'Rp. ' . number_format($penawaran->total, 0, ',', '.') }}</td>
-                                <td>{{ $penawaran->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>{{ $pesanan->tanggal }}</td>
+                                <td>{{ $pesanan->kode }}</td>
+                                <td>{{ $pesanan->pelanggan->nama }}</td>
+                                <td>{{ 'Rp. ' . number_format($pesanan->total, 0, ',', '.') }}</td>
+                                <td>{{ $pesanan->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
@@ -46,16 +46,16 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item"
-                                                href="{{ route('admin.penawaran.show', $penawaran->id) }}">
+                                                href="{{ route('admin.pesanan.show', $pesanan->id) }}">
                                                 <i data-feather="eye"></i>
                                                 <span class="ml-1">Show</span>
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('admin.penawaran.edit', $penawaran->id) }}">
+                                            <a class="dropdown-item" href="{{ route('admin.pesanan.edit', $pesanan->id) }}">
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
                                             <div class="dropdown-item">
-                                                <form action="{{ route('admin.penawaran.destroy', $penawaran->id) }}" method="post">
+                                                <form action="{{ route('admin.pesanan.destroy', $pesanan->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
@@ -68,7 +68,7 @@
                             </tr>      
                             @empty
                             <tr>
-                                <td colspan="6" align="center">
+                                <td colspan="7" align="center">
                                     Tidak ada data
                                 </td>
                             </tr>
@@ -76,7 +76,7 @@
                         </tbody>
                     </table>
                     <hr style="margin-top: -1px">
-                    {{ $penawarans->links() }}
+                    {{ $pesanans->links() }}
                 </div>
             </div>
         </div>
