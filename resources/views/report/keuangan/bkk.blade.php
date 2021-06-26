@@ -1,10 +1,10 @@
 @extends('_layouts.main')
-@section('title', 'Laporan - Jurnal Umum')
+@section('title', 'Laporan - Kas Keluar')
 @push('breadcrumb')
     <li class="breadcrumb-item">
         <a href="{{ route('admin.report.menu') }}">Laporan Keuangan</a>
     </li>
-    <li class="breadcrumb-item" aria-current="page">Jurnal Umum</li>
+    <li class="breadcrumb-item" aria-current="page">Kas Keluar</li>
 @endpush
 @section('content')
         <div class="row">
@@ -14,14 +14,14 @@
                     <div class="card-header">
                         <div class="d-flex">
                             @if (request('startDate') && request('endDate'))
-                                <a href="{{ route('admin.report.keuangan.jurnalumum') }}" class="btn btn-danger btn-sm mr-1"><i class="fa fa-arrow-left"></i></a>
+                                <a href="{{ route('admin.report.keuangan.kas','Bkk') }}" class="btn btn-danger btn-sm mr-1"><i class="fa fa-arrow-left"></i></a>
                                 <h2 class="badge badge-success p-1"><u>Laporan Dari : {{ $startDate }} &middot; Sampai : {{ $endDate }}</u></h2>
                             @else
                                 <h2 class="badge badge-success p-1"><u>SILAHKAN CARI DATA SESUAI TANGGAL.</u></h2>
                             @endif
                         </div>
                         <div>
-                            <form action="{{ route('admin.report.keuangan.jurnalumum.cari') }}" method="GET">
+                            <form action="{{ route('admin.report.keuangan.kas.cari','Bkk') }}" method="GET">
                             @csrf
                                 <div class="d-flex">
                                     <label for="startDate" class="mr-2">Start Date</label>
@@ -52,40 +52,65 @@
                                 <thead>
                                     <tr>
                                         <th>TANGGAL</th>
-                                        <th>URAIAN</th>
-                                        <th>NO. REFERENSI</th>
+                                        <th>DESKRIPSI</th>
+                                        <th></th>
+                                        <th>MATA UANG</th>
                                         <th>DEBIT</th>
                                         <th>KREDIT</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (request('startDate') && request('endDate'))
-                                        @forelse ($data as $key)
+                                    @php $desk =''; @endphp
+                                        @forelse ($bkk as $item)
+                                            @foreach ($item->uraians as $black)
+                                            @if ($desk != $item->desk)
                                             <tr>
                                                 <td>
                                                     <span class="badge badge-info">
-                                                        {{ $key->jurnalumum->tanggal }}
+                                                        {{ $item->tanggal }}
                                                     </span>
                                                 </td>
-                                                <td>{{ $key->jurnalumum->uraian }}</td>
-                                                <td>{{ $key->jurnalumum->kode_jurnal }}</td>
-                                                <td>{{ 'IDR ' . number_format($key->debit, 0, ',', '.') }}</td>
-                                                <td>{{ 'IDR ' . number_format($key->kredit, 0, ',', '.') }}</td>
+                                                <td>{{ $item->desk }}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            @php $desk = $item->desk @endphp
+                                            @endif
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>{{$black->rekening->subklasifikasi->name }}</td>
+                                                <td>{{$black->uang}}</td>
+                                                <td>{{$black->jml_uang}}</td> 
+                                                <td>-</td> 
+                                                @php $asik = $black->uang; @endphp
+                                            </tr>      
+                                            @endforeach
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>{{$item->akuns->subklasifikasi->name}}</td>
+                                                <td>{{$asik}}</td>
+                                                <td>-</td>
+                                                <td>{{$item->value}}</td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" align="center">Data tidak ditemukan.</td>
+                                                <td colspan="6" align="center">Data tidak ditemukan.</td>
                                             </tr>
                                         @endforelse
-                                    @else
-                                        <th colspan="5" style="text-align: center">
+                                        @else
+                                        <th colspan="6" style="text-align: center">
                                             <span class="badge badge-danger">-- KOSONG --</span>
                                         </th>
                                     @endif
                                 </tbody>
                             </table>
                             @if (request('startDate') && request('endDate'))
-                                {{ $data->links('pagination::bootstrap-4') }}
+                                {{ $bkk->links('pagination::bootstrap-4') }}
                             @endif
                         </div>
                     </div>

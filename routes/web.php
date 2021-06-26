@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('sales')->group(function () {
             Route::view('/', 'menu')->name('sales');
             Route::resource('penawaran', 'Sales\PenawaranController');
-            Route::resource('pesanan', 'Sales\PesananController');
+            Route::resource('pesanan', 'Sales\PenawaranController');
         });
 
         Route::prefix('purchase')->group(function () {
@@ -91,14 +91,24 @@ Route::middleware('auth')->group(function () {
         Route::prefix('report')->name('report.')->group(function () {
             // menu report
             Route::view('/', 'menu')->name('menu');
-            // menu report per jenis 
-            Route::get('/menu', 'ReportController@menu')->name('per.menu');
-            // keuangan
-            Route::prefix('keuangan')->name('keuangan.')->group(function(){
-                // jurnal umum
+            Route::name('keuangan.')->prefix('keuangan')->group(function(){
+                Route::view('/', 'report.menu')->name('menu');
                 Route::get('/jurnal-umum', 'ReportController@jurnalumum')->name('jurnalumum');
                 Route::get('/jurnal-umum/search', 'ReportController@jurnalumumcari')->name('jurnalumum.cari');
+
+                Route::get('/buku-kas/{nama}', 'ReportController@kas')->name('kas');
+                Route::get('/buku-kas/search/{nama}', 'ReportController@kascari')->name('kas.cari');
             });
+            Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function(){
+                Route::view('/', 'report.menu')->name('menu');
+            });
+            Route::name('pembeliandanutang.')->prefix('pembeliandanutang')->group(function(){
+                Route::view('/', 'report.menu')->name('menu');
+            });
+            Route::name('produk.')->prefix('produk')->group(function(){
+                Route::view('/', 'report.menu')->name('menu');
+            });
+
         });
     });
 });
