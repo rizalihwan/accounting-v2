@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Kontak;
 use App\Models\Product;
+use App\Models\Sale\PenawaranSale;
+use App\Models\Sale\PenawaranSaleDetail;
+use App\Models\Sale\PesananSale;
+use App\Models\Sale\PesananSaleDetail;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -62,6 +66,62 @@ class SalesController extends Controller
             ];
         }
 
+        return $result;
+    }
+
+    public function getPenawaran(Request $request)
+    {
+        $search = $request->search;
+
+        $penawarans = PenawaranSale::select('id', 'kode', 'pelanggan_id')
+                    ->with('pelanggan:id,nama')
+                    ->where('status', '1')
+                    ->orWhere('kode', 'like',"%{$search}%")
+                    ->get()
+                    ->take(5);
+        
+        $result = [];
+
+        foreach($penawarans as $penawaran){
+            $detail = PenawaranSaleDetail::select('id', 'penawaran_id', 'product_id', 'jumlah')
+                    ->where('penawaran_id', $penawaran->id)
+                    ->get();
+            $result[] = [
+                "id" => $penawaran->id,
+                "text" => $penawaran->kode,
+                "pelanggan" => $penawaran->pelanggan->nama,
+                "detail" => $detail->toArray(),
+            ];
+
+            return $result;
+        } 
+    }
+
+    public function getPesanan(Request $request)
+    {
+        $search = $request->search;
+
+        $pesanans = PesananSale::select('id', 'kode', 'pelanggan_id')
+                    ->with('pelanggan:id,nama')
+                    ->where('status', '1')
+                    ->orWhere('kode', 'like',"%{$search}%")
+                    ->get()
+                    ->take(5);
+        
+        $result = [];
+
+        foreach($pesanans as $pesanan){
+            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'jumlah')
+                    ->where('pesanan_id', $pesanan->id)
+                    ->get();
+            $result[] = [
+                "id" => $pesanan->id,
+                "text" => $pesanan->kode,
+                "pelanggan" => $pesanan->pelanggan->nama,
+                "detail" => $detail->toArray(),
+            ];
+
+        } 
         return $result;
     }
 }
