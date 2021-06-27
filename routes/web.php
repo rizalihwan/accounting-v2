@@ -112,3 +112,8 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
+Route::get('test',function(){
+    return view('admin.sales.penawaran.create', [
+        'kode' => 1
+    ]);
+});
