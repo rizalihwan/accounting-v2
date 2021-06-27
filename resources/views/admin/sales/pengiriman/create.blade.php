@@ -12,7 +12,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <form class="forms-sample" class="repeater" action="{{ route('admin.pesanan.store') }}" method="POST">
+        <form class="forms-sample" class="repeater" action="{{ route('admin.pengiriman.store') }}" method="POST">
             <div class="card ">
                 <div class="card-body">
                     @csrf
@@ -68,22 +68,21 @@
                             </div>
                         </div>
 
-                        @if($penawaran)
                         <div class="col-sm-3" style="margin-top: 8px">
                             <div class="form-group">
-                            <label for="penawaran_id">{{ __('Penawaran') }}<span class="text-red">*</span></label>
-                                <select name="penawaran_id" id="penawaran_id"
-                                    class="form-control select2 @error('penawaran_id') is-invalid @enderror">
+                            <label for="pesanan_id">{{ __('Pesanan') }}<span class="text-red">*</span></label>
+                                <select name="pesanan_id" id="pesanan_id"
+                                    class="form-control select2 @error('pesanan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
-                                @error('penawaran_id')
+                                @error('pesanan_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
                             </div>
                         </div>
-                        @endif
+                        
                     </div>
                 </div>
             </div>
@@ -192,10 +191,10 @@
             },
         });
 
-        $("#penawaran_id").select2({
-            placeholder: "-- Pilih Penawaran --",
+        $("#pesanan_id").select2({
+            placeholder: "-- Pilih Pesanan --",
             ajax: {
-                url: '{{ route('api.select2.get-sale-penawaran') }}',
+                url: '{{ route('api.select2.get-sale-pesanan') }}',
                 type: 'post',
                 dataType: 'json',
                 data: params => {
@@ -253,24 +252,24 @@
             let uuid = generateUUID()
             let html = `
                 <tr class="rowComponent">
-                    <input type="hidden" width="10px" name="pesanans[${index}][id]" value="${uuid}">
+                    <input type="hidden" width="10px" name="pengirimans[${index}][id]" value="${uuid}">
                     <td class="no" hidden>
                         <input type="text" value="${index + 1}" class="form-control" disabled>
                     </td>
                     <td>
-                        <select name="pesanans[${index}][product_id]" class="form-control select-${index}"></select>
+                        <select name="pengirimans[${index}][product_id]" class="form-control select-${index}"></select>
                     </td>
                     <td>
-                        <input type="text" name="pesanans[${index}][jumlah]" class="form-control jumlah" placeholder="0" readonly>
+                        <input type="text" name="pengirimans[${index}][jumlah]" class="form-control jumlah" placeholder="0" readonly>
                     </td>
                     <td>
-                        <input type="text" name="pesanans[${index}][satuan]" class="form-control satuan"  readonly>
+                        <input type="text" name="pengirimans[${index}][satuan]" class="form-control satuan"  readonly>
                     </td>
                     <td>
-                        <input type="text" name="pesanans[${index}][harga]" class="form-control harga" readonly>
+                        <input type="text" name="pengirimans[${index}][harga]" class="form-control harga" readonly>
                     </td>
                     <td>
-                        <input type="text" name="pesanans[${index}][total]" class="form-control total"  placeholder="0" readonly>
+                        <input type="text" name="pengirimans[${index}][total]" class="form-control total"  placeholder="0" readonly>
                     </td>
                     <td>
                         <button type="button" name="remove" 
@@ -288,17 +287,17 @@
             //     total.value = subTotal(index);
             // });
 
-            $('[name="pesanans['+index+'][jumlah]"]').on('change', function () {
+            $('[name="pengirimans['+index+'][jumlah]"]').on('change', function () {
                 
-                const total = parseInt($('[name="pesanans['+index+'][harga]"]').val()) * parseInt($(this).val());
-                $('[name="pesanans['+index+'][total]"]').val(total);
+                const total = parseInt($('[name="pengirimans['+index+'][harga]"]').val()) * parseInt($(this).val());
+                $('[name="pengirimans['+index+'][total]"]').val(total);
 
                 $("#total").val(jumlahin())
                 
             });
             // jurnalEachColumn(index)
             feather.replace()
-            $('select[name="pesanans['+index+'][product_id]"]').select2({
+            $('select[name="pengirimans['+index+'][product_id]"]').select2({
                 placeholder: '-- Pilih Product --',
                 ajax: {
                     url: '{{ route('api.select2.get-product') }}',
@@ -320,13 +319,13 @@
                 allowClear: true
             })
 
-            $('select[name="pesanans['+index+'][product_id]"]').on('select2:select', function (e) {
+            $('select[name="pengirimans['+index+'][product_id]"]').on('select2:select', function (e) {
 				const unit = e.params.data.unit
                 const price = e.params.data.price_sell
 
-				$('[name="pesanans['+index+'][satuan]"]').val(unit)
-                $('[name="pesanans['+index+'][harga]"]').val(price)
-                $('[name="pesanans['+index+'][jumlah]"]').attr('readonly', false)
+				$('[name="pengirimans['+index+'][satuan]"]').val(unit)
+                $('[name="pengirimans['+index+'][harga]"]').val(price)
+                $('[name="pengirimans['+index+'][jumlah]"]').attr('readonly', false)
 			})
 
 
