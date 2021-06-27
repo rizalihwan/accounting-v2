@@ -3,33 +3,32 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PesananSaleRequest;
+use App\Http\Requests\Admin\PengirimanSaleRequest;
 use App\Models\Product;
-use App\Models\Sale\PenawaranSale;
-use App\Models\Sale\PesananSale;
-use App\Models\Sale\PesananSaleDetail;
+use App\Models\Sale\PengirimanSale;
+use App\Models\Sale\PengirimanSaleDetail;
 use Illuminate\Http\Request;
 
-class PesananController extends Controller
+class PengirimanController extends Controller
 {
     private $kode;
 
     public function __construct()
     {
-        $number = PesananSale::count();
+        $number = PengirimanSale::count();
         if ($number > 0) {
-            $number = PesananSale::max('kode');
+            $number = PengirimanSale::max('kode');
             $strnum = (int)substr($number, 2, 3);
             $strnum = $strnum + 1;
             if (strlen($strnum) == 3) {
-                $kode = 'PN' . $strnum;
+                $kode = 'PP' . $strnum;
             } else if (strlen($strnum) == 2) {
-                $kode = 'PN' . "0" . $strnum;
+                $kode = 'PP' . "0" . $strnum;
             } else if (strlen($strnum) == 1) {
-                $kode = 'PN' . "00" . $strnum;
+                $kode = 'PP' . "00" . $strnum;
             }
         } else {
-            $kode = 'PN' . "001";
+            $kode = 'PP' . "001";
         }
         $this->kode = $kode;
     }
@@ -41,11 +40,11 @@ class PesananController extends Controller
      */
     public function index()
     {
-        $pesanans = PesananSale::select('id','tanggal', 'kode', 'total','status', 'pelanggan_id')->with('pelanggan:id,nama');
+        $pengirmans = PengirimanSale::select('id','tanggal', 'kode', 'total','status', 'pelanggan_id')->with('pelanggan:id,nama');
 
-        return view('admin.sales.pesanan.index', [
-            'pesanans' => $pesanans->paginate(5),
-            'countPesanan' => $pesanans->count(),
+        return view('admin.sales.pengiriman.index', [
+            'pengirimans' => $pengirmans->paginate(5),
+            'countPengiriman' => $pengirmans->count(),
         ]);
     }
 
@@ -57,11 +56,9 @@ class PesananController extends Controller
     public function create()
     {
         $product = Product::select('id', 'name', 'price_sell', 'unit_id')->with('unit:name')->get();
-        $penawaran = PenawaranSale::count() >= 1 ? true : false;
-        return view('admin.sales.pesanan.create', [
+        return view('admin.sales.pengiriman.create', [
             'kode' => $this->kode,
             'product' => $product,
-            'penawaran' => $penawaran,
         ]);
     }
 
@@ -71,24 +68,24 @@ class PesananController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PesananSaleRequest $request)
+    public function store(PengirimanSaleRequest $request)
     {
         try {
 
-            $pesanans = PesananSale::create($request->except('pesanans'));
+            $pengiriman = PengirimanSale::create($request->except('pengirimans'));
 
-            foreach ($request->pesanans as $input_pesanan) {
-                PesananSaleDetail::create([
-                    'pesanan_id' => $pesanans->id,
-                    'product_id' => $input_pesanan['product_id'],
-                    'jumlah' => $input_pesanan['jumlah'],
+            foreach ($request->pengirimans as $input_pengiriman) {
+                PengirimanSaleDetail::create([
+                    'pengiriman_id' => $pengiriman->id,
+                    'product_id' => $input_pengiriman['product_id'],
+                    'jumlah' => $input_pengiriman['jumlah'],
                 ]);
             }
         } catch (\Exception $e) {
-            return back()->with('error', 'Pesanan tidak Tersimpan!' . $e->getMessage());
+            return back()->with('error', 'Pengiriman tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->route('admin.pesanan.index')->with('success', 'Pesanan berhasil Tersimpan');
+        return redirect()->route('admin.pengiriman.index')->with('success', 'Pengiriman berhasil Tersimpan');
     }
 
     /**
@@ -133,9 +130,9 @@ class PesananController extends Controller
      */
     public function destroy($id)
     {
-        $pesanans = PesananSale::findOrFail($id);
+        $pesanans = PengirimanSale::findOrFail($id);
         $pesanans->delete();
 
-        return redirect()->route('admin.pesanan.index')->with('success', 'Pesanan berhasil Dihapus');
+        return redirect()->route('admin.pengiriman.index')->with('success', 'Pengiriman berhasil Dihapus');
     }
 }
