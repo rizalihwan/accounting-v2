@@ -35,13 +35,14 @@ Route::name('api.')->group(function () {
         Route::post('/get-pelanggan', 'Api\SalesController@getPelanggan')->name('get-pelanggan');
         Route::get('/get-pelanggan/{id}', 'Api\SalesController@pelangganSelected')->name('get-pelanggan.selected');
 
-         //product
-         Route::post('/get-product', 'Api\SalesController@getProduct')->name('get-product');
+        //product
+        Route::post('/get-product', 'Api\SalesController@getProduct')->name('get-product');
+        Route::get('/get-product/{product}', 'Api\SalesController@selectedProduct')->name('get-product.selected');
 
-         //penawaran
-         Route::post('/get-sale-penawaran', 'Api\SalesController@getPenawaran')->name('get-sale-penawaran');
+        //penawaran
+        Route::post('/get-sale-penawaran', 'Api\SalesController@getPenawaran')->name('get-sale-penawaran');
 
-         //pesanan
-         Route::post('/get-sale-pesanan', 'Api\SalesController@getPesanan')->name('get-sale-pesanan');
+        //pesanan
+        Route::post('/get-sale-pesanan', 'Api\SalesController@getPesanan')->name('get-sale-pesanan');
     });
 });

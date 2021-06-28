@@ -41,7 +41,6 @@ class SalesController extends Controller
 
     public function pelangganSelected()
     {
-
     }
 
     public function getProduct(Request $request)
@@ -49,15 +48,15 @@ class SalesController extends Controller
         $search = $request->search;
 
         $products = Product::select('id', 'unit_id', 'name', 'price_sell', 'status')
-                ->with('unit')
-                ->where('status', '1')
-                ->orWhere('name', 'like',"%{$search}%")
-                ->get()
-                ->take(5);
+            ->with('unit')
+            ->where('status', '1')
+            ->orWhere('name', 'like', "%{$search}%")
+            ->get()
+            ->take(5);
 
         $result = [];
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $result[] = [
                 "id" => $product->id,
                 "text" => $product->name,
@@ -74,25 +73,25 @@ class SalesController extends Controller
         $search = $request->search;
 
         $penawarans = PenawaranSale::select('id', 'kode', 'pelanggan_id')
-                    ->with('pelanggan:id,nama')
-                    ->where('status', '1')
-                    ->orWhere('kode', 'like',"%{$search}%")
-                    ->get()
-                    ->take(5);
-        
+            ->with('pelanggan:id,nama')
+            ->where('status', '1')
+            ->orWhere('kode', 'like', "%{$search}%")
+            ->get()
+            ->take(5);
+
         $result = [];
 
-        foreach($penawarans as $penawaran){
+        foreach ($penawarans as $penawaran) {
             $detail = PenawaranSaleDetail::select('id', 'penawaran_id', 'product_id', 'jumlah')
-                    ->where('penawaran_id', $penawaran->id)
-                    ->get();
+                ->where('penawaran_id', $penawaran->id)
+                ->get();
             $result[] = [
                 "id" => $penawaran->id,
                 "text" => $penawaran->kode,
                 "pelanggan" => $penawaran->pelanggan->nama,
                 "detail" => $detail->toArray(),
             ];
-        } 
+        }
 
         return $result;
     }
@@ -102,26 +101,39 @@ class SalesController extends Controller
         $search = $request->search;
 
         $pesanans = PesananSale::select('id', 'kode', 'pelanggan_id')
-                    ->with('pelanggan:id,nama')
-                    ->where('status', '1')
-                    ->orWhere('kode', 'like',"%{$search}%")
-                    ->get()
-                    ->take(5);
-        
+            ->with('pelanggan:id,nama')
+            ->where('status', '1')
+            ->orWhere('kode', 'like', "%{$search}%")
+            ->get()
+            ->take(5);
+
         $result = [];
 
-        foreach($pesanans as $pesanan){
+        foreach ($pesanans as $pesanan) {
             $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'jumlah')
-                    ->where('pesanan_id', $pesanan->id)
-                    ->get();
+                ->where('pesanan_id', $pesanan->id)
+                ->get();
             $result[] = [
                 "id" => $pesanan->id,
                 "text" => $pesanan->kode,
                 "pelanggan" => $pesanan->pelanggan->nama,
                 "detail" => $detail->toArray(),
             ];
-
-        } 
+        }
         return $result;
+    }
+
+    /**
+     * Selected data
+     */
+
+    public function selectedProduct(Product $product)
+    {
+        return response()->json([
+            "id" => $product->id,
+            "text" => $product->name,
+            "unit" => $product->unit->name,
+            "price_sell" => $product->price_sell,
+        ]);
     }
 }
