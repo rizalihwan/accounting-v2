@@ -24,7 +24,7 @@ class PesananbuyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pemesanan.create');
     }
 
     /**
