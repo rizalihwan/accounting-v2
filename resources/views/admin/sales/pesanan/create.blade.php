@@ -33,7 +33,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <a href="{{ route('admin.kontak.create') }}" class="btn btn-outline-danger tambah-pelanggan">
                                     <i data-feather="plus"></i>
