@@ -18,49 +18,47 @@
                     @csrf
                     <input type="hidden" name="kode" value="{{ $kode }}">
                     <div class="row">
-
-                        <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-red">*</span></label>
-                                <select name="pelanggan_id" id="pelanggan_id"
+                                <select name="pelanggan_id" id="pelanggan_id" 
                                     class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 @error('pelanggan_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-sm-3" style="margin-top: 8px">
-                            <div class="form-group"></div>
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
+                                <a href="{{ route('admin.kontak.create') }}" class="btn btn-outline-danger tambah-pelanggan">
                                     <i data-feather="plus"></i>
-                                    TAMBAH Pelanggan
+                                    Tambah Pelanggan
                                 </a>
                             </div>
                         </div>
 
                     </div>
                     <div class="row">
-                    <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
                                 <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
                                     class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
                                 <div class="help-block with-errors"></div>
                                 @error('tanggal')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kode">{{ __('Kode Pesanan') }}<span class="text-red">*</span></label>
                                 <input class="form-control" id="kode" type="text" value="{{ $kode }}" name="kode"
@@ -69,20 +67,20 @@
                         </div>
 
                         @if($penawaran)
-                        <div class="col-sm-3" style="margin-top: 8px">
-                            <div class="form-group">
-                            <label for="penawaran_id">{{ __('Penawaran') }}<span class="text-red">*</span></label>
-                                <select name="penawaran_id" id="penawaran_id"
-                                    class="form-control select2 @error('penawaran_id') is-invalid @enderror">
-                                </select>
-                                <div class="help-block with-errors"></div>
-                                @error('penawaran_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="penawaran_id">{{ __('Penawaran') }}<span class="text-red">*</span></label>
+                                    <select name="penawaran_id" id="penawaran_id"
+                                        class="form-control select2 @error('penawaran_id') is-invalid @enderror">
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                    @error('penawaran_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -92,7 +90,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="table-responsive">
-                                <table class="table table-borderless mt-2">
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr class="rowHead">
                                             <td>Product</td>
@@ -104,22 +102,22 @@
                                     </thead>
                                     <tbody id="dynamic_field"></tbody>
                                 </table>
-                                <button type="button" id="add" class="btn btn-success my-2"
-                                    style="width: 100%; height: 50px">
-                                    <i data-feather="plus"></i>
-                                    Tambah Row Baru
-                                </button>
-                                <table class="table table-borderless col-sm-6 ml-auto border-top">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width: 180px">Total</th>
-                                            <td>
-                                                <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
+                            <button type="button" id="add" class="btn btn-success my-2"
+                                style="width: 100%; height: 50px">
+                                <i data-feather="plus"></i>
+                                Tambah Row Baru
+                            </button>
+                            <table class="table table-borderless col-md-5 ml-auto border-top mt-2">
+                                <tbody>
+                                    <tr class="rowComponentTotal">
+                                        <td style="width: 100px"><strong>Total</strong></td>
+                                        <td>
+                                            <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -148,13 +146,34 @@
         width: 100% !important;
     }
     .rowComponent td{
-            padding: 0px 8px 16px 0 !important
+        padding: 0px 8px 16px 0 !important;
     }
     .rowHead td{
-        padding: 0px 8px 16px 0 !important
+        padding: 0px 8px 16px 0 !important;
     }
     .rowComponent td .form-control{
         border-radius:0px !important;
+    }
+
+    .rowComponentTotal td{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
+    .rowComponentTotal td .form-control{
+        border-radius:0px !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .tambah-pelanggan {
+            margin-top: 0;
+            float: right;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        .tambah-pelanggan {
+            margin-top: 23px;
+        }
     }
 
 </style>
@@ -164,61 +183,6 @@
 <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
-<script>
-    let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
-
-    $(document).ready(function () {
-        $("#pelanggan_id").select2({
-            placeholder: "-- Pilih Pelanggan --",
-            ajax: {
-                url: '{{ route('api.select2.get-pelanggan') }}',
-                type: 'post',
-                dataType: 'json',
-                data: params => {
-                    return {
-                        _token: CSRF_TOKEN,
-                        search: params.term
-                    }
-                },
-                error: (err) => {
-                    console.log(err)
-                },
-                processResults: data => {
-                    return {
-                        results: data
-                    }
-                },
-                cache: true
-            },
-        });
-
-        $("#penawaran_id").select2({
-            placeholder: "-- Pilih Penawaran --",
-            ajax: {
-                url: '{{ route('api.select2.get-sale-penawaran') }}',
-                type: 'post',
-                dataType: 'json',
-                data: params => {
-                    return {
-                        _token: CSRF_TOKEN,
-                        search: params.term
-                    }
-                },
-                error: (err) => {
-                    console.log(err)
-                },
-                processResults: data => {
-                    return {
-                        results: data
-                    }
-                },
-                cache: true
-            },
-        });
-
-    });
-
-</script>
 <script>
 
     function generateUUID() {
@@ -338,6 +302,104 @@
         })
     }
 </script>
+
+<script>
+    let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
+
+    $(document).ready(function () {
+        $("#pelanggan_id").select2({
+            placeholder: "-- Pilih Pelanggan --",
+            ajax: {
+                url: '{{ route('api.select2.get-pelanggan') }}',
+                type: 'post',
+                dataType: 'json',
+                data: params => {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term
+                    }
+                },
+                error: (err) => {
+                    console.log(err)
+                },
+                processResults: data => {
+                    return {
+                        results: data
+                    }
+                },
+                cache: true
+            },
+        });
+
+        /* Penawaran SELECT2 */
+        $("#penawaran_id").select2({
+            placeholder: "-- Pilih Penawaran --",
+            ajax: {
+                url: '{{ route('api.select2.get-sale-penawaran') }}',
+                type: 'post',
+                dataType: 'json',
+                data: params => {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term
+                    }
+                },
+                error: (err) => {
+                    console.log(err)
+                },
+                processResults: data => {
+                    return {
+                        results: data
+                    }
+                },
+                cache: true
+            },
+        });
+
+        $('#penawaran_id').on('select2:select', function (e) {
+            $("#dynamic_field").html('')
+
+            const data = e.params.data;
+            const detail = data.detail;
+
+            for (let index = 0; index < detail.length; index++) {
+                field_dinamis()
+
+                let product_id = detail[index].product_id;
+                let jumlah = detail[index].jumlah;
+                let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
+                url_product = url_product.replace(':id', product_id);
+
+                $.ajax({
+                    url: url_product,
+                    type: 'get',
+                    error: (err) => {
+                        console.log(err);
+                    }
+                }).then((data) => {
+                    let option = new Option(data.text, data.id, true, true)
+
+                    $('select[name="pesanans['+index+'][product_id]"]').append(option).trigger('change')
+                    $('select[name="pesanans['+index+'][product_id]"]').trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: data
+                        }
+                    })
+
+                    $('input[name="pesanans['+index+'][jumlah]').val(jumlah)
+                    let total = parseInt($('[name="pesanans['+index+'][harga]"]').val()) * parseInt($('input[name="pesanans['+index+'][jumlah]').val());
+                    $('[name="pesanans['+index+'][total]"]').val(total);
+                    $("#total").val(jumlahin())
+                })
+            }
+        })
+        /* End Penawaran Select2 */
+
+    });
+
+</script>
+
 <script>
     field_dinamis();
     $(document).ready(function(){
