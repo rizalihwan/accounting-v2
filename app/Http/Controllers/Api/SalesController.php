@@ -92,9 +92,9 @@ class SalesController extends Controller
                 "pelanggan" => $penawaran->pelanggan->nama,
                 "detail" => $detail->toArray(),
             ];
-
-            return $result;
         } 
+
+        return $result;
     }
 
     public function getPesanan(Request $request)
