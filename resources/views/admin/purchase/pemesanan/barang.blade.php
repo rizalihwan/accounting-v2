@@ -16,16 +16,30 @@
         <form action="{{ route('admin.pesanan.store') }}" method="POST" class="invoice-repeater">
             @csrf
             <div class="card">
-                <div class="card-header">
-                    <h3>Pemesanan Pembelian Barang</h3>
-                </div>
+            <div class="card-header">
+                <h3>Permintaan Pemesanan Barang</h3>
+            </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="Pemasok">Pemasok</label>
-                                <select name="Pemasok" id="Pemasok" class="form-control">
+                                <select name="pemasok" id="pemasok" class="form-control">
+                                    @foreach ($pemasok as $item)
+                                    <option value="{{$item->id}}">{{$item->nama}}</option>
+                                    @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="no_penawaran">Penawaran</label>
+                                <select name="no_penawaran" id="no_penawaran" class="form-control">
+                                    @foreach ($penawaran as $item)
+                                    <option value="{{$item->id}}">{{$item->id}} - {{$item->pemasok->nama}}</option>
+                                    @endforeach
+                                </select>
+                                
                             </div>
                         </div>
                     </div>
@@ -48,36 +62,6 @@
                                 <input type="text" class="form-control" name="Deskripsi" placeholder="Deskripsi keterangan" />
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="Gudang">Ke Gudang</label>
-                                <select name="Gudang" id="Gudang" class="form-control">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="Departemen">Departemen</label>
-                                <select name="Departemen" id="Departemen" class="form-control">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="Proyek">Proyek</label>
-                                <select name="Proyek" id="Proyek" class="form-control">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="kontak">Mata Uang</label>
-                                <select name="rek" id="rek" class="form-control">
-                                    <option value="RP">RP</option>
-                                    <option value="USD">USD</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -85,20 +69,22 @@
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-11 col-sm-12">
-                                <div data-repeater-list="invoice-one">
+                            <div class="col-md-12 col-sm-12">
+                                <div data-repeater-list="invoice">
                                     <div data-repeater-item>
                                         <div class="row d-flex align-items-end">
-                                            <div class="col-md-4 ">
+                                            <div class="col-md-3 ">
                                                 <div class="form-group">
-                                                    <label for="Barang">Pilih Barang</label>
-                                                    <select name="Barang" id="Barang" class="form-control">
-
+                                                    <label for="produk">Pilih Barang</label>
+                                                    <select name="produk" id="produk" class="form-control">
+                                                        @foreach ($produk as $item)
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3" id="app">
+                                            <div class="col-md-2" id="app">
                                                 <div class="form-group">
                                                     <label for="jumlah">Jumlah uang</label>
                                                     <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" />
@@ -106,20 +92,34 @@
                                                 </div>
                                             </div>
 
-
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label for="stok">stok</label>
-                                                    <input type="number" name="stok" oninput="HowAboutIt()" class="form-control stok" value="1">
+                                                    <label for="satuan">Satuan Ukur</label>
+                                                    <input type="number" name="satuan"  class="form-control satuan" value="1">
 
                                                 </div>
                                             </div>
 
                                             <div class="col-md-2">
                                                 <div class="form-group">
+                                                    <label for="harga_satuan">Harga Satuan</label>
+                                                    <input type="number" name="harga_satuan" class="form-control harga_satuan" value="1">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="total">Total</label>
+                                                    <input type="number" name="total" class="form-control total" value="1">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-group">
                                                     <button class="btn btn-outline-danger " onclick="calculate(event)" data-repeater-delete type="button">
-                                                        <i class="fa fa-times"></i>
-                                                        <span>Delete</span>
+                                                        <i class="fa fa-trash"></i>
                                                     </button>
                                                 </div>
                                             </div>
