@@ -110,9 +110,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/buku-kas/search/{nama}', 'ReportController@kascari')->name('kas.cari');
 
                 // laba rugi report
-                Route::prefix('labarugi')->name('labarugi.')->group(function(){
-                    Route::view('/', 'report.keuangan.labarugi')->name('standar');
-                });
+                Route::view('/labarugi', 'report.keuangan.labarugi')->name('labarugi');
             });
             Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function(){
                 Route::view('/', 'report.menu')->name('menu');
