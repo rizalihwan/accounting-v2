@@ -1,10 +1,10 @@
 @extends('_layouts.main')
-@section('title', 'Penerimaan Barang')
+@section('title', 'Faktur Pembelian')
 @push('breadcrumb')
 <li class="breadcrumb-item">
     <a href="{{ route('admin.purchase') }}">Pembelian</a>
 </li>
-<li class="breadcrumb-item active">Penerimaan Barang</li>
+<li class="breadcrumb-item active">Faktur Pembelian</li>
 @endpush
 @section('content')
 <div class="container-fluid">
@@ -12,14 +12,14 @@
         <!-- end message area-->
         <div class="col-md-12">
             <div class="card-header">
-                <h3>Penerimaan Barang</h3>
+                <h3>Faktur Pembelian</h3>
             </div>
             <div class="card ">
                 <div class="card-header justify-content-between d-flex">
                     <div>
-                        <a href="{{ route('admin.terima.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Buat Baru</a>
-                        <a href="{{ route('admin.terima.show','barang') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> Buat Barang Baru</a>
-                        <a href="{{ route('admin.terima.show','jasa') }}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Buat Jasa Baru</a>
+                        <a href="{{ route('admin.faktur.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Buat Baru</a>
+                        <a href="{{ route('admin.faktur.show','barang') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> Buat Barang Baru</a>
+                        <a href="{{ route('admin.faktur.show','jasa') }}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Buat Jasa Baru</a>
 
                     </div>
                     <div class="d-flex">
@@ -40,7 +40,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Tanggal</th>
-                                    <th>Nomor Penerimaan</th>
+                                    <th>Nomor Faktur</th>
                                     <th>Nama Pemasok</th>
                                     <th>Deskripsi</th>
                                     <th>Nilai</th>

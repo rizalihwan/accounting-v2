@@ -16,6 +16,9 @@
         <form action="{{ route('admin.penawaran.store') }}" method="POST" class="invoice-repeater">
             @csrf
             <div class="card">
+                <div class="card-header">
+                    <h4>Create Expanse</h4>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">

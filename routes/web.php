@@ -74,6 +74,11 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('purchase')->group(function () {
             Route::view('/', 'menu')->name('purchase');
+            Route::resource('penawaran', 'Purchase\PenawaranBuyController');
+            Route::resource('pesanan', 'Purchase\PesananBuyController');
+            Route::resource('terima', 'Purchase\TerimaBuyController');
+            Route::resource('faktur', 'Purchase\FakturBuyController');
+
         });
         Route::prefix('cash-bank')->group(function () {
             Route::view('/', 'menu')->name('cash-bank');
@@ -113,8 +118,4 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
-Route::get('test',function(){
-    return view('admin.sales.penawaran.create', [
-        'kode' => 1
-    ]);
-});
+

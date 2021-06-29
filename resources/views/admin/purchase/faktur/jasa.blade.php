@@ -1,21 +1,24 @@
 @extends('_layouts.main')
-@section('title', 'Buku Kas Keluar')
+@section('title', 'Faktur Pembelian')
 @push('breadcrumb')
 <li class="breadcrumb-item">
     <a href="{{ route('admin.purchase') }}">Pembelian</a>
 </li>
-<li class="breadcrumb-item active">
-    <a href="{{ route('admin.penawaran.index') }}">Penawaran Harga</a>
+<li class="breadcrumb-item">
+    <a href="{{ route('admin.faktur.index') }}">Faktur Pembelian</a>
 </li>
-<li class="breadcrumb-item active" aria-current="page">Create</li>
+<li class="breadcrumb-item active" aria-current="page">Jasa</li>
 @endpush
 @section('content')
 <div class="row">
     <!-- end message area-->
     <div class="col-md-12">
-        <form action="{{ route('admin.penawaran.store') }}" method="POST" class="invoice-repeater">
+        <form action="{{ route('admin.faktur.store') }}" method="POST" class="invoice-repeater">
             @csrf
             <div class="card">
+                <div class="card-header">
+                    <h3>Faktur Pembelian</h3>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -70,6 +73,8 @@
                             <div class="form-group">
                                 <label for="kontak">Mata Uang</label>
                                 <select name="rek" id="rek" class="form-control">
+                                    <option value="RP">RP</option>
+                                    <option value="USD">USD</option>
                                 </select>
                             </div>
                         </div>
@@ -84,20 +89,23 @@
                                 <div data-repeater-list="invoice-one">
                                     <div data-repeater-item>
                                         <div class="row d-flex align-items-end">
-                                            <div class="col-md-4 ">
+                                            <div class="col-md-2 ">
                                                 <div class="form-group">
-                                                    <label for="Barang">Pilih Barang</label>
+                                                    <label for="Barang">Pilih Jasa</label>
                                                     <select name="Barang" id="Barang" class="form-control">
-                                                        @foreach ($rekenings as $item)
-                                                        <option value="{{ $item->id }}">
-                                                            {{ $item->name }}-{{ $item->subklasifikasi->name }}
-                                                        </option>
 
-                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="akun">PIlih Akun</label>
+                                                    <select name="akun" id="akun" class="form-control">
+
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-md-2" id="app">
                                                 <div class="form-group">
                                                     <label for="jumlah">Jumlah uang</label>
@@ -106,23 +114,24 @@
                                                 </div>
                                             </div>
 
+
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label for="catatan">catatan</label>
-                                                    <input type="text" class="form-control" id="catatan" name="catatan" />
+                                                    <label for="stok">stok</label>
+                                                    <input type="number" name="stok" oninput="HowAboutIt()" class="form-control stok" value="1">
+
                                                 </div>
                                             </div>
 
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label for="matauang">uang</label>
-                                                    <select name="matauang" id="matauang" class="form-control">
-                                                        <option value="RP">RP</option>
-                                                        <option value="USD">USD</option>
+                                                    <label for="ukur">satuan ukur</label>
+                                                    <select name="ukur" class="form-control">
+                                                        <option value=""></option>
                                                     </select>
+
                                                 </div>
                                             </div>
-
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <button class="btn btn-outline-danger " onclick="calculate(event)" data-repeater-delete type="button">
@@ -160,15 +169,14 @@
     </div>
 </div>
 <script>
-    document.querySelector('#stacked-pill-1').addEventListener('click', function() {})
-    document.querySelector('#stacked-pill-2').addEventListener('click', function() {})
-
     function HowAboutIt() {
         let total = 0;
+        let stok = document.querySelectorAll('.stok')
         let coll = document.querySelectorAll('.jumlah')
         for (let i = 0; i < coll.length; i++) {
             let ele = coll[i]
-            total += parseInt(ele.value)
+            let olo = stok[i]
+            total += parseInt(ele.value) * parseInt(olo.value)
         }
         let res = document.getElementById('total')
         res.value = total

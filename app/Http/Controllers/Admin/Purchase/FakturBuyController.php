@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Purchase;
 
-use App\Models\Buy;
-use App\Models\BuyDetail;
 use App\Http\Controllers\Controller;
-use App\Models\Kontak;
-use App\Models\Rekening;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-
-class PenawaranbuyController extends Controller
+class FakturBuyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +14,7 @@ class PenawaranbuyController extends Controller
      */
     public function index()
     {
-        $indeks = Buy::all();
-        return view('admin.purchase.penawaran.index',compact('indeks'));
+        return view('admin.purchase.faktur.index');
     }
 
     /**
@@ -31,9 +24,7 @@ class PenawaranbuyController extends Controller
      */
     public function create()
     {
-        return view('admin.purchase.penawaran.create',[
-
-        ]);
+        //
     }
 
     /**
@@ -55,7 +46,7 @@ class PenawaranbuyController extends Controller
      */
     public function show($id)
     {
-        return view('admin.purchase.penawaran.'.$id);
+        return view('admin.purchase.faktur.'.$id);
     }
 
     /**
