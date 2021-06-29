@@ -14,7 +14,7 @@ class AddOtherFieldToAkunsTable extends Migration
     public function up()
     {
         Schema::table('akuns', function (Blueprint $table) {
-            $table->string('level')->nullable()->after('status');
+            $table->enum('level', [0, 1, 2, 3, 4, 5])->default(0);
             $table->bigInteger('saldo_awal')->nullable()->after('level');
             $table->bigInteger('saldo_berjalan')->nullable()->after('saldo_awal');
             $table->bigInteger('saldo_akhir')->nullable()->after('saldo_berjalan');
