@@ -17,6 +17,7 @@ class CreatePengirimanSaleDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pengiriman_id');
             $table->unsignedBigInteger('product_id');
+            $table->integer('harga');
             $table->integer('jumlah');
             $table->foreign('pengiriman_id')->references('id')->on('pengiriman_sales')->onDelete('cascade');
             $table->timestamps();

@@ -15,6 +15,11 @@ class CreateFakturSaleDetailsTable extends Migration
     {
         Schema::create('faktur_sale_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('faktur_id');
+            $table->unsignedBigInteger('product_id');
+            $table->integer('harga');
+            $table->integer('jumlah');
+            $table->foreign('faktur_id')->references('id')->on('faktur_sales')->onDelete('cascade');
             $table->timestamps();
         });
     }
