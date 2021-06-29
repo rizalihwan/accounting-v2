@@ -780,7 +780,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-3 col-xl-3">
+        {{-- <div class="col-md-3 col-xl-3">
             <a href="{{ route('admin.report.penjualandanpiutang.menu') }}">
                 <div class="card border-0 text-white" style="background-color : #F21170">
                     <div class="card-body">
@@ -874,7 +874,7 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </div> --}}
     </div>
 </section>
 @endif
