@@ -22,19 +22,15 @@
                     </div>
                 </div>
                 <div class="card-content collapse show">
-                    <div class="card-body">
+                    {{-- <div class="card-body">
                         <p class="card-text">
                             Laporan Keuangan
                         </p>
-                    </div>
+                    </div> --}}
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href=""><i class=""></i> Arus Kas</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Laba Rugi Standar</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Laba Rugi 12 Bulan</a></li>
+                        <li class="list-group-item"><a href=""><i class=""></i> Laba Rugi</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Neraca</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Neraca 12 Bulan</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Neraca Saldo</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,12 +56,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href=""><i class=""></i>Daftar Rekening</a></li>
                         <li class="list-group-item"><a href="{{ route('admin.report.keuangan.jurnalumum') }}"><i class=""></i> Jurnal Umum</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Jurnal - Semua Transaksi</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Buku Besar - Sederhana</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Buku Besar - Lengkap</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Jejak Audit - Ringkasan</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Jejak Audit - Detail</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Jejak Audit - Histori Transaksi</a></li>
+                        <li class="list-group-item"><a href=""><i class=""></i> Buku Besar</a></li>
                     </ul>
                 </div>
             </div>
@@ -92,12 +83,6 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href="{{ route('admin.report.keuangan.kas','Bkk') }}"><i class=""></i> Jurnal Pengeluaran</a></li>
                         <li class="list-group-item"><a href="{{ route('admin.report.keuangan.kas','Bkm') }}"><i class=""></i> Jurnal Penerimaan</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Rekonsiliasi Bank per Rekening Koran</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Rekonsiliasi Bank per Buku Besar</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Giro Masuk</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Giro Masuk - hari Jatuh Tempo</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Giro Keluar</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Giro Keluar - hari Jatuh Tempo</a></li>
                     </ul>
                 </div>
             </div>

@@ -55,12 +55,9 @@ class PenawaranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $product = Product::select('id', 'name', 'price_sell', 'unit_id')->with('unit:name')->get();
-        
+    {    
         return view('admin.sales.penawaran.create', [
             'kode' => $this->kode,
-            'product' => $product
         ]);
     }
 
@@ -94,7 +91,7 @@ class PenawaranController extends Controller
             return back()->with('error', 'Penawaran tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->route('admin.penawaran.index')->with('success', 'Penawaran berhasil Tersimpan');
+        return redirect()->back()->with('success', 'Penawaran berhasil Tersimpan');
     }
 
     /**
@@ -142,7 +139,7 @@ class PenawaranController extends Controller
         $penawarans = PenawaranSale::findOrFail($id);
         $penawarans->delete();
 
-        return redirect()->route('admin.penawaran.index')->with('success', 'Penawaran berhasil Dihapus');
+        return redirect()->back()->with('success', 'Penawaran berhasil Dihapus');
     }
 
 }

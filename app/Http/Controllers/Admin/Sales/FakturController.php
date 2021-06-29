@@ -3,36 +3,32 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PengirimanSaleRequest;
-use App\Models\Product;
-use App\Models\Sale\PengirimanSale;
-use App\Models\Sale\PengirimanSaleDetail;
+use App\Http\Requests\Admin\FakturSaleRequest;
+use App\Models\Sale\FakturSale;
+use App\Models\Sale\FakturSaleDetail;
 use Illuminate\Http\Request;
 
-class PengirimanController extends Controller
+class FakturController extends Controller
 {
-    private $kode;
-
     public function __construct()
     {
-        $number = PengirimanSale::count();
+        $number = FakturSale::count();
         if ($number > 0) {
-            $number = PengirimanSale::max('kode');
-            $strnum = (int)substr($number, 2, 3);
+            $number = FakturSale::max('kode');
+            $strnum = substr($number, 2, 3);
             $strnum = $strnum + 1;
             if (strlen($strnum) == 3) {
-                $kode = 'PP' . $strnum;
+                $kode = 'PF' . $strnum;
             } else if (strlen($strnum) == 2) {
-                $kode = 'PP' . "0" . $strnum;
+                $kode = 'PF' . "0" . $strnum;
             } else if (strlen($strnum) == 1) {
-                $kode = 'PP' . "00" . $strnum;
+                $kode = 'PF' . "00" . $strnum;
             }
         } else {
-            $kode = 'PP' . "001";
+            $kode = 'PF' . "001";
         }
         $this->kode = $kode;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -40,12 +36,11 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        $pengirmans = PengirimanSale::select('id','tanggal', 'kode', 'total','status', 'pelanggan_id')->with('pelanggan:id,nama');
+        $fakturs = FakturSale::select('id','tanggal', 'kode', 'pelanggan_id', 'total', 'status')
+        ->with('pelanggan')
+        ->paginate(5);
 
-        return view('admin.sales.pengiriman.index', [
-            'pengirimans' => $pengirmans->paginate(5),
-            'countPengiriman' => $pengirmans->count(),
-        ]);
+        return view('admin.sales.faktur.index', compact('fakturs'));
     }
 
     /**
@@ -55,7 +50,7 @@ class PengirimanController extends Controller
      */
     public function create()
     {
-        return view('admin.sales.pengiriman.create', [
+        return view('admin.sales.faktur.create', [
             'kode' => $this->kode,
         ]);
     }
@@ -66,24 +61,25 @@ class PengirimanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PengirimanSaleRequest $request)
+    public function store(FakturSaleRequest $request)
     {
         try {
 
-            $pengiriman = PengirimanSale::create($request->except('pengirimans'));
+            $pesanans = FakturSale::create($request->except('pesanans'));
 
-            foreach ($request->pengirimans as $input_pengiriman) {
-                PengirimanSaleDetail::create([
-                    'pengiriman_id' => $pengiriman->id,
-                    'product_id' => $input_pengiriman['product_id'],
-                    'jumlah' => $input_pengiriman['jumlah'],
+            foreach ($request->pesanans as $input_pesanan) {
+                FakturSaleDetail::create([
+                    'pesanan_id' => $pesanans->id,
+                    'product_id' => $input_pesanan['product_id'],
+                    'akun_id' => $input_pesanan['akun_id'],
+                    'jumlah' => $input_pesanan['jumlah'],
                 ]);
             }
         } catch (\Exception $e) {
-            return back()->with('error', 'Pengiriman tidak Tersimpan!' . $e->getMessage());
+            return back()->with('error', 'Faktur tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Pengiriman berhasil Tersimpan');
+        return redirect()->back()->with('success', 'Faktur berhasil Tersimpan');
     }
 
     /**
@@ -128,9 +124,9 @@ class PengirimanController extends Controller
      */
     public function destroy($id)
     {
-        $pesanans = PengirimanSale::findOrFail($id);
-        $pesanans->delete();
+        $fakturs = FakturSale::findOrFail($id);
+        $fakturs->delete();
 
-        return redirect()->back()->with('success', 'Pengiriman berhasil Dihapus');
+        return redirect()->back()->with('success', 'Faktur berhasil Dihapus');
     }
 }

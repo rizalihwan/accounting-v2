@@ -2,17 +2,17 @@
 @section('title', 'Penjualan')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales') }}">Penjualan</a>
+    <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.penawaran.index') }}">Penawaran Harga</a>
+    <a href="{{ route('admin.sales.penawaran.index') }}">Penawaran Harga</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Tambah Penawaran Harga</li>
 @endpush
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <form class="forms-sample" class="repeater" action="{{ route('admin.penawaran.store') }}" method="POST">
+        <form class="forms-sample" class="repeater" action="{{ route('admin.sales.penawaran.store') }}" method="POST">
             <div class="card ">
                 <div class="card-body">
                     @csrf
@@ -106,7 +106,7 @@
             <hr>
             <div class="col-md-12 mt-4">
                 <div class="form-group">
-                    <a href="{{ route('admin.jurnalumum.index') }}" class="btn btn-danger">KEMBALI</a>
+                    <a href="{{ route('admin.sales.penawaran.index') }}" class="btn btn-danger">KEMBALI</a>
                     <button type="submit" class="btn btn-primary" id="btn-submit">
                         TAMBAH</button>
                 </div>

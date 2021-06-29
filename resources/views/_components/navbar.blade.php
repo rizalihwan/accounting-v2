@@ -290,7 +290,7 @@
                     </a>
                 </li>
                 <li class="nav-item {{ request()->is('admin/sales*') ? 'active' : '' }}">
-                    <a class="nav-link d-flex align-items-center" href="{{ route('admin.sales') }}">
+                    <a class="nav-link d-flex align-items-center" href="{{ route('admin.sales.') }}">
                         <i data-feather="shopping-cart" class="text-danger"></i>
                         <span data-i18n="Sales">Penjualan</span>
                     </a>
