@@ -17,6 +17,7 @@ class CreatePesananSaleDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pesanan_id');
             $table->unsignedBigInteger('product_id');
+            $table->integer('harga');
             $table->integer('jumlah');
             $table->foreign('pesanan_id')->references('id')->on('pesanan_sales')->onDelete('cascade');
             $table->timestamps();
