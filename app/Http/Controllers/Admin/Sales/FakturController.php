@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\FakturSaleRequest;
 use App\Models\Sale\FakturSale;
+use App\Models\Sale\FakturSaleDetail;
 use Illuminate\Http\Request;
 
 class FakturController extends Controller
@@ -48,7 +50,9 @@ class FakturController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sales.faktur.create', [
+            'kode' => $this->kode,
+        ]);
     }
 
     /**
@@ -57,9 +61,25 @@ class FakturController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FakturSaleRequest $request)
     {
-        //
+        try {
+
+            $pesanans = FakturSale::create($request->except('pesanans'));
+
+            foreach ($request->pesanans as $input_pesanan) {
+                FakturSaleDetail::create([
+                    'pesanan_id' => $pesanans->id,
+                    'product_id' => $input_pesanan['product_id'],
+                    'akun_id' => $input_pesanan['akun_id'],
+                    'jumlah' => $input_pesanan['jumlah'],
+                ]);
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'Faktur tidak Tersimpan!' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Faktur berhasil Tersimpan');
     }
 
     /**
@@ -104,6 +124,9 @@ class FakturController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fakturs = FakturSale::findOrFail($id);
+        $fakturs->delete();
+
+        return redirect()->back()->with('success', 'Faktur berhasil Dihapus');
     }
 }

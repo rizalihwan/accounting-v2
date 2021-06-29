@@ -55,10 +55,8 @@ class PengirimanController extends Controller
      */
     public function create()
     {
-        $product = Product::select('id', 'name', 'price_sell', 'unit_id')->with('unit:name')->get();
         return view('admin.sales.pengiriman.create', [
             'kode' => $this->kode,
-            'product' => $product,
         ]);
     }
 
@@ -85,7 +83,7 @@ class PengirimanController extends Controller
             return back()->with('error', 'Pengiriman tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->route('admin.pengiriman.index')->with('success', 'Pengiriman berhasil Tersimpan');
+        return redirect()->back()->with('success', 'Pengiriman berhasil Tersimpan');
     }
 
     /**
@@ -133,6 +131,6 @@ class PengirimanController extends Controller
         $pesanans = PengirimanSale::findOrFail($id);
         $pesanans->delete();
 
-        return redirect()->route('admin.pengiriman.index')->with('success', 'Pengiriman berhasil Dihapus');
+        return redirect()->back()->with('success', 'Pengiriman berhasil Dihapus');
     }
 }

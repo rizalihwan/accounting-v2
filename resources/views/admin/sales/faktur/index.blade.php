@@ -2,9 +2,9 @@
 @section('title', 'Faktur Penjualan')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales') }}">Penjualan</a>
+    <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Penawaran Harga</li>
+<li class="breadcrumb-item" aria-current="page">Faktur Penjualan</li>
 @endpush
 @section('content')
 
@@ -12,8 +12,8 @@
     <div class="col-lg-12 col-md-12 col-12">
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                <h4 class="card-title">Penawaran Harga</h4>
-                <a href="{{ route('admin.faktur.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
+                <h4 class="card-title">Faktur Penjualan</h4>
+                <a href="{{ route('admin.sales.faktur.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -46,16 +46,16 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item"
-                                                href="{{ route('admin.faktur.show', $faktur->id) }}">
+                                                href="{{ route('admin.sales.faktur.show', $faktur->id) }}">
                                                 <i data-feather="eye"></i>
                                                 <span class="ml-1">Show</span>
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('admin.faktur.edit', $faktur->id) }}">
+                                            <a class="dropdown-item" href="{{ route('admin.sales.faktur.edit', $faktur->id) }}">
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
                                             <div class="dropdown-item">
-                                                <form action="{{ route('admin.faktur.destroy', $faktur->id) }}" method="post">
+                                                <form action="{{ route('admin.sales.faktur.destroy', $faktur->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
@@ -68,7 +68,7 @@
                             </tr>      
                             @empty
                             <tr>
-                                <td colspan="6" align="center">
+                                <td colspan="7" align="center">
                                     Tidak ada data
                                 </td>
                             </tr>
