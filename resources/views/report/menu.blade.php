@@ -30,7 +30,7 @@
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href=""><i class=""></i> Arus Kas</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Laba Rugi Standar</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.labarugi.standar') }}"><i class=""></i> Laba Rugi Standar</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Laba Rugi 12 Bulan</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Neraca</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Neraca 12 Bulan</a></li>

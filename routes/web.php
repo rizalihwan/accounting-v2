@@ -99,11 +99,19 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'menu')->name('menu');
             Route::name('keuangan.')->prefix('keuangan')->group(function(){
                 Route::view('/', 'report.menu')->name('menu');
+
+                // jurnal umum report
                 Route::get('/jurnal-umum', 'ReportController@jurnalumum')->name('jurnalumum');
                 Route::get('/jurnal-umum/search', 'ReportController@jurnalumumcari')->name('jurnalumum.cari');
 
+                // buku kas report
                 Route::get('/buku-kas/{nama}', 'ReportController@kas')->name('kas');
                 Route::get('/buku-kas/search/{nama}', 'ReportController@kascari')->name('kas.cari');
+
+                // laba rugi report
+                Route::prefix('labarugi')->name('labarugi.')->group(function(){
+                    Route::view('/', 'report.keuangan.labarugi')->name('standar');
+                });
             });
             Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function(){
                 Route::view('/', 'report.menu')->name('menu');
