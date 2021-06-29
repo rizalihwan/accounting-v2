@@ -17,6 +17,7 @@ class CreatePenawaranSaleDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('penawaran_id');
             $table->unsignedBigInteger('product_id');
+            $table->integer('harga');
             $table->integer('jumlah');
             $table->foreign('penawaran_id')->references('id')->on('penawaran_sales')->onDelete('cascade');
             $table->timestamps();

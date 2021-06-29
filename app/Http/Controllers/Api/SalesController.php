@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Akun;
 use App\Models\Kontak;
 use App\Models\Product;
 use App\Models\Sale\PenawaranSale;

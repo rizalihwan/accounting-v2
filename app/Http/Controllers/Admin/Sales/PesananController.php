@@ -56,11 +56,9 @@ class PesananController extends Controller
      */
     public function create()
     {
-        $product = Product::select('id', 'name', 'price_sell', 'unit_id')->with('unit:name')->get();
         $penawaran = PenawaranSale::count() >= 1 ? true : false;
         return view('admin.sales.pesanan.create', [
             'kode' => $this->kode,
-            'product' => $product,
             'penawaran' => $penawaran,
         ]);
     }
@@ -88,7 +86,7 @@ class PesananController extends Controller
             return back()->with('error', 'Pesanan tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->route('admin.pesanan.index')->with('success', 'Pesanan berhasil Tersimpan');
+        return redirect()->back()->with('success', 'Pesanan berhasil Tersimpan');
     }
 
     /**
@@ -136,6 +134,6 @@ class PesananController extends Controller
         $pesanans = PesananSale::findOrFail($id);
         $pesanans->delete();
 
-        return redirect()->route('admin.pesanan.index')->with('success', 'Pesanan berhasil Dihapus');
+        return redirect()->back()->with('success', 'Pesanan berhasil Dihapus');
     }
 }

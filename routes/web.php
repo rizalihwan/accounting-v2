@@ -65,11 +65,12 @@ Route::middleware('auth')->group(function () {
             Route::resource('jurnalumum', 'JurnalUmumController');
         });
 
-        Route::prefix('sales')->group(function () {
-            Route::view('/', 'menu')->name('sales');
+        Route::prefix('sales')->name('sales.')->group(function () {
+            Route::view('/', 'menu');
             Route::resource('penawaran', 'Sales\PenawaranController');
             Route::resource('pesanan', 'Sales\PesananController');
             Route::resource('pengiriman', 'Sales\PengirimanController');
+            Route::resource('faktur', 'Sales\FakturController');
         });
 
         Route::prefix('purchase')->group(function () {

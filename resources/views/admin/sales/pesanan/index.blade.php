@@ -2,7 +2,7 @@
 @section('title', 'Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales') }}">Penjualan</a>
+    <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Pesanan Penjualan</li>
 @endpush
@@ -13,7 +13,7 @@
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Pesanan Penjualan</h4>
-                <a href="{{ route('admin.pesanan.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
+                <a href="{{ route('admin.sales.pesanan.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -46,16 +46,16 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item"
-                                                href="{{ route('admin.pesanan.show', $pesanan->id) }}">
+                                                href="{{ route('admin.sales.pesanan.show', $pesanan->id) }}">
                                                 <i data-feather="eye"></i>
                                                 <span class="ml-1">Show</span>
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('admin.pesanan.edit', $pesanan->id) }}">
+                                            <a class="dropdown-item" href="{{ route('adminsales..pesanan.edit', $pesanan->id) }}">
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
                                             <div class="dropdown-item">
-                                                <form action="{{ route('admin.pesanan.destroy', $pesanan->id) }}" method="post">
+                                                <form action="{{ route('admin.sales.pesanan.destroy', $pesanan->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
