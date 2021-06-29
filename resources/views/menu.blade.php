@@ -791,7 +791,7 @@
                                     <h1 class="text-light">Laporan Keuangan</h1>
                                 </div>
                                 <div class="col">
-                                    <i class="fa fa-trello fa-lg fa-5x"></i>
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
                                 </div>
                             </div>
                         </div>
