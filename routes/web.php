@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
             // Produk
             Route::resource('product', 'ProductController');
             // Akun
-            Route::resource('akun', 'AkunController');
+            Route::view('akun', 'admin.akun.index')->name('akun.index');
             // Subklasifikasi
             Route::view('subklasifikasi', 'admin.subklasifikasi.index')->name('subklasifikasi.index');
             // Rekening
@@ -79,7 +79,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('pesanan', 'Purchase\PesananBuyController');
             Route::resource('terima', 'Purchase\TerimaBuyController');
             Route::resource('faktur', 'Purchase\FakturBuyController');
-
         });
         Route::prefix('cash-bank')->group(function () {
             Route::view('/', 'menu')->name('cash-bank');
@@ -98,7 +97,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('report')->name('report.')->group(function () {
             // menu report
             Route::view('/', 'menu')->name('menu');
-            Route::name('keuangan.')->prefix('keuangan')->group(function(){
+            Route::name('keuangan.')->prefix('keuangan')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
                 Route::get('/jurnal-umum', 'ReportController@jurnalumum')->name('jurnalumum');
                 Route::get('/jurnal-umum/search', 'ReportController@jurnalumumcari')->name('jurnalumum.cari');
@@ -106,17 +105,15 @@ Route::middleware('auth')->group(function () {
                 Route::get('/buku-kas/{nama}', 'ReportController@kas')->name('kas');
                 Route::get('/buku-kas/search/{nama}', 'ReportController@kascari')->name('kas.cari');
             });
-            Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function(){
+            Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
             });
-            Route::name('pembeliandanutang.')->prefix('pembeliandanutang')->group(function(){
+            Route::name('pembeliandanutang.')->prefix('pembeliandanutang')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
             });
-            Route::name('produk.')->prefix('produk')->group(function(){
+            Route::name('produk.')->prefix('produk')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
             });
-
         });
     });
 });
-
