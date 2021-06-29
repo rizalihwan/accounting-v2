@@ -14,7 +14,7 @@ class PesananbuyController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.purchase.pemesanan.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class PesananbuyController extends Controller
      */
     public function create()
     {
-        return view('admin.pemesanan.create');
+        return view('admin.purchase.pemesanan.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class PesananbuyController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.purchase.pemesanan.'.$id);
     }
 
     /**

@@ -14,7 +14,7 @@ class TerimabuyController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.purchase.penerimaan.index');
     }
 
     /**
@@ -46,7 +46,7 @@ class TerimabuyController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.purchase.penerimaan.'.$id);
     }
 
     /**
