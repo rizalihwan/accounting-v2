@@ -14,7 +14,11 @@ class TerimabuyController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         return view('admin.purchase.penerimaan.index');
+=======
+        //
+>>>>>>> 6eeebd1cec9f9891291efacea7801061a6a2d6ed
     }
 
     /**
@@ -46,7 +50,11 @@ class TerimabuyController extends Controller
      */
     public function show($id)
     {
+<<<<<<< HEAD
         return view('admin.purchase.penerimaan.'.$id);
+=======
+        //
+>>>>>>> 6eeebd1cec9f9891291efacea7801061a6a2d6ed
     }
 
     /**

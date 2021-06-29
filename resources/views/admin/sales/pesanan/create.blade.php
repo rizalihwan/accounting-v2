@@ -33,7 +33,11 @@
                             </div>
                         </div>
 
+<<<<<<< HEAD
                         <div class="col-md-3">
+=======
+                        <div class="col-md-4">
+>>>>>>> 6eeebd1cec9f9891291efacea7801061a6a2d6ed
                             <div class="form-group">
                                 <a href="{{ route('admin.kontak.create') }}" class="btn btn-outline-danger tambah-pelanggan">
                                     <i data-feather="plus"></i>
