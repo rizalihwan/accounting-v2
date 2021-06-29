@@ -14,11 +14,7 @@ class PesananbuyController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         return view('admin.purchase.pemesanan.index');
-=======
-        //
->>>>>>> 6eeebd1cec9f9891291efacea7801061a6a2d6ed
     }
 
     /**
@@ -28,11 +24,7 @@ class PesananbuyController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
         return view('admin.purchase.pemesanan.create');
-=======
-        return view('admin.pemesanan.create');
->>>>>>> 6eeebd1cec9f9891291efacea7801061a6a2d6ed
     }
 
     /**
@@ -54,11 +46,7 @@ class PesananbuyController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD
         return view('admin.purchase.pemesanan.'.$id);
-=======
-        //
->>>>>>> 6eeebd1cec9f9891291efacea7801061a6a2d6ed
     }
 
     /**
