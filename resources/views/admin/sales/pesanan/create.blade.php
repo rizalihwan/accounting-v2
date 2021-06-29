@@ -21,7 +21,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-red">*</span></label>
-                                <select name="pelanggan_id" id="pelanggan_id" 
+                                <select name="pelanggan_id" id="pelanggan_id"
                                     class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
@@ -207,7 +207,7 @@
         for (let i = 0; i < cols_debit.length; i++) {
             let e_debit = cols_debit[i];
             total += e_debit.value == "" ? 0 : parseInt(e_debit.value)
-           
+
         }
         return total;
     }
@@ -237,7 +237,7 @@
                         <input type="text" name="pesanans[${index}][total]" class="form-control total"  placeholder="0" readonly>
                     </td>
                     <td>
-                        <button type="button" name="remove" 
+                        <button type="button" name="remove"
                             class="btn btn-danger btn-sm text-white btn_remove">
                             <i data-feather="trash-2"></i>
                         </button>
@@ -253,12 +253,12 @@
             // });
 
             $('[name="pesanans['+index+'][jumlah]"]').on('change', function () {
-                
+
                 const total = parseInt($('[name="pesanans['+index+'][harga]"]').val()) * parseInt($(this).val());
                 $('[name="pesanans['+index+'][total]"]').val(total);
 
                 $("#total").val(jumlahin())
-                
+
             });
             // jurnalEachColumn(index)
             feather.replace()
