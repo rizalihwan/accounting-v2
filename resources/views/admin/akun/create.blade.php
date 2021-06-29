@@ -66,6 +66,36 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">    
+                                        <label for="level">{{ __('Level') }}<span class="text-red">*</span></label>
+                                        <select name="level" id="level" class="form-control select2" required>
+                                            <option value="Aktiva">Aktiva</option>
+                                            <option value="Modal">Modal</option>
+                                            <option value="Kewajiban">Kewajiban</option>
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                        @error('level')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">    
+                                        <label for="saldo_awal">{{ __('Input Saldo Awal') }}<span class="text-red">*</span></label>
+                                        <input id="saldo_awal" type="text"
+                                            class="form-control @error('saldo_awal') is-invalid @enderror" name="saldo_awal"
+                                            onkeypress="return hanyaAngka(event)" required>
+                                        <div class="help-block with-errors"></div>
+                                        @error('saldo_awal')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mt-4">
                                     <div class="form-group">
                                         <a href="{{ route('admin.akun.index') }}" class="btn btn-danger">KEMBALI</a>
@@ -80,3 +110,15 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        function hanyaAngka(e){
+            let charCode = (e.which) ? e.which : e.keyCode
+            if (charCode > 32 && (charCode < 48 || charCode > 57)) {
+                return false
+            }
+            return true
+        }
+    </script>
+@endpush

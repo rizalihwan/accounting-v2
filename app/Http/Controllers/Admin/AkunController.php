@@ -9,13 +9,12 @@ use Illuminate\Http\Request;
 
 class AkunController extends Controller
 {
-    private $kode; 
+    private $kode;
 
     public function __construct()
     {
         $number = Akun::count();
-        if($number > 0)
-        {
+        if ($number > 0) {
             $number = Akun::max('kode');
             $strnum = substr($number, 2, 3);
             //$strnum = $strnum + 1;
@@ -50,7 +49,7 @@ class AkunController extends Controller
      */
     public function create()
     {
-        return view('admin.akun.create',[
+        return view('admin.akun.create', [
             'subklasifikasi_id' => Subklasifikasi::get(),
             'kode' => $this->kode
         ]);
@@ -67,14 +66,21 @@ class AkunController extends Controller
         $this->validate($request, [
             'kode' => 'required',
             'name' => 'required',
-            'subklasifikasi_id' => 'required'
+            'subklasifikasi_id' => 'required',
+            'level' => 'required',
+            'saldo_awal' => 'required',
         ]);
-        try{
-            Akun::create($request->all());
-        }catch(\Exception $e){
-            return back()->with('error', 'Data Gagal Disimpan'.$e->getMessage());
+
+        $data = $request->all();
+        $data['saldo_berjalan'] = 0;
+        $data['saldo_akhir'] = 0;
+
+        try {
+            Akun::create($data);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Data Gagal Disimpan' . $e->getMessage());
         }
-        
+
         return back()->with('success', 'Data Berhasil Disimpan');
     }
 
@@ -117,13 +123,12 @@ class AkunController extends Controller
             'name' => 'required',
             'subklasifikasi_id' => 'required'
         ]);
-        try{
-            Akun::where('id',$id)->update($data);
-        }catch(\Exception $e){
-            return back()->with('error', 'Data Gagal Diupdate'.$e->getMessage());
+        try {
+            Akun::where('id', $id)->update($data);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Data Gagal Diupdate' . $e->getMessage());
         }
         return back()->with('success', 'Data Berhasil Diupdate');
-
     }
 
     /**
@@ -134,12 +139,11 @@ class AkunController extends Controller
      */
     public function destroy($id)
     {
-        try{
+        try {
             Akun::findOrFail($id)->delete();
-        }catch(\Exception $e){
-            return back()->with('error', 'Data Gagal Dihapus'.$e->getMessage());
+        } catch (\Exception $e) {
+            return back()->with('error', 'Data Gagal Dihapus' . $e->getMessage());
         }
         return back()->with('success', 'Data Berhasil Dihapus');
     }
-    
 }
