@@ -268,10 +268,10 @@
                         }
                     })
 
-                    $('input[name="pengirimans['+index+'][jumlah]').val(jumlah)
-                    let total = parseInt($('[name="pengirimans['+index+'][harga]"]').val()) * parseInt($('input[name="pengirimans['+index+'][jumlah]').val());
-                    $('[name="pengirimans['+index+'][total]"]').val(total);
-                    $("#total").val(jumlahin())
+                    $('[name="pengirimans['+index+'][satuan]"]').val(unit)
+                    $('[name="pengirimans['+index+'][harga]"]').val(formatter(price))
+                    $('[name="pengirimans['+index+'][harga]"]').attr('readonly', false)
+                    $('[name="pengirimans['+index+'][jumlah]"]').attr('readonly', false)
                 })
             }
         })
@@ -439,7 +439,7 @@
             }
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
             getNumberOfTr()
-            jumlahin()
+            $("#total").val(formatter(jumlahin()))
         })
     })
 </script>

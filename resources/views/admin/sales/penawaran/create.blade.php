@@ -335,7 +335,7 @@
             }
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
             getNumberOfTr()
-            jumlahin()
+            $("#total").val(formatter(jumlahin()))
         })
     })
 </script>

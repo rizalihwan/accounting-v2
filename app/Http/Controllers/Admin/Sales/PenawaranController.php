@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PenawaranSale as AppPenawaranSale;
 use App\Http\Requests\Admin\PenawaranSaleRequest;
-use App\Models\Kontak;
-use App\Models\Product;
 use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PenawaranSaleDetail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class PenawaranController extends Controller
 {

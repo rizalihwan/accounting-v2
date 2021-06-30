@@ -5,9 +5,9 @@
     <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales.penawaran.index') }}">Pesanan Harga</a>
+    <a href="{{ route('admin.sales.pesanan.index') }}">Pesanan Penjualan</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Tambah Pesanan Harga</li>
+<li class="breadcrumb-item" aria-current="page">Tambah Pesanan Penjualan</li>
 @endpush
 @section('content')
 <div class="row">
@@ -450,7 +450,7 @@
             }
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
             getNumberOfTr()
-            jumlahin()
+            $("#total").val(formatter(jumlahin()))
         })
     })
 </script>
