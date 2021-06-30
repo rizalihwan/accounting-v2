@@ -14,7 +14,6 @@
             <div class="card ">
                 <div class="card-header justify-content-between d-flex">
                     <div>
-                        <a href="{{ route('admin.pesanan.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Buat Baru</a>
 
                         <a href="{{ route('admin.pesanan.show','barang') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> Buat Barang Baru</a>
                         <a href="{{ route('admin.pesanan.show','jasa') }}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Buat Jasa Baru</a>
@@ -46,7 +45,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($indeks as $item)
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->tanggal}}</td>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->pemasok->nama}}</td>
+                                    <td>{{$item->desc}}</td>
+                                    <td>{{$item->total}}</td>
+                                    <td>{{$item->status}}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                                <i data-feather="more-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ route('admin.bkk.edit', $item->id) }}">
+                                                    <i data-feather="edit" class="text-warning"></i>
+                                                    <span class="ml-1">Edit</span>
+                                                </a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('admin.bkk.show', $item->id) }}">
+                                                    <i data-feather="eye"></i>
+                                                    <span class="ml-1">Show</span>
+                                                </a>
+                                                <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                                    onclick="deleteConfirm('form-delete', '{{ $item->id }}')">
+                                                    <i data-feather="trash"></i>
+                                                    <span class="ml-1">Delete</span>
+                                                </a>
+                                                <form id="form-delete{{ $item->id }}" action="{{ route('admin.bkk.destroy', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
