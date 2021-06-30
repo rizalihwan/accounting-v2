@@ -12,3 +12,15 @@ const formatRupiah = (angka, prefix) => {
     rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
     return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 }
+
+
+const formatter =  (numb) => {
+    const rupiah = new Intl.NumberFormat('en-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      }).format(numb)
+      .replace(/[IDR]/gi, '')
+      .replace(/(\.+\d{2})/, '')
+      .trimLeft()
+    return rupiah;
+}

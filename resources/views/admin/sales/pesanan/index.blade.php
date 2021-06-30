@@ -50,7 +50,7 @@
                                                 <i data-feather="eye"></i>
                                                 <span class="ml-1">Show</span>
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('adminsales..pesanan.edit', $pesanan->id) }}">
+                                            <a class="dropdown-item" href="{{ route('admin.sales.pesanan.edit', $pesanan->id) }}">
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>

@@ -73,7 +73,7 @@ class SalesController extends Controller
     {
         $search = $request->search;
 
-        $penawarans = PenawaranSale::select('id', 'kode', 'pelanggan_id')
+        $penawarans = PenawaranSale::select('id', 'kode', 'pelanggan_id', 'total')
             ->with('pelanggan:id,nama')
             ->where('status', '1')
             ->orWhere('kode', 'like', "%{$search}%")
@@ -83,12 +83,13 @@ class SalesController extends Controller
         $result = [];
 
         foreach ($penawarans as $penawaran) {
-            $detail = PenawaranSaleDetail::select('id', 'penawaran_id', 'product_id', 'jumlah')
+            $detail = PenawaranSaleDetail::select('id', 'penawaran_id', 'product_id', 'jumlah', 'satuan', 'harga', 'total')
                 ->where('penawaran_id', $penawaran->id)
                 ->get();
             $result[] = [
                 "id" => $penawaran->id,
                 "text" => $penawaran->kode,
+                "total" => $penawaran->total,
                 "pelanggan" => $penawaran->pelanggan->nama,
                 "detail" => $detail->toArray(),
             ];

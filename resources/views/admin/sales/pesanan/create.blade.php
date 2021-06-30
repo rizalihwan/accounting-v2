@@ -183,6 +183,7 @@
 <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
+<script src="{{ asset('js/helpers.js') }}"></script>
 <script>
 
     function generateUUID() {
@@ -206,8 +207,7 @@
         let cols_debit = document.querySelectorAll('.total')
         for (let i = 0; i < cols_debit.length; i++) {
             let e_debit = cols_debit[i];
-            total += e_debit.value == "" ? 0 : parseInt(e_debit.value)
-
+            total += parseFloat(e_debit.value.replace(/,/g, '')) == "" ? 0 : parseFloat(e_debit.value.replace(/,/g, ''))
         }
         return total;
     }
@@ -254,10 +254,11 @@
 
             $('[name="pesanans['+index+'][jumlah]"]').on('change', function () {
 
-                const total = parseInt($('[name="pesanans['+index+'][harga]"]').val()) * parseInt($(this).val());
-                $('[name="pesanans['+index+'][total]"]').val(total);
+                const harga = $('[name="pesanans['+index+'][harga]"]').val();
+                const total = parseFloat(harga.replace(/,/g, '')) * parseInt($(this).val());
+                $('[name="pesanans['+index+'][total]"]').val(formatter(total));
 
-                $("#total").val(jumlahin())
+                $("#total").val(formatter(jumlahin()))
 
             });
             // jurnalEachColumn(index)
@@ -289,9 +290,33 @@
                 const price = e.params.data.price_sell
 
 				$('[name="pesanans['+index+'][satuan]"]').val(unit)
-                $('[name="pesanans['+index+'][harga]"]').val(price)
+                $('[name="pesanans['+index+'][harga]"]').val(formatter(price))
                 $('[name="pesanans['+index+'][jumlah]"]').attr('readonly', false)
+                $('[name="pesanans['+index+'][harga]"]').attr('readonly', false)
 			})
+
+            document.querySelectorAll('.harga').forEach(item => {
+                item.addEventListener('keyup', function(event) {
+                    
+                    const n = parseInt(this.value.replace(/\D/g,''),10);
+                    item.value = formatter(n);
+                    
+                    // const total = parseFloat(item.value.replace(/,/g, '')) * parseInt($('[name="penawarans['+index+'][jumlah]"]').val());
+                    // $('[name="penawarans['+index+'][total]"]').val(formatter(total));
+    
+                })
+            })
+
+            $('[name="pesanans['+index+'][harga]"]').on('change', function () {
+
+                const jumlahDua = parseInt($('[name="pesanans['+index+'][jumlah]"]').val());
+                const hargaDua = $(this).val();
+                const totalDua = jumlahDua * parseFloat(hargaDua.replace(/,/g, ''))
+                $('[name="pesanans['+index+'][total]"]').val(formatter(totalDua));
+
+                $("#total").val(formatter(jumlahin()))
+                
+            });
 
 
     }
@@ -367,6 +392,12 @@
 
                 let product_id = detail[index].product_id;
                 let jumlah = detail[index].jumlah;
+                let satuan = detail[index].satuan;
+                let harga = detail[index].harga;
+                let total = detail[index].total;
+
+                
+                
                 let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
                 url_product = url_product.replace(':id', product_id);
 
@@ -387,10 +418,13 @@
                         }
                     })
 
-                    $('input[name="pesanans['+index+'][jumlah]').val(jumlah)
-                    let total = parseInt($('[name="pesanans['+index+'][harga]"]').val()) * parseInt($('input[name="pesanans['+index+'][jumlah]').val());
-                    $('[name="pesanans['+index+'][total]"]').val(total);
-                    $("#total").val(jumlahin())
+                    
+                    $('input[name="pesanans['+index+'][jumlah]"]').val(formatter(jumlah));
+                    $('input[name="pesanans['+index+'][satuan]"]').val(satuan);
+                    $('input[name="pesanans['+index+'][harga]"]').val(formatter(harga));
+                    $('input[name="pesanans['+index+'][total]"]').val(formatter(total));
+
+                    $("#total").val(formatter(jumlahin()))
                 })
             }
         })
