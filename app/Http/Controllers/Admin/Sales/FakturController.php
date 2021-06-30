@@ -65,21 +65,25 @@ class FakturController extends Controller
     {
         try {
 
-            $pesanans = FakturSale::create($request->except('pesanans'));
+            $fakturs = FakturSale::create(array_merge($request->except('fakturs', 'total'),[
+                'total' => preg_replace('/[^\d.]/', '', $request->total),
+            ]));
 
-            foreach ($request->pesanans as $input_pesanan) {
+            foreach ($request->fakturs as $faktur) {
                 FakturSaleDetail::create([
-                    'pesanan_id' => $pesanans->id,
-                    'product_id' => $input_pesanan['product_id'],
-                    'akun_id' => $input_pesanan['akun_id'],
-                    'jumlah' => $input_pesanan['jumlah'],
+                    'faktur_id' => $fakturs->id,
+                    'product_id' => $faktur['product_id'],
+                    'satuan' => $faktur['satuan'],
+                    'harga' => preg_replace('/[^\d.]/', '', $faktur['harga']),
+                    'jumlah' => $faktur['jumlah'],
+                    'total' => preg_replace('/[^\d.]/', '', $faktur['total']),
                 ]);
             }
         } catch (\Exception $e) {
             return back()->with('error', 'Faktur tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Faktur berhasil Tersimpan');
+        return back()->with('success', 'Faktur berhasil Tersimpan');
     }
 
     /**

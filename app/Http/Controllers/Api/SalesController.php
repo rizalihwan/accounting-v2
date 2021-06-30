@@ -17,7 +17,7 @@ class SalesController extends Controller
     public function getPelanggan(Request $request)
     {
         $search = $request->search;
-        $contacts = Kontak::select('id', 'nama', 'email', 'nik', 'telepon')
+        $contacts = Kontak::select('id', 'nama', 'email', 'nik', 'telepon', 'pelanggan')
             ->where('pelanggan', TRUE)
             ->orwhere('nama', 'like', "%{$search}%")
             ->orWhere('email', 'like', "%{$search}%")
