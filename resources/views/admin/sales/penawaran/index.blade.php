@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover " @if($countPenawaran == 1) style="height: 140px" @endif>
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>

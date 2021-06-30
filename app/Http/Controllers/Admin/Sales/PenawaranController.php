@@ -43,10 +43,11 @@ class PenawaranController extends Controller
      */
     public function index()
     { 
-        $penawarans = PenawaranSale::select('id','tanggal', 'kode', 'pelanggan_id', 'total', 'status')
-                        ->with('pelanggan')
-                        ->paginate(5);
-        return view('admin.sales.penawaran.index', compact('penawarans'));
+        $penawarans = PenawaranSale::select('id','tanggal', 'kode', 'pelanggan_id', 'total', 'status')->with('pelanggan');
+        return view('admin.sales.penawaran.index', [
+            'penawarans' => $penawarans->paginate(5),
+            'countPenawaran' => $penawarans->count(),
+        ]);
     }
 
     /**
@@ -69,29 +70,26 @@ class PenawaranController extends Controller
      */
     public function store(PenawaranSaleRequest $request)
     {
-        $input = $request->except('_token');
-
         try {
-            $penawarans = PenawaranSale::create([
-                'kode' => $input['kode'],
-                'tanggal' => $input['tanggal'],
-                'pelanggan_id' => $input['pelanggan_id'],
-                'total' => $input['total'],
-                
-            ]);
+            $penawarans = PenawaranSale::create(array_merge($request->except('penawarans', 'total'),[
+                'total' => preg_replace('/[^\d.]/', '', $request->total),
+            ]));
 
-            foreach ($input['penawarans'] as $input_penawaran) {
+            foreach ($request->penawarans as $penawaran) {
                 PenawaranSaleDetail::create([
                     'penawaran_id' => $penawarans->id,
-                    'product_id' => $input_penawaran['product_id'],
-                    'jumlah' => $input_penawaran['jumlah'],
+                    'product_id' => $penawaran['product_id'],
+                    'satuan' => $penawaran['satuan'],
+                    'harga' => preg_replace('/[^\d.]/', '', $penawaran['harga']),
+                    'jumlah' => $penawaran['jumlah'],
+                    'total' => preg_replace('/[^\d.]/', '', $penawaran['total']),
                 ]);
             }
         } catch (\Exception $e) {
             return back()->with('error', 'Penawaran tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Penawaran berhasil Tersimpan');
+        return redirect()->route('admin.sales.penawaran.index')->with('success', 'Penawaran berhasil Tersimpan');
     }
 
     /**

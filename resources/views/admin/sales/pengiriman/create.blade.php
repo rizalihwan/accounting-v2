@@ -182,6 +182,7 @@
 <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
+<script src="{{ asset('js/helpers.js') }}"></script>
 <script>
     let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
 
@@ -234,6 +235,7 @@
                 cache: true
             },
         });
+        
 
         $('#pesanan_id').on('select2:select', function (e) {
             $("#dynamic_field").html('')
@@ -301,8 +303,7 @@
         let cols_debit = document.querySelectorAll('.total')
         for (let i = 0; i < cols_debit.length; i++) {
             let e_debit = cols_debit[i];
-            total += e_debit.value == "" ? 0 : parseInt(e_debit.value)
-           
+            total += parseFloat(e_debit.value.replace(/,/g, '')) == "" ? 0 : parseFloat(e_debit.value.replace(/,/g, ''))
         }
         return total;
     }
@@ -349,10 +350,11 @@
 
             $('[name="pengirimans['+index+'][jumlah]"]').on('change', function () {
                 
-                const total = parseInt($('[name="pengirimans['+index+'][harga]"]').val()) * parseInt($(this).val());
-                $('[name="pengirimans['+index+'][total]"]').val(total);
+                const harga = $('[name="pengirimans['+index+'][harga]"]').val();
+                const total = parseFloat(harga.replace(/,/g, '')) * parseInt($(this).val());
+                $('[name="pengirimans['+index+'][total]"]').val(formatter(total));
 
-                $("#total").val(jumlahin())
+                $("#total").val(formatter(jumlahin()))
                 
             });
             // jurnalEachColumn(index)
@@ -384,9 +386,33 @@
                 const price = e.params.data.price_sell
 
 				$('[name="pengirimans['+index+'][satuan]"]').val(unit)
-                $('[name="pengirimans['+index+'][harga]"]').val(price)
+                $('[name="pengirimans['+index+'][harga]"]').val(formatter(price))
                 $('[name="pengirimans['+index+'][jumlah]"]').attr('readonly', false)
+                $('[name="pengirimans['+index+'][harga]"]').attr('readonly', false)
 			})
+
+            document.querySelectorAll('.harga').forEach(item => {
+                item.addEventListener('keyup', function(event) {
+                    
+                    const n = parseInt(this.value.replace(/\D/g,''),10);
+                    item.value = formatter(n);
+                    
+                    // const total = parseFloat(item.value.replace(/,/g, '')) * parseInt($('[name="penawarans['+index+'][jumlah]"]').val());
+                    // $('[name="penawarans['+index+'][total]"]').val(formatter(total));
+    
+                })
+            })
+
+            $('[name="pengirimans['+index+'][harga]"]').on('change', function () {
+
+                const jumlahDua = parseInt($('[name="pengirimans['+index+'][jumlah]"]').val());
+                const hargaDua = $(this).val();
+                const totalDua = jumlahDua * parseFloat(hargaDua.replace(/,/g, ''))
+                $('[name="pengirimans['+index+'][total]"]').val(formatter(totalDua));
+
+                $("#total").val(formatter(jumlahin()))
+                
+            });
 
 
     }
