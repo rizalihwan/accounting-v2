@@ -18,37 +18,35 @@
                     @csrf
                     <input type="hidden" name="kode" value="{{ $kode }}">
                     <div class="row">
-
-                        <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-red">*</span></label>
+                                <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-danger">*</span></label>
                                 <select name="pelanggan_id" id="pelanggan_id"
                                     class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 @error('pelanggan_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-sm-3" style="margin-top: 8px">
-                            <div class="form-group"></div>
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
+                                <a href="{{ route('admin.kontak.create') }}" class="btn btn-outline-danger tambah-pelanggan">
                                     <i data-feather="plus"></i>
-                                    TAMBAH Pelanggan
+                                    Tambah Pelanggan
                                 </a>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="row">
-                    <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
+                                <label for="tanggal">{{ __('Tanggal') }}<span class="text-danger">*</span></label>
                                 <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
                                     class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
                                 <div class="help-block with-errors"></div>
@@ -60,30 +58,30 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="kode">{{ __('Kode Pengiriman') }}<span class="text-red">*</span></label>
+                                <label for="kode">{{ __('Kode Pesanan') }}<span class="text-danger">*</span></label>
                                 <input class="form-control" id="kode" type="text" value="{{ $kode }}" name="kode"
                                     readonly>
                             </div>
                         </div>
 
-                        <div class="col-sm-3" style="margin-top: 8px">
+                        <div class="col-md-4">
                             <div class="form-group">
-                            <label for="pesanan_id">{{ __('Pesanan') }}<span class="text-red">*</span></label>
+                                <label for="pesanan_id">{{ __('Pesanan') }}<span class="text-danger">*</span></label>
                                 <select name="pesanan_id" id="pesanan_id"
                                     class="form-control select2 @error('pesanan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 @error('pesanan_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
-                        
                     </div>
+
                 </div>
             </div>
             <div class="card ">
@@ -103,22 +101,22 @@
                                     </thead>
                                     <tbody id="dynamic_field"></tbody>
                                 </table>
-                                <button type="button" id="add" class="btn btn-success my-2"
-                                    style="width: 100%; height: 50px">
-                                    <i data-feather="plus"></i>
-                                    Tambah Row Baru
-                                </button>
-                                <table class="table table-borderless col-sm-6 ml-auto border-top">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width: 180px">Total</th>
-                                            <td>
-                                                <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
+                            <button type="button" id="add" class="btn btn-success my-2"
+                                style="width: 100%; height: 50px">
+                                <i data-feather="plus"></i>
+                                Tambah Row Baru
+                            </button>
+                            <table class="table table-borderless col-sm-6 ml-auto border-top">
+                                <tbody>
+                                    <tr class="rowComponentTotal">
+                                        <td style="width: 100px"><strong>Total</strong></td>
+                                        <td>
+                                            <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -154,6 +152,27 @@
     }
     .rowComponent td .form-control{
         border-radius:0px !important;
+    }
+
+    .rowComponentTotal td{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
+    .rowComponentTotal td .form-control{
+        border-radius:0px !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .tambah-pelanggan {
+            margin-top: 0;
+            float: right;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        .tambah-pelanggan {
+            margin-top: 23px;
+        }
     }
 
 </style>
@@ -192,6 +211,7 @@
             },
         });
 
+        // Start PESANAN Select2
         $("#pesanan_id").select2({
             placeholder: "-- Pilih Pesanan --",
             ajax: {
@@ -216,6 +236,46 @@
             },
         });
         
+
+        $('#pesanan_id').on('select2:select', function (e) {
+            $("#dynamic_field").html('')
+
+            const data = e.params.data;
+            const detail = data.detail;
+
+            for (let index = 0; index < detail.length; index++) {
+                field_dinamis()
+
+                let product_id = detail[index].product_id;
+                let jumlah = detail[index].jumlah;
+                let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
+                url_product = url_product.replace(':id', product_id);
+
+                $.ajax({
+                    url: url_product,
+                    type: 'get',
+                    error: (err) => {
+                        console.log(err);
+                    }
+                }).then((data) => {
+                    let option = new Option(data.text, data.id, true, true)
+
+                    $('select[name="pengirimans['+index+'][product_id]"]').append(option).trigger('change')
+                    $('select[name="pengirimans['+index+'][product_id]"]').trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: data
+                        }
+                    })
+
+                    $('input[name="pengirimans['+index+'][jumlah]').val(jumlah)
+                    let total = parseInt($('[name="pengirimans['+index+'][harga]"]').val()) * parseInt($('input[name="pengirimans['+index+'][jumlah]').val());
+                    $('[name="pengirimans['+index+'][total]"]').val(total);
+                    $("#total").val(jumlahin())
+                })
+            }
+        })
+        // End PESANAN Select2
 
     });
 

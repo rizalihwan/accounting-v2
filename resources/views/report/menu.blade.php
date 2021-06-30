@@ -30,6 +30,8 @@
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href=""><i class=""></i> Laba Rugi</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.neraca.index') }}"><i class=""></i> Neraca</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.labarugi') }}"><i class=""></i> Laba Rugi</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Neraca</a></li>
                     </ul>
                 </div>

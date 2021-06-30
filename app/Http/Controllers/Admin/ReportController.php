@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Akun;
+use App\Models\Bank;
 use App\Models\Jurnalumum;
 use App\Models\Jurnalumumdetail;
 use App\Models\Bkk;
@@ -70,6 +72,22 @@ class ReportController extends Controller
         $endDate = $to;
         $bkm = Bkk::where('status','BKM')->whereBetween('tanggal', [$startDate,$endDate])->latest()->paginate(10);
         return view('report.keuangan.bkm', compact('bkm', 'startDate', 'endDate'));
-        
+
+    }
+    public function neraca()
+    {
+        // $akuns = Akun::where('saldo_berjalan','!=',0)->where('level','Aktiva')->orderBy('subklasifikasi_id','asc')->get();
+
+        // foreach($akuns->unique('subklasifikasi_id') as $data){
+        //     echo $data->subklasifikasi->name.'<br>';
+        // }
+        return view('report.neraca.index',[
+            'aktiva' => Akun::where('saldo_berjalan','!=',0)->where('level','Aktiva')->orderBy('subklasifikasi_id','asc')->get(),
+            'modal' => Akun::where('saldo_berjalan','!=',0)->where('level','Modal')->orderBy('subklasifikasi_id','asc')->get(),
+            'kewajiban' => Akun::where('saldo_berjalan','!=',0)->where('level','Kewajiban')->orderBy('subklasifikasi_id','asc')->get(),
+            'total_aktiva' => Akun::where('saldo_berjalan','!=',0)->where('level','Aktiva')->sum('saldo_akhir'),
+            'total_modal' => Akun::where('saldo_berjalan','!=',0)->where('level','Modal')->sum('saldo_akhir'),
+            'total_kewajiban' => Akun::where('saldo_berjalan','!=',0)->where('level','Kewajiban')->sum('saldo_akhir')
+        ]);
     }
 }
