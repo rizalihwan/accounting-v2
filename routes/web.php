@@ -105,7 +105,10 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('/buku-kas/{nama}', 'ReportController@kas')->name('kas');
                 Route::get('/buku-kas/search/{nama}', 'ReportController@kascari')->name('kas.cari');
+
+                Route::get('/neraca', 'ReportController@neraca')->name('neraca.index');
             });
+
             Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function(){
                 Route::view('/', 'report.menu')->name('menu');
             });
@@ -115,6 +118,7 @@ Route::middleware('auth')->group(function () {
             Route::name('produk.')->prefix('produk')->group(function(){
                 Route::view('/', 'report.menu')->name('menu');
             });
+
 
         });
     });
