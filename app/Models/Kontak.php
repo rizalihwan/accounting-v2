@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Purchase\PenawaranBuys;
+use App\Models\Purchase\PengirimanBuys;
 use App\Models\Purchase\PesananBuys;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,5 +35,9 @@ class Kontak extends Model
     public function Pesananbuy()
     {
         return $this->hasMany(PesananBuys::class);
+    }
+    public function Pengirimanbuy()
+    {
+        return $this->hasMany(PengirimanBuys::class);
     }
 }
