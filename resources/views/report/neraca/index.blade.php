@@ -34,7 +34,7 @@
                                     @endforeach
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <input type="text" class="form-control" value="{{ $row->where('level', $row->level)->sum('saldo_akhir') }}">
+                                        <input type="text" class="form-control" value="{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}">
                                     </div>
                                 </li>
 
@@ -66,7 +66,7 @@
                                     @endforeach
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <input type="text" class="form-control" value="0">
+                                        <input type="text" class="form-control" value="{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}">
                                     </div>
                                 </li>
 
@@ -95,11 +95,11 @@
                                             <input type="text" class="form-control {{ $row->subklasifikasi->name }}" value="{{ $data->saldo_akhir }}">
                                         </li>
                                     </ul>
-                                    @endforeach
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <input type="text" class="form-control" value="2">
+                                        <input type="text" class="form-control" value="{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}">
                                     </div>
+                                    @endforeach
                                 </li>
                             </ul>
                             @endforeach
