@@ -108,6 +108,10 @@ Route::middleware('auth')->group(function () {
                 Route::get('/buku-kas/{nama}', 'ReportController@kas')->name('kas');
                 Route::get('/buku-kas/search/{nama}', 'ReportController@kascari')->name('kas.cari');
 
+                Route::get('/neraca', 'ReportController@neraca')->name('neraca.index');
+            });
+
+            Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function(){
                 // laba rugi report
                 Route::view('/labarugi', 'report.keuangan.labarugi')->name('labarugi');
             });
