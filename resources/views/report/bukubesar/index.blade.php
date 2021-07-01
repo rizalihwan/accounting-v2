@@ -70,7 +70,7 @@
                     <h3>{{ $row->subklasifikasi->name }}</h3>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-hover" style="height: 140px">
+                    <table class="table table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Tanggal</th>
