@@ -57,7 +57,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" id="price_buy"
                                                 class="form-control @error('price_buy') is-invalid @enderror"
-                                                name="price_buy" placeholder="Harga Jual"
+                                                name="price_buy" placeholder="Harga Beli"
                                                 value="{{ old('price_buy') }}">
 
                                             @error('price_buy')
