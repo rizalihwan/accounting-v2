@@ -17,7 +17,6 @@
             <div class="card ">
                 <div class="card-header justify-content-between d-flex">
                     <div>
-                        <a href="{{ route('admin.terima.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Buat Baru</a>
                         <a href="{{ route('admin.terima.show','barang') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> Buat Barang Baru</a>
                         <a href="{{ route('admin.terima.show','jasa') }}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Buat Jasa Baru</a>
 
@@ -39,17 +38,21 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Tanggal</th>
-                                    <th>Nomor Penerimaan</th>
                                     <th>Nama Pemasok</th>
+                                    <th>Tanggal</th>
                                     <th>Deskripsi</th>
-                                    <th>Nilai</th>
-                                    <th>Status</th>
+                                    <th>total</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($indeks as $item)
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->pemasok->nama}}</td>
+                                    <td>{{$item->tanggal}}</td>
+                                    <td>{{$item->desc}}</td>
+                                    <td>{{$item->total}}</td>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

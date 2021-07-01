@@ -70,20 +70,25 @@ class PengirimanController extends Controller
     {
         try {
 
-            $pengiriman = PengirimanSale::create($request->except('pengirimans'));
+            $pengirimans = PengirimanSale::create(array_merge($request->except('pengirimans', 'total'),[
+                'total' => preg_replace('/[^\d.]/', '', $request->total),
+            ]));
 
-            foreach ($request->pengirimans as $input_pengiriman) {
+            foreach ($request->pengirimans as $pengiriman) {
                 PengirimanSaleDetail::create([
-                    'pengiriman_id' => $pengiriman->id,
-                    'product_id' => $input_pengiriman['product_id'],
-                    'jumlah' => $input_pengiriman['jumlah'],
+                    'pengiriman_id' => $pengirimans->id,
+                    'product_id' => $pengiriman['product_id'],
+                    'satuan' => $pengiriman['satuan'],
+                    'harga' => preg_replace('/[^\d.]/', '', $pengiriman['harga']),
+                    'jumlah' => $pengiriman['jumlah'],
+                    'total' => preg_replace('/[^\d.]/', '', $pengiriman['total']),
                 ]);
             }
         } catch (\Exception $e) {
             return back()->with('error', 'Pengiriman tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Pengiriman berhasil Tersimpan');
+        return redirect()->route('admin.sales.pengiriman.index')->with('success', 'Pengiriman berhasil Tersimpan');
     }
 
     /**

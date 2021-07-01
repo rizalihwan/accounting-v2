@@ -25,7 +25,9 @@
                         <div class="form-group">
                             <label for="Pemasok">Pemasok</label>
                             <select name="pemasok" id="pemasok" class="form-control">
-                                <option value=""></option>
+                                @foreach ($pemasok as $item)
+                                    <option value="{{$item->id}}">{{$item->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -33,7 +35,9 @@
                         <div class="form-group">
                             <label for="no_penawaran">Penawaran</label>
                             <select name="no_penawaran" id="no_penawaran" class="form-control">
-                                <option value=""></option>
+                                @foreach ($pesanan as $item)
+                                <option value="{{$item->id}}">{{$item->id}} - {{$item->pemasok->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

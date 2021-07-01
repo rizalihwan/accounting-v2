@@ -22,7 +22,7 @@
                     @endif
                 </div>
                 <div>
-                    <form action="{{ route('admin.report.bukubesar.bukubesar.cari') }}" method="GET">
+                    <form action="{{ route('admin.report.keuangan.bukubesar.cari') }}" method="GET">
                         @csrf
                         <div class="d-flex">
                             <div class="form-group">
@@ -54,7 +54,7 @@
                             </div>
                             <div class="form-btn ml-1">
                                 <button type="submit" class="btn btn-success mt-2"><i data-feather="search"></i></button>
-                                <a href="{{ route('admin.report.bukubesar.bukubesar') }}" class="btn btn-info mt-2"><i data-feather='rotate-cw'></i></a>
+                                <a href="{{ route('admin.report.keuangan.bukubesar') }}" class="btn btn-info mt-2"><i data-feather='rotate-cw'></i></a>
                             </div>
                         </div>
                     </form>
@@ -62,10 +62,12 @@
             </div>
             <div class="card-body">
                 @foreach($akun as $row)
+                <br>
                 <hr>
+                <br>
                 <div class="d-flex justify-content-between">
-                    <h5>{{ $row->name }} - {{ $row->id }}</h5>
-                    <h5>{{ $row->subklasifikasi->name }}</h5>
+                    <h3>{{ $row->name }} - {{ $row->id }}</h3>
+                    <h3>{{ $row->subklasifikasi->name }}</h3>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover" style="height: 140px">

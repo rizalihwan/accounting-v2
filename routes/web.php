@@ -109,18 +109,17 @@ Route::middleware('auth')->group(function () {
                 Route::get('/buku-kas/search/{nama}', 'ReportController@kascari')->name('kas.cari');
 
                 Route::get('/neraca', 'ReportController@neraca')->name('neraca.index');
+
+                Route::get('/labarugi', 'ReportController@labarugi')->name('labarugi');
+
+                Route::get('/bukubesar', 'ReportController@bukubesar')->name('bukubesar');
+                Route::get('/bukubesar/cari', 'ReportController@bukubesarcari')->name('bukubesar.cari');
             });
 
-            Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function(){
-                // laba rugi report
-                Route::view('/labarugi', 'report.keuangan.labarugi')->name('labarugi');
-            });
-
-            Route::name('bukubesar.')->prefix('bukubesar')->group(function(){
-                // laba rugi report
-                Route::get('/', 'ReportController@bukubesar')->name('bukubesar');
-                Route::get('/search', 'ReportController@bukubesarcari')->name('bukubesar.cari');
-            });
+            // Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function () {
+            //     // laba rugi report
+            //     Route::view('/labarugi', 'report.keuangan.labarugi')->name('labarugi');
+            // });
             Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
             });

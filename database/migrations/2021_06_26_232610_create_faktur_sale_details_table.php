@@ -17,8 +17,10 @@ class CreateFakturSaleDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('faktur_id');
             $table->unsignedBigInteger('product_id');
-            $table->integer('harga');
-            $table->integer('jumlah');
+            $table->string('satuan');
+            $table->bigInteger('harga');
+            $table->bigInteger('jumlah');
+            $table->bigInteger('total');
             $table->foreign('faktur_id')->references('id')->on('faktur_sales')->onDelete('cascade');
             $table->timestamps();
         });

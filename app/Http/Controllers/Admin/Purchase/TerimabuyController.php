@@ -20,7 +20,8 @@ class TerimabuyController extends Controller
      */
     public function index()
     {
-        return view('admin.purchase.penerimaan.index');
+        $indeks = PesananBuys::all();
+        return view('admin.purchase.penerimaan.index',compact('indeks'));
     }
 
     /**
@@ -41,14 +42,13 @@ class TerimabuyController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $imam = count($request->invoice);
         
         $jml=0;
         DB::table('terima_buys')->insert([
             'tanggal' => $request->tanggal,
             'pemasok_id' =>$request->pemasok,
-            'no_penawaaran' =>$request->no_penawaran,
+            'no_pesanan' =>$request->no_penawaran,
             'desc' => $request->Deskripsi,
             'status' => '1',
         ]);
@@ -69,7 +69,7 @@ class TerimabuyController extends Controller
         DB::table('terima_buys')->where('id',$id->id)->update([
             'total' => $jml
         ]);
-        return redirect()->route('admin.terima.index')->with('success', 'Pesanan sedang di proses ');
+        return redirect()->route('admin.terima.index')->with('success', 'Proses Penerimaan Barang');
     }
 
     /**

@@ -8,7 +8,7 @@ use App\Models\Bank;
 use App\Models\Jurnalumum;
 use App\Models\Jurnalumumdetail;
 use App\Models\Bkk;
-use App\Models\Kontak;
+use App\Models\Sale\FakturSale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -90,6 +90,15 @@ class ReportController extends Controller
             'total_kewajiban' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Kewajiban')->sum('saldo_akhir')
         ]);
     }
+    public function labarugi()
+    {
+        $pendapatan = FakturSale::sum('total');
+        $total_laba = $pendapatan - 0;
+        return view('report.keuangan.labarugi', [
+            'pendapatan' => $pendapatan,
+            'total_laba' => $total_laba
+        ]);
+    }
     public function bukubesar()
     {
         return view('report.bukubesar.index', [
@@ -124,4 +133,5 @@ class ReportController extends Controller
             'endDate' => $to
         ]);
     }
+
 }

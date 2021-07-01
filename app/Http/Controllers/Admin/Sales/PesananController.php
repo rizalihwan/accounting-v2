@@ -73,20 +73,25 @@ class PesananController extends Controller
     {
         try {
 
-            $pesanans = PesananSale::create($request->except('pesanans'));
+            $pesanans = PesananSale::create(array_merge($request->except('pesanans', 'total'),[
+                'total' => preg_replace('/[^\d.]/', '', $request->total),
+            ]));
 
-            foreach ($request->pesanans as $input_pesanan) {
+            foreach ($request->pesanans as $pesanan) {
                 PesananSaleDetail::create([
                     'pesanan_id' => $pesanans->id,
-                    'product_id' => $input_pesanan['product_id'],
-                    'jumlah' => $input_pesanan['jumlah'],
+                    'product_id' => $pesanan['product_id'],
+                    'satuan' => $pesanan['satuan'],
+                    'harga' => preg_replace('/[^\d.]/', '', $pesanan['harga']),
+                    'jumlah' => $pesanan['jumlah'],
+                    'total' => preg_replace('/[^\d.]/', '', $pesanan['total']),
                 ]);
             }
         } catch (\Exception $e) {
             return back()->with('error', 'Pesanan tidak Tersimpan!' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Pesanan berhasil Tersimpan');
+        return redirect()->route('admin.sales.pesanan.index')->with('success', 'Pesanan berhasil Tersimpan');
     }
 
     /**
