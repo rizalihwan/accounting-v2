@@ -226,7 +226,7 @@
             })
             let divisiSelect = $("#divisi_id")
             let divisi_url = '{{ route('api.select2.get-divisi.selected', ':id') }}'
-            let url_divisi = divisi_url.replace(':id', '{{ $jurnal->kontak_id }}')
+            let url_divisi = divisi_url.replace(':id', '{{ $jurnal->divisi_id }}')
             $.ajax({
                 type: 'get',
                 url: url_divisi,
