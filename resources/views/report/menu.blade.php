@@ -31,7 +31,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href=""><i class=""></i> Laba Rugi</a></li>
                         <li class="list-group-item"><a href="{{ route('admin.report.keuangan.neraca.index') }}"><i class=""></i> Neraca</a></li>
-                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.labarugi') }}"><i class=""></i> Laba Rugi</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.penjualandanpiutang.labarugi') }}"><i class=""></i> Laba Rugi</a></li>
                         <li class="list-group-item"><a href=""><i class=""></i> Neraca</a></li>
                     </ul>
                 </div>
@@ -58,7 +58,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href=""><i class=""></i>Daftar Rekening</a></li>
                         <li class="list-group-item"><a href="{{ route('admin.report.keuangan.jurnalumum') }}"><i class=""></i> Jurnal Umum</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Buku Besar</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.bukubesar.bukubesar') }}"><i class=""></i> Buku Besar</a></li>
                     </ul>
                 </div>
             </div>

@@ -115,6 +115,12 @@ Route::middleware('auth')->group(function () {
                 // laba rugi report
                 Route::view('/labarugi', 'report.keuangan.labarugi')->name('labarugi');
             });
+
+            Route::name('bukubesar.')->prefix('bukubesar')->group(function(){
+                // laba rugi report
+                Route::get('/', 'ReportController@bukubesar')->name('bukubesar');
+                Route::get('/search', 'ReportController@bukubesarcari')->name('bukubesar.cari');
+            });
             Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
             });
