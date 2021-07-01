@@ -5,7 +5,7 @@
     <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales.penawaran.index') }}">Faktur Penjualan</a>
+    <a href="{{ route('admin.sales.faktur.index') }}">Faktur Penjualan</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Tambah Faktur Penjualan</li>
 @endpush
@@ -18,37 +18,61 @@
                     @csrf
                     <input type="hidden" name="kode" value="{{ $kode }}">
                     <div class="row">
-
-                        <div class="col-sm-3">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-red">*</span></label>
+                                <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-danger">*</span></label>
                                 <select name="pelanggan_id" id="pelanggan_id"
                                     class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 @error('pelanggan_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-sm-3" style="margin-top: 8px">
-                            <div class="form-group"></div>
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <a href="{{ route('admin.kontak.create') }}" class="btn btn-danger">
+                                <a href="{{ route('admin.kontak.create') }}" class="btn btn-outline-danger tambah-pelanggan">
                                     <i data-feather="plus"></i>
-                                    TAMBAH Pelanggan
+                                    Tambah Pelanggan
                                 </a>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-md-3" id="akun"style="display: none;">
                             <div class="form-group">
-                                <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
+                                <label for="akun_id">{{ __('Akun') }}<span class="text-danger">*</span></label>
+                                <select name="akun_id" id="akun_id"
+                                    class="form-control select2 @error('akun_id') is-invalid @enderror">
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                @error('akun_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="border-checkbox-section">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="akun_cekbox" name="akun_cekbox">
+                                        <label class="border-checkbox-label" for="akun_cekbox">{{ __('Lunas')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="tanggal">{{ __('Tanggal') }}<span class="text-danger">*</span></label>
                                 <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
                                     class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
                                 <div class="help-block with-errors"></div>
@@ -60,56 +84,28 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="kode">{{ __('Kode Pesanan') }}<span class="text-red">*</span></label>
+                                <label for="kode">{{ __('Kode Pesanan') }}<span class="text-danger">*</span></label>
                                 <input class="form-control" id="kode" type="text" value="{{ $kode }}" name="kode"
                                     readonly>
                             </div>
                         </div>
 
-                        <div class="col-sm-3" style="margin-top: 8px">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="pesanan_id">{{ __('Pesanan') }}<span class="text-red">*</span></label>
+                                <label for="pesanan_id">{{ __('Pesanan') }}<span class="text-danger">*</span></label>
                                 <select name="pesanan_id" id="pesanan_id"
                                     class="form-control select2 @error('pesanan_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 @error('pesanan_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="col-sm-3" style="display:none" id="akun">
-                        <div class="form-group">
-                                <label for="akun_id">{{ __('Akun') }}<span class="text-red">*</span></label>
-                                <select name="akun_id" id="akun_id"
-                                    class="form-control select2 @error('akun_id') is-invalid @enderror">
-                                </select>
-                                <div class="help-block with-errors"></div>
-                                @error('akun_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                            <input class="border-checkbox" type="checkbox" id="akun_cekbox" name="akun">
-                            <label class="border-checkbox-label" for="pelanggan">{{ __('Akun')}}</label>
-                            </div>
-                        </div>
-
-
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -174,17 +170,35 @@
     .select2 {
         width: 100% !important;
     }
-
-    .rowComponent td {
+    .rowComponent td{
+            padding: 0px 8px 16px 0 !important
+    }
+    .rowHead td{
         padding: 0px 8px 16px 0 !important
     }
-
-    .rowHead td {
-        padding: 0px 8px 16px 0 !important
+    .rowComponent td .form-control{
+        border-radius:0px !important;
     }
 
-    .rowComponent td .form-control {
-        border-radius: 0px !important;
+    .rowComponentTotal td{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
+    .rowComponentTotal td .form-control{
+        border-radius:0px !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .tambah-pelanggan {
+            margin-top: 0;
+            float: right;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        .tambah-pelanggan {
+            margin-top: 23px;
+        }
     }
 
 </style>
@@ -194,6 +208,7 @@
 <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
+<script src="{{ asset('js/helpers.js') }}"></script>
 <script>
     let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
 
@@ -278,6 +293,45 @@
             }
         })
 
+        $('#pesanan_id').on('select2:select', function (e) {
+            $("#dynamic_field").html('')
+
+            const data = e.params.data;
+            const detail = data.detail;
+
+            for (let index = 0; index < detail.length; index++) {
+                field_dinamis()
+
+                let product_id = detail[index].product_id;
+                let jumlah = detail[index].jumlah;
+                let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
+                url_product = url_product.replace(':id', product_id);
+
+                $.ajax({
+                    url: url_product,
+                    type: 'get',
+                    error: (err) => {
+                        console.log(err);
+                    }
+                }).then((data) => {
+                    let option = new Option(data.text, data.id, true, true)
+
+                    $('select[name="fakturs['+index+'][product_id]"]').append(option).trigger('change')
+                    $('select[name="fakturs['+index+'][product_id]"]').trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: data
+                        }
+                    })
+
+                    $('[name="fakturs['+index+'][satuan]"]').val(unit)
+                    $('[name="fakturs['+index+'][harga]"]').val(formatter(price))
+                    $('[name="fakturs['+index+'][harga]"]').attr('readonly', false)
+                    $('[name="fakturs['+index+'][jumlah]"]').attr('readonly', false)
+                })
+            }
+        })
+
 
     });
 
@@ -300,12 +354,11 @@
     }
 
     function jumlahin() {
-        let total = 0
+        let total =  0
         let cols_debit = document.querySelectorAll('.total')
         for (let i = 0; i < cols_debit.length; i++) {
             let e_debit = cols_debit[i];
-            total += e_debit.value == "" ? 0 : parseInt(e_debit.value)
-
+            total += parseFloat(e_debit.value.replace(/,/g, '')) == "" ? 0 : parseFloat(e_debit.value.replace(/,/g, ''))
         }
         return total;
     }
@@ -315,24 +368,24 @@
         let uuid = generateUUID()
         let html = `
                 <tr class="rowComponent">
-                    <input type="hidden" width="10px" name="pengirimans[${index}][id]" value="${uuid}">
+                    <input type="hidden" width="10px" name="fakturs[${index}][id]" value="${uuid}">
                     <td class="no" hidden>
                         <input type="text" value="${index + 1}" class="form-control" disabled>
                     </td>
                     <td>
-                        <select name="pengirimans[${index}][product_id]" class="form-control select-${index}"></select>
+                        <select name="fakturs[${index}][product_id]" class="form-control select-${index}"></select>
                     </td>
                     <td>
-                        <input type="text" name="pengirimans[${index}][jumlah]" class="form-control jumlah" placeholder="0" readonly>
+                        <input type="text" name="fakturs[${index}][jumlah]" class="form-control jumlah" placeholder="0" readonly>
                     </td>
                     <td>
-                        <input type="text" name="pengirimans[${index}][satuan]" class="form-control satuan"  readonly>
+                        <input type="text" name="fakturs[${index}][satuan]" class="form-control satuan"  readonly>
                     </td>
                     <td>
-                        <input type="text" name="pengirimans[${index}][harga]" class="form-control harga" readonly>
+                        <input type="text" name="fakturs[${index}][harga]" class="form-control harga" readonly>
                     </td>
                     <td>
-                        <input type="text" name="pengirimans[${index}][total]" class="form-control total"  placeholder="0" readonly>
+                        <input type="text" name="fakturs[${index}][total]" class="form-control total"  placeholder="0" readonly>
                     </td>
                     <td>
                         <button type="button" name="remove" 
@@ -350,18 +403,18 @@
         //     total.value = subTotal(index);
         // });
 
-        $('[name="pengirimans[' + index + '][jumlah]"]').on('change', function () {
+        $('[name="fakturs[' + index + '][jumlah]"]').on('change', function () {
 
-            const total = parseInt($('[name="pengirimans[' + index + '][harga]"]').val()) * parseInt($(this)
-                .val());
-            $('[name="pengirimans[' + index + '][total]"]').val(total);
+            const harga = $('[name="fakturs['+index+'][harga]"]').val();
+            const total = parseFloat(harga.replace(/,/g, '')) * parseInt($(this).val());
+            $('[name="fakturs['+index+'][total]"]').val(formatter(total));
 
-            $("#total").val(jumlahin())
+            $("#total").val(formatter(jumlahin()))
 
         });
         // jurnalEachColumn(index)
         feather.replace()
-        $('select[name="pengirimans[' + index + '][product_id]"]').select2({
+        $('select[name="fakturs[' + index + '][product_id]"]').select2({
             placeholder: '-- Pilih Product --',
             ajax: {
                 url: '{{ route('api.select2.get-product') }}',
@@ -383,14 +436,38 @@
             allowClear: true
         })
 
-        $('select[name="pengirimans[' + index + '][product_id]"]').on('select2:select', function (e) {
-            const unit = e.params.data.unit
-            const price = e.params.data.price_sell
+                $('select[name="fakturs['+index+'][product_id]"]').on('select2:select', function (e) {
+                    const unit = e.params.data.unit
+                    const price = e.params.data.price_sell
 
-            $('[name="pengirimans[' + index + '][satuan]"]').val(unit)
-            $('[name="pengirimans[' + index + '][harga]"]').val(price)
-            $('[name="pengirimans[' + index + '][jumlah]"]').attr('readonly', false)
-        })
+                    $('[name="fakturs['+index+'][satuan]"]').val(unit)
+                    $('[name="fakturs['+index+'][harga]"]').val(formatter(price))
+                    $('[name="fakturs['+index+'][harga]"]').attr('readonly', false)
+                    $('[name="fakturs['+index+'][jumlah]"]').attr('readonly', false)
+                })
+
+                document.querySelectorAll('.harga').forEach(item => {
+                    item.addEventListener('keyup', function(event) {
+                        
+                        const n = parseInt(this.value.replace(/\D/g,''),10);
+                        item.value = formatter(n);
+                        
+                        // const total = parseFloat(item.value.replace(/,/g, '')) * parseInt($('[name="fakturs['+index+'][jumlah]"]').val());
+                        // $('[name="penawarans['+index+'][total]"]').val(formatter(total));
+        
+                    })
+                })
+
+            $('[name="fakturs['+index+'][harga]"]').on('change', function () {
+
+                const jumlahDua = parseInt($('[name="fakturs['+index+'][jumlah]"]').val());
+                const hargaDua = $(this).val();
+                const totalDua = jumlahDua * parseFloat(hargaDua.replace(/,/g, ''))
+                $('[name="fakturs['+index+'][total]"]').val(formatter(totalDua));
+
+                $("#total").val(formatter(jumlahin()))
+                
+            });
 
 
     }
@@ -418,7 +495,7 @@
             }
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
             getNumberOfTr()
-            jumlahin()
+            $("#total").val(formatter(jumlahin()))
         })
     })
 

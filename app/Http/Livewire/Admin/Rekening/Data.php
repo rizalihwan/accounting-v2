@@ -25,16 +25,16 @@ class Data extends Component
 
         return view('livewire.admin.rekening.data', compact('rekenings'));
     }
-    
+
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function refresh($type = "success", string $message)
+    public function refresh(string $message)
     {
         $this->dispatchBrowserEvent('swal:modal', [
-            'type' => $type,
+            'type' => 'success',
             'title' => $message,
             'text' => '',
         ]);
@@ -56,6 +56,6 @@ class Data extends Component
     {
         $rekening->delete();
 
-        $this->refresh('success', 'Data berhasil dihapus');
+        $this->refresh('Data berhasil dihapus');
     }
 }

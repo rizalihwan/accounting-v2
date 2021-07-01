@@ -17,4 +17,8 @@ class Akun extends Model
     {
         return $this->hasMany(Jurnalumumdetail::class);
     }
+    public function bkk()
+    {
+        return $this->hasMany(Bkk::class,'rekening_id','id');
+    }
 }

@@ -24,6 +24,7 @@ class CreateFakturSalesTable extends Migration
             $table->enum('status', [0, 1])->default(1);
             $table->foreign('pelanggan_id')->references('id')->on('kontaks')->onDelete('cascade');
             $table->foreign('pesanan_id')->references('id')->on('pesanan_sales')->onDelete('cascade');
+            $table->foreign('akun_id')->references('id')->on('akuns')->onDelete('cascade');
             $table->timestamps();
         });
     }

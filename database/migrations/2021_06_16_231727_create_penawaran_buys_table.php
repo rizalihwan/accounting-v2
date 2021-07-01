@@ -15,10 +15,10 @@ class CreatePenawaranBuysTable extends Migration
     {
         Schema::create('penawaran_buys', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->string('kode', 8);
             $table->unsignedBigInteger('pemasok_id');
-            $table->bigInteger('total');
+            $table->date('tanggal');
+            $table->text('desc');
+            $table->integer('total')->nullable();
             $table->enum('status', [0, 1])->default(1);
             $table->foreign('pemasok_id')->references('id')->on('kontaks')->onDelete('cascade');
             $table->timestamps();
