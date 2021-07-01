@@ -341,6 +341,7 @@
         @endforeach
         $(document).ready(function(){
             getNumberOfTr()
+            jumlahin()
             $('#add').click(function(){
                 field_dinamis()
             })
@@ -352,9 +353,9 @@
                     $("input[name='delete_data']").val(delete_data + ';' + id)
                 }
                 $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-                jumlahin()
                 getNumberOfTr()
                 countTr()
+                jumlahin()
             })
         })
         function getNumberOfTr() {
@@ -416,10 +417,11 @@
             $("#total_debit").text(total_debit)
             $("#total_kredit").text(total_kredit)
             $("#difference").text(difference)
-            if (difference === 0) {
-                $("#btn-submit").attr('disabled', false)
-            } else {
+
+            if (difference != 0) {
                 $("#btn-submit").attr('disabled', true)
+            } else {
+                $("#btn-submit").attr('disabled', false)
             }
         }
     </script>
