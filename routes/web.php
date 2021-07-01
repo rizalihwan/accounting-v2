@@ -110,7 +110,7 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('/neraca', 'ReportController@neraca')->name('neraca.index');
 
-                Route::view('/labarugi', 'report.keuangan.labarugi')->name('labarugi');
+                Route::get('/labarugi', 'ReportController@labarugi')->name('labarugi');
             });
 
             // Route::name('penjualandanpiutang.')->prefix('penjualandanpiutang')->group(function () {
