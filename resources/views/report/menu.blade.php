@@ -56,7 +56,7 @@
                     <ul class="list-group list-group-flush">
                         {{-- <li class="list-group-item"><a href=""><i class=""></i>Daftar Rekening</a></li> --}}
                         <li class="list-group-item"><a href="{{ route('admin.report.keuangan.jurnalumum') }}"><i class=""></i> Jurnal Umum</a></li>
-                        <li class="list-group-item"><a href=""><i class=""></i> Buku Besar</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.bukubesar') }}"><i class=""></i> Buku Besar</a></li>
                     </ul>
                 </div>
             </div>

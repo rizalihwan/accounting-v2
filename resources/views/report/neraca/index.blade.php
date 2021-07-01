@@ -28,13 +28,13 @@
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
-                                            <input type="text" class="form-control {{ $row->subklasifikasi->name }}" value="{{ $data->saldo_akhir }}">
+                                            <h4>{{ $data->saldo_akhir }}</h4>
                                         </li>
                                     </ul>
                                     @endforeach
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <input type="text" class="form-control" value="{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}">
+                                        <h4>{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}</h4>
                                     </div>
                                 </li>
 
@@ -42,7 +42,7 @@
                             @endforeach
                             <div class="form-group">
                                 <h5 class="text-primary">Total Aktiva</h5>
-                                <input type="number" class="form-control" id="total" value="{{ $total_aktiva }}">
+                                <h4 id="total">{{ $total_aktiva }}</h4>
                             </div>
                         </div>
                     </div>
@@ -60,13 +60,13 @@
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
-                                            <input type="text" class="form-control {{ $row->subklasifikasi->name }}" value="{{ $data->saldo_akhir }}">
+                                            <h4>{{ $data->saldo_akhir }}</h4>
                                         </li>
                                     </ul>
                                     @endforeach
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <input type="text" class="form-control" value="{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}">
+                                        <h4>{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}</h4>
                                     </div>
                                 </li>
 
@@ -74,7 +74,7 @@
                             @endforeach
                             <div class="form-group">
                                 <h5 class="text-primary">Total Modal</h5>
-                                <input type="number" class="form-control" value="{{ $total_modal }}">
+                                <h4>{{ $total_modal }}</h4>
                             </div>
                         </div>
                     </div>
@@ -92,12 +92,12 @@
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
-                                            <input type="text" class="form-control {{ $row->subklasifikasi->name }}" value="{{ $data->saldo_akhir }}">
+                                            <h4>{{ $data->saldo_akhir }}</h4>
                                         </li>
                                     </ul>
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <input type="text" class="form-control" value="{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}">
+                                        <h4>{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}</h4>
                                     </div>
                                     @endforeach
                                 </li>
@@ -105,7 +105,7 @@
                             @endforeach
                             <div class="form-group">
                                 <h5 class="text-primary">Total Kewajiban</h5>
-                                <input type="number" class="form-control" value="{{ $total_kewajiban }}">
+                                <h4>{{ $total_kewajiban }}</h4>
                             </div>
                         </div>
                     </div>

@@ -90,7 +90,6 @@ class ReportController extends Controller
             'total_kewajiban' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Kewajiban')->sum('saldo_akhir')
         ]);
     }
-
     public function labarugi()
     {
         $pendapatan = FakturSale::sum('total');
@@ -100,4 +99,39 @@ class ReportController extends Controller
             'total_laba' => $total_laba
         ]);
     }
+    public function bukubesar()
+    {
+        return view('report.bukubesar.index', [
+            'kontak' => Akun::get(),
+            'akun' => Akun::get()
+        ]);
+    }
+    public function bukubesarcari(Request $request)
+    {
+        $from = $request->startDate;
+        $to = $request->endDate;
+        $kontak = $request->kontak;
+        if($kontak == 'all'){
+            $akun = Akun::whereHas('jurnalumumdetails', function ($q) use ($from, $to, $kontak) {
+                return $q->whereHas('jurnalumum', function ($qr) use ($from, $to, $kontak) {
+                    return
+                        $qr->whereBetween('tanggal', [$from, $to]);
+                });
+            })->get();
+        }else{
+            $akun = Akun::where('id',$kontak)->whereHas('jurnalumumdetails', function ($q) use ($from, $to, $kontak) {
+                return $q->whereHas('jurnalumum', function ($qr) use ($from, $to, $kontak) {
+                    return
+                        $qr->whereBetween('tanggal', [$from, $to]);
+                });
+            })->get();
+        }
+        return view('report.bukubesar.index', [
+            'kontak' => Akun::get(),
+            'akun' => $akun,
+            'startDate' => $from,
+            'endDate' => $to
+        ]);
+    }
+
 }
