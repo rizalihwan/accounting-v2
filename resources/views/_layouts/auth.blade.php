@@ -8,8 +8,9 @@
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>Login | Accounting</title>
-    {{-- <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.html') }}"> --}}
-    {{-- <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/images/ico/favicon.ico"> --}}
+
+    <link rel="icon" href="{{ asset ('img/c.png') }}">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 	<!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
@@ -35,6 +36,13 @@
     <!-- END: Custom CSS-->
     @livewireStyles()
     @livewireScripts()
+    <style>
+        @media (max-width: 991px) {
+            .mobile-text-dark {
+                color: #4b4b4b !important;
+            }
+        }
+    </style>
 </head>
 <body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="blank-page">
 
