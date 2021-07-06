@@ -112,7 +112,8 @@ class PenawaranController extends Controller
      */
     public function edit(PenawaranSale $penawaran)
     {
-        return view('admin.sales.penawaran.edit', compact('penawaran'));
+        $penawaran_details = PenawaranSaleDetail::where('penawaran_id', $penawaran->id)->get();
+        return view('admin.sales.penawaran.edit', compact('penawaran', 'penawaran_details'));
     }
 
     /**
@@ -122,9 +123,66 @@ class PenawaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PenawaranSaleRequest $request, $id)
     {
-        //
+        $req = $request->except('_token', '_method');
+
+        try {
+            DB::transaction(function () use ($request, $req, $id) {
+                $penawaran = PenawaranSale::find($id);
+
+                if (empty($penawaran)) {
+                    return redirect()->route('admin.sales.penawaran.index')
+                        ->with('error', "Penawaran tidak ditemukan.");
+                }
+
+                $penawaran->update(
+                    array_merge($request->except('_token', '_method', 'penawarans', 'total'), [
+                        'total' => preg_replace('/[^\d.]/', '', $request->total),
+                    ])
+                );
+
+                $product_id = [];
+
+                foreach ($req['penawarans'] as $value) {
+                    $product_id[] = $value['id'];
+                }
+
+                $penawarans = array_values(array_filter($product_id, fn ($value) => is_null($value) && $value == ''));
+                $product_id = array_filter($product_id, fn ($value) => !is_null($value) && $value !== '');
+
+                PenawaranSaleDetail::exclude(['created_at', 'updated_at'])
+                    ->where('penawaran_id', $id)
+                    ->whereNotIn('id', $product_id)
+                    ->delete();
+
+                foreach ($req['penawarans'] as $item) {
+                    if ($item['id'] != null) {
+                        PenawaranSaleDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        PenawaranSaleDetail::create([
+                            'penawaran_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+            });
+
+            return redirect()->route('admin.sales.penawaran.index')->with('success', 'Penawaran berhasil diupdate!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', "Penawaran gagal diupdate! \n" . $e->getMessage());
+        }
     }
 
     /**

@@ -12,6 +12,20 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div class="alert-body">
+                @foreach ($errors->all() as $error)
+                <ul style="margin: 0 12px 0 -11px">
+                    <li>{{ $error }}</li>
+                </ul>
+                @endforeach
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <form class="forms-sample" class="repeater" action="{{ route('admin.sales.penawaran.update', $penawaran->id) }}" method="POST">
             <div class="card ">
                 <div class="card-body">
@@ -380,8 +394,8 @@
 <script>
     let subtotal = 0;
 
-    @foreach ($penawaran->penawaran_details->get() as $detail)
-    subtotal += parseInt('{{ $detail->total }}')
+    @foreach ($penawaran_details as $detail)
+        subtotal += parseInt('{{ $detail->total }}')
         field_dinamis(
             '{{ $detail->id }}', '{{ $detail->product_id }}',
             '{{ $detail->jumlah }}', '{{ $detail->total }}',

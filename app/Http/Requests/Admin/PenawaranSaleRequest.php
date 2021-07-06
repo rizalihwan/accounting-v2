@@ -26,6 +26,11 @@ class PenawaranSaleRequest extends FormRequest
         return [
             'pelanggan_id' => 'required|exists:kontaks,id',
             'tanggal' => 'required|date|date_format:Y-m-d',
+            'penawarans.*.product_id' => 'required|exists:products,id',
+            'penawarans.*.jumlah' => 'required|numeric',
+            'penawarans.*.satuan' => 'required',
+            'penawarans.*.harga' => 'required|numeric',
+            'penawarans.*.total' => 'required|numeric',
             'total' => 'required',
         ];
     }
