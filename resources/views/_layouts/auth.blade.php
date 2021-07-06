@@ -82,9 +82,15 @@
     <script>
 		$(window).on('load',  function(){
 			if (feather) {
-			feather.replace({ width: 14, height: 14 });
+			    feather.replace({ width: 14, height: 14 });
 			}
 		})
+
+        $("body").on("contextmenu", "img", function(e) {
+            return false;
+        });
+
+        $('img').on('dragstart', function(event) { event.preventDefault(); });
     </script>
 
 </body>
