@@ -18,12 +18,13 @@ class SalesController extends Controller
     {
         $search = $request->search;
         $contacts = Kontak::select('id', 'nama', 'email', 'nik', 'telepon', 'pelanggan')
-            ->where('pelanggan', TRUE)
-            ->orwhere('nama', 'like', "%{$search}%")
-            ->orWhere('email', 'like', "%{$search}%")
-            ->orWhere('nik', 'like', "%{$search}%")
-            ->orWhere('telepon', 'like', "%{$search}%")
-            ->orderBy('nama', 'ASC')->get()->take(20);
+            ->where('pelanggan', 1)
+            ->where(function ($query) use ($search) {
+                return $query->where('nama', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('nik', 'like', "%{$search}%")
+                    ->orWhere('telepon', 'like', "%{$search}%");
+            })->orderBy('nama')->get()->take(20);
 
         $result = [];
 
@@ -40,8 +41,15 @@ class SalesController extends Controller
         return $result;
     }
 
-    public function pelangganSelected()
+    public function pelangganSelected(Kontak $kontak)
     {
+        return [
+            "id" => $kontak->id,
+            "text" => $kontak->nama,
+            "nama" => $kontak->nama,
+            "email" => $kontak->email,
+            "telepon" => $kontak->telepon
+        ];
     }
 
     public function getProduct(Request $request)

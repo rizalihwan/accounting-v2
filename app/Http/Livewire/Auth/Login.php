@@ -37,7 +37,7 @@ class Login extends Component
         if ($auth->login($credentials, $remember)) {
             return redirect()->route('home');
         } else {
-            session()->flash('error', 'Username atau Password Anda salah!.');
+            session()->flash('error', 'Your password is incorrect.');
         }
     }
 }

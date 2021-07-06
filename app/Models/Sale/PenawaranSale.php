@@ -11,6 +11,11 @@ class PenawaranSale extends Model
 
     protected $guarded = [];
 
+    public function penawaran_details()
+    {
+        return $this->hasOne(PenawaranSaleDetail::class, 'penawaran_id');
+    }
+
     public function pelanggan()
     {
         return $this->belongsTo(\App\Models\Kontak::class);

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\PenawaranSaleRequest;
 use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PenawaranSaleDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PenawaranController extends Controller
 {
@@ -38,8 +39,8 @@ class PenawaranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-        $penawarans = PenawaranSale::select('id','tanggal', 'kode', 'pelanggan_id', 'total', 'status')->with('pelanggan');
+    {
+        $penawarans = PenawaranSale::select('id', 'tanggal', 'kode', 'pelanggan_id', 'total', 'status')->with('pelanggan');
         return view('admin.sales.penawaran.index', [
             'penawarans' => $penawarans->paginate(5),
             'countPenawaran' => $penawarans->count(),
@@ -52,7 +53,7 @@ class PenawaranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {    
+    {
         return view('admin.sales.penawaran.create', [
             'kode' => $this->kode,
         ]);
@@ -67,25 +68,29 @@ class PenawaranController extends Controller
     public function store(PenawaranSaleRequest $request)
     {
         try {
-            $penawarans = PenawaranSale::create(array_merge($request->except('penawarans', 'total'),[
-                'total' => preg_replace('/[^\d.]/', '', $request->total),
-            ]));
+            DB::transaction(function () use ($request) {
+                $penawaran = PenawaranSale::create(array_merge($request->except('penawarans', 'total'), [
+                    'total' => preg_replace('/[^\d.]/', '', $request->total),
+                ]));
 
-            foreach ($request->penawarans as $penawaran) {
-                PenawaranSaleDetail::create([
-                    'penawaran_id' => $penawarans->id,
-                    'product_id' => $penawaran['product_id'],
-                    'satuan' => $penawaran['satuan'],
-                    'harga' => preg_replace('/[^\d.]/', '', $penawaran['harga']),
-                    'jumlah' => $penawaran['jumlah'],
-                    'total' => preg_replace('/[^\d.]/', '', $penawaran['total']),
-                ]);
-            }
+                foreach ($request->penawarans as $detail) {
+                    unset($detail['id']); // Hapus elemen gak kepake
+
+                    PenawaranSaleDetail::create([
+                        'penawaran_id' => $penawaran->id,
+                        'product_id' => $detail['product_id'],
+                        'satuan' => $detail['satuan'],
+                        'harga' => preg_replace('/[^\d.]/', '', $detail['harga']),
+                        'jumlah' => $detail['jumlah'],
+                        'total' => preg_replace('/[^\d.]/', '', $detail['total']),
+                    ]);
+                }
+            });
+
+            return redirect()->route('admin.sales.penawaran.index')->with('success', 'Penawaran berhasil Tersimpan');
         } catch (\Exception $e) {
             return back()->with('error', 'Penawaran tidak Tersimpan!' . $e->getMessage());
         }
-
-        return redirect()->route('admin.sales.penawaran.index')->with('success', 'Penawaran berhasil Tersimpan');
     }
 
     /**
@@ -105,9 +110,10 @@ class PenawaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(PenawaranSale $penawaran)
     {
-        //
+        $penawaran_details = PenawaranSaleDetail::where('penawaran_id', $penawaran->id)->get();
+        return view('admin.sales.penawaran.edit', compact('penawaran', 'penawaran_details'));
     }
 
     /**
@@ -117,9 +123,66 @@ class PenawaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PenawaranSaleRequest $request, $id)
     {
-        //
+        $req = $request->except('_token', '_method');
+
+        try {
+            DB::transaction(function () use ($request, $req, $id) {
+                $penawaran = PenawaranSale::find($id);
+
+                if (empty($penawaran)) {
+                    return redirect()->route('admin.sales.penawaran.index')
+                        ->with('error', "Penawaran tidak ditemukan.");
+                }
+
+                $penawaran->update(
+                    array_merge($request->except('_token', '_method', 'penawarans', 'total'), [
+                        'total' => preg_replace('/[^\d.]/', '', $request->total),
+                    ])
+                );
+
+                $product_id = [];
+
+                foreach ($req['penawarans'] as $value) {
+                    $product_id[] = $value['id'];
+                }
+
+                $penawarans = array_values(array_filter($product_id, fn ($value) => is_null($value) && $value == ''));
+                $product_id = array_filter($product_id, fn ($value) => !is_null($value) && $value !== '');
+
+                PenawaranSaleDetail::exclude(['created_at', 'updated_at'])
+                    ->where('penawaran_id', $id)
+                    ->whereNotIn('id', $product_id)
+                    ->delete();
+
+                foreach ($req['penawarans'] as $item) {
+                    if ($item['id'] != null) {
+                        PenawaranSaleDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        PenawaranSaleDetail::create([
+                            'penawaran_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+            });
+
+            return redirect()->route('admin.sales.penawaran.index')->with('success', 'Penawaran berhasil diupdate!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', "Penawaran gagal diupdate! \n" . $e->getMessage());
+        }
     }
 
     /**
@@ -135,5 +198,4 @@ class PenawaranController extends Controller
 
         return redirect()->back()->with('success', 'Penawaran berhasil Dihapus');
     }
-
 }
