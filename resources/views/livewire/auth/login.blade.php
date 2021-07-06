@@ -14,7 +14,7 @@
     <div class="d-flex col-lg-4 align-items-center justify-content-center auth-bg px-2 p-lg-5">
         <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
 
-            <h2 class="card-title font-weight-bold">
+            <h2 class="card-title font-weight-bold login-head">
                 <span class="d-flex mb-1">
                     <img src="{{ asset ('img/c.png') }}" alt="Logo TNI" style="width: 40px; height: 60px; object-fit: contain">
                     <h2 class="text-dark ml-1 my-auto"><strong>DIGKUAD</strong></h2>
