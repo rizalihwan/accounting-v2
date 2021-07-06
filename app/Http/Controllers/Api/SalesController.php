@@ -40,8 +40,15 @@ class SalesController extends Controller
         return $result;
     }
 
-    public function pelangganSelected()
+    public function pelangganSelected(Kontak $kontak)
     {
+        return [
+            "id" => $kontak->id,
+            "text" => $kontak->nama,
+            "nama" => $kontak->nama,
+            "email" => $kontak->email,
+            "telepon" => $kontak->telepon
+        ];
     }
 
     public function getProduct(Request $request)
