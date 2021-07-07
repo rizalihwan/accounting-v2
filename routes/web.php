@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('purchase')->group(function () {
             Route::view('/', 'menu')->name('purchase');
-            Route::resource('penawaran', 'Purchase\PenawaranBuyController');
+            Route::resource('penawaran', 'Purchase\PenawaranbuyController');
             Route::resource('pesanan', 'Purchase\PesananBuyController');
             Route::resource('terima', 'Purchase\TerimaBuyController');
             Route::resource('faktur', 'Purchase\FakturBuyController');
