@@ -42,6 +42,12 @@
                 color: #4b4b4b !important;
             }
         }
+
+        @media (max-width: 480px) {
+            .login-head {
+                margin-top: 60px;
+            }
+        }
     </style>
 </head>
 <body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="blank-page">
@@ -76,9 +82,15 @@
     <script>
 		$(window).on('load',  function(){
 			if (feather) {
-			feather.replace({ width: 14, height: 14 });
+			    feather.replace({ width: 14, height: 14 });
 			}
 		})
+
+        $("body").on("contextmenu", "img", function(e) {
+            return false;
+        });
+
+        $('img').on('dragstart', function(event) { event.preventDefault(); });
     </script>
 
 </body>

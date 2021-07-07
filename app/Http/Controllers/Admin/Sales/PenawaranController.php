@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PenawaranSaleRequest;
 use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PenawaranSaleDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PenawaranController extends Controller
 {
@@ -65,8 +65,24 @@ class PenawaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PenawaranSaleRequest $request)
+    public function store(Request $request)
     {
+        $error = Validator::make($request->all(), [
+            'pelanggan_id' => 'required|exists:kontaks,id',
+            'kode' => 'required',
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'penawarans.*.product_id' => 'required|exists:products,id',
+            'penawarans.*.jumlah' => 'required|numeric',
+            'penawarans.*.satuan' => 'required',
+            'penawarans.*.harga' => 'required',
+            'penawarans.*.total' => 'required',
+            'total' => 'required'
+        ]);
+
+        if ($error->fails()) {
+            return redirect()->back()->withErrors($error);
+        }
+
         try {
             DB::transaction(function () use ($request) {
                 $penawaran = PenawaranSale::create(array_merge($request->except('penawarans', 'total'), [
@@ -123,9 +139,24 @@ class PenawaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PenawaranSaleRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $req = $request->except('_token', '_method');
+
+        $error = Validator::make($req, [
+            'pelanggan_id' => 'required|exists:kontaks,id',
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'penawarans.*.product_id' => 'required|exists:products,id',
+            'penawarans.*.jumlah' => 'required|numeric',
+            'penawarans.*.satuan' => 'required',
+            'penawarans.*.harga' => 'required',
+            'penawarans.*.total' => 'required',
+            'total' => 'required'
+        ]);
+
+        if ($error->fails()) {
+            return redirect()->back()->withErrors($error);
+        }
 
         try {
             DB::transaction(function () use ($request, $req, $id) {
