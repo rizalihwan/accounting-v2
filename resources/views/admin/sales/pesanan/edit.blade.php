@@ -210,10 +210,9 @@
         })
 
         let id = arguments[0]
-        let product_id = arguments[1]
-        let jumlah = arguments[2]
-        let total = arguments[3]
-        let subtotal = arguments[4]
+        let jumlah = arguments[1]
+        let total = arguments[2]
+        let subtotal = arguments[3]
 
         $("#total").val(subtotal)
 
@@ -287,7 +286,7 @@
                 dataType: 'json',
                 data: params => {
                     return {
-                        _token: CSRF_TOKEN,
+                        _token: $('meta[name="csrf-token"]').attr('content'),
                         search: params.term
                     }
                 },
@@ -299,24 +298,6 @@
                 cache: true
             },
             allowClear: true
-        })
-
-        let product_url = '{{ route('api.select2.get-product.selected', ':id') }}'
-        $.ajax({
-            type: 'get',
-            url: product_url.replace(':id', product_id),
-            error: (err) => {
-                console.log(err);
-            }
-        }).then((data) => {
-            let option = new Option(data.text, data.id, true, true)
-            $('select[name="pesanans['+index+'][product_id]"]').append(option).trigger('change')
-            $('select[name="pesanans['+index+'][product_id]"]').trigger({
-                type: 'select2:select',
-                params: {
-                    data: data
-                }
-            })
         })
 
         $('select[name="pesanans['+index+'][product_id]"]').on('select2:select', function (e) {
@@ -362,14 +343,31 @@
 
 <script>
     let subtotal = 0;
+    let product_url = '{{ route('api.select2.get-product.selected', ':id') }}'
 
-    @foreach ($pesanan->pesanan_details as $detail)
+    @foreach ($pesanan->pesanan_details as $index => $detail)
         subtotal += parseInt('{{ $detail->total }}')
         field_dinamis(
-            '{{ $detail->id }}', '{{ $detail->product_id }}',
-            '{{ $detail->jumlah }}', '{{ $detail->total }}',
+            '{{ $detail->id }}', '{{ $detail->jumlah }}', '{{ $detail->total }}',
             subtotal
         );
+
+        $.ajax({
+            type: 'get',
+            url: product_url.replace(':id', '{{ $detail->product_id }}'),
+            error: (err) => {
+                console.log(err);
+            }
+        }).then((data) => {
+            let option = new Option(data.text, data.id, true, true)
+            $('select[name="pesanans[{{ $index }}][product_id]"]').append(option).trigger('change')
+            $('select[name="pesanans[{{ $index }}][product_id]"]').trigger({
+                type: 'select2:select',
+                params: {
+                    data: data
+                }
+            })
+        })
     @endforeach
 
     $(document).ready(function(){
