@@ -150,7 +150,72 @@ class PesananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $req = $request->except('_token', '_method');
+
+        $error = Validator::make($req, [
+            'pesanans.*.product_id' => 'required|exists:products,id',
+            'pesanans.*.jumlah' => 'required|numeric',
+            'pesanans.*.satuan' => 'required',
+            'pesanans.*.harga' => 'required',
+            'pesanans.*.total' => 'required',
+            'total' => 'required'
+        ]);
+
+        if ($error->fails()) {
+            return redirect()->back()->withErrors($error);
+        }
+
+        $pesanan = PesananSale::with('pelanggan:id,nama,kode_kontak', 'penawaran:id,kode', 'pesanan_details')
+            ->findOrFail($id);
+
+        if (empty($pesanan)) {
+            return redirect()->route('admin.sales.pesanan.index')->with('error', 'Pesanan tidak ada.');
+        }
+
+        try {
+            DB::transaction(function () use ($id, $req, $pesanan) {
+                $product_id = [];
+
+                foreach ($req['pesanans'] as $value) {
+                    $product_id[] = $value['id'];
+                }
+
+                $product_id = array_filter($product_id, fn ($value) => !is_null($value) && $value !== '');
+
+                PesananSaleDetail::where('pesanan_id', $id)
+                    ->whereNotIn('id', $product_id)
+                    ->delete();
+
+                foreach ($req['pesanans'] as $item) {
+                    if ($item['id'] != null) {
+                        PesananSaleDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        PesananSaleDetail::create([
+                            'pesanan_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+
+                $pesanan->update([
+                    'total' => preg_replace('/[^\d.]/', '', $req['total'])
+                ]);
+            });
+
+            return redirect()->route('admin.sales.pesanan.index')->with('success', 'Pesanan berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
