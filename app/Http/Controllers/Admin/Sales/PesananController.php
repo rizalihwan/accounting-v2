@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PesananSaleRequest;
-use App\Models\Product;
 use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PesananSale;
 use App\Models\Sale\PesananSaleDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PesananController extends Controller
 {
@@ -41,7 +41,7 @@ class PesananController extends Controller
      */
     public function index()
     {
-        $pesanans = PesananSale::select('id','tanggal', 'kode', 'total','status', 'pelanggan_id')->with('pelanggan:id,nama');
+        $pesanans = PesananSale::select('id', 'tanggal', 'kode', 'total', 'status', 'pelanggan_id')->with('pelanggan:id,nama');
 
         return view('admin.sales.pesanan.index', [
             'pesanans' => $pesanans->paginate(5),
@@ -69,29 +69,47 @@ class PesananController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PesananSaleRequest $request)
+    public function store(Request $request)
     {
+        $error = Validator::make($request->all(), [
+            'pelanggan_id' => 'required|exists:kontaks,id',
+            'kode' => 'required',
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'penawaran_id' => 'required|exists:penawaran_sales,id',
+            'pesanans.*.product_id' => 'required|exists:products,id',
+            'pesanans.*.jumlah' => 'required|numeric',
+            'pesanans.*.satuan' => 'required',
+            'pesanans.*.harga' => 'required',
+            'pesanans.*.total' => 'required',
+            'total' => 'required'
+        ]);
+
+        if ($error->fails()) {
+            return redirect()->back()->withErrors($error);
+        }
+
         try {
+            DB::transaction(function () use ($request) {
+                $pesanans = PesananSale::create(array_merge($request->except('pesanans', 'total'), [
+                    'total' => preg_replace('/[^\d.]/', '', $request->total),
+                ]));
 
-            $pesanans = PesananSale::create(array_merge($request->except('pesanans', 'total'),[
-                'total' => preg_replace('/[^\d.]/', '', $request->total),
-            ]));
+                foreach ($request->pesanans as $pesanan) {
+                    PesananSaleDetail::create([
+                        'pesanan_id' => $pesanans->id,
+                        'product_id' => $pesanan['product_id'],
+                        'satuan' => $pesanan['satuan'],
+                        'harga' => preg_replace('/[^\d.]/', '', $pesanan['harga']),
+                        'jumlah' => $pesanan['jumlah'],
+                        'total' => preg_replace('/[^\d.]/', '', $pesanan['total']),
+                    ]);
+                }
+            });
 
-            foreach ($request->pesanans as $pesanan) {
-                PesananSaleDetail::create([
-                    'pesanan_id' => $pesanans->id,
-                    'product_id' => $pesanan['product_id'],
-                    'satuan' => $pesanan['satuan'],
-                    'harga' => preg_replace('/[^\d.]/', '', $pesanan['harga']),
-                    'jumlah' => $pesanan['jumlah'],
-                    'total' => preg_replace('/[^\d.]/', '', $pesanan['total']),
-                ]);
-            }
+            return redirect()->route('admin.sales.pesanan.index')->with('success', 'Pesanan berhasil Tersimpan');
         } catch (\Exception $e) {
             return back()->with('error', 'Pesanan tidak Tersimpan!' . $e->getMessage());
         }
-
-        return redirect()->route('admin.sales.pesanan.index')->with('success', 'Pesanan berhasil Tersimpan');
     }
 
     /**
@@ -113,7 +131,14 @@ class PesananController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pesanan = PesananSale::with('pelanggan:id,nama,kode_kontak', 'penawaran:id,kode', 'pesanan_details')
+            ->findOrFail($id);
+
+        if (empty($pesanan)) {
+            return redirect()->back()->with('error', 'Pesanan tidak ditemukan.');
+        }
+
+        return view('admin.sales.pesanan.edit', compact('pesanan'));
     }
 
     /**
