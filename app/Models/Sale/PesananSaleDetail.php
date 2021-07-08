@@ -10,5 +10,9 @@ class PesananSaleDetail extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
+    public function pesanan()
+    {
+        $this->belongsTo(PesananSale::class, 'pesanan_id');
+    }
 }
