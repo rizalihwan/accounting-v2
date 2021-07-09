@@ -4,7 +4,7 @@
 <li class="breadcrumb-item">
     <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Pengiriman Barang</li>
+<li class="breadcrumb-item active" aria-current="page">Pengiriman Barang</li>
 @endpush
 @section('content')
 

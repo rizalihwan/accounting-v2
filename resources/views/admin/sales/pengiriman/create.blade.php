@@ -5,10 +5,11 @@
     <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales.penawaran.index') }}">Pesanan Harga</a>
+    <a href="{{ route('admin.sales.pengiriman.index') }}">Pengiriman Barang</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Tambah Pesanan Harga</li>
+<li class="breadcrumb-item active" aria-current="page">Tambah Pengiriman Barang</li>
 @endpush
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
