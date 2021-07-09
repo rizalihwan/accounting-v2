@@ -25,4 +25,9 @@ class PesananSale extends Model
     {
         return $this->belongsTo(PenawaranSale::class, 'penawaran_id');
     }
+
+    public function pengiriman()
+    {
+        return $this->hasMany(PengirimanSale::class, 'pesanan_id');
+    }
 }
