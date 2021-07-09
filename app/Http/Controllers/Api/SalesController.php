@@ -120,7 +120,7 @@ class SalesController extends Controller
         $result = [];
 
         foreach ($pesanans as $pesanan) {
-            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'jumlah')
+            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
                 ->where('pesanan_id', $pesanan->id)
                 ->get();
             $result[] = [
