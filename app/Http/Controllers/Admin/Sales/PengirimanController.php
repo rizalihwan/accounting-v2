@@ -132,7 +132,14 @@ class PengirimanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pengiriman = PengirimanSale::with('pelanggan:id,nama,kode_kontak', 'pesanan:id,kode', 'pengiriman_details')
+            ->findOrFail($id);
+
+        if (empty($pengiriman)) {
+            return redirect()->back()->with('error', 'Pesanan tidak ditemukan.');
+        }
+
+        return view('admin.sales.pengiriman.edit', compact('pengiriman'));
     }
 
     /**
