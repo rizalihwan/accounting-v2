@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\FakturSaleRequest;
 use App\Models\Sale\FakturSale;
 use App\Models\Sale\FakturSaleDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class FakturController extends Controller
 {
@@ -36,9 +38,9 @@ class FakturController extends Controller
      */
     public function index()
     {
-        $fakturs = FakturSale::select('id','tanggal', 'kode', 'pelanggan_id', 'total', 'status')
-        ->with('pelanggan')
-        ->paginate(5);
+        $fakturs = FakturSale::select('id', 'tanggal', 'kode', 'pelanggan_id', 'total', 'status')
+            ->with('pelanggan')
+            ->paginate(5);
 
         return view('admin.sales.faktur.index', compact('fakturs'));
     }
@@ -61,29 +63,58 @@ class FakturController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FakturSaleRequest $request)
+    public function store(Request $request)
     {
+        $rules = [
+            'pelanggan_id' => 'required|exists:kontaks,id',
+            'pesanan_id' => 'exists:pesanan_sales,id',
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'status' => 'sometimes',
+            'fakturs.*.product_id' => 'required|exists:products,id',
+            'fakturs.*.jumlah' => 'required|numeric',
+            'fakturs.*.satuan' => 'required',
+            'fakturs.*.harga' => 'required',
+            'fakturs.*.total' => 'required',
+            'total' => 'required',
+        ];
+
+        if (!empty($request->status)) {;
+            $rules['akun_id'] = 'required|exists:akuns,id';
+        }
+
+        $validate = Validator::make($request->all(), $rules);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withErrors($validate);
+        }
+
         try {
+            DB::transaction(function () use ($request) {
+                $fakturs = FakturSale::create(array_merge(
+                    $request->except('fakturs', 'akun_id', 'status', 'total'),
+                    [
+                        'akun_id' => $request->akun_id ?? null,
+                        'status' => !empty($request->status) && !empty($request->akun_id) ? '1' : '0',
+                        'total' => preg_replace('/[^\d.]/', '', $request->total),
+                    ]
+                ));
 
-            $fakturs = FakturSale::create(array_merge($request->except('fakturs', 'total'),[
-                'total' => preg_replace('/[^\d.]/', '', $request->total),
-            ]));
+                foreach ($request->fakturs as $faktur) {
+                    FakturSaleDetail::create([
+                        'faktur_id' => $fakturs->id,
+                        'product_id' => $faktur['product_id'],
+                        'satuan' => $faktur['satuan'],
+                        'harga' => preg_replace('/[^\d.]/', '', $faktur['harga']),
+                        'jumlah' => $faktur['jumlah'],
+                        'total' => preg_replace('/[^\d.]/', '', $faktur['total']),
+                    ]);
+                }
+            });
 
-            foreach ($request->fakturs as $faktur) {
-                FakturSaleDetail::create([
-                    'faktur_id' => $fakturs->id,
-                    'product_id' => $faktur['product_id'],
-                    'satuan' => $faktur['satuan'],
-                    'harga' => preg_replace('/[^\d.]/', '', $faktur['harga']),
-                    'jumlah' => $faktur['jumlah'],
-                    'total' => preg_replace('/[^\d.]/', '', $faktur['total']),
-                ]);
-            }
+            return redirect()->route('admin.sales.faktur.index')->with('success', 'Faktur berhasil tersimpan');
         } catch (\Exception $e) {
             return back()->with('error', 'Faktur tidak Tersimpan!' . $e->getMessage());
         }
-
-        return back()->with('success', 'Faktur berhasil Tersimpan');
     }
 
     /**
@@ -105,7 +136,14 @@ class FakturController extends Controller
      */
     public function edit($id)
     {
-        //
+        $faktur = FakturSale::with('pelanggan:id,nama,kode_kontak', 'pesanan:id,kode', 'pengiriman_details')
+            ->findOrFail($id);
+
+        if (empty($faktur)) {
+            return redirect()->back()->with('error', 'Faktur tidak ditemukan.');
+        }
+
+        return view('admin.sales.faktur.edit', compact('faktur'));
     }
 
     /**

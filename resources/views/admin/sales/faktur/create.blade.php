@@ -12,13 +12,27 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <div class="alert-body">
+                    @foreach ($errors->all() as $error)
+                    <ul style="margin: 0 12px 0 -11px">
+                        <li>{{ $error }}</li>
+                    </ul>
+                    @endforeach
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <form class="forms-sample" class="repeater" action="{{ route('admin.sales.faktur.store') }}" method="POST">
             <div class="card ">
                 <div class="card-body">
                     @csrf
                     <input type="hidden" name="kode" value="{{ $kode }}">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-danger">*</span></label>
                                 <select name="pelanggan_id" id="pelanggan_id"
@@ -33,7 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <a href="{{ route('admin.kontak.create') }}" class="btn btn-outline-danger tambah-pelanggan">
                                     <i data-feather="plus"></i>
@@ -41,31 +55,16 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-md-3" id="akun"style="display: none;">
-                            <div class="form-group">
-                                <label for="akun_id">{{ __('Akun') }}<span class="text-danger">*</span></label>
-                                <select name="akun_id" id="akun_id"
-                                    class="form-control select2 @error('akun_id') is-invalid @enderror">
-                                </select>
-                                <div class="help-block with-errors"></div>
-                                @error('akun_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="custom-control custom-checkbox my-1">
+                                <input type="checkbox" name="status" id="toggle_akun" value="on"
+                                    class="custom-control-input" />
+                                <label class="custom-control-label" for="toggle_akun">Lunas</label>
                             </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <div class="border-checkbox-section">
-                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input class="border-checkbox" type="checkbox" id="akun_cekbox" name="akun_cekbox">
-                                        <label class="border-checkbox-label" for="akun_cekbox">{{ __('Lunas')}}</label>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="form-group" id="akun"></div>
                         </div>
                     </div>
 
@@ -126,23 +125,23 @@
                                     </thead>
                                     <tbody id="dynamic_field"></tbody>
                                 </table>
-                                <button type="button" id="add" class="btn btn-success my-2"
-                                    style="width: 100%; height: 50px">
-                                    <i data-feather="plus"></i>
-                                    Tambah Row Baru
-                                </button>
-                                <table class="table table-borderless col-sm-6 ml-auto border-top">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width: 180px">Total</th>
-                                            <td>
-                                                <input type="text" name="total" class="form-control" id="total"
-                                                    placeholder="0" readonly>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
+                            <button type="button" id="add" class="btn btn-success my-2"
+                                style="width: 100%; height: 50px">
+                                <i data-feather="plus"></i>
+                                Tambah Row Baru
+                            </button>
+                            <table class="table table-borderless col-sm-6 ml-auto border-top">
+                                <tbody>
+                                    <tr class="rowComponentTotal">
+                                        <th style="width: 180px">Total</th>
+                                        <td>
+                                            <input type="text" name="total" class="form-control" id="total"
+                                                placeholder="0" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -171,10 +170,10 @@
         width: 100% !important;
     }
     .rowComponent td{
-            padding: 0px 8px 16px 0 !important
+        padding: 0px 8px 16px 0 !important;
     }
     .rowHead td{
-        padding: 0px 8px 16px 0 !important
+        padding: 0px 8px 16px 0 !important;
     }
     .rowComponent td .form-control{
         border-radius:0px !important;
@@ -261,59 +260,83 @@
             },
         });
 
-        $("#akun_id").select2({
-            placeholder: "-- Pilih Akun --",
-            ajax: {
-                url: '{{ route('api.select2.get-akun') }}',
-                type: 'post',
-                dataType: 'json',
-                data: params => {
-                    return {
-                        _token: CSRF_TOKEN,
-                        search: params.term
-                    }
-                },
-                error: (err) => {
-                    console.log(err)
-                },
-                processResults: data => {
-                    return {
-                        results: data
-                    }
-                },
-                cache: true
-            },
-        });
+        function akun() {
+            $('#akun').html(`
+                <label for="akun_id">{{ __('Akun') }}<span class="text-danger">*</span></label>
+                <select name="akun_id" id="akun_id" class="form-control select2 @error('akun_id') is-invalid @enderror"></select>
+                <div class="help-block with-errors"></div>
+                @error('akun_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            `);
 
-        $("#akun_cekbox").change(function (){
-            if(this.checked){
-                $('#akun').show();
+            $("#akun_id").select2({
+                placeholder: "-- Pilih Akun --",
+                ajax: {
+                    url: '{{ route('api.select2.get-akun') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
+            });
+        }
+
+        if($("#toggle_akun").is(':checked')){
+            akun()
+        } else {
+            $('#akun').html('');
+        }
+
+        $("#toggle_akun").click(function(){
+            if($(this).is(':checked')){
+                akun()
             } else {
-                $('#akun').hide();
+                $('#akun').html('');
             }
         })
 
         $('#pesanan_id').on('select2:select', function (e) {
-            $("#dynamic_field").html('')
-
             const data = e.params.data;
             const detail = data.detail;
+            console.log(detail);
+            let subtotal = 0;
+
+            $("#pesanan_id").attr('disabled', true)
 
             for (let index = 0; index < detail.length; index++) {
-                field_dinamis()
-
                 let product_id = detail[index].product_id;
                 let jumlah = detail[index].jumlah;
+                let satuan = detail[index].satuan;
+                let harga = detail[index].harga;
+                let total = detail[index].total;
+
                 let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
                 url_product = url_product.replace(':id', product_id);
+
+                $("#dynamic_field").html('')
 
                 $.ajax({
                     url: url_product,
                     type: 'get',
-                    error: (err) => {
-                        console.log(err);
-                    }
                 }).then((data) => {
+                    field_dinamis()
+
                     let option = new Option(data.text, data.id, true, true)
 
                     $('select[name="fakturs['+index+'][product_id]"]').append(option).trigger('change')
@@ -324,10 +347,20 @@
                         }
                     })
 
-                    $('[name="fakturs['+index+'][satuan]"]').val(unit)
-                    $('[name="fakturs['+index+'][harga]"]').val(formatter(price))
                     $('[name="fakturs['+index+'][harga]"]').attr('readonly', false)
                     $('[name="fakturs['+index+'][jumlah]"]').attr('readonly', false)
+
+                    $('[name="fakturs['+index+'][jumlah]"]').val(jumlah)
+                    $('[name="fakturs['+index+'][satuan]"]').val(satuan)
+                    $('[name="fakturs['+index+'][harga]"]').val(formatter(harga))
+                    $('[name="fakturs['+index+'][total]"]').val(formatter(total))
+
+                    subtotal += total;
+                    $("#total").val(formatter(subtotal))
+
+                    if ((index + 1) == detail.length) {
+                        $("#pesanan_id").attr('disabled', false)
+                    }
                 })
             }
         })
@@ -387,15 +420,24 @@
                     <td>
                         <input type="text" name="fakturs[${index}][total]" class="form-control total"  placeholder="0" readonly>
                     </td>
-                    <td>
-                        <button type="button" name="remove" 
-                            class="btn btn-danger btn-sm text-white btn_remove">
-                            <i data-feather="trash-2"></i>
-                        </button>
-                    </td>
-                </tr>
             `
-        $("#dynamic_field").append(html)
+
+        if (index >= 1) {
+            html += `
+                <td>
+                    <button type="button" name="remove" 
+                        <button type="button" name="remove" 
+                    <button type="button" name="remove" 
+                        class="btn btn-danger btn-sm text-white btn_remove">
+                        <i data-feather="trash-2"></i>
+                    </button>
+                </td>
+            </tr>`
+            $("#dynamic_field").append(html)
+        } else {
+            html += `</tr>`
+            $("#dynamic_field").append(html)
+        }
 
         // const jumlah = document.getElementsByName(`penawarans[${index}][jumlah]`);
         // const total = document.getElementsByName(`penawarans[${index}][total]`);
