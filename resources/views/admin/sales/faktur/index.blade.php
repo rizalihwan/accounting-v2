@@ -54,14 +54,15 @@
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
-                                            <div class="dropdown-item">
-                                                <form action="{{ route('admin.sales.faktur.destroy', $faktur->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
-                                                        <span class="ml-1">Delete</span></button>
-                                                </form>
-                                            </div>
+                                            <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                                onclick="deleteConfirm('form-delete', '{{ $faktur->id }}')">
+                                                <i data-feather="trash"></i>
+                                                <span class="ml-1">Delete</span>
+                                            </a>
+                                            <form id="form-delete{{ $faktur->id }}" action="{{ route('admin.sales.faktur.destroy', $faktur->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
