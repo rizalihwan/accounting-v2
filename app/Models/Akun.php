@@ -19,6 +19,11 @@ class Akun extends Model
     }
     public function bkk()
     {
-        return $this->hasMany(Bkk::class,'rekening_id','id');
+        return $this->hasMany(Bkk::class, 'rekening_id', 'id');
+    }
+
+    public function faktur_sales()
+    {
+        return $this->hasMany(Sale\FakturSale::class, 'akun_id');
     }
 }
