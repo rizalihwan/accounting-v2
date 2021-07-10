@@ -12,12 +12,17 @@
     <div class="col-lg-12 col-md-12 col-12">
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                <h4 class="card-title">Faktur Penjualan</h4>
-                <a href="{{ route('admin.sales.faktur.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
+                <div class="d-flex">
+                    <h4 class="card-title">List Faktur Penjualan</h4>
+                    <h4><span class="text-muted ml-1">{{ $fakturs->count() }}</span></h4>
+                </div>
+                <a href="{{ route('admin.sales.faktur.create') }}" class="btn btn-sm btn-primary shadow">
+                    <i data-feather="plus"></i>
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" @if($fakturs->count() == 1) style="height: 140px" @endif>
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>

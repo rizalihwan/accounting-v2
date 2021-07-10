@@ -40,7 +40,7 @@ class FakturController extends Controller
     {
         $fakturs = FakturSale::select('id', 'tanggal', 'kode', 'pelanggan_id', 'total', 'status')
             ->with('pelanggan')
-            ->paginate(5);
+            ->paginate(10);
 
         return view('admin.sales.faktur.index', compact('fakturs'));
     }
