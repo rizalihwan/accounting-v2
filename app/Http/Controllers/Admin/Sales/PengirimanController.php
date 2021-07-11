@@ -33,11 +33,6 @@ class PengirimanController extends Controller
         $this->kode = $kode;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $pengirmans = PengirimanSale::select('id', 'tanggal', 'kode', 'total', 'status', 'pelanggan_id')->with('pelanggan:id,nama');
@@ -48,11 +43,6 @@ class PengirimanController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.sales.pengiriman.create', [
@@ -60,12 +50,6 @@ class PengirimanController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $error = Validator::make($request->all(), [
@@ -106,30 +90,18 @@ class PengirimanController extends Controller
                     ]);
                 }
             });
+
+            return redirect()->route('admin.sales.pengiriman.index')->with('success', 'Pengiriman berhasil Tersimpan');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }
-
-        return redirect()->route('admin.sales.pengiriman.index')->with('success', 'Pengiriman berhasil Tersimpan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $pengiriman = PengirimanSale::with('pelanggan:id,nama,kode_kontak', 'pesanan:id,kode', 'pengiriman_details')
@@ -142,24 +114,76 @@ class PengirimanController extends Controller
         return view('admin.sales.pengiriman.edit', compact('pengiriman'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $req = $request->except('_token', '_method');
+
+        $validate = Validator::make($req, [
+            'pengirimans.*.product_id' => 'required|exists:products,id',
+            'pengirimans.*.jumlah' => 'required|numeric',
+            'pengirimans.*.satuan' => 'required',
+            'pengirimans.*.harga' => 'required',
+            'pengirimans.*.total' => 'required',
+            'total' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withErrors($validate);
+        }
+
+        $pengiriman = PengirimanSale::with('pelanggan:id,nama,kode_kontak', 'pesanan:id,kode')
+            ->findOrFail($id);
+
+        if (empty($pengiriman)) {
+            return redirect()->route('admin.sales.pesanan.index')->with('error', 'Pesanan tidak ada.');
+        }
+
+        try {
+            DB::transaction(function () use ($id, $req, $pengiriman) {
+                $detail_id = [];
+
+                foreach ($req['pengirimans'] as $value) {
+                    $detail_id[] = $value['id'];
+                }
+
+                $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
+
+                PengirimanSaleDetail::where('pengiriman_id', $id)
+                    ->whereNotIn('id', $detail_id)
+                    ->delete();
+
+                foreach ($req['pengirimans'] as $item) {
+                    if ($item['id'] != null) {
+                        PengirimanSaleDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        PengirimanSaleDetail::create([
+                            'pesanan_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+
+                $pengiriman->update([
+                    'total' => preg_replace('/[^\d.]/', '', $req['total'])
+                ]);
+            });
+
+            return redirect()->route('admin.sales.pengiriman.index')->with('success', 'Pengiriman berhasil diubah');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $pesanans = PengirimanSale::findOrFail($id);
