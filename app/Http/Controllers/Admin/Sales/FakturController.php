@@ -136,11 +136,11 @@ class FakturController extends Controller
      */
     public function edit($id)
     {
-        $faktur = FakturSale::with('pelanggan:id,nama,kode_kontak', 'pesanan:id,kode', 'pengiriman_details')
-            ->findOrFail($id);
+        $faktur = FakturSale::with('pelanggan:id,nama,kode_kontak', 'akun:id,kode,name', 'pesanan:id,kode', 'faktur_details')
+            ->find($id);
 
         if (empty($faktur)) {
-            return redirect()->back()->with('error', 'Faktur tidak ditemukan.');
+            return redirect()->route('admin.sales.faktur.index')->with('error', 'Faktur tidak ditemukan.');
         }
 
         return view('admin.sales.faktur.edit', compact('faktur'));
@@ -155,7 +155,30 @@ class FakturController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $req = $request->except('_token', '_method');
+
+        $validate = Validator::make($req, [
+            'fakturs.*.product_id' => 'required|exists:products,id',
+            'fakturs.*.jumlah' => 'required|numeric',
+            'fakturs.*.satuan' => 'required',
+            'fakturs.*.harga' => 'required',
+            'fakturs.*.total' => 'required',
+            'total' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withErrors($validate);
+        }
+
+        try {
+            DB::transaction(function () use ($id, $req) {
+                // 
+            });
+
+            return redirect()->route('admin.sales.faktur.index')->with('success', 'Faktur berhasil diedit');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     /**
