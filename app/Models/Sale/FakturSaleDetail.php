@@ -11,4 +11,8 @@ class FakturSaleDetail extends Model
 
     protected $guarded = [];
 
+    public function faktur()
+    {
+        return $this->belongsTo(FakturSale::class, 'faktur_id');
+    }
 }

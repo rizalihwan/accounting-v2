@@ -12,7 +12,10 @@
     <div class="col-lg-12 col-md-12 col-12">
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                <h4 class="card-title">Penawaran Harga</h4>
+                <div class="d-flex">
+                    <h4 class="card-title">List Penawaran Harga</h4>
+                    <h4><span class="text-muted ml-1">{{ $countPenawaran }}</span></h4>
+                </div>
                 <a href="{{ route('admin.sales.penawaran.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
