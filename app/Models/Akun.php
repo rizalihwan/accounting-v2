@@ -24,6 +24,6 @@ class Akun extends Model
 
     public function faktur_sales()
     {
-        return $this->hasMany(Sale\FakturSale::class, 'akun_id');
+        return $this->hasMany(\App\Models\Sale\FakturSale::class, 'akun_id');
     }
 }

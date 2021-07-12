@@ -29,6 +29,6 @@ class FakturSale extends Model
 
     public function akun()
     {
-        return $this->belongsTo(Akun::class, 'akunid');
+        return $this->belongsTo(Akun::class, 'akun_id');
     }
 }
