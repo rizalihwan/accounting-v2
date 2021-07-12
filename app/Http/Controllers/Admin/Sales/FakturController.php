@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\FakturSaleRequest;
-use App\Models\Sale\FakturSale;
-use App\Models\Sale\FakturSaleDetail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{DB, Validator};
+use App\Models\Sale\{FakturSale, FakturSaleDetail};
 
 class FakturController extends Controller
 {
@@ -170,9 +167,50 @@ class FakturController extends Controller
             return redirect()->back()->withErrors($validate);
         }
 
+        $faktur = FakturSale::find($id);
+
+        if (empty($faktur)) {
+            return redirect()->route('admin.sales.faktur.index')->with('error', 'Faktur tidak ada.');
+        }
+
         try {
-            DB::transaction(function () use ($id, $req) {
-                // 
+            DB::transaction(function () use ($id, $req, $faktur) {
+                $detail_id = [];
+
+                foreach ($req['fakturs'] as $value) {
+                    $detail_id[] = $value['id'];
+                }
+
+                $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
+
+                FakturSaleDetail::where('faktur_id', $id)
+                    ->whereNotIn('id', $detail_id)
+                    ->delete();
+
+                foreach ($req['fakturs'] as $item) {
+                    if ($item['id'] != null) {
+                        FakturSaleDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        FakturSaleDetail::create([
+                            'faktur_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'jumlah' => $item['jumlah'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+
+                $faktur->update([
+                    'total' => preg_replace('/[^\d.]/', '', $req['total'])
+                ]);
             });
 
             return redirect()->route('admin.sales.faktur.index')->with('success', 'Faktur berhasil diedit');
