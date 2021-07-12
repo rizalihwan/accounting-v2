@@ -20,4 +20,9 @@ class PenawaranSale extends Model
     {
         return $this->belongsTo(\App\Models\Kontak::class);
     }
+
+    public function pesanans()
+    {
+        return $this->hasMany(PesananSale::class, 'penawaran_id');
+    }
 }

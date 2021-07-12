@@ -5,13 +5,28 @@
     <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales.penawaran.index') }}">Pesanan Harga</a>
+    <a href="{{ route('admin.sales.pengiriman.index') }}">Pengiriman Barang</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Tambah Pesanan Harga</li>
+<li class="breadcrumb-item active" aria-current="page">Tambah Pengiriman Barang</li>
 @endpush
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <div class="alert-body">
+                    @foreach ($errors->all() as $error)
+                    <ul style="margin: 0 12px 0 -11px">
+                        <li>{{ $error }}</li>
+                    </ul>
+                    @endforeach
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <form class="forms-sample" class="repeater" action="{{ route('admin.sales.pengiriman.store') }}" method="POST">
             <div class="card ">
                 <div class="card-body">
@@ -189,6 +204,7 @@
     $(document).ready(function () {
         $("#pelanggan_id").select2({
             placeholder: "-- Pilih Pelanggan --",
+            allowClear: true,
             ajax: {
                 url: '{{ route('api.select2.get-pelanggan') }}',
                 type: 'post',
@@ -198,9 +214,6 @@
                         _token: CSRF_TOKEN,
                         search: params.term
                     }
-                },
-                error: (err) => {
-                    console.log(err)
                 },
                 processResults: data => {
                     return {
@@ -214,6 +227,7 @@
         // Start PESANAN Select2
         $("#pesanan_id").select2({
             placeholder: "-- Pilih Pesanan --",
+            allowClear: true,
             ajax: {
                 url: '{{ route('api.select2.get-sale-pesanan') }}',
                 type: 'post',
@@ -223,9 +237,6 @@
                         _token: CSRF_TOKEN,
                         search: params.term
                     }
-                },
-                error: (err) => {
-                    console.log(err)
                 },
                 processResults: data => {
                     return {
@@ -238,26 +249,30 @@
         
 
         $('#pesanan_id').on('select2:select', function (e) {
-            $("#dynamic_field").html('')
-
             const data = e.params.data;
             const detail = data.detail;
+            let subtotal = 0;
+
+            $("#pesanan_id").attr('disabled', true)
 
             for (let index = 0; index < detail.length; index++) {
-                field_dinamis()
-
                 let product_id = detail[index].product_id;
                 let jumlah = detail[index].jumlah;
+                let satuan = detail[index].satuan;
+                let harga = detail[index].harga;
+                let total = detail[index].total;
+
                 let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
                 url_product = url_product.replace(':id', product_id);
+
+                $("#dynamic_field").html('')
 
                 $.ajax({
                     url: url_product,
                     type: 'get',
-                    error: (err) => {
-                        console.log(err);
-                    }
                 }).then((data) => {
+                    field_dinamis()
+
                     let option = new Option(data.text, data.id, true, true)
 
                     $('select[name="pengirimans['+index+'][product_id]"]').append(option).trigger('change')
@@ -268,10 +283,20 @@
                         }
                     })
 
-                    $('[name="pengirimans['+index+'][satuan]"]').val(unit)
-                    $('[name="pengirimans['+index+'][harga]"]').val(formatter(price))
                     $('[name="pengirimans['+index+'][harga]"]').attr('readonly', false)
                     $('[name="pengirimans['+index+'][jumlah]"]').attr('readonly', false)
+
+                    $('[name="pengirimans['+index+'][jumlah]"]').val(jumlah)
+                    $('[name="pengirimans['+index+'][satuan]"]').val(satuan)
+                    $('[name="pengirimans['+index+'][harga]"]').val(formatter(harga))
+                    $('[name="pengirimans['+index+'][total]"]').val(formatter(total))
+
+                    subtotal += total;
+                    $("#total").val(formatter(subtotal))
+
+                    if ((index + 1) == detail.length) {
+                        $("#pesanan_id").attr('disabled', false)
+                    }
                 })
             }
         })

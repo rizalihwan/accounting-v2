@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Akun;
 use App\Models\Kontak;
 use App\Models\Product;
+use App\Models\Sale\FakturSaleDetail;
 use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PenawaranSaleDetail;
 use App\Models\Sale\PesananSale;
@@ -120,7 +121,7 @@ class SalesController extends Controller
         $result = [];
 
         foreach ($pesanans as $pesanan) {
-            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'jumlah')
+            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
                 ->where('pesanan_id', $pesanan->id)
                 ->get();
             $result[] = [
@@ -131,6 +132,24 @@ class SalesController extends Controller
             ];
         }
         return $result;
+    }
+
+    public function getFakturDetails($id)
+    {
+        $details = FakturSaleDetail::select('id', 'faktur_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
+            ->where('faktur_id', $id)->get();
+
+        if ($details->count() == 0) {
+            return response()->json([
+                'message' => 'not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Success get faktur_details data',
+            'data' => $details,
+            'length' => $details->count()
+        ]);
     }
 
     /**
