@@ -296,7 +296,7 @@
                     </a>
                 </li>
                 <li class="nav-item {{ request()->is('admin/purchase*') ? 'active' : '' }}">
-                    <a class="nav-link d-flex align-items-center" href="{{ route('admin.purchase') }}">
+                    <a class="nav-link d-flex align-items-center" href="{{ route('admin.purchase.') }}">
                         <i data-feather="shopping-bag" class="text-danger"></i>
                         <span data-i18n="Purchase">Pembelian</span>
                     </a>

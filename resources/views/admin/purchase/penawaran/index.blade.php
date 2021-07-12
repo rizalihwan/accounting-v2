@@ -2,7 +2,7 @@
 @section('title', 'Permintaan Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase') }}">Pembelian</a>
+    <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
 <li class="breadcrumb-item active">Permintaan Penawaran Harga</li>
 @endpush
@@ -17,8 +17,7 @@
             <div class="card ">
                 <div class="card-header justify-content-between d-flex">
                     <div>
-                        <a href="{{ route('admin.penawaran.show','barang') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> Buat Barang Baru</a>
-                        <a href="{{ route('admin.penawaran.show','jasa') }}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Buat Jasa Baru</a>
+                        <a href="{{ route('admin.purchase.penawaran.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
 
                     </div>
                     <div class="d-flex">
@@ -40,7 +39,6 @@
                                     <th>No.</th>
                                     <th>Nama Pemasok</th>
                                     <th>Tanggal</th>
-                                    <th>Deskripsi</th>
                                     <th>total</th>
                                     <th>Action</th>
                                 </tr>
@@ -50,7 +48,6 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->pemasok->nama}}</td>
                                     <td>{{$item->tanggal}}</td>
-                                    <td>{{$item->desc}}</td>
                                     <td>{{$item->total}}</td>
                                 @endforeach
                             </tbody>

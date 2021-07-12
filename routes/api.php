@@ -34,6 +34,8 @@ Route::name('api.')->group(function () {
         // pelanggan
         Route::post('/get-pelanggan', 'Api\SalesController@getPelanggan')->name('get-pelanggan');
         Route::get('/get-pelanggan/{kontak}', 'Api\SalesController@pelangganSelected')->name('get-pelanggan.selected');
+        //pemasok
+        Route::post('/get-pemasok', 'Api\BuyController@getPemasok')->name('get-pemasok');
 
         //product
         Route::post('/get-product', 'Api\SalesController@getProduct')->name('get-product');
