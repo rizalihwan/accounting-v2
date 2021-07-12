@@ -163,7 +163,7 @@ class PengirimanController extends Controller
                         ]);
                     } else {
                         PengirimanSaleDetail::create([
-                            'pesanan_id' => $id,
+                            'pengiriman_id' => $id,
                             'product_id' => $item['product_id'],
                             'satuan' => $item['satuan'],
                             'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
