@@ -435,7 +435,7 @@
                     })
 
                     
-                    $('input[name="pesanans['+index+'][jumlah]"]').val(formatter(jumlah));
+                    $('input[name="pesanans['+index+'][jumlah]"]').val(jumlah);
                     $('input[name="pesanans['+index+'][satuan]"]').val(satuan);
                     $('input[name="pesanans['+index+'][harga]"]').val(formatter(harga));
                     $('input[name="pesanans['+index+'][total]"]').val(formatter(total));

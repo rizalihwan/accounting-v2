@@ -9,6 +9,8 @@ use App\Models\Sale\{FakturSale, FakturSaleDetail};
 
 class FakturController extends Controller
 {
+    protected $kode;
+    
     public function __construct()
     {
         $number = FakturSale::count();

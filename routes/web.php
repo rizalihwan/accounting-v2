@@ -76,11 +76,11 @@ Route::middleware('auth')->group(function () {
             Route::resource('faktur', 'Sales\FakturController');
         });
 
-        Route::prefix('purchase')->group(function () {
-            Route::view('/', 'menu')->name('purchase');
-            Route::resource('penawaran', 'Purchase\PenawaranBuyController');
-            Route::resource('pesanan', 'Purchase\PesananBuyController');
-            Route::resource('terima', 'Purchase\TerimaBuyController');
+        Route::prefix('purchase')->name('purchase.')->group(function () {
+            Route::view('/', 'menu');
+            Route::resource('penawaran', 'Purchase\PenawaranbuyController');
+            Route::resource('pesanan', 'Purchase\PesananbuyController');
+            Route::resource('terima', 'Purchase\TerimabuyController');
             Route::resource('faktur', 'Purchase\FakturBuyController');
         });
         Route::prefix('cash-bank')->group(function () {
