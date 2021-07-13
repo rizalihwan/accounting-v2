@@ -15,14 +15,15 @@ class CreateTerimaBuysTable extends Migration
     {
         Schema::create('terima_buys', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pemasok_id');
-            $table->unsignedBigInteger('no_pesanan');
             $table->date('tanggal');
-            $table->text('desc');
-            $table->integer('total')->nullable();
+            $table->string('kode', 8);
+            $table->unsignedBigInteger('pemasok_id');
+            $table->unsignedBigInteger('pesanan_id')->nullable();
+            $table->unsignedBigInteger('akun_id')->nullable();
+            $table->bigInteger('total');
             $table->enum('status', [0, 1])->default(1);
             $table->foreign('pemasok_id')->references('id')->on('kontaks')->onDelete('cascade');
-            $table->foreign('no_pesanan')->references('id')->on('pesanan_buys')->onDelete('cascade');
+            $table->foreign('pesanan_id')->references('id')->on('pesanan_buys')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePenawaranBuysTable extends Migration
+class CreateFakturBuysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreatePenawaranBuysTable extends Migration
      */
     public function up()
     {
-        Schema::create('penawaran_buys', function (Blueprint $table) {
+        Schema::create('faktur_buys', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
             $table->string('kode', 8);
             $table->unsignedBigInteger('pemasok_id');
+            $table->unsignedBigInteger('pesanan_id')->nullable();
             $table->unsignedBigInteger('akun_id')->nullable();
             $table->bigInteger('total');
             $table->enum('status', [0, 1])->default(1);
             $table->foreign('pemasok_id')->references('id')->on('kontaks')->onDelete('cascade');
+            $table->foreign('akun_id')->references('id')->on('akuns')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +35,6 @@ class CreatePenawaranBuysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penawaran_buys');
+        Schema::dropIfExists('faktur_buys');
     }
 }

@@ -19,6 +19,7 @@ class CreatePesananSalesTable extends Migration
             $table->string('kode', 8);
             $table->unsignedBigInteger('pelanggan_id');
             $table->unsignedBigInteger('penawaran_id')->nullable();
+            $table->unsignedBigInteger('akun_id')->nullable();
             $table->bigInteger('total');
             $table->enum('status', [0, 1])->default(1);
             $table->foreign('pelanggan_id')->references('id')->on('kontaks')->onDelete('cascade');

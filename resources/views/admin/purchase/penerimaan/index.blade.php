@@ -1,64 +1,91 @@
 @extends('_layouts.main')
-@section('title', 'Penerimaan Barang')
+@section('title', 'Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase') }}">Pembelian</a>
+  <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
-<li class="breadcrumb-item active">Penerimaan Barang</li>
+<li class="breadcrumb-item active" aria-current="page">Pengiriman Barang</li>
 @endpush
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <!-- end message area-->
-        <div class="col-md-12">
-            <div class="card-header">
-                <h3>Penerimaan Barang</h3>
-            </div>
-            <div class="card ">
-                <div class="card-header justify-content-between d-flex">
-                    <div>
-                        <a href="{{ route('admin.terima.show','barang') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> Buat Barang Baru</a>
-                        <a href="{{ route('admin.terima.show','jasa') }}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Buat Jasa Baru</a>
 
-                    </div>
-                    <div class="d-flex">
-                        <input type="date" class="form-control mx-1" name="" id="">
-                        <input type="date" class="form-control mr-2" name="" id="">
-                        <button type="button" class="btn btn-icon rounded-circle btn-primary waves-effect pr-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
-                        </button>
-                    </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+        <div class="card card-payment">
+            <div class="card-header py-2 d-flex justify-content-between align-items-center">
+                <div class="d-flex">
+                    <h4 class="card-title">List Pengiriman Barang</h4>
+                    <h4><span class="text-muted ml-1">{{ $countPengiriman }}</span></h4>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama Pemasok</th>
-                                    <th>Tanggal</th>
-                                    <th>Deskripsi</th>
-                                    <th>total</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($indeks as $item)
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->pemasok->nama}}</td>
-                                    <td>{{$item->tanggal}}</td>
-                                    <td>{{$item->desc}}</td>
-                                    <td>{{$item->total}}</td>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                <a href="{{ route('admin.purchase.terima.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" @if($countPengiriman == 1) style="height: 140px" @endif>
+                        <thead>
+                            <tr>
+                                <th style="width: 1px">#</th>
+                                <th>Tanggal</th>
+                                <th>kode Pengiriman</th>
+                                <th>Nama Pelanggan</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th style="width: 1px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($penerimaans as $terima)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $terima->tanggal }}</td>
+                                <td>{{ $terima->kode }}</td>
+                                <td>{{ $terima->pemasok->nama }}</td>
+                                <td>{{ 'Rp. ' . number_format($terima->total, 0, ',', '.') }}</td>
+                                <td>{{ $terima->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
+                                            data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.purchase.terima.show', $terima->id) }}">
+                                                <i data-feather="eye"></i>
+                                                <span class="ml-1">Show</span>
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('admin.purchase.terima.edit', $terima->id) }}">
+                                                <i data-feather="edit"></i>
+                                                <span class="ml-1">Edit</span>
+                                            </a>
+                                            <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                                onclick="deleteConfirm('form-delete', '{{ $terima->id }}')">
+                                                <i data-feather="trash"></i>
+                                                <span class="ml-1">Delete</span>
+                                            </a>
+                                            <form id="form-delete{{ $terima->id }}" action="{{ route('admin.purchase.terima.destroy', $terima->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>      
+                            @empty
+                            <tr>
+                                <td colspan="7" align="center">
+                                    Tidak ada data
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    <hr style="margin-top: -1px">
+                    {{ $penerimaans->links() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 @endsection

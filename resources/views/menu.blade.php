@@ -552,34 +552,35 @@
     </div>
 </section>
 @endif
-@if (request()->routeIs('admin.purchase'))
+@if (request()->routeIs('admin.purchase.'))
 @section('title', 'Pembelian')
 @push('breadcrumb')
+<li class="breadcrumb-item active">Pembelian</li>
 @endpush
 <section>
     <div class="row">
-        <div class="col-md-4 col-xl-4">
-            <a href="{{ route('admin.penawaran.index') }}">
-                <div class="card border-0 text-white shadow" style="background-color: #511845">
+        <div class="col-md-3 col-xl-3">
+            <a href="{{ route('admin.purchase.penawaran.index') }}">
+                <div class="card bg-warning border-0 text-white shadow">
                     <div class="card-body">
                         <div class="title">
                             <div class="row">
-                                <div class="col-6">
-                                    <h1 class="text-light">Permintaan Penawaran Harga</h1>
+                                <div class="col">
+                                    <h1 class="text-light">Penawaran Harga</h1>
                                 </div>
-                                <div class="col-6">
-                                    <i class="fa fa-cart-plus fa-lg fa-5x"></i>
+                                <div class="col">
+                                    <i class="fa fa-chart-line fa-lg fa-5x"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Permintaan Penawaran Harga</h1>
-                            <i class="fa fa-cart-plus"></i>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Penawaran Harga</h1>
+                            <i class="fa fa-chart-line"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
-                                Membuat penawaran harga untuk pelanggan
+                                Membuat penawaran harga untuk pemasok
                             </p>
                             <p class="card-text">
                                 <small class="text-light"></small>
@@ -589,59 +590,61 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-4 col-xl-4">
-            <a href="{{ route('admin.pesanan.index') }}">
+
+        <div class="col-md-3 col-xl-3">
+            <a href="{{ route('admin.purchase.pesanan.index') }}">
+                <div class="card  bg-success border-0 text-white shadow">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Pesanan Pembelian</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Pesanan Pemasok</h1>
+                            <i class="fa fa-chart-line"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Membuat pesanan pembelian untuk pemasok
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 col-xl-3">
+            <a href="{{ route('admin.purchase.terima.index') }}">
                 <div class="card border-0 text-white shadow" style="background-color : #900C3F">
                     <div class="card-body">
                         <div class="title">
                             <div class="row">
-                                <div class="col-6">
-                                    <h1 class="text-light">Pesanan Pembelian</h1>
-                                </div>
-                                <div class="col-6">
-                                    <i class="fa fa-luggage-cart fa-lg fa-5x"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Pesanan Pembelian</h1>
-                            <i class="fa fa-luggage-cart"></i>
-                            </p>
-                            <hr class="mr-1">
-                            <p class="card-text">
-                                Membuat penawaran harga untuk pelanggan
-                            </p>
-                            <p class="card-text">
-                                <small class="text-light"></small>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 col-xl-4">
-            <a href="{{ route('admin.terima.index') }}">
-                <div class="card border-0 text-white shadow" style="background-color : #C70039">
-                    <div class="card-body">
-                        <div class="title">
-                            <div class="row">
-                                <div class="col-6">
+                                <div class="col">
                                     <h1 class="text-light">Penerimaan Barang</h1>
                                 </div>
-                                <div class="col-6">
-                                    <i class="fa fa-cart-arrow-down fa-lg fa-5x"></i>
+                                <div class="col">
+                                    <i class="fa fa-truck fa-lg fa-4x"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="info">
                             <p class="card-text">
                             <h1 class="card-text display-5 text-white font-weight-bold">Penerimaan Barang</h1>
-                            <i class="fa fa-cart-arrow-down"></i>
+                            <i class="fa fa-truck"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
-                                Membuat penawaran harga untuk pelanggan
+                                Membuat pesanan Penerimaan barang untuk pemasok
                             </p>
                             <p class="card-text">
                                 <small class="text-light"></small>
@@ -651,28 +654,29 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-4 col-xl-4">
-            <a href="{{ route('admin.faktur.index') }}">
-                <div class="card border-0 text-white shadow" style="background-color : #FF5733">
+
+        <div class="col-md-3 col-xl-3">
+            <a href="{{ route('admin.purchase.faktur.index') }}">
+                <div class="card bg-primary border-0 text-white shadow" >
                     <div class="card-body">
                         <div class="title">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col">
                                     <h1 class="text-light">Faktur Pembelian</h1>
                                 </div>
-                                <div class="col-6">
-                                    <i class="fa fa-shopping-basket fa-lg fa-5x"></i>
+                                <div class="col">
+                                    <i class="fa fa-book-open fa-lg fa-4x"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="info">
                             <p class="card-text">
                             <h1 class="card-text display-5 text-white font-weight-bold">Faktur Pembelian</h1>
-                            <i class="fa fa-shopping-basket"></i>
+                            <i class="fa fa-book-open"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
-                                Membuat penawaran harga untuk pelanggan
+                                Mencatat Faktur Penjualan Untuk Pelanggan
                             </p>
                             <p class="card-text">
                                 <small class="text-light"></small>
@@ -680,18 +684,11 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </a>  
         </div>
     </div>
     </div>
 </section>
-@endif
-@if (request()->routeIs('admin.purchase'))
-@section('title', 'Purchases')
-@push('breadcrumb')
-<li class="breadcrumb-item active">Purchase</li>
-@endpush
-{{-- --}}
 @endif
 
 @if (request()->routeIs('admin.cash-bank'))

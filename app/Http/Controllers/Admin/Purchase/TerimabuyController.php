@@ -4,15 +4,37 @@ namespace App\Http\Controllers\Admin\Purchase;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Kontak;
-use App\Models\Product;
+use App\Models\Purchase\PengirimanBuys;
+use App\Models\Purchase\PengirimanBuysDetail;
 use App\Models\Purchase\PesananBuys;
-use App\Models\Purchase\PenawaranBuys;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 
 class TerimabuyController extends Controller
 {
+    private $kode;
+
+    public function __construct()
+    {
+        $number = PengirimanBuys::count();
+        if ($number > 0) {
+            $number = PengirimanBuys::max('kode');
+            $strnum = (int)substr($number, 2, 3);
+            $strnum = $strnum + 1;
+            if (strlen($strnum) == 3) {
+                $kode = 'PT' . $strnum;
+            } else if (strlen($strnum) == 2) {
+                $kode = 'PT' . "0" . $strnum;
+            } else if (strlen($strnum) == 1) {
+                $kode = 'PT' . "00" . $strnum;
+            }
+        } else {
+            $kode = 'PT' . "001";
+        }
+        $this->kode = $kode;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +42,12 @@ class TerimabuyController extends Controller
      */
     public function index()
     {
-        $indeks = PesananBuys::all();
-        return view('admin.purchase.penerimaan.index',compact('indeks'));
+        $penerimaans = PengirimanBuys::select('id', 'tanggal', 'kode', 'total', 'status', 'pemasok_id')->with('pemasok:id,nama');
+
+        return view('admin.purchase.penerimaan.index', [
+            'penerimaans' => $penerimaans->paginate(5),
+            'countPengiriman' => $penerimaans->count(),
+        ]);
     }
 
     /**
@@ -31,7 +57,9 @@ class TerimabuyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.purchase.penerimaan.create', [
+            'kode' => $this->kode,
+        ]);
     }
 
     /**
@@ -42,34 +70,54 @@ class TerimabuyController extends Controller
      */
     public function store(Request $request)
     {
-        $imam = count($request->invoice);
-        
-        $jml=0;
-        DB::table('terima_buys')->insert([
-            'tanggal' => $request->tanggal,
-            'pemasok_id' =>$request->pemasok,
-            'no_pesanan' =>$request->no_penawaran,
-            'desc' => $request->Deskripsi,
-            'status' => '1',
+        $error = Validator::make($request->all(), [
+            'pemasok_id' => 'required|exists:kontaks,id',
+            'pesanan_id' => 'exists:pesanan_buys,id',
+            'tanggal' => 'required|date|date_format:Y-m-d',
+            'penerimaans.*.product_id' => 'required|exists:products,id',
+            'penerimaans.*.jumlah' => 'required|numeric',
+            'penerimaans.*.satuan' => 'required',
+            'penerimaans.*.harga' => 'required',
+            'penerimaans.*.total' => 'required',
+            'total' => 'required',
         ]);
-        $id = DB::table('terima_buys')->select('id')
-                              ->orderByDesc('id')
-                              ->first();
-        for ($i=0; $i < $imam; $i++) { 
-            DB::table('terima_buy_details')->insert([
-                'terima_id'=> $id->id,
-                'product_id'=> $request->invoice[$i]["produk"],
-                'jumlah'=> $request->invoice[$i]["jumlah"],
-                'satuan'=> $request->invoice[$i]["satuan"],
-                'harga_satuan'=> $request->invoice[$i]["harga_satuan"],
-                'total'=> $request->invoice[$i]["total"],
-            ]);
-            $jml = $jml + $request->invoice[$i]["jumlah"];
+
+        if ($error->fails()) {
+            return redirect()->back()->withErrors($error);
         }
-        DB::table('terima_buys')->where('id',$id->id)->update([
-            'total' => $jml
-        ]);
-        return redirect()->route('admin.terima.index')->with('success', 'Proses Penerimaan Barang');
+
+        try {
+            DB::transaction(function () use ($request) {
+                $penerimaans = PengirimanBuys::create(
+                    array_merge(
+                        $request->except('penerimaans', 'total'),
+                        [
+                            'total' => preg_replace('/[^\d.]/', '', $request->total)
+                        ]
+                    )
+                );
+
+                $pesanan = PesananBuys::findOrFail($request->pesanan_id);
+                $pesanan->update([
+                    'status' => '0'
+                ]);
+
+                foreach ($request->penerimaans as $terima) {
+                    PengirimanBuysDetail::create([
+                        'terima_id' => $penerimaans->id,
+                        'product_id' => $terima['product_id'],
+                        'satuan' => $terima['satuan'],
+                        'harga' => preg_replace('/[^\d.]/', '', $terima['harga']),
+                        'jumlah' => $terima['jumlah'],
+                        'total' => preg_replace('/[^\d.]/', '', $terima['total']),
+                    ]);
+                }
+            });
+
+            return redirect()->route('admin.purchase.terima.index')->with('success', 'Penerimaan berhasil Tersimpan');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -117,6 +165,9 @@ class TerimabuyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $penerimaans = PengirimanBuys::findOrFail($id);
+        $penerimaans->delete();
+
+        return redirect()->back()->with('success', 'Pengiriman berhasil Dihapus');
     }
 }
