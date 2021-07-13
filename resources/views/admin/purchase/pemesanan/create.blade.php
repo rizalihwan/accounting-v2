@@ -34,12 +34,12 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="pelanggan_id">{{ __('Pelanggan') }}<span class="text-red">*</span></label>
-                                <select name="pelanggan_id" id="pelanggan_id"
-                                    class="form-control select2 @error('pelanggan_id') is-invalid @enderror">
+                                <label for="pemasok_id">{{ __('Pemasok') }}<span class="text-red">*</span></label>
+                                <select name="pemasok_id" id="pemasok_id"
+                                    class="form-control select2 @error('pemasok_id') is-invalid @enderror">
                                 </select>
                                 <div class="help-block with-errors"></div>
-                                @error('pelanggan_id')
+                                @error('pemasok_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -280,7 +280,7 @@
             $('select[name="pesanans['+index+'][product_id]"]').select2({
                 placeholder: '-- Pilih Product --',
                 ajax: {
-                    url: '{{ route('api.select2.get-product') }}',
+                    url: '{{ route('api.select2.get-buy-product') }}',
                     type: 'post',
                     dataType: 'json',
                     data: params => {
@@ -301,7 +301,7 @@
 
             $('select[name="pesanans['+index+'][product_id]"]').on('select2:select', function (e) {
 				const unit = e.params.data.unit
-                const price = e.params.data.price_sell
+                const price = e.params.data.price_buy
 
 				$('[name="pesanans['+index+'][satuan]"]').val(unit)
                 $('[name="pesanans['+index+'][harga]"]').val(formatter(price))
@@ -346,7 +346,7 @@
     let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
 
     $(document).ready(function () {
-        $("#pelanggan_id").select2({
+        $("#pemasok_id").select2({
             placeholder: "-- Pilih Pemasok --",
             allowClear: true,
             ajax: {
@@ -435,7 +435,7 @@
                     })
 
                     
-                    $('input[name="pesanans['+index+'][jumlah]"]').val(formatter(jumlah));
+                    $('input[name="pesanans['+index+'][jumlah]"]').val(jumlah);
                     $('input[name="pesanans['+index+'][satuan]"]').val(satuan);
                     $('input[name="pesanans['+index+'][harga]"]').val(formatter(harga));
                     $('input[name="pesanans['+index+'][total]"]').val(formatter(total));

@@ -68,7 +68,6 @@ class PenawaranbuyController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $error = Validator::make($request->all(), [
             'pemasok_id' => 'required|exists:kontaks,id',
             'kode' => 'required',
@@ -98,7 +97,7 @@ class PenawaranbuyController extends Controller
                         'penawaran_id' => $penawaran->id,
                         'product_id' => $detail['product_id'],
                         'satuan' => $detail['satuan'],
-                        'harga_satuan' => preg_replace('/[^\d.]/', '', $detail['harga']),
+                        'harga' => preg_replace('/[^\d.]/', '', $detail['harga']),
                         'jumlah' => $detail['jumlah'],
                         'total' => preg_replace('/[^\d.]/', '', $detail['total']),
                     ]);

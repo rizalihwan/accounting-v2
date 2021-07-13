@@ -41,12 +41,17 @@ Route::name('api.')->group(function () {
         Route::post('/get-product', 'Api\SalesController@getProduct')->name('get-product');
         Route::get('/get-product/{product}', 'Api\SalesController@selectedProduct')->name('get-product.selected');
 
+        //product buy
+        Route::post('/get-buy-product', 'Api\BuyController@getProduct')->name('get-buy-product');
+        Route::get('/get-buy-product/{product}', 'Api\BuyController@selectedProduct')->name('get-buy-product.selected');
+
         //penawaran
         Route::post('/get-sale-penawaran', 'Api\SalesController@getPenawaran')->name('get-sale-penawaran');
-        Route::post('/get-sale-penawaran', 'Api\BuyController@getPenawaran')->name('get-buy-penawaran');
+        Route::post('/get-buy-penawaran', 'Api\BuyController@getPenawaran')->name('get-buy-penawaran');
 
         //pesanan
         Route::post('/get-sale-pesanan', 'Api\SalesController@getPesanan')->name('get-sale-pesanan');
+        Route::post('/get-buy-pesanan', 'Api\BuyController@getPesanan')->name('get-buy-pesanan');
 
     });
 

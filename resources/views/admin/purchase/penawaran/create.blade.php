@@ -272,7 +272,7 @@
             $('select[name="penawarans['+index+'][product_id]"]').select2({
                 placeholder: '-- Pilih Product / Jasa --',
                 ajax: {
-                    url: '{{ route('api.select2.get-product') }}',
+                    url: '{{ route('api.select2.get-buy-product') }}',
                     type: 'post',
                     dataType: 'json',
                     data: params => {
@@ -293,7 +293,7 @@
 
             $('select[name="penawarans['+index+'][product_id]"]').on('select2:select', function (e) {
 				const unit = e.params.data.unit
-                const price = e.params.data.price_sell
+                const price = e.params.data.price_buy
 
 				$('[name="penawarans['+index+'][satuan]"]').val(unit)
                 $('[name="penawarans['+index+'][harga]"]').val(formatter(price))

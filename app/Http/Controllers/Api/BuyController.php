@@ -4,12 +4,49 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kontak;
+use App\Models\Product;
 use App\Models\Purchase\PenawaranBuys;
 use App\Models\Purchase\PenawaranBuysDetail;
+use App\Models\Purchase\PesananBuys;
+use App\Models\Purchase\PesananBuysDetail;
 use Illuminate\Http\Request;
 
 class BuyController extends Controller
 {
+    public function getProduct(Request $request)
+    {
+        $search = $request->search;
+
+        $products = Product::select('id', 'unit_id', 'name', 'price_buy', 'status')
+            ->with('unit')
+            ->where('status', '1')
+            ->orWhere('name', 'like', "%{$search}%")
+            ->get()
+            ->take(5);
+
+        $result = [];
+
+        foreach ($products as $product) {
+            $result[] = [
+                "id" => $product->id,
+                "text" => $product->name,
+                "unit" => $product->unit->name,
+                "price_buy" => $product->price_buy,
+            ];
+        }
+
+        return $result;
+    }
+
+    public function selectedProduct(Product $product)
+    {
+        return response()->json([
+            "id" => $product->id,
+            "text" => $product->name,
+            "unit" => $product->unit->name,
+            "price_buy" => $product->price_buy,
+        ]);
+    }
     public function getPemasok(Request $request)
     {
         $search = $request->search;
@@ -62,7 +99,7 @@ class BuyController extends Controller
         $result = [];
 
         foreach ($penawarans as $penawaran) {
-            $detail = PenawaranBuysDetail::select('id', 'penawaran_id', 'product_id', 'jumlah', 'harga_satuan','satuan','total')
+            $detail = PenawaranBuysDetail::select('id', 'penawaran_id', 'product_id', 'jumlah', 'harga','satuan','total')
                 ->where('penawaran_id', $penawaran->id)
                 ->get();
             $result[] = [
@@ -81,8 +118,8 @@ class BuyController extends Controller
     {
         $search = $request->search;
 
-        $pesanans = PesananSale::select('id', 'kode', 'pelanggan_id')
-            ->with('pelanggan:id,nama')
+        $pesanans = PesananBuys::select('id', 'kode', 'pemasok_id')
+            ->with('pemasok:id,nama')
             ->where('status', '1')
             ->orWhere('kode', 'like', "%{$search}%")
             ->get()
@@ -91,13 +128,13 @@ class BuyController extends Controller
         $result = [];
 
         foreach ($pesanans as $pesanan) {
-            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
+            $detail = PesananBuysDetail::select('id', 'pesanan_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
                 ->where('pesanan_id', $pesanan->id)
                 ->get();
             $result[] = [
                 "id" => $pesanan->id,
                 "text" => $pesanan->kode,
-                "pelanggan" => $pesanan->pelanggan->nama,
+                "pemasok" => $pesanan->pemasok->nama,
                 "detail" => $detail->toArray(),
             ];
         }

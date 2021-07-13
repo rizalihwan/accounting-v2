@@ -2,7 +2,7 @@
 @section('title', 'Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.') }}">Penjualan</a>
+    <a href="{{ route('admin.purchase.') }}">Admin</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Pesanan Penjualan</li>
 @endpush
@@ -38,9 +38,13 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pesanan->tanggal }}</td>
                                 <td>{{ $pesanan->kode }}</td>
-                                <td>{{ $pesanan->pelanggan->nama }}</td>
+                                <td>{{ $pesanan->pemasok->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($pesanan->total, 0, ',', '.') }}</td>
-                                <td>{{ $pesanan->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>@if($pesanan->status == 1)
+                                    <span class="badge badge-success">Open</span>
+                                    @else
+                                    <span class="badge badge-info">Delivered</span>
+                                    @endif</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"

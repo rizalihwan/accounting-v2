@@ -2,7 +2,7 @@
 @section('title', 'Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales.') }}">Penjualan</a>
+    <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Penawaran Harga</li>
 @endpush
@@ -40,7 +40,12 @@
                                 <td>{{ $penawaran->kode }}</td>
                                 <td>{{ $penawaran->pemasok->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($penawaran->total, 0, ',', '.') }}</td>
-                                <td>{{ $penawaran->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>@if($penawaran->status == 1)
+                                    <span class="badge badge-success">Open</span>
+                                    @else
+                                    <span class="badge badge-warning">Closed</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"

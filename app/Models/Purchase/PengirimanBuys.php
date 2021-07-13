@@ -9,6 +9,7 @@ class PengirimanBuys extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $table = "terima_buys";
     public function pemasok()
     {
         return $this->belongsTo(\App\Models\Kontak::class);
