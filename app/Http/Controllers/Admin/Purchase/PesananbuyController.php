@@ -13,6 +13,28 @@ use Illuminate\Support\Facades\DB;
 
 class PesananbuyController extends Controller
 {
+    private $kode;
+
+    public function __construct()
+    {
+        $number = PesananBuys::count();
+        if ($number > 0) {
+            $number = PesananBuys::max('kode');
+            $strnum = (int)substr($number, 2, 3);
+            $strnum = $strnum + 1;
+            if (strlen($strnum) == 3) {
+                $kode = 'PX' . $strnum;
+            } else if (strlen($strnum) == 2) {
+                $kode = 'PX' . "0" . $strnum;
+            } else if (strlen($strnum) == 1) {
+                $kode = 'PX' . "00" . $strnum;
+            }
+        } else {
+            $kode = 'PX' . "001";
+        }
+        $this->kode = $kode;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +42,12 @@ class PesananbuyController extends Controller
      */
     public function index()
     {
-        $indeks = PesananBuys::all();
-        return view('admin.purchase.pemesanan.index',compact('indeks'));
+        $pesanans = PesananBuys::select('id', 'tanggal', 'kode', 'total', 'status', 'pelanggan_id')->with('pemasok:id,nama');
+
+        return view('admin.purchase.pemesanan.index', [
+            'pesanans' => $pesanans->paginate(5),
+            'countPesanan' => $pesanans->count(),
+        ]);
     }
 
     /**
@@ -31,7 +57,12 @@ class PesananbuyController extends Controller
      */
     public function create()
     {
-        return view('admin.purchase.pemesanan.create');
+        $penawaran = PenawaranBuys::count() >= 1 ? true : false;
+
+        return view('admin.purchase.pemesanan.create', [
+            'kode' => $this->kode,
+            'penawaran' => $penawaran
+        ]);
     }
 
     /**

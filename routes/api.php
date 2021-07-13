@@ -43,6 +43,7 @@ Route::name('api.')->group(function () {
 
         //penawaran
         Route::post('/get-sale-penawaran', 'Api\SalesController@getPenawaran')->name('get-sale-penawaran');
+        Route::post('/get-sale-penawaran', 'Api\BuyController@getPenawaran')->name('get-buy-penawaran');
 
         //pesanan
         Route::post('/get-sale-pesanan', 'Api\SalesController@getPesanan')->name('get-sale-pesanan');

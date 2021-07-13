@@ -79,9 +79,9 @@ Route::middleware('auth')->group(function () {
         Route::prefix('purchase')->name('purchase.')->group(function () {
             Route::view('/', 'menu');
             Route::resource('penawaran', 'Purchase\PenawaranbuyController');
-            Route::resource('pesanan', 'Purchase\PesananBuyController');
-            Route::resource('terima', 'Purchase\TerimaBuyController');
-            Route::resource('faktur', 'Purchase\FakturBuyController');
+            Route::resource('pesanan', 'Purchase\PesananbuyController');
+            Route::resource('terima', 'Purchase\TerimabuyController');
+            Route::resource('faktur', 'Purchase\FakturbuyController');
         });
         Route::prefix('cash-bank')->group(function () {
             Route::view('/', 'menu')->name('cash-bank');

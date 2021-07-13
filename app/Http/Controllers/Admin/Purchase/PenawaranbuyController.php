@@ -42,8 +42,11 @@ class PenawaranbuyController extends Controller
      */
     public function index()
     {
-        $indeks = PenawaranBuys::all();
-        return view('admin.purchase.penawaran.index',compact('indeks'));
+        $penawarans = PenawaranBuys::select('id', 'tanggal', 'kode', 'pemasok_id', 'total', 'status')->with('pemasok');
+        return view('admin.purchase.penawaran.index', [
+            'penawarans' => $penawarans->paginate(5),
+            'countPenawaran' => $penawarans->count(),
+        ]);
     }
 
     /**
@@ -65,6 +68,7 @@ class PenawaranbuyController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $error = Validator::make($request->all(), [
             'pemasok_id' => 'required|exists:kontaks,id',
             'kode' => 'required',
@@ -94,7 +98,7 @@ class PenawaranbuyController extends Controller
                         'penawaran_id' => $penawaran->id,
                         'product_id' => $detail['product_id'],
                         'satuan' => $detail['satuan'],
-                        'harga' => preg_replace('/[^\d.]/', '', $detail['harga']),
+                        'harga_satuan' => preg_replace('/[^\d.]/', '', $detail['harga']),
                         'jumlah' => $detail['jumlah'],
                         'total' => preg_replace('/[^\d.]/', '', $detail['total']),
                     ]);
