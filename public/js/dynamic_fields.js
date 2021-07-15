@@ -74,15 +74,18 @@ function field_dinamis(form, url_product) {
             </td>
             <td>
                 <input type="text" name="${form}[${index}][total]" class="form-control total"  placeholder="0" readonly>
-            </td>
-            <td>
-                <button type="button" name="remove" 
-                    class="btn btn-danger btn-sm text-white btn_remove">
-                    <i data-feather="trash-2"></i>
-                </button>
-            </td>
-        </tr>
-    `;
+            </td>`;
+    if (index >= 1) {
+        html += `<td>
+            <button type="button" name="remove" 
+                class="btn btn-danger btn-sm text-white btn_remove">
+                <i data-feather="trash-2"></i>
+            </button>
+        </td></tr>`;
+    } else {
+        html += `<td></td></tr>`;
+    }
+
     $("#dynamic_field").append(html);
 
     // const jumlah = document.getElementsByName(`${form}[${index}][jumlah]`);
@@ -200,15 +203,18 @@ function field_dinamis_edit(form, url_product, id = undefined, jumlah = undefine
             <td>
                 <input type="text" name="${form}[${index}][total]" class="form-control total" 
                     value="${total}" placeholder="0" readonly>
-            </td>
-            <td>
-                <button type="button" name="remove" 
-                    class="btn btn-danger btn-sm text-white btn_remove">
-                    <i data-feather="trash-2"></i>
-                </button>
-            </td>
-        </tr>
-    `;
+            </td>`;
+    if (index >= 1) {
+        html += `<td>
+            <button type="button" name="remove" 
+                class="btn btn-danger btn-sm text-white btn_remove">
+                <i data-feather="trash-2"></i>
+            </button>
+        </td></tr>`;
+    } else {
+        html += `<td></td></tr>`;
+    }
+
     $("#dynamic_field").append(html);
 
     // const jumlah = document.getElementsByName(`${form}[${index}][jumlah]`);
