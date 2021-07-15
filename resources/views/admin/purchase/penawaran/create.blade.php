@@ -7,7 +7,7 @@
 <li class="breadcrumb-item">
     <a href="{{ route('admin.purchase.penawaran.index') }}">Penawaran Harga</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Tambah Penawaran Harga</li>
+<li class="breadcrumb-item active" aria-current="page">Tambah</li>
 @endpush
 @section('content')
 <div class="row">
@@ -97,22 +97,22 @@
                                     </thead>
                                     <tbody id="dynamic_field"></tbody>
                                 </table>
-                                <button type="button" id="add" class="btn btn-success my-2"
-                                    style="width: 100%; height: 50px">
-                                    <i data-feather="plus"></i>
-                                    Tambah Row Baru
-                                </button>
-                                <table class="table table-borderless col-sm-6 ml-auto border-top">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width: 180px">Total</th>
-                                            <td>
-                                                <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
+                            <button type="button" id="add" class="btn btn-success my-2"
+                                style="width: 100%; height: 50px">
+                                <i data-feather="plus"></i>
+                                Tambah Row Baru
+                            </button>
+                            <table class="table table-borderless col-sm-6 ml-auto border-top">
+                                <tbody>
+                                    <tr class="rowComponentTotal">
+                                        <th style="width: 180px">Total</th>
+                                        <td>
+                                            <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,65 @@
     .rowComponent td .form-control{
         border-radius:0px !important;
     }
+    .rowComponentTotal th{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
+    .rowComponentTotal td{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
+    .rowComponentTotal td .form-control{
+        border-radius:0px !important;
+    }
 
+    @media only screen and (max-width: 1024px) {
+        .rowComponent td .jumlah {
+            width: 70px;
+        }
+        .rowComponentTotal th{
+            width: 160px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .rowComponentTotal td .form-control{
+            width: 200px;
+        }
+        .rowComponentTotal th{
+            width: 100px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 575px) {
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+        .rowComponentTotal th{
+            width: 150px !important;
+        }
+    }
+
+    @media only screen and (max-width: 650px) {
+        .rowComponent td .jumlah {
+            width: 60px;
+        }
+        .rowComponent td .satuan {
+            width: 100px;
+        }
+        .rowComponent td .harga {
+            width: 120px;
+        }
+        .rowComponent td .total {
+            width: 130px;
+        }
+    }
 </style>
 @endpush
 
@@ -158,10 +216,34 @@
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
 <script src="{{ asset('js/helpers.js') }}"></script>
+<script src="{{ asset('js/dynamic_fields.js') }}"></script>
 <script>
-    let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
-
     $(document).ready(function () {
+        field_dinamis('penawarans', '{{ route('api.select2.get-buy-product') }}');
+        getNumberOfTr()
+
+        $('#add').click(function(){
+            field_dinamis('penawarans', '{{ route('api.select2.get-buy-product') }}');
+            checkRowLength();
+        })
+
+        $(document).on('click', '.btn_remove', function() {
+            let parent = $(this).parent()
+            let id = parent.data('id')
+            let delete_data = $("input[name='delete_data']").val()
+
+            if(id !== 'undefined' && id !== undefined) {
+                $("input[name='delete_data']").val(delete_data + ';' + id)
+            }
+
+            $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
+            getNumberOfTr()
+            checkRowLength()
+
+            $("#total").val(formatter(jumlahin()))
+        })
+
+        // SELECT2
         $("#pemasok_id").select2({
             placeholder: "-- Pilih Pemasok --",
             ajax: {
@@ -186,171 +268,5 @@
             },
         });
     });
-
-</script>
-<script>
-
-</script>
-<script>
-
-    function generateUUID() {
-        var d = new Date().getTime();
-        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16;
-            if (d > 0) {
-                r = (d + r)%16 | 0;
-                d = Math.floor(d/16);
-            } else {
-                r = (d2 + r)%16 | 0;
-                d2 = Math.floor(d2/16);
-            }
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-    }
-
-    function jumlahin() {
-        let total =  0
-        let cols_debit = document.querySelectorAll('.total')
-        for (let i = 0; i < cols_debit.length; i++) {
-            let e_debit = cols_debit[i];
-            total += parseFloat(e_debit.value.replace(/,/g, '')) == "" ? 0 : parseFloat(e_debit.value.replace(/,/g, ''))
-        }
-        return total;
-    }
-
-    function field_dinamis() {
-            let index = $('#dynamic_field tr').length
-            let uuid = generateUUID()
-            let html = `
-                <tr class="rowComponent">
-                    <input type="hidden" width="10px" name="penawarans[${index}][id]" value="${uuid}">
-                    <td class="no" hidden>
-                        <input type="text" value="${index + 1}" class="form-control" disabled>
-                    </td>
-                    <td>
-                        <select name="penawarans[${index}][product_id]" class="form-control select-${index}"></select>
-                    </td>
-                    <td>
-                        <input type="text" name="penawarans[${index}][jumlah]"  class="form-control jumlah" placeholder="0" readonly>
-                    </td>
-                    <td>
-                        <input type="text" name="penawarans[${index}][satuan]" class="form-control satuan"  readonly>
-                    </td>
-                    <td>
-                        <input type="text" name="penawarans[${index}][harga]" class="form-control harga" readonly>
-                    </td>
-                    <td>
-                        <input type="text" name="penawarans[${index}][total]" class="form-control total"  placeholder="0" readonly>
-                    </td>
-                    <td>
-                        <button type="button" name="remove" 
-                            class="btn btn-danger btn-sm text-white btn_remove">
-                            <i data-feather="trash-2"></i>
-                        </button>
-                    </td>
-                </tr>
-            `
-            $("#dynamic_field").append(html)
-
-            // const jumlah = document.getElementsByName(`penawarans[${index}][jumlah]`);
-            // const total = document.getElementsByName(`penawarans[${index}][total]`);
-            // jumlah.addEventListener('change', function (e){
-            //     total.value = subTotal(index);
-            // });
-
-            $('[name="penawarans['+index+'][jumlah]"]').on('change', function () {
-                const harga = $('[name="penawarans['+index+'][harga]"]').val();
-                const total = parseFloat(harga.replace(/,/g, '')) * parseInt($(this).val());
-                $('[name="penawarans['+index+'][total]"]').val(formatter(total));
-
-                $("#total").val(formatter(jumlahin()))
-                
-            });
-            // jurnalEachColumn(index)
-            feather.replace()
-            $('select[name="penawarans['+index+'][product_id]"]').select2({
-                placeholder: '-- Pilih Product / Jasa --',
-                ajax: {
-                    url: '{{ route('api.select2.get-buy-product') }}',
-                    type: 'post',
-                    dataType: 'json',
-                    data: params => {
-                        return {
-                            _token: CSRF_TOKEN,
-                            search: params.term
-                        }
-                    },
-                    processResults: data => {
-                        return {
-                            results: data
-                        }
-                    },
-                    cache: true
-                },
-                allowClear: true
-            })
-
-            $('select[name="penawarans['+index+'][product_id]"]').on('select2:select', function (e) {
-				const unit = e.params.data.unit
-                const price = e.params.data.price_buy
-
-				$('[name="penawarans['+index+'][satuan]"]').val(unit)
-                $('[name="penawarans['+index+'][harga]"]').val(formatter(price))
-                $('[name="penawarans['+index+'][harga]"]').attr('readonly', false)
-                $('[name="penawarans['+index+'][jumlah]"]').attr('readonly', false)
-			})
-
-            document.querySelectorAll('.harga').forEach(item => {
-                item.addEventListener('keyup', function(event) {
-                    
-                    const n = parseInt(this.value.replace(/\D/g,''),10);
-                    item.value = formatter(n);
-                    
-                    // const total = parseFloat(item.value.replace(/,/g, '')) * parseInt($('[name="penawarans['+index+'][jumlah]"]').val());
-                    // $('[name="penawarans['+index+'][total]"]').val(formatter(total));
-    
-                })
-            })
-
-            $('[name="penawarans['+index+'][harga]"]').on('change', function () {
-
-                const jumlahDua = parseInt($('[name="penawarans['+index+'][jumlah]"]').val());
-                const hargaDua = $(this).val();
-                const totalDua = jumlahDua * parseFloat(hargaDua.replace(/,/g, ''))
-                $('[name="penawarans['+index+'][total]"]').val(formatter(totalDua));
-
-                $("#total").val(formatter(jumlahin()))
-                
-            });
-
-
-    }
-
-    function getNumberOfTr() {
-        $('#dynamic_field tr').each(function(index, tr) {
-            $(this).find("td.no input").val(index + 1)
-        })
-    }
-</script>
-<script>
-    field_dinamis();
-    $(document).ready(function(){
-        getNumberOfTr()
-        $('#add').click(function(){
-            field_dinamis()
-        })
-        $(document).on('click', '.btn_remove', function() {
-            let parent = $(this).parent()
-            let id = parent.data('id')
-            let delete_data = $("input[name='delete_data']").val()
-            if(id !== 'undefined' && id !== undefined) {
-                $("input[name='delete_data']").val(delete_data + ';' + id)
-            }
-            $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            getNumberOfTr()
-            $("#total").val(formatter(jumlahin()))
-        })
-    })
 </script>
 @endpush

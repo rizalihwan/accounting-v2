@@ -18,7 +18,7 @@ class BuyController extends Controller
         $search = $request->search;
 
         $products = Product::select('id', 'unit_id', 'name', 'price_buy', 'status')
-            ->with('unit')
+            ->with('unit:id,name,status')
             ->where('status', '1')
             ->orWhere('name', 'like', "%{$search}%")
             ->get()
@@ -99,7 +99,7 @@ class BuyController extends Controller
         $result = [];
 
         foreach ($penawarans as $penawaran) {
-            $detail = PenawaranBuysDetail::select('id', 'penawaran_id', 'product_id', 'jumlah', 'harga','satuan','total')
+            $detail = PenawaranBuysDetail::select('id', 'penawaran_id', 'product_id', 'jumlah', 'harga', 'satuan', 'total')
                 ->where('penawaran_id', $penawaran->id)
                 ->get();
             $result[] = [
@@ -139,5 +139,23 @@ class BuyController extends Controller
             ];
         }
         return $result;
+    }
+
+    public function getPenawaranDetails($id)
+    {
+        $details = PenawaranBuysDetail::select('id', 'penawaran_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
+            ->where('penawaran_id', $id)->get();
+
+        if ($details->count() == 0) {
+            return response()->json([
+                'message' => 'not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Success get penawaran_details data',
+            'data' => $details,
+            'length' => $details->count()
+        ]);
     }
 }

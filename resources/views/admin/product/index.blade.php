@@ -12,12 +12,15 @@
     <div class="col-lg-12 col-md-12 col-12">
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                <h4 class="card-title">List Product</h4>
+                <div class="d-flex">
+                    <h4 class="card-title">List Product</h4>
+                    <h4><span class="text-muted ml-1">{{ $products->count() }}</span></h4>
+                </div>
                 <a href="{{ route('admin.product.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" @if($products->count() == 1) style="height: 140px" @endif>
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>
@@ -52,14 +55,15 @@
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
-                                            <div class="dropdown-item">
-                                                <form action="{{ route('admin.product.destroy', $product->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
-                                                        <span class="ml-1">Delete</span></button>
-                                                </form>
-                                            </div>
+                                            <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                                onclick="deleteConfirm('form-delete', '{{ $product->id }}')">
+                                                <i data-feather="trash"></i>
+                                                <span class="ml-1">Delete</span>
+                                            </a>
+                                            <form id="form-delete{{ $product->id }}" action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -67,7 +71,7 @@
                             @empty
                             <tr>
                                 <td colspan="6" align="center">
-                                    Tidak ada data
+                                    Data kosong.
                                 </td>
                             </tr>
                             @endforelse
