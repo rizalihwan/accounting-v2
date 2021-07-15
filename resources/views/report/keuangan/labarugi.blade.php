@@ -30,7 +30,7 @@
                                 Beban atas Pendapatan
                                 <span class="float-right">:</span>
                             </th>
-                            <td> 0 </td>
+                            <td>{{ 'Rp. ' . number_format($beban, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <th>
