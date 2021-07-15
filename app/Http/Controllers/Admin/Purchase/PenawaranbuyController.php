@@ -131,7 +131,14 @@ class PenawaranbuyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $penawaran = PenawaranBuys::find($id);
+
+        if (empty($penawaran)) {
+            return redirect()->route('admin.purchase.penawaran.index')
+                ->with('error', 'Penawaran tidak ditemukan');
+        }
+
+        return view('admin.purchase.penawaran.edit', compact('penawaran'));
     }
 
     /**
@@ -143,7 +150,71 @@ class PenawaranbuyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'penawarans.*.product_id' => 'required|exists:products,id',
+            'penawarans.*.jumlah' => 'required|numeric',
+            'penawarans.*.satuan' => 'required',
+            'penawarans.*.harga' => 'required',
+            'penawarans.*.total' => 'required',
+            'total' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withErrors($validate);
+        }
+
+        $detail_id = [];
+
+        foreach ($request->penawarans as $value) {
+            $detail_id[] = $value['id'];
+        }
+
+        $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
+
+        try {
+            DB::transaction(function () use ($request, $id, $detail_id) {
+                $penawaran = PenawaranBuys::find($id);
+
+                if (empty($penawaran)) {
+                    return redirect()->route('admin.purchase.penawaran.index')
+                        ->with('error', 'Penawaran tidak ditemukan.');
+                }
+
+                PenawaranBuysDetail::where('penawaran_id', $id)
+                    ->whereNotIn('id', $detail_id)
+                    ->delete();
+
+                foreach ($request->penawarans as $item) {
+                    if ($item['id'] != null) {
+                        PenawaranBuysDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        PenawaranBuysDetail::create([
+                            'penawaran_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'jumlah' => $item['jumlah'],
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+
+                $penawaran->update(array_merge($request->except('penawarans', 'total'), [
+                    'total' => preg_replace('/[^\d.]/', '', $request->total)
+                ]));
+            });
+
+            return redirect()->route('admin.purchase.penawaran.index')
+                ->with('success', 'Penawaran berhasil diedit.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     /**
