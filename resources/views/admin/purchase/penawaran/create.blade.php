@@ -97,22 +97,22 @@
                                     </thead>
                                     <tbody id="dynamic_field"></tbody>
                                 </table>
-                                <button type="button" id="add" class="btn btn-success my-2"
-                                    style="width: 100%; height: 50px">
-                                    <i data-feather="plus"></i>
-                                    Tambah Row Baru
-                                </button>
-                                <table class="table table-borderless col-sm-6 ml-auto border-top">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width: 180px">Total</th>
-                                            <td>
-                                                <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
+                            <button type="button" id="add" class="btn btn-success my-2"
+                                style="width: 100%; height: 50px">
+                                <i data-feather="plus"></i>
+                                Tambah Row Baru
+                            </button>
+                            <table class="table table-borderless col-sm-6 ml-auto border-top">
+                                <tbody>
+                                    <tr class="rowComponentTotal">
+                                        <th style="width: 180px">Total</th>
+                                        <td>
+                                            <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,65 @@
     .rowComponent td .form-control{
         border-radius:0px !important;
     }
+    .rowComponentTotal th{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
+    .rowComponentTotal td{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
+    .rowComponentTotal td .form-control{
+        border-radius:0px !important;
+    }
 
+    @media only screen and (max-width: 1024px) {
+        .rowComponent td .jumlah {
+            width: 70px;
+        }
+        .rowComponentTotal th{
+            width: 160px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .rowComponentTotal td .form-control{
+            width: 200px;
+        }
+        .rowComponentTotal th{
+            width: 100px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 575px) {
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+        .rowComponentTotal th{
+            width: 150px !important;
+        }
+    }
+
+    @media only screen and (max-width: 650px) {
+        .rowComponent td .jumlah {
+            width: 60px;
+        }
+        .rowComponent td .satuan {
+            width: 100px;
+        }
+        .rowComponent td .harga {
+            width: 120px;
+        }
+        .rowComponent td .total {
+            width: 130px;
+        }
+    }
 </style>
 @endpush
 
@@ -179,10 +237,10 @@
             }
 
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            $("#total").val(formatter(jumlahin()))
-
             getNumberOfTr()
             checkRowLength()
+
+            $("#total").val(formatter(jumlahin()))
         })
 
         // SELECT2

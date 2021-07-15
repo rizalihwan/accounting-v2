@@ -129,12 +129,64 @@
         border-radius:0px !important;
     }
 
+    .rowComponentTotal th{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
     .rowComponentTotal td{
         padding-right: 8px !important;
         padding-left: 0px !important;
     }
     .rowComponentTotal td .form-control{
         border-radius:0px !important;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .rowComponent td .jumlah {
+            width: 70px;
+        }
+        .rowComponentTotal th{
+            width: 160px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .rowComponentTotal td .form-control{
+            width: 200px;
+        }
+        .rowComponentTotal th{
+            width: 100px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 575px) {
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+        .rowComponentTotal th{
+            width: 150px !important;
+        }
+    }
+
+    @media only screen and (max-width: 650px) {
+        .rowComponent td .jumlah {
+            width: 60px;
+        }
+        .rowComponent td .satuan {
+            width: 100px;
+        }
+        .rowComponent td .harga {
+            width: 120px;
+        }
+        .rowComponent td .total {
+            width: 130px;
+        }
     }
 </style>
 @endpush
@@ -215,10 +267,10 @@
             }
 
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            $("#total").val(formatter(jumlahin()))
-
             getNumberOfTr();
             checkRowLength();
+
+            $("#total").val(formatter(jumlahin()))
         })
     })
 </script>
