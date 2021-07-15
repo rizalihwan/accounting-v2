@@ -46,19 +46,50 @@
 <script>
     function deleteConfirm(form_id, id) {
         Swal.fire({
-            title:"Are you sure?",
-            text:"You won't be able to revert this!",
-            icon:"warning",
-            showCancelButton:!0,
-            confirmButtonText:"Yes, delete it!",
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
             customClass:{
-                confirmButton:"btn btn-primary",
-                cancelButton:"btn btn-outline-danger ml-1"
+                confirmButton: "btn btn-primary",
+                cancelButton: "btn btn-outline-danger ml-1"
             },
-            buttonsStyling:!1
+            buttonsStyling: false
         }).then((willDelete) => {
             if (willDelete.value) {
                 $(`#${form_id}${id}`).submit();
+            }
+        })
+    }
+
+    function logoutConfirm() {
+        Swal.fire({
+            title: "Logout",
+            text: "You will be returned to the login screen.",
+            icon: "warning",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonText: "Logout",
+            customClass: {
+                confirmButton:"btn btn-primary",
+                cancelButton:"btn btn-outline-danger ml-1"
+            },
+            buttonsStyling: false,
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return new Promise((resolve) => {
+                    $("#logout-form").submit();
+                    // setTimeout(function() {
+                    //     console.log('logic ends');
+                    //     resolve();
+                    // }, 5000);
+                });
+            }
+        }).then((willDelete) => {
+            if (willDelete.value) {
+                console.log("Logged out.");
             }
         })
     }
