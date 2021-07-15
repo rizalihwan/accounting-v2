@@ -40,7 +40,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $faktur->tanggal }}</td>
                                 <td>{{ $faktur->kode }}</td>
-                                <td>{{ $faktur->pelanggan->nama }}</td>
+                                <td>{{ $faktur->pemasok->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($faktur->total, 0, ',', '.') }}</td>
                                 <td>{{ $faktur->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
                                 <td>

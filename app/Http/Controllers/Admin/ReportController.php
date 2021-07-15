@@ -8,6 +8,7 @@ use App\Models\Bank;
 use App\Models\Jurnalumum;
 use App\Models\Jurnalumumdetail;
 use App\Models\Bkk;
+use App\Models\Purchase\FakturBuy;
 use App\Models\Sale\FakturSale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -93,10 +94,12 @@ class ReportController extends Controller
     public function labarugi()
     {
         $pendapatan = FakturSale::sum('total');
-        $total_laba = $pendapatan - 0;
+        $beban = FakturBuy::sum('total');
+        $total_laba = $pendapatan - $beban;
         return view('report.keuangan.labarugi', [
             'pendapatan' => $pendapatan,
-            'total_laba' => $total_laba
+            'total_laba' => $total_laba,
+            'beban' => $beban
         ]);
     }
     public function bukubesar()
