@@ -13,14 +13,18 @@ const formatRupiah = (angka, prefix) => {
     return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 }
 
-
 const formatter =  (numb) => {
+    numb = numb == '' ? 0 : numb;
     const rupiah = new Intl.NumberFormat('en-ID', {
         style: 'currency',
         currency: 'IDR'
-      }).format(numb)
-      .replace(/[IDR]/gi, '')
-      .replace(/(\.+\d{2})/, '')
-      .trimLeft()
+    }).format(numb).replace(/[IDR]/gi, '').replace(/(\.+\d{2})/, '').trimLeft()
+
     return rupiah;
+}
+
+const onlyNumber = (e) => {
+    if (e.which != 8 && e.which != 0 && e.which < 48 || e.which > 57) {
+        e.preventDefault();
+    }
 }
