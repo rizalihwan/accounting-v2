@@ -107,11 +107,11 @@ class BuyController extends Controller
                 "text" => $penawaran->kode,
                 "total" => $penawaran->total,
                 "pemasok" => $penawaran->pemasok->nama,
-                "detail" => $detail->toArray(),
+                "detail" => $detail,
             ];
         }
 
-        return $result;
+        return response()->json($result);
     }
 
     public function getPesanan(Request $request)
