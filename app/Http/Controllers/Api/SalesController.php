@@ -134,10 +134,10 @@ class SalesController extends Controller
         return $result;
     }
 
-    public function getFakturDetails($id)
+    public function getFakturDetails($faktur_id)
     {
         $details = FakturSaleDetail::select('id', 'faktur_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
-            ->where('faktur_id', $id)->get();
+            ->where('faktur_id', $faktur_id)->get();
 
         if ($details->count() == 0) {
             return response()->json([
