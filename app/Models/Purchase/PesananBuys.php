@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class PesananBuys extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
     public function pemasok()
     {
         return $this->belongsTo(\App\Models\Kontak::class);
+    }
+
+    public function penawaran()
+    {
+        return $this->belongsTo(PenawaranBuys::class, 'penawaran_id');
     }
 }
