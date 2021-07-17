@@ -54,9 +54,18 @@ Route::name('api.')->group(function () {
         Route::post('/get-buy-pesanan', 'Api\BuyController@getPesanan')->name('get-buy-pesanan');
     });
 
-    // Penawaran
-    Route::get('/get-buy-penawaran-detail/{id}', 'Api\BuyController@getPenawaranDetails')->name('get-buy-penawaran.details');
+    /**
+     * PENJUALAN
+     */
+    // Get Faktur Detail by:faktur_id
+    Route::get('/get-sale-faktur-details/{faktur_id}', 'Api\SalesController@getFakturDetails')->name('get-sale-faktur.details');
 
-    // Faktur
-    Route::get('/get-sale-faktur-details/{id}', 'Api\SalesController@getFakturDetails')->name('get-sale-faktur.details');
+    /**
+     * PEMBELIAN
+     */
+    // Get Penawaran Detail by:pesanan_id
+    Route::get('/get-buy-penawaran-detail/{penawaran_id}', 'Api\BuyController@getPenawaranDetails')->name('get-buy-penawaran.details');
+
+    // Get Pesanan Detail by:pesanan_id
+    Route::get('/get-buy-pesanan-detail/{pesanan_id}', 'Api\BuyController@getPesananDetails')->name('get-buy-pesanan.details');
 });

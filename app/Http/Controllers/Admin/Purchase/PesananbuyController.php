@@ -132,7 +132,7 @@ class PesananbuyController extends Controller
         $produk = Product::all();
         $pemasok = Kontak::all();
         $penawaran = PenawaranBuys::all();
-        return view('admin.purchase.pemesanan.'.$id,compact('produk','pemasok','penawaran'));
+        return view('admin.purchase.pemesanan.' . $id, compact('produk', 'pemasok', 'penawaran'));
     }
 
     /**
@@ -143,7 +143,15 @@ class PesananbuyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pesanan = PesananBuys::with('pemasok:id,nama,kode_kontak', 'penawaran:id,kode')
+            ->find($id);
+
+        if (empty($pesanan)) {
+            return redirect()->route('admin.purchase.pesanan.index')
+                ->with('error', 'Pesanan tidak ditemukan');
+        }
+
+        return view('admin.purchase.pemesanan.edit', compact('pesanan'));
     }
 
     /**
