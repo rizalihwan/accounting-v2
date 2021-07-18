@@ -364,7 +364,6 @@
             }
         })
 
-        let selected_product_url = '{{ route('api.select2.get-product.selected', ':id') }}';
         $('#pesanan_id').on('select2:select', function (e) {
             const data = e.params.data;
             const detail = data.detail;
@@ -381,12 +380,12 @@
                 let harga = detail[index].harga;
                 let total = detail[index].total;
 
-                selected_product_url = selected_product_url.replace(':id', product_id);
+                let selected_product_url = '{{ route('api.select2.get-buy-product.selected', ':id') }}';
 
                 $("#dynamic_field").html('')
 
                 $.ajax({
-                    url: selected_product_url,
+                    url: selected_product_url.replace(':id', product_id),
                     type: 'get',
                 }).then((data) => {
                     field_dinamis('fakturs', '{{ route('api.select2.get-buy-product') }}');
