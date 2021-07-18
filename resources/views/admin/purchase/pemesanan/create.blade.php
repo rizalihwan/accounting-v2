@@ -141,13 +141,12 @@
                 <div class="form-group">
                     <a href="{{ route('admin.purchase.pesanan.index') }}" class="btn btn-danger">KEMBALI</a>
                     <button type="submit" class="btn btn-primary" id="btn-submit">
-                        TAMBAH</button>
+                        TAMBAH
+                    </button>
                 </div>
             </div>
+        </form>
     </div>
-</div>
-</form>
-</div>
 </div>
 @endsection
 
@@ -254,7 +253,7 @@
 <script>
     $(document).ready(function () {
         field_dinamis('pesanans', '{{ route('api.select2.get-buy-product') }}');
-        getNumberOfTr()
+        getNumberOfTr('pesanans')
 
         $("#pemasok_id").select2({
             placeholder: "-- Pilih Pemasok --",
@@ -336,6 +335,7 @@
                     }
                 }).then((data) => {
                     field_dinamis('pesanans', '{{ route('api.select2.get-buy-product') }}');
+                    $(".btn_remove").attr('disabled', true);
 
                     let option = new Option(data.text, data.id, true, true)
                     $('select[name="pesanans['+index+'][product_id]"]').append(option).trigger('change')
@@ -361,6 +361,7 @@
                         $("#penawaran_id").attr('disabled', false)
                         $("#add").attr('disabled', false)
                         $("#btn-submit").attr('disabled', false)
+                        $(".btn_remove").attr('disabled', false);
                     }
                 })
             }
@@ -380,7 +381,7 @@
                 $("input[name='delete_data']").val(delete_data + ';' + id)
             }
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            getNumberOfTr()
+            getNumberOfTr('pesanans')
             checkRowLength()
 
             $("#total").val(formatter(jumlahin()))
