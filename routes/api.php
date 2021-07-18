@@ -71,4 +71,7 @@ Route::name('api.')->group(function () {
 
     // Get Penerimaan Detail by:terima_id
     Route::get('/get-buy-penerimaan-detail/{terima_id}', 'Api\BuyController@getPenerimaanDetails')->name('get-buy-penerimaan.details');
+
+    // Get Faktur Detail by:faktur_id
+    Route::get('/get-buy-faktur-detail/{faktur_id}', 'Api\BuyController@getFakturDetails')->name('get-buy-faktur.details');
 });

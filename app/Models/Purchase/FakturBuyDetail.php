@@ -10,8 +10,14 @@ class FakturBuyDetail extends Model
     use HasFactory;
 
     protected $guarded = [];
-    public function pemasok()
+
+    public function faktur()
     {
-        return $this->belongsTo(\App\Models\Kontak::class);
+        return $this->belongsTo(FakturBuy::class, 'faktur_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(\App\Models\Product::class);
     }
 }

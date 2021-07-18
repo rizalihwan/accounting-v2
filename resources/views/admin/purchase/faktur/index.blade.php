@@ -4,7 +4,7 @@
 <li class="breadcrumb-item">
     <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Faktur Pembelian</li>
+<li class="breadcrumb-item" aria-current="page">Faktur</li>
 @endpush
 @section('content')
 
@@ -27,7 +27,7 @@
                             <tr>
                                 <th style="width: 1px">#</th>
                                 <th>Tanggal</th>
-                                <th>kode Faktur</th>
+                                <th>Kode Faktur</th>
                                 <th>Nama Pemasok</th>
                                 <th>Total</th>
                                 <th>Status</th>
