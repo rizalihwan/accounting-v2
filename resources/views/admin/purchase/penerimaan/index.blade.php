@@ -1,10 +1,10 @@
 @extends('_layouts.main')
-@section('title', 'Penawaran Harga')
+@section('title', 'Penerimaan Barang')
 @push('breadcrumb')
 <li class="breadcrumb-item">
   <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
-<li class="breadcrumb-item active" aria-current="page">Pengiriman Barang</li>
+<li class="breadcrumb-item active" aria-current="page">Penerimaan Barang</li>
 @endpush
 @section('content')
 
@@ -13,19 +13,19 @@
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <h4 class="card-title">List Pengiriman Barang</h4>
-                    <h4><span class="text-muted ml-1">{{ $countPengiriman }}</span></h4>
+                    <h4 class="card-title">List Penerimaan Barang</h4>
+                    <h4><span class="text-muted ml-1">{{ $countPenerimaan }}</span></h4>
                 </div>
                 <a href="{{ route('admin.purchase.terima.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" @if($countPengiriman == 1) style="height: 140px" @endif>
+                    <table class="table table-hover" @if($countPenerimaan == 1) style="height: 140px" @endif>
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>
                                 <th>Tanggal</th>
-                                <th>kode Pengiriman</th>
+                                <th>Kode Penerimaan</th>
                                 <th>Nama Pelanggan</th>
                                 <th>Total</th>
                                 <th>Status</th>
