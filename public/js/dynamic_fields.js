@@ -36,11 +36,16 @@ const jumlahin = () => {
     return total;
 };
 
-const getNumberOfTr = () => {
+const getNumberOfTr = (form) => {
     $("#dynamic_field tr").each(function (index, tr) {
-        $(this)
-            .find("td.no input")
-            .val(index + 1);
+        $(this).find("td.no input").val(index + 1);
+        // reset index. masih ngebug pas ngeselect
+        // $(this).find("input.id").attr('name', `${form}[${index}][id]`);
+        // $(this).find("td select.product_id").attr('name', `${form}[${index}][product_id]`);
+        // $(this).find("td input.jumlah").attr('name', `${form}[${index}][jumlah]`);
+        // $(this).find("td input.satuan").attr('name', `${form}[${index}][satuan]`);
+        // $(this).find("td input.harga").attr('name', `${form}[${index}][harga]`);
+        // $(this).find("td input.total").attr('name', `${form}[${index}][total]`);
     });
 };
 
@@ -58,14 +63,14 @@ function field_dinamis(form, url_product) {
     let uuid = generateUUID();
     let html = `
         <tr class="rowComponent">
-            <input type="hidden" width="10px" name="${form}[${index}][id]" value="${uuid}">
+            <input type="hidden" width="10px" name="${form}[${index}][id]" class="id" value="${uuid}">
             <td class="no" hidden>
                 <input type="text" value="${
                     index + 1
                 }" class="form-control" disabled>
             </td>
             <td>
-                <select name="${form}[${index}][product_id]" class="form-control select-${index}"></select>
+                <select name="${form}[${index}][product_id]" class="form-control select-${index} product_id"></select>
             </td>
             <td>
                 <input type="number" name="${form}[${index}][jumlah]" class="form-control jumlah" 
@@ -135,10 +140,17 @@ function field_dinamis(form, url_product) {
         const unit = e.params.data.unit;
         const price = e.params.data.price_buy;
 
-        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
-        $('[name="' + form + '[' + index + '][harga]"]').val(formatter(price));
-        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false);
         $('[name="' + form + '[' + index + '][jumlah]"]').attr("readonly", false);
+        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
+        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false).val(formatter(price));
+
+        const jumlah = $('[name="' + form + '[' + index + '][jumlah]"]').val() == ''
+                        ? 0
+                        : $('[name="' + form + '[' + index + '][jumlah]"]').val();
+        const totalDua = parseInt(jumlah) * parseInt(price);
+
+        $('[name="' + form + '[' + index + '][total]"]').val(formatter(totalDua));
+        $("#total").val(formatter(jumlahin()));
     });
 
     document.querySelectorAll(".harga").forEach((item) => {
@@ -188,14 +200,14 @@ function field_dinamis_edit(form, url_product, id = undefined, jumlah = undefine
     let uuid = generateUUID();
     let html = `
         <tr class="rowComponent">
-            <input type="hidden" width="10px" name="${form}[${index}][id]" value="${id}">
+            <input type="hidden" width="10px" name="${form}[${index}][id]" class="id" value="${id}">
             <td class="no" hidden>
                 <input type="text" value="${
                     index + 1
                 }" class="form-control" disabled>
             </td>
             <td>
-                <select name="${form}[${index}][product_id]" class="form-control select-${index}"></select>
+                <select name="${form}[${index}][product_id]" class="form-control select-${index} product_id"></select>
             </td>
             <td>
                 <input type="number" name="${form}[${index}][jumlah]" class="form-control jumlah" 
@@ -267,10 +279,17 @@ function field_dinamis_edit(form, url_product, id = undefined, jumlah = undefine
         const unit = e.params.data.unit;
         const price = e.params.data.price_buy;
 
-        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
-        $('[name="' + form + '[' + index + '][harga]"]').val(formatter(price));
-        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false);
         $('[name="' + form + '[' + index + '][jumlah]"]').attr("readonly", false);
+        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
+        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false).val(formatter(price));
+
+        const jumlah = $('[name="' + form + '[' + index + '][jumlah]"]').val() == ''
+                        ? 0
+                        : $('[name="' + form + '[' + index + '][jumlah]"]').val();
+        const totalDua = parseInt(jumlah) * parseInt(price);
+
+        $('[name="' + form + '[' + index + '][total]"]').val(formatter(totalDua));
+        $("#total").val(formatter(jumlahin()));
     });
 
     document.querySelectorAll(".harga").forEach((item) => {
