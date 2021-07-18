@@ -74,7 +74,7 @@ function field_dinamis(form, url_product) {
             </td>
             <td>
                 <input type="number" name="${form}[${index}][jumlah]" class="form-control jumlah" 
-                    onkeypress="onlyNumber(event)" min="1" autocomplete="off" readonly>
+                    onkeypress="onlyNumber(event)" min="1" placeholder="0" autocomplete="off" readonly>
             </td>
             <td>
                 <input type="text" name="${form}[${index}][satuan]" class="form-control satuan"  readonly>
