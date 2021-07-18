@@ -115,6 +115,7 @@
                     </button>
                 </div>
             </div>
+        </form>
     </div>
 </div>
 @endsection
@@ -219,6 +220,9 @@
     let selected_product = '{{ route('api.select2.get-buy-product.selected', ':id') }}';
 
     $(document).ready(function () {
+        $("#btn-submit").attr('disabled', true)
+        $("#add").attr('disabled', true);
+
         $.ajax({
             type: 'get',
             url: pesanandetail_url.replace(':id', '{{ $pesanan->id }}'),
@@ -266,14 +270,10 @@
                 });
             }
         })
-        
-        getNumberOfTr();
-        
-        $("#btn-submit").attr('disabled', true)
-        $("#add").attr('disabled', true);
 
         $('#add').click(function(){
             field_dinamis('pesanans', '{{ route('api.select2.get-buy-product') }}');
+            getNumberOfTr('pesanans')
             checkRowLength();
         })
 
@@ -285,7 +285,7 @@
                 $("input[name='delete_data']").val(delete_data + ';' + id)
             }
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            getNumberOfTr()
+            getNumberOfTr('pesanans')
             checkRowLength()
 
             $("#total").val(formatter(jumlahin()))
