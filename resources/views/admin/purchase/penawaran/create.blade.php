@@ -125,10 +125,8 @@
                         TAMBAH</button>
                 </div>
             </div>
+        </form>
     </div>
-</div>
-</form>
-</div>
 </div>
 @endsection
 
@@ -220,7 +218,6 @@
 <script>
     $(document).ready(function () {
         field_dinamis('penawarans', '{{ route('api.select2.get-buy-product') }}');
-        getNumberOfTr()
 
         $('#add').click(function(){
             field_dinamis('penawarans', '{{ route('api.select2.get-buy-product') }}');
@@ -237,7 +234,7 @@
             }
 
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            getNumberOfTr()
+            getNumberOfTr('penawarans')
             checkRowLength()
 
             $("#total").val(formatter(jumlahin()))

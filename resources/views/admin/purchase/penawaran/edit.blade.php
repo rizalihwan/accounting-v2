@@ -104,10 +104,8 @@
                     </button>
                 </div>
             </div>
+        </form>
     </div>
-</div>
-</form>
-</div>
 </div>
 @endsection
 
@@ -203,6 +201,9 @@
     let selected_product = '{{ route('api.select2.get-buy-product.selected', ':id') }}';
 
     $(document).ready(function(){
+        $("#btn-submit").attr('disabled', true)
+        $("#add").attr('disabled', true);
+
         $.ajax({
             type: 'get',
             url: penawarandetail_url.replace(':id', '{{ $penawaran->id }}'),
@@ -225,6 +226,7 @@
                             'penawarans', url_product,
                             data.id, data.jumlah, data.total
                         );
+                        $(".btn_remove").attr('disabled', true);
 
                         subtotal += parseInt(data.total)
                         $("#total").val(formatter(subtotal))
@@ -232,6 +234,7 @@
                         if ((parseInt(key) + 1) == results.length) {
                             $("#btn-submit").attr('disabled', false)
                             $("#add").attr('disabled', false)
+                            $(".btn_remove").attr('disabled', false);
                         }
 
                         let option = new Option(result.text, result.id, true, true)
@@ -246,11 +249,6 @@
                 });
             }
         })
-
-        getNumberOfTr()
-
-        $("#btn-submit").attr('disabled', true)
-        $("#add").attr('disabled', true);
 
         $('#add').click(function(){
             field_dinamis_edit('penawarans', url_product);
@@ -267,7 +265,7 @@
             }
 
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            getNumberOfTr();
+            getNumberOfTr('penawarans');
             checkRowLength();
 
             $("#total").val(formatter(jumlahin()))

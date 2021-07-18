@@ -253,7 +253,6 @@
 <script>
     $(document).ready(function () {
         field_dinamis('pesanans', '{{ route('api.select2.get-buy-product') }}');
-        getNumberOfTr('pesanans')
 
         $("#pemasok_id").select2({
             placeholder: "-- Pilih Pemasok --",

@@ -273,7 +273,6 @@
 
         $('#add').click(function(){
             field_dinamis_edit('pesanans', '{{ route('api.select2.get-buy-product') }}');
-            getNumberOfTr('pesanans')
             checkRowLength();
         })
 
