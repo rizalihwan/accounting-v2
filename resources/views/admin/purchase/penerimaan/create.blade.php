@@ -314,13 +314,12 @@
                 let harga = detail[index].harga;
                 let total = detail[index].total;
 
-                let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
-                url_product = url_product.replace(':id', product_id);
+                let selected_product_url = '{{ route('api.select2.get-buy-product.selected', ':id') }}';
 
                 $("#dynamic_field").html('')
 
                 $.ajax({
-                    url: url_product,
+                    url: selected_product_url.replace(':id', product_id),
                     type: 'get',
                 }).then((data) => {
                     field_dinamis('penerimaans', '{{ route('api.select2.get-buy-product') }}');
