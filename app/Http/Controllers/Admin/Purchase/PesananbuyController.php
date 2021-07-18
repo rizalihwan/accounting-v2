@@ -163,7 +163,69 @@ class PesananbuyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'pesanans.*.product_id' => 'required|exists:products,id',
+            'pesanans.*.jumlah' => 'required|numeric',
+            'pesanans.*.satuan' => 'required',
+            'pesanans.*.harga' => 'required',
+            'pesanans.*.total' => 'required',
+            'total' => 'required'
+        ]);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation);
+        }
+
+        $pesanan = PesananBuys::find($id);
+        if (empty($pesanan)) {
+            return redirect()->route('admin.purchase.pesanan.index')
+                ->with('error', 'Pesanan tidak ditemukan');
+        }
+
+        try {
+            DB::transaction(function () use ($request, $id, $pesanan) {
+                $detail_id = [];
+
+                foreach ($request->pesanans as $value) {
+                    $detail_id[] = $value['id'];
+                }
+
+                $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
+                PesananBuysDetail::where('pesanan_id', $id)
+                    ->whereNotIn('id', $detail_id)
+                    ->delete();
+
+                foreach ($request->pesanans as $item) {
+                    if ($item['id'] != null) {
+                        PesananBuysDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'jumlah' => $item['jumlah'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        PesananBuysDetail::create([
+                            'pesanan_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'jumlah' => $item['jumlah'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+
+                $pesanan->update(array_merge($request->except('pesanans', 'total'), [
+                    'total' => preg_replace('/[^\d.]/', '', $request->total)
+                ]));
+            });
+
+            return redirect()->route('admin.purchase.pesanan.index')
+                ->with('success', 'Pesanan berhasil diedit');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     /**
