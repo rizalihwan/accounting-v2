@@ -68,4 +68,10 @@ Route::name('api.')->group(function () {
 
     // Get Pesanan Detail by:pesanan_id
     Route::get('/get-buy-pesanan-detail/{pesanan_id}', 'Api\BuyController@getPesananDetails')->name('get-buy-pesanan.details');
+
+    // Get Penerimaan Detail by:terima_id
+    Route::get('/get-buy-penerimaan-detail/{terima_id}', 'Api\BuyController@getPenerimaanDetails')->name('get-buy-penerimaan.details');
+
+    // Get Faktur Detail by:faktur_id
+    Route::get('/get-buy-faktur-detail/{faktur_id}', 'Api\BuyController@getFakturDetails')->name('get-buy-faktur.details');
 });

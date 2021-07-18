@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Kontak;
 use App\Models\Product;
+use App\Models\Purchase\FakturBuyDetail;
 use App\Models\Purchase\PenawaranBuys;
 use App\Models\Purchase\PenawaranBuysDetail;
+use App\Models\Purchase\PengirimanBuysDetail;
 use App\Models\Purchase\PesananBuys;
 use App\Models\Purchase\PesananBuysDetail;
 use Illuminate\Http\Request;
@@ -174,6 +176,46 @@ class BuyController extends Controller
 
         return response()->json([
             'message' => "Success get pesanan_details data",
+            'data' => $details,
+            'length' => $details->count()
+        ]);
+    }
+
+    public function getPenerimaanDetails($terima_id)
+    {
+        $details = PengirimanBuysDetail::select('id', 'terima_id', 'product_id', 'jumlah', 'satuan', 'harga', 'total')
+            ->where('terima_id', $terima_id)->get();
+
+        if ($details->count() == 0) {
+            return response()->json([
+                'message' => 'detail not found',
+                'data' => [],
+                'length' => 0
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => "Success get penerimaan_details data",
+            'data' => $details,
+            'length' => $details->count()
+        ]);
+    }
+
+    public function getFakturDetails($faktur_id)
+    {
+        $details = FakturBuyDetail::select('id', 'faktur_id', 'product_id', 'jumlah', 'satuan', 'harga', 'total')
+            ->where('faktur_id', $faktur_id)->get();
+
+        if ($details->count() == 0) {
+            return response()->json([
+                'message' => 'detail not found',
+                'data' => [],
+                'length' => 0
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => "Success get faktur_details data",
             'data' => $details,
             'length' => $details->count()
         ]);

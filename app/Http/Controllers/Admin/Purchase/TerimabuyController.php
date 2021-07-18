@@ -46,7 +46,7 @@ class TerimabuyController extends Controller
 
         return view('admin.purchase.penerimaan.index', [
             'penerimaans' => $penerimaans->paginate(5),
-            'countPengiriman' => $penerimaans->count(),
+            'countPenerimaan' => $penerimaans->count(),
         ]);
     }
 
@@ -131,7 +131,7 @@ class TerimabuyController extends Controller
         $produk = Product::all();
         $pemasok = Kontak::all();
         $pesanan = PesananBuys::all();
-        return view('admin.purchase.penerimaan.'.$id,compact('produk','pemasok','pesanan'));
+        return view('admin.purchase.penerimaan.' . $id, compact('produk', 'pemasok', 'pesanan'));
     }
 
     /**
@@ -142,7 +142,15 @@ class TerimabuyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $penerimaan = PengirimanBuys::with('pemasok:id,nama,kode_kontak', 'pesanan:id,kode')
+            ->find($id);
+
+        if (empty($penerimaan)) {
+            return redirect()->route('admin.purchase.terima.index')
+                ->with('error', 'Penerimaan tidak ditemukan');
+        }
+
+        return view('admin.purchase.penerimaan.edit', compact('penerimaan'));
     }
 
     /**
@@ -154,7 +162,69 @@ class TerimabuyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'penerimaans.*.product_id' => 'required|exists:products,id',
+            'penerimaans.*.jumlah' => 'required|numeric',
+            'penerimaans.*.satuan' => 'required',
+            'penerimaans.*.harga' => 'required',
+            'penerimaans.*.total' => 'required',
+            'total' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation);
+        }
+
+        $penerimaan = PengirimanBuys::find($id);
+        if (empty($penerimaan)) {
+            return redirect()->route('admin.purchase.terima.index')
+                ->with('error', 'Penerimaan tidak ditemukan');
+        }
+
+        try {
+            DB::transaction(function () use ($request, $id, $penerimaan) {
+                $detail_id = [];
+
+                foreach ($request->penerimaans as $value) {
+                    $detail_id[] = $value['id'];
+                }
+
+                $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
+                PengirimanBuysDetail::where('terima_id', $id)
+                    ->whereNotIn('id', $detail_id)
+                    ->delete();
+
+                foreach ($request->penerimaans as $item) {
+                    if ($item['id'] != null) {
+                        PengirimanBuysDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'jumlah' => $item['jumlah'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        PengirimanBuysDetail::create([
+                            'terima_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'jumlah' => $item['jumlah'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+
+                $penerimaan->update(array_merge($request->except('penerimaans', 'total'), [
+                    'total' => preg_replace('/[^\d.]/', '', $request->total)
+                ]));
+            });
+
+            return redirect()->route('admin.purchase.terima.index')
+                ->with('success', 'Penerimaan berhasil diedit');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     /**

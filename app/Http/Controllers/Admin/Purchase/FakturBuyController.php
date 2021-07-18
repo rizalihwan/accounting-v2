@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\{DB, Validator};
 class FakturBuyController extends Controller
 {
     protected $kode;
-    
+
     public function __construct()
     {
         $number = FakturBuy::count();
@@ -126,7 +126,7 @@ class FakturBuyController extends Controller
      */
     public function show($id)
     {
-        return view('admin.purchase.faktur.'.$id);
+        return view('admin.purchase.faktur.' . $id);
     }
 
     /**
@@ -137,7 +137,15 @@ class FakturBuyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $faktur = FakturBuy::with('pemasok:id,nama,kode_kontak', 'pesanan:id,kode')
+            ->find($id);
+
+        if (empty($faktur)) {
+            return redirect()->route('admin.purchase.faktur.index')
+                ->with('error', 'Faktur tidak ditemukan');
+        }
+
+        return view('admin.purchase.faktur.edit', compact('faktur'));
     }
 
     /**
@@ -149,7 +157,69 @@ class FakturBuyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'fakturs.*.product_id' => 'required|exists:products,id',
+            'fakturs.*.jumlah' => 'required|numeric',
+            'fakturs.*.satuan' => 'required',
+            'fakturs.*.harga' => 'required',
+            'fakturs.*.total' => 'required',
+            'total' => 'required',
+        ];
+
+        if (!empty($request->status)) {;
+            $rules['akun_id'] = 'required|exists:akuns,id';
+        }
+
+        $faktur = FakturBuy::find($id);
+
+        if (empty($faktur)) {
+            return redirect()->route('admin.purchase.faktur.index')->with('error', 'Faktur tidak ditemukan.');
+        }
+
+        try {
+            DB::transaction(function () use ($request, $id, $faktur) {
+                $detail_id = [];
+
+                foreach ($request->fakturs as $value) {
+                    $detail_id[] = $value['id'];
+                }
+
+                $detail_id = array_filter($detail_id, fn ($value) => !is_null($value) && $value !== '');
+                FakturBuyDetail::where('faktur_id', $id)
+                    ->whereNotIn('id', $detail_id)
+                    ->delete();
+
+                foreach ($request->fakturs as $item) {
+                    if ($item['id'] != null) {
+                        FakturBuyDetail::where('id', $item['id'])->update([
+                            'product_id' => $item['product_id'],
+                            'jumlah' => $item['jumlah'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    } else {
+                        FakturBuyDetail::create([
+                            'faktur_id' => $id,
+                            'product_id' => $item['product_id'],
+                            'jumlah' => $item['jumlah'],
+                            'satuan' => $item['satuan'],
+                            'harga' => preg_replace('/[^\d.]/', '', $item['harga']),
+                            'total' => preg_replace('/[^\d.]/', '', $item['total']),
+                        ]);
+                    }
+                }
+
+                $faktur->update(array_merge($request->except('fakturs', 'total'), [
+                    'total' => preg_replace('/[^\d.]/', '', $request->total)
+                ]));
+            });
+
+            return redirect()->route('admin.purchase.faktur.index')
+                ->with('success', 'Faktur berhasil diedit');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     /**
