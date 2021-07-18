@@ -232,7 +232,7 @@
             </a>
 
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="javascript:void('logout')" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <a class="dropdown-item" href="javascript:void('logout')" onclick="logoutConfirm()">
                 <i class="mr-50" data-feather="power"></i> Logout
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

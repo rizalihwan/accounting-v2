@@ -21,22 +21,31 @@ const generateUUID = () => {
 
 const jumlahin = () => {
     let total = 0;
-    let cols_debit = document.querySelectorAll(".total");
-    for (let i = 0; i < cols_debit.length; i++) {
-        let e_debit = cols_debit[i];
-        total +=
-            parseFloat(e_debit.value.replace(/,/g, "")) == ""
+    let cols_total = document.querySelectorAll(".total");
+    for (let i = 0; i < cols_total.length; i++) {
+        let e_total = cols_total[i];
+
+        if (e_total.value == '') {
+            e_total.value = 0;
+        }
+
+        total += parseFloat(e_total.value.replace(/,/g, "")) == ""
                 ? 0
-                : parseFloat(e_debit.value.replace(/,/g, ""));
+                : parseFloat(e_total.value.replace(/,/g, ""));
     }
     return total;
 };
 
-const getNumberOfTr = () => {
+const getNumberOfTr = (form) => {
     $("#dynamic_field tr").each(function (index, tr) {
-        $(this)
-            .find("td.no input")
-            .val(index + 1);
+        $(this).find("td.no input").val(index + 1);
+        // reset index. masih ngebug pas ngeselect
+        // $(this).find("input.id").attr('name', `${form}[${index}][id]`);
+        // $(this).find("td select.product_id").attr('name', `${form}[${index}][product_id]`);
+        // $(this).find("td input.jumlah").attr('name', `${form}[${index}][jumlah]`);
+        // $(this).find("td input.satuan").attr('name', `${form}[${index}][satuan]`);
+        // $(this).find("td input.harga").attr('name', `${form}[${index}][harga]`);
+        // $(this).find("td input.total").attr('name', `${form}[${index}][total]`);
     });
 };
 
@@ -54,26 +63,27 @@ function field_dinamis(form, url_product) {
     let uuid = generateUUID();
     let html = `
         <tr class="rowComponent">
-            <input type="hidden" width="10px" name="${form}[${index}][id]" value="${uuid}">
+            <input type="hidden" width="10px" name="${form}[${index}][id]" class="id" value="${uuid}">
             <td class="no" hidden>
                 <input type="text" value="${
                     index + 1
                 }" class="form-control" disabled>
             </td>
             <td>
-                <select name="${form}[${index}][product_id]" class="form-control select-${index}"></select>
+                <select name="${form}[${index}][product_id]" class="form-control select-${index} product_id"></select>
             </td>
             <td>
-                <input type="text" name="${form}[${index}][jumlah]"  class="form-control jumlah" placeholder="0" readonly>
+                <input type="number" name="${form}[${index}][jumlah]" class="form-control jumlah" 
+                    onkeypress="onlyNumber(event)" min="1" placeholder="0" autocomplete="off" readonly>
             </td>
             <td>
                 <input type="text" name="${form}[${index}][satuan]" class="form-control satuan"  readonly>
             </td>
             <td>
-                <input type="text" name="${form}[${index}][harga]" class="form-control harga" readonly>
+                <input type="text" name="${form}[${index}][harga]" class="form-control harga" autocomplete="off" readonly>
             </td>
             <td>
-                <input type="text" name="${form}[${index}][total]" class="form-control total"  placeholder="0" readonly>
+                <input type="text" name="${form}[${index}][total]" class="form-control total" value="0" readonly>
             </td>`;
     if (index >= 1) {
         html += `<td>
@@ -95,11 +105,11 @@ function field_dinamis(form, url_product) {
     // });
 
     $('[name="' + form + '[' + index + '][jumlah]"]').on("change", function () {
+        const jumlah = $(this).val() == '' ? 0 : $(this).val();
         const harga = $('[name="' + form + '[' + index + '][harga]"]').val();
-        const total =
-            parseFloat(harga.replace(/,/g, "")) * parseInt($(this).val());
-        $('[name="' + form + '[' + index + '][total]"]').val(formatter(total));
+        const total = parseFloat(harga.replace(/,/g, "")) * parseInt(jumlah);
 
+        $('[name="' + form + '[' + index + '][total]"]').val(formatter(total));
         $("#total").val(formatter(jumlahin()));
     });
     // jurnalEachColumn(index)
@@ -130,15 +140,23 @@ function field_dinamis(form, url_product) {
         const unit = e.params.data.unit;
         const price = e.params.data.price_buy;
 
-        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
-        $('[name="' + form + '[' + index + '][harga]"]').val(formatter(price));
-        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false);
         $('[name="' + form + '[' + index + '][jumlah]"]').attr("readonly", false);
+        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
+        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false).val(formatter(price));
+
+        const jumlah = $('[name="' + form + '[' + index + '][jumlah]"]').val() == ''
+                        ? 0
+                        : $('[name="' + form + '[' + index + '][jumlah]"]').val();
+        const totalDua = parseInt(jumlah) * parseInt(price);
+
+        $('[name="' + form + '[' + index + '][total]"]').val(formatter(totalDua));
+        $("#total").val(formatter(jumlahin()));
     });
 
     document.querySelectorAll(".harga").forEach((item) => {
         item.addEventListener("keyup", function (event) {
-            const n = parseInt(this.value.replace(/\D/g, ""), 10);
+            const val = this.value == '' ? 0 : this.value.replace(/\D/g, "")
+            const n = parseInt(val, 10);
             item.value = formatter(n);
 
             // const total = parseFloat(item.value.replace(/,/g, '')) * parseInt($('[name="' + form + '['+index+'][jumlah]"]').val());
@@ -147,13 +165,14 @@ function field_dinamis(form, url_product) {
     });
 
     $('[name="' + form + '[' + index + '][harga]"]').on("change", function () {
-        const jumlahDua = parseInt(
-            $('[name="' + form + '[' + index + '][jumlah]"]').val()
-        );
-        const hargaDua = $(this).val();
+        const jumlah = $('[name="' + form + '[' + index + '][jumlah]"]').val() == ''
+                        ? 0
+                        : $('[name="' + form + '[' + index + '][jumlah]"]').val();
+        const jumlahDua = parseInt(jumlah);
+        const hargaDua = $(this).val() == '' ? 0 : $(this).val();
         const totalDua = jumlahDua * parseFloat(hargaDua.replace(/,/g, ""));
-        $('[name="' + form + '[' + index + '][total]"]').val(formatter(totalDua));
 
+        $('[name="' + form + '[' + index + '][total]"]').val(formatter(totalDua));
         $("#total").val(formatter(jumlahin()));
     });
 }
@@ -181,24 +200,24 @@ function field_dinamis_edit(form, url_product, id = undefined, jumlah = undefine
     let uuid = generateUUID();
     let html = `
         <tr class="rowComponent">
-            <input type="hidden" width="10px" name="${form}[${index}][id]" value="${id}">
+            <input type="hidden" width="10px" name="${form}[${index}][id]" class="id" value="${id}">
             <td class="no" hidden>
                 <input type="text" value="${
                     index + 1
                 }" class="form-control" disabled>
             </td>
             <td>
-                <select name="${form}[${index}][product_id]" class="form-control select-${index}"></select>
+                <select name="${form}[${index}][product_id]" class="form-control select-${index} product_id"></select>
             </td>
             <td>
-                <input type="text" name="${form}[${index}][jumlah]" class="form-control jumlah" 
-                    value="${jumlah}" placeholder="0" readonly>
+                <input type="number" name="${form}[${index}][jumlah]" class="form-control jumlah" 
+                    onkeypress="onlyNumber(event)" min="1" value="${jumlah}" placeholder="0" autocomplete="off" readonly>
             </td>
             <td>
                 <input type="text" name="${form}[${index}][satuan]" class="form-control satuan"  readonly>
             </td>
             <td>
-                <input type="text" name="${form}[${index}][harga]" class="form-control harga" readonly>
+                <input type="text" name="${form}[${index}][harga]" class="form-control harga" autocomplete="off" readonly>
             </td>
             <td>
                 <input type="text" name="${form}[${index}][total]" class="form-control total" 
@@ -224,10 +243,9 @@ function field_dinamis_edit(form, url_product, id = undefined, jumlah = undefine
     // });
 
     $('[name="' + form + '[' + index + '][jumlah]"]').on("change", function () {
+        const jumlah = $(this).val() == '' ? 0 : $(this).val();
         const harga = $('[name="' + form + '[' + index + '][harga]"]').val();
-        const total = parseFloat(
-            harga.replace(/,/g, "")) * parseInt($(this).val()
-        );
+        const total = parseFloat(harga.replace(/,/g, "")) * parseInt(jumlah);
 
         $('[name="' + form + '[' + index + '][total]"]').val(formatter(total));
         $("#total").val(formatter(jumlahin()));
@@ -261,15 +279,23 @@ function field_dinamis_edit(form, url_product, id = undefined, jumlah = undefine
         const unit = e.params.data.unit;
         const price = e.params.data.price_buy;
 
-        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
-        $('[name="' + form + '[' + index + '][harga]"]').val(formatter(price));
-        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false);
         $('[name="' + form + '[' + index + '][jumlah]"]').attr("readonly", false);
+        $('[name="' + form + '[' + index + '][satuan]"]').val(unit);
+        $('[name="' + form + '[' + index + '][harga]"]').attr("readonly", false).val(formatter(price));
+
+        const jumlah = $('[name="' + form + '[' + index + '][jumlah]"]').val() == ''
+                        ? 0
+                        : $('[name="' + form + '[' + index + '][jumlah]"]').val();
+        const totalDua = parseInt(jumlah) * parseInt(price);
+
+        $('[name="' + form + '[' + index + '][total]"]').val(formatter(totalDua));
+        $("#total").val(formatter(jumlahin()));
     });
 
     document.querySelectorAll(".harga").forEach((item) => {
         item.addEventListener("keyup", function (event) {
-            const n = parseInt(this.value.replace(/\D/g, ""), 10);
+            const val = this.value == '' ? 0 : this.value.replace(/\D/g, "")
+            const n = parseInt(val, 10);
             item.value = formatter(n);
 
             // const total = parseFloat(item.value.replace(/,/g, '')) * parseInt($('[name="' + form + '['+index+'][jumlah]"]').val());
@@ -278,9 +304,10 @@ function field_dinamis_edit(form, url_product, id = undefined, jumlah = undefine
     });
 
     $('[name="' + form + '[' + index + '][harga]"]').on("change", function () {
-        const jumlahDua = parseInt(
-            $('[name="' + form + '[' + index + '][jumlah]"]').val()
-        );
+        const jumlah = $('[name="' + form + '[' + index + '][jumlah]"]').val() == ''
+                        ? 0
+                        : $('[name="' + form + '[' + index + '][jumlah]"]').val();
+        const jumlahDua = parseInt(jumlah);
         const hargaDua = $(this).val();
         const totalDua = jumlahDua * parseFloat(hargaDua.replace(/,/g, ""));
 

@@ -1,13 +1,13 @@
 @extends('_layouts.main')
-@section('title', 'Penjualan')
+@section('title', 'Tambah Pesanan')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.') }}">Penjualan</a>
+    <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.pesanan.index') }}">Pesanan Penjualan</a>
+    <a href="{{ route('admin.purchase.pesanan.index') }}">Pesanan</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Tambah Pesanan Penjualan</li>
+<li class="breadcrumb-item" aria-current="page">Tambah</li>
 @endpush
 @section('content')
 <div class="row">
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="pemasok_id">{{ __('Pemasok') }}<span class="text-red">*</span></label>
+                                <label for="pemasok_id">{{ __('Pemasok') }}<span class="text-danger">*</span></label>
                                 <select name="pemasok_id" id="pemasok_id"
                                     class="form-control select2 @error('pemasok_id') is-invalid @enderror">
                                 </select>
@@ -60,7 +60,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="tanggal">{{ __('Tanggal') }}<span class="text-red">*</span></label>
+                                <label for="tanggal">{{ __('Tanggal') }}<span class="text-danger">*</span></label>
                                 <input id="tanggal" type="date" value="{{ date('Y-m-d') }}"
                                     class="form-control @error('tanggal') is-invalid @enderror" name="tanggal">
                                 <div class="help-block with-errors"></div>
@@ -74,7 +74,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="kode">{{ __('Kode Pesanan') }}<span class="text-red">*</span></label>
+                                <label for="kode">{{ __('Kode Pesanan') }}</label>
                                 <input class="form-control" id="kode" type="text" value="{{ $kode }}" name="kode"
                                     readonly>
                             </div>
@@ -83,7 +83,7 @@
                         @if($penawaran)
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="penawaran_id">{{ __('Penawaran') }}<span class="text-red">*</span></label>
+                                    <label for="penawaran_id">{{ __('Penawaran') }}<span class="text-danger">*</span></label>
                                     <select name="penawaran_id" id="penawaran_id"
                                         class="form-control select2 @error('penawaran_id') is-invalid @enderror">
                                     </select>
@@ -125,7 +125,7 @@
                             <table class="table table-borderless col-md-5 ml-auto border-top mt-2">
                                 <tbody>
                                     <tr class="rowComponentTotal">
-                                        <td style="width: 100px"><strong>Total</strong></td>
+                                        <th style="width: 180px">Total</th>
                                         <td>
                                             <input type="text" name="total" class="form-control" id="total" placeholder="0" readonly>
                                         </td>
@@ -141,13 +141,12 @@
                 <div class="form-group">
                     <a href="{{ route('admin.purchase.pesanan.index') }}" class="btn btn-danger">KEMBALI</a>
                     <button type="submit" class="btn btn-primary" id="btn-submit">
-                        TAMBAH</button>
+                        TAMBAH
+                    </button>
                 </div>
             </div>
+        </form>
     </div>
-</div>
-</form>
-</div>
 </div>
 @endsection
 
@@ -169,6 +168,10 @@
         border-radius:0px !important;
     }
 
+    .rowComponentTotal th{
+        padding-right: 8px !important;
+        padding-left: 0px !important;
+    }
     .rowComponentTotal td{
         padding-right: 8px !important;
         padding-left: 0px !important;
@@ -177,16 +180,64 @@
         border-radius:0px !important;
     }
 
+    @media only screen and (max-width: 1024px) {
+        .rowComponent td .jumlah {
+            width: 70px;
+        }
+        .rowComponentTotal th{
+            width: 160px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+    }
+
     @media only screen and (max-width: 768px) {
         .tambah-pelanggan {
             margin-top: 0;
             float: right;
+        }
+        .rowComponentTotal td .form-control{
+            width: 200px;
+        }
+        .rowComponentTotal th{
+            width: 100px !important;
+        }
+        .rowComponentTotal td .form-control{
+            width: 100%;
         }
     }
 
     @media only screen and (min-width: 768px) {
         .tambah-pelanggan {
             margin-top: 23px;
+        }
+        .rowComponentTotal th{
+            width: 100px !important;
+        }
+    }
+
+    @media only screen and (max-width: 575px) {
+        .rowComponentTotal td .form-control{
+            width: 100%;
+        }
+        .rowComponentTotal th{
+            width: 150px !important;
+        }
+    }
+
+    @media only screen and (max-width: 650px) {
+        .rowComponent td .jumlah {
+            width: 60px;
+        }
+        .rowComponent td .satuan {
+            width: 100px;
+        }
+        .rowComponent td .harga {
+            width: 120px;
+        }
+        .rowComponent td .total {
+            width: 130px;
         }
     }
 
@@ -198,154 +249,12 @@
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
 <script src="{{ asset('js/helpers.js') }}"></script>
+<script src="{{ asset('js/dynamic_fields.js') }}"></script>
 <script>
-
-    function generateUUID() {
-        var d = new Date().getTime();
-        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16;
-            if (d > 0) {
-                r = (d + r)%16 | 0;
-                d = Math.floor(d/16);
-            } else {
-                r = (d2 + r)%16 | 0;
-                d2 = Math.floor(d2/16);
-            }
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-    }
-
-    function jumlahin() {
-        let total =  0
-        let cols_debit = document.querySelectorAll('.total')
-        for (let i = 0; i < cols_debit.length; i++) {
-            let e_debit = cols_debit[i];
-            total += parseFloat(e_debit.value.replace(/,/g, '')) == "" ? 0 : parseFloat(e_debit.value.replace(/,/g, ''))
-        }
-        return total;
-    }
-
-    function field_dinamis() {
-            let index = $('#dynamic_field tr').length
-            let uuid = generateUUID()
-            let html = `
-                <tr class="rowComponent">
-                    <input type="hidden" width="10px" name="pesanans[${index}][id]" value="${uuid}">
-                    <td class="no" hidden>
-                        <input type="text" value="${index + 1}" class="form-control" disabled>
-                    </td>
-                    <td>
-                        <select name="pesanans[${index}][product_id]" class="form-control select-${index}"></select>
-                    </td>
-                    <td>
-                        <input type="text" name="pesanans[${index}][jumlah]" class="form-control jumlah" placeholder="0" readonly>
-                    </td>
-                    <td>
-                        <input type="text" name="pesanans[${index}][satuan]" class="form-control satuan"  readonly>
-                    </td>
-                    <td>
-                        <input type="text" name="pesanans[${index}][harga]" class="form-control harga" readonly>
-                    </td>
-                    <td>
-                        <input type="text" name="pesanans[${index}][total]" class="form-control total"  placeholder="0" readonly>
-                    </td>
-                    <td>
-                        <button type="button" name="remove"
-                            class="btn btn-danger btn-sm text-white btn_remove">
-                            <i data-feather="trash-2"></i>
-                        </button>
-                    </td>
-                </tr>
-            `
-            $("#dynamic_field").append(html)
-
-            // const jumlah = document.getElementsByName(`penawarans[${index}][jumlah]`);
-            // const total = document.getElementsByName(`penawarans[${index}][total]`);
-            // jumlah.addEventListener('change', function (e){
-            //     total.value = subTotal(index);
-            // });
-
-            $('[name="pesanans['+index+'][jumlah]"]').on('change', function () {
-
-                const harga = $('[name="pesanans['+index+'][harga]"]').val();
-                const total = parseFloat(harga.replace(/,/g, '')) * parseInt($(this).val());
-                $('[name="pesanans['+index+'][total]"]').val(formatter(total));
-
-                $("#total").val(formatter(jumlahin()))
-
-            });
-            // jurnalEachColumn(index)
-            feather.replace()
-            $('select[name="pesanans['+index+'][product_id]"]').select2({
-                placeholder: '-- Pilih Product --',
-                ajax: {
-                    url: '{{ route('api.select2.get-buy-product') }}',
-                    type: 'post',
-                    dataType: 'json',
-                    data: params => {
-                        return {
-                            _token: CSRF_TOKEN,
-                            search: params.term
-                        }
-                    },
-                    processResults: data => {
-                        return {
-                            results: data
-                        }
-                    },
-                    cache: true
-                },
-                allowClear: true
-            })
-
-            $('select[name="pesanans['+index+'][product_id]"]').on('select2:select', function (e) {
-				const unit = e.params.data.unit
-                const price = e.params.data.price_buy
-
-				$('[name="pesanans['+index+'][satuan]"]').val(unit)
-                $('[name="pesanans['+index+'][harga]"]').val(formatter(price))
-                $('[name="pesanans['+index+'][jumlah]"]').attr('readonly', false)
-                $('[name="pesanans['+index+'][harga]"]').attr('readonly', false)
-			})
-
-            document.querySelectorAll('.harga').forEach(item => {
-                item.addEventListener('keyup', function(event) {
-                    
-                    const n = parseInt(this.value.replace(/\D/g,''),10);
-                    item.value = formatter(n);
-                    
-                    // const total = parseFloat(item.value.replace(/,/g, '')) * parseInt($('[name="penawarans['+index+'][jumlah]"]').val());
-                    // $('[name="penawarans['+index+'][total]"]').val(formatter(total));
-    
-                })
-            })
-
-            $('[name="pesanans['+index+'][harga]"]').on('change', function () {
-
-                const jumlahDua = parseInt($('[name="pesanans['+index+'][jumlah]"]').val());
-                const hargaDua = $(this).val();
-                const totalDua = jumlahDua * parseFloat(hargaDua.replace(/,/g, ''))
-                $('[name="pesanans['+index+'][total]"]').val(formatter(totalDua));
-
-                $("#total").val(formatter(jumlahin()))
-                
-            });
-
-
-    }
-
-    function getNumberOfTr() {
-        $('#dynamic_field tr').each(function(index, tr) {
-            $(this).find("td.no input").val(index + 1)
-        })
-    }
-</script>
-
-<script>
-    let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
-
     $(document).ready(function () {
+        field_dinamis('pesanans', '{{ route('api.select2.get-buy-product') }}');
+        getNumberOfTr('pesanans')
+
         $("#pemasok_id").select2({
             placeholder: "-- Pilih Pemasok --",
             allowClear: true,
@@ -397,35 +306,38 @@
             },
         });
 
+        let selected_product_url = '{{ route('api.select2.get-product.selected', ':id') }}';
         $('#penawaran_id').on('select2:select', function (e) {
-            $("#dynamic_field").html('')
+            const datas = e.params.data;
+            const detail = datas.detail;
+            let subtotal = 0;
 
-            const data = e.params.data;
-            const detail = data.detail;
+            $(this).attr('disabled', true)
+            $("#add").attr('disabled', true)
+            $("#btn-submit").attr('disabled', true)
 
             for (let index = 0; index < detail.length; index++) {
-                field_dinamis()
-
                 let product_id = detail[index].product_id;
                 let jumlah = detail[index].jumlah;
                 let satuan = detail[index].satuan;
                 let harga = detail[index].harga;
                 let total = detail[index].total;
 
-                
-                
-                let url_product = '{{ route('api.select2.get-product.selected', ':id') }}';
-                url_product = url_product.replace(':id', product_id);
+                selected_product_url = selected_product_url.replace(':id', product_id);
+
+                $("#dynamic_field").html('')
 
                 $.ajax({
-                    url: url_product,
+                    url: selected_product_url,
                     type: 'get',
                     error: (err) => {
                         console.log(err);
                     }
                 }).then((data) => {
-                    let option = new Option(data.text, data.id, true, true)
+                    field_dinamis('pesanans', '{{ route('api.select2.get-buy-product') }}');
+                    $(".btn_remove").attr('disabled', true);
 
+                    let option = new Option(data.text, data.id, true, true)
                     $('select[name="pesanans['+index+'][product_id]"]').append(option).trigger('change')
                     $('select[name="pesanans['+index+'][product_id]"]').trigger({
                         type: 'select2:select',
@@ -434,29 +346,33 @@
                         }
                     })
 
-                    
-                    $('input[name="pesanans['+index+'][jumlah]"]').val(jumlah);
-                    $('input[name="pesanans['+index+'][satuan]"]').val(satuan);
-                    $('input[name="pesanans['+index+'][harga]"]').val(formatter(harga));
-                    $('input[name="pesanans['+index+'][total]"]').val(formatter(total));
+                    $('[name="pesanans['+index+'][harga]"]').attr('readonly', false)
+                    $('[name="pesanans['+index+'][jumlah]"]').attr('readonly', false)
 
-                    $("#total").val(formatter(jumlahin()))
+                    $('[name="pesanans['+index+'][jumlah]"]').val(jumlah)
+                    $('[name="pesanans['+index+'][satuan]"]').val(satuan)
+                    $('[name="pesanans['+index+'][harga]"]').val(formatter(harga))
+                    $('[name="pesanans['+index+'][total]"]').val(formatter(total))
+
+                    subtotal += total;
+                    $("#total").val(formatter(subtotal))
+
+                    if ((index + 1) == detail.length) {
+                        $("#penawaran_id").attr('disabled', false)
+                        $("#add").attr('disabled', false)
+                        $("#btn-submit").attr('disabled', false)
+                        $(".btn_remove").attr('disabled', false);
+                    }
                 })
             }
         })
         /* End Penawaran Select2 */
 
-    });
-
-</script>
-
-<script>
-    field_dinamis();
-    $(document).ready(function(){
-        getNumberOfTr()
         $('#add').click(function(){
-            field_dinamis()
+            field_dinamis('pesanans', '{{ route('api.select2.get-buy-product') }}');
+            checkRowLength();
         })
+
         $(document).on('click', '.btn_remove', function() {
             let parent = $(this).parent()
             let id = parent.data('id')
@@ -465,7 +381,9 @@
                 $("input[name='delete_data']").val(delete_data + ';' + id)
             }
             $('.btn_remove').eq($('.btn_remove').index(this)).parent().parent().remove()
-            getNumberOfTr()
+            getNumberOfTr('pesanans')
+            checkRowLength()
+
             $("#total").val(formatter(jumlahin()))
         })
     })

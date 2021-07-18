@@ -107,11 +107,11 @@ class BuyController extends Controller
                 "text" => $penawaran->kode,
                 "total" => $penawaran->total,
                 "pemasok" => $penawaran->pemasok->nama,
-                "detail" => $detail->toArray(),
+                "detail" => $detail,
             ];
         }
 
-        return $result;
+        return response()->json($result);
     }
 
     public function getPesanan(Request $request)
@@ -141,10 +141,10 @@ class BuyController extends Controller
         return $result;
     }
 
-    public function getPenawaranDetails($id)
+    public function getPenawaranDetails($penawaran_id)
     {
         $details = PenawaranBuysDetail::select('id', 'penawaran_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
-            ->where('penawaran_id', $id)->get();
+            ->where('penawaran_id', $penawaran_id)->get();
 
         if ($details->count() == 0) {
             return response()->json([
@@ -154,6 +154,26 @@ class BuyController extends Controller
 
         return response()->json([
             'message' => 'Success get penawaran_details data',
+            'data' => $details,
+            'length' => $details->count()
+        ]);
+    }
+
+    public function getPesananDetails($pesanan_id)
+    {
+        $details = PesananBuysDetail::select('id', 'pesanan_id', 'product_id', 'jumlah', 'satuan', 'harga', 'total')
+            ->where('pesanan_id', $pesanan_id)->get();
+
+        if ($details->count() == 0) {
+            return response()->json([
+                'message' => 'detail not found',
+                'data' => [],
+                'length' => 0
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => "Success get pesanan_details data",
             'data' => $details,
             'length' => $details->count()
         ]);
