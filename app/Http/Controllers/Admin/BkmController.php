@@ -17,9 +17,11 @@ class BkmController extends Controller
      */
     public function index()
     {
-        $indeks = BKK::where('status','BKM')->get();
+        $bkms = BKK::where('status','BKM');
+        $indeks = $bkms->paginate(5);
+        $countBkm = $bkms->count();
         $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
-        return view('admin.bkm.index',compact('indeks','row'));
+        return view('admin.bkm.index',compact('indeks','row', 'countBkm'));
     }
 
     /**

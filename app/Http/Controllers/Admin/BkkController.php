@@ -19,9 +19,11 @@ class BkkController extends Controller
      */
     public function index()
     {
-        $indeks = Bkk::where('status','BKK')->get();
+        $bkks = Bkk::where('status','BKK');
+        $indeks = $bkks->paginate(5);
+        $countBkk = $bkks->count();
         $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
-        return view('admin.bkk.index',compact('indeks','row'));
+        return view('admin.bkk.index',compact('indeks', 'row', 'countBkk'));
     }
 
     /**
