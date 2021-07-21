@@ -17,7 +17,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Statistics</h4>
                     <div class="d-flex align-items-center">
-                        <p class="card-text font-small-2 mr-25 mb-0">{{ date('Y-m-d') }}</p>
+                        <p class="card-text font-small-2 mr-25 mb-0"><i class="fa fa-clock"></i> {{ date('Y-m-d') }}</p>
                     </div>
                 </div>
                 <div class="card-body statistics-body">
