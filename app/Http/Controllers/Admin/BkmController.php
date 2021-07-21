@@ -17,11 +17,11 @@ class BkmController extends Controller
      */
     public function index()
     {
-        $bkms = BKK::where('status','BKM');
+        $bkms = BKK::where('status', 'BKM');
         $indeks = $bkms->paginate(5);
         $countBkm = $bkms->count();
         $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
-        return view('admin.bkm.index',compact('indeks','row', 'countBkm'));
+        return view('admin.bkm.index', compact('indeks', 'row', 'countBkm'));
     }
 
     /**
@@ -33,29 +33,29 @@ class BkmController extends Controller
     {
         $getRow = Bkk::orderBy('id', 'DESC')->get();
         $rowCount = $getRow->count();
-        
+
         $lastId = $getRow->first();
         $kode = "";
         if ($rowCount > 0) {
             if ($lastId->id < 9) {
-                    $kode = "KK0000".''.($lastId->id + 1);
+                $kode = "KK0000" . '' . ($lastId->id + 1);
             } else if ($lastId->id < 99) {
-                    $kode = "KK000".''.($lastId->id + 1);
+                $kode = "KK000" . '' . ($lastId->id + 1);
             } else if ($lastId->id < 999) {
-                    $kode = "KK00".''.($lastId->id + 1);
+                $kode = "KK00" . '' . ($lastId->id + 1);
             } else if ($lastId->id < 9999) {
-                    $kode = "KK0".''.($lastId->id + 1);
+                $kode = "KK0" . '' . ($lastId->id + 1);
             } else {
-                   $kode = "KK".''.($lastId->id + 1);
+                $kode = "KK" . '' . ($lastId->id + 1);
             }
         }
         $rekening = Akun::with(['subklasifikasi' => function ($query) {
             $query->where('name', 'like', '%kas%')
-                  ->orWhere('name', 'like', '%bank%');
+                ->orWhere('name', 'like', '%bank%');
         }])->get();
         $rekenings = Akun::all();
         $kontak = DB::table('kontaks')->get();
-        return view('admin.bkm.create',compact('rekening','kontak','kode','rekenings'));
+        return view('admin.bkm.create', compact('rekening', 'kontak', 'kode', 'rekenings'));
     }
 
     /**
@@ -72,28 +72,28 @@ class BkmController extends Controller
         //    echo $s->jml_uang ;
         // }
         // dd($request->all());
-        $jml=0;
+        $jml = 0;
         DB::table('bkks')->insert([
             'tanggal' => $request->tanggal,
-            'kontak_id' =>$request->kontak,
+            'kontak_id' => $request->kontak,
             'desk' => $request->desk,
-            'rekening_id' =>$request->rek,
+            'rekening_id' => $request->rek,
             'status' => 'BKM',
         ]);
         $id = DB::table('bkks')->select('id')
-                              ->orderByDesc('id')
-                              ->first();
-        for ($i=0; $i < $imam; $i++) {
+            ->orderByDesc('id')
+            ->first();
+        for ($i = 0; $i < $imam; $i++) {
             DB::table('uraians')->insert([
-                'rekening_id'=> $request->invoice[$i]["rekening"],
-                'bkk_id'=> $id->id,
-                'jml_uang'=> $request->invoice[$i]["jumlah"],
-                'catatan'=> $request->invoice[$i]["catatan"],
-                'uang'=> $request->invoice[$i]["matauang"],
+                'rekening_id' => $request->invoice[$i]["rekening"],
+                'bkk_id' => $id->id,
+                'jml_uang' => $request->invoice[$i]["jumlah"],
+                'catatan' => $request->invoice[$i]["catatan"],
+                'uang' => $request->invoice[$i]["matauang"],
             ]);
             $jml = $jml + $request->invoice[$i]["jumlah"];
         }
-        DB::table('bkks')->where('id',$id->id)->update([
+        DB::table('bkks')->where('id', $id->id)->update([
             'value' => $jml
         ]);
         return redirect()->route('admin.bkm.index')->with('success', 'Buku Kas berhasil Tersimpan');
@@ -107,8 +107,9 @@ class BkmController extends Controller
      */
     public function show(Bkk $bkm)
     {
-        $show = Bkk::whereId($bkm->id)->first();
-        return view('admin.bkm.show',compact('show'));
+        return view('admin.bkm.show', [
+            'show' => $bkm
+        ]);
     }
 
     /**
@@ -121,12 +122,16 @@ class BkmController extends Controller
     {
         $rekening = Akun::with(['subklasifikasi' => function ($query) {
             $query->where('name', 'like', '%kas%')
-                  ->orWhere('name', 'like', '%bank%');
+                ->orWhere('name', 'like', '%bank%');
         }])->get();
         $rekenings = Akun::all();
         $kontak = DB::table('kontaks')->get();
-        $datas = Bkk::find($bkm)->first();
-        return view('admin.bkm.edit',compact('datas','kontak','rekening','rekenings'));
+        return view('admin.bkm.edit', [
+            'datas' => $bkm,
+            'kontak' => $kontak,
+            'rekening' => $rekening,
+            'rekenings' => $rekenings
+        ]);
     }
 
     /**
@@ -141,26 +146,26 @@ class BkmController extends Controller
         $bkm->delete();
         $imam = count($request->invoice);
 
-        $jml=0;
+        $jml = 0;
         DB::table('bkks')->insert([
             'id' => $bkm->id,
             'tanggal' => $request->tanggal,
-            'kontak_id' =>$request->kontak,
+            'kontak_id' => $request->kontak,
             'desk' => $request->desk,
-            'rekening_id' =>$request->rek,
+            'rekening_id' => $request->rek,
             'status' => 'BKM',
         ]);
-        for ($i=0; $i < $imam; $i++) { 
+        for ($i = 0; $i < $imam; $i++) {
             DB::table('uraians')->insert([
-                'rekening_id'=> $request->invoice[$i]["rekening"],
-                'bkk_id'=> $bkm->id,
-                'jml_uang'=> $request->invoice[$i]["jumlah"],
-                'catatan'=> $request->invoice[$i]["catatan"],
-                'uang'=> $request->invoice[$i]["matauang"],
+                'rekening_id' => $request->invoice[$i]["rekening"],
+                'bkk_id' => $bkm->id,
+                'jml_uang' => $request->invoice[$i]["jumlah"],
+                'catatan' => $request->invoice[$i]["catatan"],
+                'uang' => $request->invoice[$i]["matauang"],
             ]);
             $jml = $jml + $request->invoice[$i]["jumlah"];
         }
-        DB::table('bkks')->where('id',$bkm->id)->update([
+        DB::table('bkks')->where('id', $bkm->id)->update([
             'value' => $jml
         ]);
         return redirect()->route('admin.bkm.index')->with('success', 'Buku Kas berhasil Terupdate');
@@ -176,6 +181,6 @@ class BkmController extends Controller
     {
         $bkm->delete();
 
-        return back()->with('success','Data Berhasil Dihapus');
+        return back()->with('success', 'Data Berhasil Dihapus');
     }
 }
