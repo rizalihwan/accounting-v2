@@ -17,7 +17,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Statistics</h4>
                     <div class="d-flex align-items-center">
-                        <p class="card-text font-small-2 mr-25 mb-0">{{ date('Y-m-d') }}</p>
+                        <p class="card-text font-small-2 mr-25 mb-0"><i class="fa fa-clock"></i> {{ date('Y-m-d') }}</p>
                     </div>
                 </div>
                 <div class="card-body statistics-body">
@@ -32,8 +32,8 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
-                                    <p class="card-text font-small-3 mb-0">Kerugian</p>
+                                    <h4 class="font-weight-bolder mb-0">{{ 'Rp. ' . number_format($kerugianOrKeuntungan, 0, ',', '.') }}</h4>
+                                    <p class="card-text font-small-3 mb-0">{{ $result }}</p>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <h4 class="font-weight-bolder mb-0">{{ 'Rp. ' . number_format($penerimaanAtas, 0, ',', '.') }}</h4>
                                     <p class="card-text font-small-3 mb-0">Penerimaan</p>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <h4 class="font-weight-bolder mb-0">{{ 'Rp. ' . number_format($pengeluaranAtas, 0, ',', '.') }}</h4>
                                     <p class="card-text font-small-3 mb-0">Pengeluaran</p>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <h4 class="font-weight-bolder mb-0">{{ 'Rp. ' . number_format($saldoKeseluruhan, 0, ',', '.') }}</h4>
                                     <p class="card-text font-small-3 mb-0">Saldo Keseluruhan</p>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <h4 class="font-weight-bolder mb-0">{{ 'Rp. ' . number_format($penerimaanBawah, 0, ',', '.') }}</h4>
                                     <p class="card-text font-small-3 mb-0">Penerimaan</p>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                                 <div class="media-body my-auto">
-                                    <h4 class="font-weight-bolder mb-0">Rp. 0</h4>
+                                    <h4 class="font-weight-bolder mb-0">{{ 'Rp. ' . number_format($pengeluaranBawah, 0, ',', '.') }}</h4>
                                     <p class="card-text font-small-3 mb-0">Pengeluaran</p>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
         <!--/ Statistics Card -->
     </div>
 
-    <div class="row match-height">
+    {{-- <div class="row match-height">
         <div class="col-lg-4 col-12">
             <div class="row match-height">
                 <!-- Bar Chart - Orders -->
@@ -209,7 +209,7 @@
             </div>
         </div>
         <!--/ Revenue Report Card -->
-    </div>
+    </div> --}}
     {{--
         <div class="row match-height">
         <!-- Company Table Card -->

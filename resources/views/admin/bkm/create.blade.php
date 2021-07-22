@@ -1,19 +1,19 @@
 @extends('_layouts.main')
 @section('title', 'Buku Kas Masuk')
 @section('content')
-@push('breadcrumb')
-    <li class="breadcrumb-item">
-        <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
-    </li>
-    <li class="breadcrumb-item active">
-        <a href="{{ route('admin.bkm.index') }}">Income</a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page">Create</li>
-@endpush
+    @push('breadcrumb')
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a href="{{ route('admin.bkm.index') }}">Income</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+    @endpush
     <div class="row">
         <!-- end message area-->
         <div class="col-md-12">
-            <form action="{{route('admin.bkm.store')}}" method="POST" class="invoice-repeater">
+            <form action="{{ route('admin.bkm.store') }}" method="POST" class="invoice-repeater">
                 @csrf
                 <div class="card mb-2 ">
                     <div class="card-header">
@@ -30,7 +30,8 @@
                             <div class="col-md-3 col-12 ml-auto mr-4">
                                 <div class="form-group">
                                     <label for="id">No Jurnal</label>
-                                    <input type="text" class="form-control" placeholder="auto number" value="{{$kode}}" disabled />
+                                    <input type="text" class="form-control" placeholder="auto number"
+                                        value="{{ $kode }}" disabled />
                                 </div>
                             </div>
                         </div>
@@ -40,7 +41,7 @@
                                     <label for="kontak">Sudah Bayar Ke</label>
                                     <select name="kontak" id="kontak" class="form-control">
                                         @foreach ($kontak as $item)
-                                        <option value="{{$item->id}}">{{$item->nama}}</option>
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -48,7 +49,8 @@
                             <div class="col-md-11 col-12 ">
                                 <div class="form-group">
                                     <label for="desk">Untuk Pembayaran</label>
-                                    <input type="text" class="form-control" name="desk" placeholder="Deskripsi keterangan" />
+                                    <input type="text" class="form-control" name="desk"
+                                        placeholder="Deskripsi keterangan" />
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 ">
@@ -56,9 +58,10 @@
                                     <label for="kontak">Rek.Kas/Bank[K]</label>
                                     <select name="rek" id="rek" class="form-control">
                                         @foreach ($rekening as $item)
-                                        @if (!empty($item->subklasifikasi->name))
-                                        <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
-                                        @endif
+                                            @if (!empty($item->subklasifikasi->name))
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }}-{{ $item->subklasifikasi->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,19 +81,22 @@
                                                 <label for="itemname">no rek</label>
                                                 <select name="rekening" id="rekening" class="form-control">
                                                     @foreach ($rekenings as $item)
-                                                    <option value="{{$item->id}}">{{ $item->name }}-{{$item->subklasifikasi->name}}</option>
+                                                        <option value="{{ $item->id }}">
+                                                            {{ $item->name }}-{{ $item->subklasifikasi->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-md-2 col-12" id="app">
-                                          <div class="form-group">
-                                              <label for="jumlah">Jumlah uang</label>
-                                              <input type="number" class="form-control jumlah" oninput="HowAboutIt()" placeholder="1" name="jumlah" />
+                                            <div class="form-group">
+                                                <label for="jumlah">Jumlah uang</label>
+                                                <input type="number" class="form-control jumlah" oninput="HowAboutIt()"
+                                                    placeholder="1" name="jumlah" />
 
-                                          </div>
-                                      </div>
+                                            </div>
+                                        </div>
 
                                         <div class="col-md-2 col-12">
                                             <div class="form-group">
@@ -103,15 +109,16 @@
                                             <div class="form-group">
                                                 <label for="matauang">Mata Uang</label>
                                                 <select name="matauang" id="matauang" class="form-control">
-                                                  <option value="RP">RP</option>
-                                                  <option value="USD">USD</option>
+                                                    <option value="RP">RP</option>
+                                                    <option value="USD">USD</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-md-2 col-12">
                                             <div class="form-group">
-                                                <button class="btn btn-outline-danger " onclick="calculate(event)" data-repeater-delete type="button">
+                                                <button class="btn btn-outline-danger " onclick="calculate(event)"
+                                                    data-repeater-delete type="button">
                                                     <i class="fa fa-times"></i>
                                                     <span>Delete</span>
                                                 </button>
@@ -140,32 +147,30 @@
             </form>
         </div>
     </div>
-<script>
-    function HowAboutIt()
-      {
-          let total = 0;
-          let coll = document.querySelectorAll('.jumlah')
-          for(let i = 0;i<coll.length;i++)
-          {
-              let ele = coll[i]
-              total += parseInt(ele.value)
-          }
-          let res = document.getElementById('total')
-          res.value = total
-      }
-      document.getElementById('hitung').addEventListener('click', function() {
-          event.preventDefault()
-          let total = []
-          let nd = document.querySelectorAll('.jumlah')
-          for (let i = 0; i < nd.length; i++) {
-              total.push(parseInt(nd[i].value))
-          }
-          console.log(total)
-          let sum = total.reduce(function(totalValue, currentValue) {
-              return totalValue + currentValue
-          })
-          console.log(sum)
-          document.getElementById('total').value = sum
-      })
-  </script>
+    <script>
+        function HowAboutIt() {
+            let total = 0;
+            let coll = document.querySelectorAll('.jumlah')
+            for (let i = 0; i < coll.length; i++) {
+                let ele = coll[i]
+                total += parseInt(ele.value)
+            }
+            let res = document.getElementById('total')
+            res.value = total
+        }
+        document.getElementById('hitung').addEventListener('click', function() {
+            event.preventDefault()
+            let total = []
+            let nd = document.querySelectorAll('.jumlah')
+            for (let i = 0; i < nd.length; i++) {
+                total.push(parseInt(nd[i].value))
+            }
+            console.log(total)
+            let sum = total.reduce(function(totalValue, currentValue) {
+                return totalValue + currentValue
+            })
+            console.log(sum)
+            document.getElementById('total').value = sum
+        })
+    </script>
 @endsection
