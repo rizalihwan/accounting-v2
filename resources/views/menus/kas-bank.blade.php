@@ -1,0 +1,72 @@
+@section('title', 'Cash & Bank')
+
+@push('breadcrumb')
+    <li class="breadcrumb-item active">Cash & Bank</li>
+@endpush
+
+<section id="card-content-types">
+    <div class="row">
+        <div class="col-md-3 col-xl-3">
+            <a href="{{ route('admin.bkk.index') }}">
+                <div class="card bg-warning border-0 text-white">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Expense</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Expense</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Mencatat pengeluaran kas/bank
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-xl-3">
+            <a href="{{ route('admin.bkm.index') }}">
+                <div class="card bg-success border-0 text-white">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="text-light">Income</h1>
+                                </div>
+                                <div class="col">
+                                    <i class="fa fa-hand-holding-usd fa-lg fa-5x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <p class="card-text">
+                            <h1 class="card-text display-5 text-white font-weight-bold">Income</h1>
+                            <i class="fa fa-hand-holding-usd"></i>
+                            </p>
+                            <hr class="mr-1">
+                            <p class="card-text">
+                                Mencatat pemasukan kas/bank
+                            </p>
+                            <p class="card-text">
+                                <small class="text-light"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
