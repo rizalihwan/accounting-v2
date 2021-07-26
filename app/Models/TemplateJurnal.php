@@ -18,6 +18,6 @@ class TemplateJurnal extends Model
 
     public function kontak()
     {
-        $this->belongsTo(Kontak::class);
+        return $this->belongsTo(Kontak::class);
     }
 }
