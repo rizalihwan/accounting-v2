@@ -255,7 +255,7 @@
                     },
                     { data: "sumber" },
                     { data: "nama_template" },
-                    { data: "kontak" },
+                    { data: "kontak_id" },
                     { data: "frekuensi" },
                     { data: "per_tanggal" },
                     {
