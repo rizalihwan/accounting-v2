@@ -48,7 +48,7 @@ class TemplateJurnalController extends Controller
                 return $template->kontak->nama;
             })->addColumn('#', function ($template) {
                 return '<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="chooseTemplate(' . $template->id . ')">Pilih</button>';
-            })->rawColumns(['kontak', '#'])->toJson();
+            })->rawColumns(['kontak_id', '#'])->toJson();
 
         return $datatables;
     }
