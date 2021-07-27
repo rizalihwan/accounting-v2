@@ -164,7 +164,7 @@ class BuyController extends Controller
     public function getPesananDetails($pesanan_id)
     {
         $details = PesananBuysDetail::select('id', 'pesanan_id', 'product_id', 'jumlah', 'satuan', 'harga', 'total')
-            ->where('pesanan_id', $pesanan_id)->get();
+            ->where('pesanan_id', $pesanan_id)->with('product')->get();
 
         if ($details->count() == 0) {
             return response()->json([
