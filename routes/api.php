@@ -74,4 +74,11 @@ Route::name('api.')->group(function () {
 
     // Get Faktur Detail by:faktur_id
     Route::get('/get-buy-faktur-detail/{faktur_id}', 'Api\BuyController@getFakturDetails')->name('get-buy-faktur.details');
+    /**==== END PEMBELIAN ======*/
+
+    // Get template jurnal
+    Route::prefix('template-jurnal')->name('template-jurnal.')->group(function () {
+        Route::get('/{id}', 'Api\TemplateJurnalController@selected')->name('selected');
+        Route::post('datatables', 'Api\TemplateJurnalController@getTemplateDatatables')->name('datatables');
+    });
 });
