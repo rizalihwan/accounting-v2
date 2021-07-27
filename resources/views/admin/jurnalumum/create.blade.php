@@ -225,7 +225,7 @@
             }); 
         }
 
-        $("#modalTemplateJurnal").on("shown.bs.modal", function () {
+        $("#modalTemplateJurnal").on("show.bs.modal", function () {
             $("#template-datatables").DataTable({
                 // responsive: true,
                 destroy: true,
