@@ -44,7 +44,7 @@ class TemplateJurnalController extends Controller
     {
         $templates = $this->template->with('kontak');
         $datatables = DataTables::of($templates)
-            ->editColumn('kontak', function ($template) {
+            ->editColumn('kontak_id', function ($template) {
                 return $template->kontak->nama;
             })->addColumn('#', function ($template) {
                 return '<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="chooseTemplate(' . $template->id . ')">Pilih</button>';
