@@ -3,7 +3,7 @@
 @section('title', 'Laporan')
 @if(request()->routeIs('admin.report.keuangan.menu'))
 @push('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('admin.report.menu') }}">Report</a></li>
+<li class="breadcrumb-item"><a href="{{ route('admin.report.menu') }}">Laporan</a></li>
 <li class="breadcrumb-item active">Keuangan</li>
 @endpush
 @section('content')

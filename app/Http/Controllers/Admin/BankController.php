@@ -15,7 +15,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = Bank::all();
+        $banks = Bank::paginate(5);
 
         return view('admin.bank.index',compact('banks'));
     }

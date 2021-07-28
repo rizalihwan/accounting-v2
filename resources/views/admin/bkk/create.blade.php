@@ -2,10 +2,10 @@
 @section('title', 'Buku Kas Keluar')
     @push('breadcrumb')
         <li class="breadcrumb-item">
-            <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+            <a href="{{ route('admin.cash-bank') }}">Kas & Bank</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('admin.bkk.index') }}">Expanse</a>
+            <a href="{{ route('admin.bkk.index') }}">Buku Kas Keluar</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Create</li>
     @endpush

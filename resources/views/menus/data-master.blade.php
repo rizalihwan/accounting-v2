@@ -231,7 +231,7 @@
                         <div class="title">
                             <div class="row">
                                 <div class="col">
-                                    <h1 class="text-light">Category</h1>
+                                    <h1 class="text-light">Kategori</h1>
                                 </div>
                                 <div class="col">
                                     <i class="fa fa-box fa-lg fa-5x"></i>

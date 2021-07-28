@@ -5,7 +5,7 @@
         <a href="{{ route('admin.data-store') }}">Data Master</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ route('admin.kontak.index') }}">Contact Data</a>
+        <a href="{{ route('admin.kontak.index') }}">Kontak Data</a>
     </li>
     <li class="breadcrumb-item" aria-current="page">Edit</li>
 @endpush
