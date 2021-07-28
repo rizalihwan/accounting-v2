@@ -2,12 +2,12 @@
 @section('title', 'Data Product')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.data-store') }}">Data Store</a>
+    <a href="{{ route('admin.data-store') }}">Data Master</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.product.index') }}">Product</a>
+    <a href="{{ route('admin.product.index') }}">Produk</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Edit Product</li>
+<li class="breadcrumb-item" aria-current="page">Edit Produk</li>
 @endpush
 @section('content')
 

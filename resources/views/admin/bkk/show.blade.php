@@ -2,9 +2,9 @@
 @section('title', 'Buku Kas Keluar')
 @section('content')
     @push('breadcrumb')
-        <li class="breadcrumb-item active">Cash & Bank</li>
-        <li class="breadcrumb-item active">Expanse</li>
-        <li class="breadcrumb-item active">Show</li>
+        <li class="breadcrumb-item active">Kas & Bank</li>
+        <li class="breadcrumb-item active">Buku Kas Keluar</li>
+        <li class="breadcrumb-item active">Detail Data</li>
     @endpush
     <div class="row">
         <!-- end message area-->

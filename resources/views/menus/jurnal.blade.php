@@ -84,12 +84,12 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Template Jurnal Umum</h1>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Template Jurnal</h1>
                             <i class="fa fa-book"></i>
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                Menu untuk membuat template jurnal umum, kas masuk dan kas keluar.
                             </p>
                             <p class="card-text">
                                 <small class="text-light"> </small>

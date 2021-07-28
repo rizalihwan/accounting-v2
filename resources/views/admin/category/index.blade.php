@@ -4,7 +4,7 @@
     <li class="breadcrumb-item">
         <a href="{{ route('admin.data-store') }}">Data Store</a>
     </li>
-    <li class="breadcrumb-item" aria-current="page">Category</li>
+    <li class="breadcrumb-item" aria-current="page">Kategori</li>
 @endpush
 @section('content')
     

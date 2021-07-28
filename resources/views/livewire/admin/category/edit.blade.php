@@ -5,7 +5,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel33">Edit Category</h4>
+                            <h4 class="modal-title" id="myModalLabel33">Edit Kategori</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                 wire:click="$set('isOpen', false)">
                                 <span aria-hidden="true">&times;</span>
@@ -13,9 +13,9 @@
                         </div>
                         <form wire:submit.prevent="update">
                             <div class="modal-body">
-                                <label>Category Name: </label>
+                                <label>Nama Kategori: </label>
                                 <div class="form-group">
-                                    <input type="text" placeholder="Category Name" wire:model="category.name"
+                                    <input type="text" placeholder="Nama Kategori" wire:model="category.name"
                                         class="form-control @error('category.name') is-invalid @enderror" />
                                     @error('category.name')
                                         <span class="invalid-feedback" role="alert">

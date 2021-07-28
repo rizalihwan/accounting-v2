@@ -1,7 +1,7 @@
-@section('title', 'Cash & Bank')
+@section('title', 'Kas & Bank')
 
 @push('breadcrumb')
-    <li class="breadcrumb-item active">Cash & Bank</li>
+    <li class="breadcrumb-item active">Kas & Bank</li>
 @endpush
 
 <section id="card-content-types">
