@@ -2,9 +2,9 @@
 @section('title', 'Buku Kas Masuk')
     @push('breadcrumb')
         <li class="breadcrumb-item">
-            <a href="{{ route('admin.cash-bank') }}">Cash & Bank</a>
+            <a href="{{ route('admin.cash-bank') }}">Kas & Bank</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Income</li>
+        <li class="breadcrumb-item active" aria-current="page">Buku Kas Masuk</li>
     @endpush
 @section('content')
     <div class="row">

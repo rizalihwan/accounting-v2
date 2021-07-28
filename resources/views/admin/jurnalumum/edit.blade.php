@@ -4,7 +4,7 @@
     <li class="breadcrumb-item">
         <a href="{{ route('admin.jurnalumum.index') }}">Jurnal Umum</a>
     </li>
-    <li class="breadcrumb-item" aria-current="page">Buat Jurnal Umum</li>
+    <li class="breadcrumb-item" aria-current="page">Edit Jurnal Umum</li>
     @endpush
 @section('content')
     <div class="row">

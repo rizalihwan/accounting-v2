@@ -2,9 +2,9 @@
 @section('title', 'Data Product')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.data-store') }}">Data Store</a>
+    <a href="{{ route('admin.data-store') }}">Data Master</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Product</li>
+<li class="breadcrumb-item" aria-current="page">Produk</li>
 @endpush
 @section('content')
 

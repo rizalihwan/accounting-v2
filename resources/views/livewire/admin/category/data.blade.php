@@ -5,7 +5,7 @@
         <div class="col-lg-6 col-md-6 col-12">
             <div class="card card-payment">
                 <div class="card-header">
-                    <h4 class="card-title">List Category</h4>
+                    <h4 class="card-title">List Kategori</h4>
                     <input type="search" wire:model="search" class="form-control col-sm-5" placeholder="Search">
                 </div>
                 <div class="card-body">
@@ -14,7 +14,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 1px">#</th>
-                                    <th>Category Name</th>
+                                    <th>Nama Kategori</th>
                                     <th style="width: 1px">Action</th>
                                 </tr>
                             </thead>

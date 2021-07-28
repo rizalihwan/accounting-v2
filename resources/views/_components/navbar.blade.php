@@ -233,7 +233,7 @@
 
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="javascript:void('logout')" onclick="logoutConfirm()">
-                <i class="mr-50" data-feather="power"></i> Logout
+                <i class="mr-50" data-feather="power"></i> Keluar
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
