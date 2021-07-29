@@ -85,6 +85,14 @@ class TemplateJurnalController extends Controller
 
     public function destroy($id)
     {
-        //
+        $template = $this->template->findOrFail($id);
+
+        try {
+            $template->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Template berhasil dihapus');
     }
 }
