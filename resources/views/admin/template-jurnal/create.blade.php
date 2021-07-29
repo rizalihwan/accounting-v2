@@ -73,7 +73,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-lg-3 col-md-4">
+                                <div class="form-group">
+                                    <label for="divisi_id">{{ __('Divisi') }} <span class="text-danger">*</span> </label>
+                                    <select name="divisi_id" id="divisi_id" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
                                 <div class="form-group">
                                     <label for="uraian">{{ __('Uraian') }} <span class="text-danger">*</span> </label>
                                     <input type="text" name="uraian" id="uraian" value="{{ old('uraian') }}" class="form-control">
@@ -358,6 +364,28 @@
                 getNumberOfTr()
                 jumlahin()
             })
+        })
+
+        $("#divisi_id").select2({
+            placeholder: "-- Pilih Divisi --",
+            ajax: {
+                url: '{{ route('api.select2.get-divisi') }}',
+                type: 'post',
+                dataType: 'json',
+                data: params => {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term
+                    }
+                },
+                processResults: data => {
+                    return {
+                        results: data
+                    }
+                },
+                cache: true
+            },
+            allowClear: true
         })
         
     </script>

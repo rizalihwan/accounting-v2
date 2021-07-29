@@ -35,6 +35,7 @@ class TemplateJurnalController extends Controller
             'nama_template' => 'required',
             'keterangan' => 'required',
             'kontak_id' => 'required|exists:kontaks,id',
+            'divisi_id' => 'required|exists:divisis,id',
             'sumber' => 'required|in:KM,KK,JU',
             'frekuensi' => 'required|in:Harian,Bulanan,Tahunan',
             'per_tanggal' => 'required',
