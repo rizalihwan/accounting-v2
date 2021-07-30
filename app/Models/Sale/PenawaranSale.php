@@ -13,7 +13,7 @@ class PenawaranSale extends Model
 
     public function penawaran_details()
     {
-        return $this->hasOne(PenawaranSaleDetail::class, 'penawaran_id');
+        return $this->hasMany(PenawaranSaleDetail::class, 'penawaran_id');
     }
 
     public function pelanggan()

@@ -124,7 +124,7 @@ class FakturController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.sales.penawaran.show');
     }
 
     /**
