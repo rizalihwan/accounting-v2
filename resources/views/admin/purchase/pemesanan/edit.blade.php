@@ -215,9 +215,7 @@
 <script src="{{ asset('js/helpers.js') }}"></script>
 <script src="{{ asset('js/dynamic_fields.js') }}"></script>
 <script>
-    let pesanandetail_url = '{{ route('api.get-buy-pesanan.details', ':id') }}';
-    let url_product = '{{ route('api.select2.get-buy-product') }}';
-    let selected_product = '{{ route('api.select2.get-buy-product.selected', ':id') }}';
+    const pesanandetail_url = '{{ route('api.get-buy-pesanan.details', ':id') }}';
 
     $(document).ready(function () {
         $("#btn-submit").attr('disabled', true)
@@ -227,46 +225,39 @@
             type: 'get',
             url: pesanandetail_url.replace(':id', '{{ $pesanan->id }}'),
             dataType: 'json',
-            error: (err) => {
-                console.log(err);
-            },
             success: results => {
-                let subtotal = 0;
                 Object.keys(results.data).forEach(key => {
                     const data = results.data[key];
+                    const product = results.data[key].product;
+                    const option = new Option(product.name, product.id, true, true);
 
-                    $.ajax({
-                        type: 'get',
-                        url: selected_product.replace(':id', data.product_id),
-                        error: (err) => {
-                            console.log(err);
-                        },
-                        success: (result) => {
-                            field_dinamis_edit(
-                                'pesanans', url_product,
-                                data.id, data.jumlah, data.total
-                            );
-                            $(".btn_remove").attr('disabled', true);
+                    field_dinamis_edit(
+                        'pesanans', '{{ route('api.select2.get-buy-product') }}',
+                        data.id, data.jumlah, data.total
+                    );
+                    $(".btn_remove").attr('disabled', true);
 
-                            subtotal += parseInt(data.total)
-                            $("#total").val(formatter(subtotal))
+                    if ((parseInt(key) + 1) == results.length) {
+                        $("#btn-submit").attr('disabled', false)
+                        $("#add").attr('disabled', false)
+                        $(".btn_remove").attr('disabled', false);
+                    }
 
-                            if ((parseInt(key) + 1) == results.length) {
-                                $("#btn-submit").attr('disabled', false)
-                                $("#add").attr('disabled', false)
-                                $(".btn_remove").attr('disabled', false);
-                            }
-
-                            let option = new Option(result.text, result.id, true, true)
-                            $('select[name="pesanans['+ key +'][product_id]"]').append(option).trigger('change')
-                            $('select[name="pesanans['+ key +'][product_id]"]').trigger({
-                                type: 'select2:select',
-                                params: {
-                                    data: result
-                                }
-                            })
+                    $('select[name="pesanans['+ key +'][product_id]"]').attr('disabled', true);
+                    $('select[name="pesanans['+ key +'][product_id]"]').append(option).trigger('change')
+                    $('select[name="pesanans['+ key +'][product_id]"]').trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: product
                         }
                     })
+
+                    $('select[name="pesanans['+ key +'][product_id]"]').attr('disabled', false);
+                    $('[name="pesanans[' + key + '][jumlah]"]').attr("readonly", false).val(data.jumlah);
+                    $('[name="pesanans[' + key + '][satuan]"]').val(data.satuan);
+                    $('[name="pesanans[' + key + '][harga]"]').attr("readonly", false).val(formatter(data.harga));
+                    $('[name="pesanans[' + key + '][total]"]').val(formatter(data.total));
+                    $("#total").val(formatter(jumlahin()));
                 });
             }
         })

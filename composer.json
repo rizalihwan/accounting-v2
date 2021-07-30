@@ -18,7 +18,8 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

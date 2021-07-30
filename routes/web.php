@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
             // Jurnal Umum
             Route::resource('jurnalumum', 'JurnalUmumController');
+            // Template Jurnal Umum
+            Route::resource('template-jurnal', 'TemplateJurnalController');
         });
 
         Route::prefix('sales')->name('sales.')->group(function () {
