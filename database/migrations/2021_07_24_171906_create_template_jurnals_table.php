@@ -21,10 +21,9 @@ class CreateTemplateJurnalsTable extends Migration
             $table->string('per_tanggal', 2);
             $table->enum('sumber', ['KM', 'KK', 'JU']);
             $table->foreignId('kontak_id')->constrained();
+            $table->foreignId('divisi_id')->constrained();
             $table->string('uraian');
             $table->timestamps();
-
-
         });
     }
 

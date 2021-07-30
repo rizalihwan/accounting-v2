@@ -216,16 +216,9 @@
         function chooseTemplate(template_id) {
             history.pushState({}, null, `?template_id=${template_id}`);
             getTemplate(template_id)
-            hideModal()
         }
 
-        function hideModal() {
-            $('#modalTemplateJurnal').on('shown', function () {
-                $('#modalTemplateJurnal').modal('hide');      
-            }); 
-        }
-
-        $("#modalTemplateJurnal").on("shown.bs.modal", function () {
+        $("#modalTemplateJurnal").on("show.bs.modal", function () {
             $("#template-datatables").DataTable({
                 // responsive: true,
                 destroy: true,
@@ -457,25 +450,10 @@
                 dataType: 'json',
                 success: result => {
                     const data = result.data;
-                    $("#modalTemplateJurnal").modal('hide')
                     $("#dynamic_field").html('')
 
                     $("#uraian").val(data.uraian)
-                    $.ajax({
-                        type: 'get',
-                        url: '{{ route('api.select2.get-kontak.selected', ':id') }}'.replace(':id', data.kontak_id),
-                        success: (data) => {
-                            let option = new Option(data.text, data.id, true, true)
-                            $("#kontak_id").append(option).trigger('change')
-                            $("#kontak_id").trigger({
-                                type: 'select2:select',
-                                params: {
-                                    data: data
-                                }
-                            })
-                        }
-                    })
-                    
+
                     Object.keys(data.template_details).forEach(index => {
                         const detail = data.template_details[index];
 
@@ -499,8 +477,41 @@
                                         data: akun
                                     }
                                 })
+                                if ((index + 1) == data.template_details.length) {
+                                    // 
+                                }
                             }
                         })
+                    })
+
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ route('api.select2.get-kontak.selected', ':id') }}'.replace(':id', data.kontak_id),
+                        success: (data) => {
+                            let option = new Option(data.text, data.id, true, true)
+                            $("#kontak_id").append(option).trigger('change')
+                            $("#kontak_id").trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: data
+                                }
+                            })
+                        }
+                    })
+
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ route('api.select2.get-divisi.selected', ':id') }}'.replace(':id', data.divisi_id),
+                        success: data => {
+                            let option = new Option(data.text, data.id, true, true)
+                            $("#divisi_id").append(option).trigger('change')
+                            $("#divisi_id").trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: data
+                                }
+                            })
+                        }
                     })
                 }
             })

@@ -32,7 +32,7 @@
                                     <th>Kontak</th>
                                     <th>Frekuensi</th>
                                     <th>Tanggal</th>
-                                    <th colspan="2">Action</th>
+                                    <th style="width: 1px" {{-- colspan="2" --}}>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,14 +44,14 @@
                                         <td>{{ $key->kontak->nama }}</td>
                                         <td>{{ $key->frekuensi }}</td>
                                         <td>{{ $key->per_tanggal }}</td>
-                                        <td class="px-1">
+                                        {{-- <td class="px-1">
                                             <a href="{{ route('admin.jurnalumum.create').'?template_id='.$key->id }}" class="btn btn-warning btn-sm" 
                                                 style="width: 140px">
                                                 <span class="ml-1">Buat Jurnal</span>
                                                 <i data-feather="external-link"></i>
                                             </a>
-                                        </td>
-                                        <td class="px-1">
+                                        </td> --}}
+                                        <td {{-- class="px-1" --}}>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
                                                     <i data-feather="more-vertical"></i>

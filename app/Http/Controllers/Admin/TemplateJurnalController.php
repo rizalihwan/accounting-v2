@@ -35,6 +35,7 @@ class TemplateJurnalController extends Controller
             'nama_template' => 'required',
             'keterangan' => 'required',
             'kontak_id' => 'required|exists:kontaks,id',
+            'divisi_id' => 'required|exists:divisis,id',
             'sumber' => 'required|in:KM,KK,JU',
             'frekuensi' => 'required|in:Harian,Bulanan,Tahunan',
             'per_tanggal' => 'required',
@@ -85,6 +86,14 @@ class TemplateJurnalController extends Controller
 
     public function destroy($id)
     {
-        //
+        $template = $this->template->findOrFail($id);
+
+        try {
+            $template->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Template berhasil dihapus');
     }
 }
