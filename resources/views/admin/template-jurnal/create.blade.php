@@ -186,6 +186,7 @@
         }
 
         function jumlahin() {
+            let sumber = $("#sumber").val()
             let total_debit = 0
             let total_kredit = 0
             let difference = 0
@@ -207,10 +208,14 @@
             $("#total_debit").text(formatter(total_debit))
             $("#total_kredit").text(formatter(total_kredit))
             $("#difference").text(formatter(difference))
-            if (difference === 0) {
-                $("#btn-submit").attr('disabled', false)
+            if (sumber == "JU") {
+                if (difference === 0) {
+                    $("#btn-submit").attr('disabled', false)
+                } else {
+                    $("#btn-submit").attr('disabled', true)
+                }
             } else {
-                $("#btn-submit").attr('disabled', true)
+                $("#btn-submit").attr('disabled', false)
             }
         }
 
@@ -317,6 +322,9 @@
                 placeholder: '-- Pilih Sumber --',
                 data: dataSelect2.sumber,
                 allowClear: true
+            })
+            $("#sumber").on('select2:select', function(e) {
+                jumlahin()
             })
 
             $("#frekuensi").select2({
