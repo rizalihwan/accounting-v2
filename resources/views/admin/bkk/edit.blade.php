@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label for="kontak">Sudah Bayar Ke</label>
                                     <select name="kontak" id="kontak" class="form-control" required>
-                                        <option value="{{ $datas->kontak_id }}">{{ $datas->kontaks->nama }}</option>
+                                        <option value="{{ $datas->kontak_id }}">{{ $datas->kontak->nama }}</option>
                                         @foreach ($kontak as $item)
                                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach
@@ -60,7 +60,7 @@
                                     <label for="kontak">Rek.Kas/Bank[K]</label>
                                     <select name="rek" id="rek" class="form-control">
                                         <option value="{{ $datas->rekening_id }}">
-                                            {{ $datas->akuns->name }}-{{ $datas->akuns->subklasifikasi->name }}
+                                            {{ $datas->akun->name }}-{{ $datas->akun->subklasifikasi->name }}
                                         </option>
                                         @foreach ($rekening as $item)
                                             @if (!empty($item->subklasifikasi->name))
@@ -79,7 +79,7 @@
                         <hr>
                         <div class="col-12 ">
                             <div data-repeater-list="invoice">
-                                @foreach ($datas->uraians as $data)
+                                @foreach ($datas->bkk_details as $data)
                                     <div data-repeater-item>
                                         <div class="row d-flex align-items-end">
                                             <div class="col-md-4 col-12 ">
