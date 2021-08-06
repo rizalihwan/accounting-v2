@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bkk;
-use App\Models\Akun;
+use App\Models\{Bkk, BkkDetail, Akun, Kontak};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 use function GuzzleHttp\Promise\all;
 
@@ -22,7 +22,7 @@ class BkkController extends Controller
         $bkks = Bkk::where('status', 'BKK');
         $indeks = $bkks->paginate(5);
         $countBkk = $bkks->count();
-        $row = DB::table('bkks')->orderBy('id', 'DESC')->get()->count();
+        $row = Bkk::orderBy('id', 'DESC')->get()->count();
         return view('admin.bkk.index', compact('indeks', 'row', 'countBkk'));
     }
 
@@ -51,13 +51,8 @@ class BkkController extends Controller
                 $kode = "KK" . '' . ($lastId->id + 1);
             }
         }
-        $rekening = Akun::with(['subklasifikasi' => function ($query) {
-            $query->where('name', 'like', '%kas%')
-                ->orWhere('name', 'like', '%bank%');
-        }])->get();
-        $rekenings = Akun::all();
-        $kontak = DB::table('kontaks')->get();
-        return view('admin.bkk.create', compact('rekening', 'kontak', 'kode', 'rekenings'));
+
+        return view('admin.bkk.create', compact('kode'));
     }
 
     /**
@@ -68,37 +63,47 @@ class BkkController extends Controller
      */
     public function store(Request $request)
     {
-        $imam = count($request->invoice);
+        $validation = Validator::make($request->all(), [
+            'tanggal' => 'required',
+            'kontak_id' => 'required|exists:kontaks,id',
+            'desk' => 'required',
+            'rekening_id' => 'required|exists:akuns,id',
+            'bkk.*.rekening' => 'required|exists:akuns,id',
+            'bkk.*.jumlah' => 'required',
+            'bkk.*.catatan' => 'required',
+        ]);
 
-        // foreach($id->rekenings as $s){
-        //    echo $s->jml_uang ;
-        // }
-        // dd($request->all());
-        $jml = 0;
-        DB::table('bkks')->insert([
-            'tanggal' => $request->tanggal,
-            'kontak_id' => $request->kontak,
-            'desk' => $request->desk,
-            'rekening_id' => $request->rek,
-            'status' => 'BKK',
-        ]);
-        $id = DB::table('bkks')->select('id')
-            ->orderByDesc('id')
-            ->first();
-        for ($i = 0; $i < $imam; $i++) {
-            DB::table('uraians')->insert([
-                'rekening_id' => $request->invoice[$i]["rekening"],
-                'bkk_id' => $id->id,
-                'jml_uang' => $request->invoice[$i]["jumlah"],
-                'catatan' => $request->invoice[$i]["catatan"],
-                'uang' => $request->invoice[$i]["matauang"],
-            ]);
-            $jml = $jml + $request->invoice[$i]["jumlah"];
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation);
         }
-        DB::table('bkks')->where('id', $id->id)->update([
-            'value' => $jml
-        ]);
-        return redirect()->route('admin.bkk.index')->with('success', 'Buku Kas berhasil Tersimpan');
+
+        try {
+            DB::transaction(function () use ($request) {
+                $bkk = Bkk::create(array_merge($request->except('bkk'), [
+                    'status' => 'BKK'
+                ]));
+
+                $totalUang = 0;
+
+                foreach ($request->bkk as $detail) {
+                    $jumlah_uang = (int)preg_replace('/[^\d.]/', '', $detail['jumlah']);
+                    BkkDetail::create([
+                        'bkk_id' => $bkk->id,
+                        'rekening_id' => $detail['rekening'],
+                        'jml_uang' => $jumlah_uang,
+                        'catatan' => $detail['catatan'],
+                    ]);
+
+                    $totalUang += $jumlah_uang;
+                }
+
+                $bkk->update(['value' => $totalUang]);
+            });
+
+            return redirect()->route('admin.bkk.index')->with('success', 'Buku Kas berhasil Tersimpan');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     /**
