@@ -40,15 +40,43 @@ class TemplateJurnalController extends Controller
         ]);
     }
 
-    public function getTemplateDatatables()
+    public function getTemplateDatatables(Request $request)
     {
+        $type = $request->type;
         $templates = $this->template->with('kontak');
-        $datatables = DataTables::of($templates)
-            ->editColumn('kontak_id', function ($template) {
-                return $template->kontak->nama;
-            })->addColumn('#', function ($template) {
-                return '<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="chooseTemplate(' . $template->id . ')">Pilih</button>';
-            })->rawColumns(['kontak_id', '#'])->toJson();
+
+        if ($type == 'kk') {
+            $templates = $templates->where('sumber', 'KK');
+            $datatables = DataTables::of($templates)
+                ->editColumn('kontak_id', function ($template) {
+                    return $template->kontak->nama;
+                })->addColumn('#', function ($template) {
+                    return '<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="chooseTemplate(' . $template->id . ')">Pilih</button>';
+                })->rawColumns(['kontak_id', '#'])->toJson();
+        } else if ($type == 'km') {
+            $templates = $templates->where('sumber', 'KM');
+            $datatables = DataTables::of($templates)
+                ->editColumn('kontak_id', function ($template) {
+                    return $template->kontak->nama;
+                })->addColumn('#', function ($template) {
+                    return '<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="chooseTemplate(' . $template->id . ')">Pilih</button>';
+                })->rawColumns(['kontak_id', '#'])->toJson();
+        } else if ($type == 'ju') {
+            $templates = $templates->where('sumber', 'JU');
+            $datatables = DataTables::of($templates)
+                ->editColumn('kontak_id', function ($template) {
+                    return $template->kontak->nama;
+                })->addColumn('#', function ($template) {
+                    return '<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="chooseTemplate(' . $template->id . ')">Pilih</button>';
+                })->rawColumns(['kontak_id', '#'])->toJson();
+        } else {
+            $datatables = DataTables::of($templates)
+                ->editColumn('kontak_id', function ($template) {
+                    return $template->kontak->nama;
+                })->addColumn('#', function ($template) {
+                    return '<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="chooseTemplate(' . $template->id . ')">Pilih</button>';
+                })->rawColumns(['kontak_id', '#'])->toJson();
+        }
 
         return $datatables;
     }
