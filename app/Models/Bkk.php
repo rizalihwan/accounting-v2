@@ -9,19 +9,20 @@ class Bkk extends Model
 {
     use HasFactory;
 
-    protected $table = 'bkks';
     protected $guarded = [];
 
-    public function uraians()
+    public function bkk_details()
     {
-        return $this->hasMany(Uraian::class);
+        return $this->hasMany(BkkDetail::class, 'bkk_id');
     }
-    public function kontaks()
+
+    public function kontak()
     {
-        return $this->belongsTo(Kontak::class,'kontak_id','id');
+        return $this->belongsTo(Kontak::class,'kontak_id');
     }
-    public function akuns()
+
+    public function akun()
     {
-        return $this->belongsTo(Akun::class,'rekening_id','id');
+        return $this->belongsTo(Akun::class,'rekening_id');
     }
 }

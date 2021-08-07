@@ -230,7 +230,8 @@
                     type: "post",
                     dataType: 'json',
                     data: {
-                        _token: CSRF_TOKEN
+                        _token: CSRF_TOKEN,
+                        type: 'ju'
                     },
                     error: (response) => {
                         console.log(response);

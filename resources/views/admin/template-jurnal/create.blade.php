@@ -66,7 +66,6 @@
                                 <div class="form-group">
                                     <label for="per_tanggal">{{ __('Per Tanggal') }} <span class="text-danger">*</span> </label>
                                     <select name="per_tanggal" id="per_tanggal" class="form-control">
-                                        <option disabled>-- Pilih tanggal --</option>
                                         @for($i = 1; $i < 31; $i++)
                                             <option value="{{ $i }}" {{ $i == old('per_tanggal') ? 'selected' : '' }}>{{ $i }}</option>
                                         @endfor
@@ -186,6 +185,7 @@
         }
 
         function jumlahin() {
+            let sumber = $("#sumber").val()
             let total_debit = 0
             let total_kredit = 0
             let difference = 0
@@ -207,35 +207,91 @@
             $("#total_debit").text(formatter(total_debit))
             $("#total_kredit").text(formatter(total_kredit))
             $("#difference").text(formatter(difference))
-            if (difference === 0) {
-                $("#btn-submit").attr('disabled', false)
+            if (sumber == "JU") {
+                if (difference === 0) {
+                    $("#btn-submit").attr('disabled', false)
+                } else {
+                    $("#btn-submit").attr('disabled', true)
+                }
             } else {
-                $("#btn-submit").attr('disabled', true)
+                $("#btn-submit").attr('disabled', false)
             }
         }
 
         function select2Akun(index) {
-            $('select[name="jurnals['+index+'][akun_id]"]').select2({
-                placeholder: '-- Pilih Akun --',
-                ajax: {
-                    url: '{{ route('api.select2.get-akun') }}',
-                    type: 'post',
-                    dataType: 'json',
-                    data: params => {
-                        return {
-                            _token: CSRF_TOKEN,
-                            search: params.term
-                        }
+            let sumber = $("#sumber").val();
+            if (index === 0) {
+                if (sumber == "KM" || sumber == "KK") {
+                    $('select[name="jurnals[0][akun_id]"]').select2({
+                        placeholder: '-- Pilih Akun --',
+                        ajax: {
+                            url: '{{ route('api.select2.get-akun') }}',
+                            type: 'post',
+                            dataType: 'json',
+                            data: params => {
+                                return {
+                                    _token: CSRF_TOKEN,
+                                    search: params.term,
+                                    kas_bank: 'yes',
+                                }
+                            },
+                            processResults: data => {
+                                return {
+                                    results: data
+                                }
+                            },
+                            cache: true
+                        },
+                        allowClear: true
+                    })
+                } else {
+                    $('select[name="jurnals[0][akun_id]"]').select2({
+                        placeholder: '-- Pilih Akun --',
+                        ajax: {
+                            url: '{{ route('api.select2.get-akun') }}',
+                            type: 'post',
+                            dataType: 'json',
+                            data: params => {
+                                return {
+                                    _token: CSRF_TOKEN,
+                                    search: params.term,
+                                    kas_bank: 'no',
+                                }
+                            },
+                            processResults: data => {
+                                return {
+                                    results: data
+                                }
+                            },
+                            cache: true
+                        },
+                        allowClear: true
+                    })
+                }
+            } else {
+                $('select[name="jurnals['+index+'][akun_id]"]').select2({
+                    placeholder: '-- Pilih Akun --',
+                    ajax: {
+                        url: '{{ route('api.select2.get-akun') }}',
+                        type: 'post',
+                        dataType: 'json',
+                        data: params => {
+                            return {
+                                _token: CSRF_TOKEN,
+                                search: params.term,
+                                kas_bank: 'no',
+                            }
+                        },
+                        processResults: data => {
+                            return {
+                                results: data
+                            }
+                        },
+                        cache: true
                     },
-                    processResults: data => {
-                        return {
-                            results: data
-                        }
-                    },
-                    cache: true
-                },
-                allowClear: true
-            })
+                    allowClear: true
+                })
+            }
         }
 
         function getNumberOfTr() {
@@ -269,15 +325,20 @@
                         <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" 
                             placeholder="0" onkeypress="onlyNumber(event)" oninput="jumlahin()" autocomplete="off">
                     </td>
-                    <td>
+            `
+            if (index > 0) {
+                html += `<td>
                         <button type="button" name="remove" 
                             class="btn btn-danger btn-sm text-white btn_remove">
                             <i data-feather="trash-2"></i>
                         </button>
                     </td>
-                </tr>
-            `
-            $("#dynamic_field").append(html)
+                </tr>`
+                $("#dynamic_field").append(html)
+            } else {
+                html += `<td></td></tr>`;
+                $("#dynamic_field").append(html)
+            }
             // jurnalEachColumn(index)
             feather.replace()
             select2Akun(index)
@@ -316,14 +377,29 @@
             $("#sumber").select2({
                 placeholder: '-- Pilih Sumber --',
                 data: dataSelect2.sumber,
-                allowClear: true
+                allowClear: true,
+                minimumResultsForSearch: Infinity
+            })
+            $('#sumber').val(null).trigger('change');
+            $("#sumber").on('select2:select', function(e) {
+                jumlahin()
+                getNumberOfTr()
             })
 
             $("#frekuensi").select2({
                 placeholder: '-- Pilih Frekuensi --',
                 data: dataSelect2.frekuensi,
-                allowClear: true
+                allowClear: true,
+                minimumResultsForSearch: Infinity
             })
+            $('#frekuensi').val(null).trigger('change');
+
+            $("#per_tanggal").select2({
+                placeholder: '-- Pilih Tanggal --',
+                allowClear: true,
+                minimumResultsForSearch: Infinity
+            })
+            $('#per_tanggal').val(null).trigger('change');
 
             $("#kontak_id").select2({
                 placeholder: "-- Pilih Kontak --",
@@ -346,8 +422,6 @@
                 },
                 allowClear: true
             })
-        
-            getNumberOfTr()
 
             $('#add').click(function(){
                 field_dinamis()

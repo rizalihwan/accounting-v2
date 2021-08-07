@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Akun extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', '=', '1');
+    }
+
     public function subklasifikasi()
     {
         return $this->belongsTo(Subklasifikasi::class);
