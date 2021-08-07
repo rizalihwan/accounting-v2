@@ -76,6 +76,17 @@ Route::name('api.')->group(function () {
     Route::get('/get-buy-faktur-detail/{faktur_id}', 'Api\BuyController@getFakturDetails')->name('get-buy-faktur.details');
     /**==== END PEMBELIAN ======*/
 
+    // Kas & Bank ++++++++++++++++++++++++++
+    // BKK
+    Route::name('bkk.')->group(function () {
+        Route::get('bkk_details/{bkk_id}', 'Api\KasController@getBkkDetail')->name('details');
+    });
+    // END BKK ===
+
+    // BKM
+    // END BKM ===
+    // END Kas & Bank ======================
+
     // Get template jurnal
     Route::prefix('template-jurnal')->name('template-jurnal.')->group(function () {
         Route::get('/{id}', 'Api\TemplateJurnalController@selected')->name('selected');
