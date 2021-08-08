@@ -38,7 +38,7 @@
                             <div class="col-md-4 col-12 ">
                                 <div class="form-group">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" class="form-control" name="tanggal" value="{{ $bkk->tanggal }}" required />
+                                    <input type="date" class="form-control" name="tanggal" value="{{ old('tanggal') ?? $bkk->tanggal }}" required />
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <div class="form-group">
                                     <label for="desk">Untuk Pembayaran</label>
                                     <input type="text" name="desk" id="desk" class="form-control" 
-                                        placeholder="Deskripsi keterangan" value="{{ $bkk->desk }}" />
+                                        placeholder="Deskripsi keterangan" value="{{ old('desk') $bkk->desk }}" />
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 ">
@@ -67,68 +67,6 @@
                 </div>
                 <div class="card">
                     <div class="card-body mt-0">
-                        {{-- <div data-repeater-list="invoice">
-                            @foreach ($bkk->bkk_details as $data)
-                                <div data-repeater-item>
-                                    <div class="row d-flex align-items-end">
-                                        <div class="col-md-4 col-12 ">
-                                            <div class="form-group">
-                                                <label for="itemname">no rek</label>
-                                                <select name="rekening" id="rekening" class="form-control">
-                                                    <option value="{{ $data->rekening_id }}">
-                                                        {{ $data->rekening->name }}-{{ $data->rekening->subklasifikasi->name }}
-                                                    </option>
-                                                    @foreach ($rekenings as $item)
-                                                        <option value="{{ $item->id }}">
-                                                            {{ $item->name }}-{{ $item->subklasifikasi->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2 col-12" id="app">
-                                            <div class="form-group">
-                                                <label for="jumlah">Jumlah uang</label>
-                                                <input type="number" class="form-control jumlah" oninput="HowAboutIt()"
-                                                    placeholder="1" name="jumlah" value="{{ $data->jml_uang }}"
-                                                    required />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2 col-12">
-                                            <div class="form-group">
-                                                <label for="catatan">catatan</label>
-                                                <input type="text" class="form-control" id="catatan" name="catatan"
-                                                    value="{{ $data->catatan }}" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2 col-12">
-                                            <div class="form-group">
-                                                <label for="matauang">uang</label>
-                                                <select name="matauang" id="matauang" class="form-control">
-                                                    <option value="RP">{{ $data->uang }}</option>
-                                                    <option value="RP">RP</option>
-                                                    <option value="USD">USD</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2 col-12">
-                                            <div class="form-group">
-                                                <button class="btn btn-outline-danger " onclick="calculate(event)"
-                                                    data-repeater-delete type="button">
-                                                    <i class="fa fa-times"></i>
-                                                    <span>Delete</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                </div>
-                            @endforeach
-                        </div> --}}
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <thead>

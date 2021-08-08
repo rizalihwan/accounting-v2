@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Bkk, BkkDetail, Akun, Kontak};
+use App\Models\{Bkk, BkkDetail};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
-use function GuzzleHttp\Promise\all;
 
 class BkkController extends Controller
 {
@@ -74,7 +72,7 @@ class BkkController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return redirect()->back()->withErrors($validation);
+            return redirect()->back()->withInput()->withErrors($validation);
         }
 
         try {
@@ -102,7 +100,7 @@ class BkkController extends Controller
 
             return redirect()->route('admin.bkk.index')->with('success', 'Buku Kas berhasil Tersimpan');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
 
@@ -198,7 +196,7 @@ class BkkController extends Controller
 
             return redirect()->route('admin.bkk.index')->with('success', 'Buku Kas berhasil Terupdate');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
 
