@@ -32,6 +32,10 @@
                 <div class="card mb-2 ">
                     <div class="card-header">
                         <h4>Create Income</h4>
+                        <button type="button" class="btn btn-light"
+                            data-toggle="modal" data-target="#modalTemplateJurnal">
+                            Gunakan Template
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="row d-flex align-items-end">
@@ -115,12 +119,45 @@
             </form>
         </div>
     </div>
+
+    <div class="modal fade" id="modalTemplateJurnal" tabindex="-1" role="dialog" aria-labelledby="modalTemplateJurnalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTemplateJurnalTitle">Pilih Template</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless" id="template-datatables">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama Template</th>
+                                    <th>Kontak</th>
+                                    <th>Frekuensi</th>
+                                    <th>Per Tanggal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('select2')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
 @endpush
 @push('head')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
     <style>
         .select2 {
             width: 100%!important;
@@ -153,6 +190,11 @@
 @endpush
 
 @push('script')
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/helpers.js') }}"></script>
     <script>
@@ -197,6 +239,115 @@
             });
         }
         
+        function chooseTemplate(template_id) {
+            history.pushState({}, null, `?template_id=${template_id}`);
+            getTemplate(template_id)
+        }
+
+        function getTemplate(template_id) {
+            $.ajax({
+                url: '{{ route('api.template-jurnal.selected', ':id') }}'.replace(':id', template_id),
+                type: 'get',
+                dataType: 'json',
+                success: result => {
+                    const data = result.data;
+                    $('#dynamic_field').empty()
+
+                    $('#save').attr('disabled', true);
+                    Object.keys(data.template_details).forEach(index => {
+                        const detail = data.template_details[index];
+
+                        field_dinamis();
+                        eventJumlah();
+                        hitungTotal();
+
+                        $('select[name="bkm['+ index +'][rekening]"]').attr('disabled', true);
+
+                        $.ajax({
+                            type: 'get',
+                            url: '{{ route('api.select2.get-akun.selected', ':id') }}'.replace(':id', detail.akun_id),
+                            dataType: 'json',
+                            success: (akun) => {
+                                let option = new Option(akun.text, akun.id, true, true)
+                                $('select[name="bkm['+ index +'][rekening]"]').attr('disabled', false);
+                                $('select[name="bkm['+ index +'][rekening]"]').append(option).trigger('change')
+                                $('select[name="bkm['+ index +'][rekening]"]').trigger({
+                                    type: 'select2:select',
+                                    params: {
+                                        data: akun
+                                    }
+                                })
+
+                                if ((parseInt(index) + 1) == data.template_details.length) {
+                                    $('#save').attr('disabled', false);
+                                }
+                            }
+                        })
+                    })
+
+                    $("#desk").val(data.uraian)
+
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ route('api.select2.get-kontak.selected', ':id') }}'.replace(':id', data.kontak_id),
+                        success: (data) => {
+                            let option = new Option(data.text, data.id, true, true)
+                            $("#kontak_id").append(option).trigger('change')
+                            $("#kontak_id").trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: data
+                                }
+                            })
+                        }
+                    })
+
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ route('api.select2.get-akun.selected', ':id') }}'.replace(':id', data.template_details[0].akun_id),
+                        dataType: 'json',
+                        success: (akun) => {
+                            let option = new Option(akun.text, akun.id, true, true)
+                            $('#rekening_id').append(option).trigger('change')
+                            $('#rekening_id').trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: akun
+                                }
+                            })
+                        }
+                    })
+                    
+                    eventJumlah();
+                    hitungTotal();
+                }
+            })
+        }
+
+        function select2Rekening(index) {
+            $('select[name="bkm['+index+'][rekening]"]').select2({
+                placeholder: '-- No. Rekening --',
+                ajax: {
+                    url: '{{ route('api.select2.get-akun') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term,
+                            kas_bank: 'no',
+                        }
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
+                allowClear: true
+            });
+        }
 
         function select2Rekening(index) {
             $('select[name="bkm['+index+'][rekening]"]').select2({
@@ -288,6 +439,48 @@
         field_dinamis()
     </script>
     <script>
+        $("#modalTemplateJurnal").on("show.bs.modal", function () {
+            $("#template-datatables").DataTable({
+                // responsive: true,
+                destroy: true,
+                serverSide: true,
+                processing: true,
+                ordering: false,
+                ajax: {
+                    url: '{{ route('api.template-jurnal.datatables') }}',
+                    type: "post",
+                    dataType: 'json',
+                    data: {
+                        _token: CSRF_TOKEN,
+                        type: 'km'
+                    }
+                },
+                searching: true,
+                columns: [
+                    {
+                        data: null,
+                        sortable: false,
+                        searchable: false,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                    },
+                    { data: "nama_template" },
+                    { data: "kontak_id" },
+                    { data: "frekuensi" },
+                    { data: "per_tanggal" },
+                    {
+                        data: "#",
+                        orderable: false,
+                        searchable: false,
+                    },
+                ],
+                
+            });
+
+            $('.dataTable').wrap('<div class="dataTables_scroll" />');
+        });
+
         $("#kontak_id").select2({
             placeholder: "Pilih Kontak",
             ajax: {
