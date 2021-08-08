@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <div class="d-flex">
                         <h4 class="card-title">List Buku Kas Masuk</h4>
-                        <h4><span class="text-muted ml-1">{{ $countBkm }}</span></h4>
+                        <h4><span class="text-muted ml-1">{{ $indeks->count() }}</span></h4>
                     </div>
                     <a href="{{ route('admin.bkm.create') }}" class="btn btn-success">
                         <i data-feather="plus"></i>
@@ -23,12 +23,12 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover" @if (count($indeks) == 1) style="height: 140px" @endif>
+                        <table class="table table-hover" @if ($indeks->count() == 1) style="height: 140px" @endif>
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Tanggal</th>
-                                    <th>Nomor Kas Keluar</th>
+                                    <th>Nomor Kas Masuk</th>
                                     <th>nama rekening</th>
                                     <th>untuk Pembayaran</th>
                                     <th>Value</th>
@@ -42,17 +42,17 @@
                                         <td>{{ $item->tanggal }}</td>
                                         @if ($row > 0)
                                             @if ($item->id < 9)
-                                                <td>KK0000{{ $item->id }}</td>
-                                            @elseif ($item->id < 99) <td>KK000{{ $item->id }}</td>
-                                                @elseif ($item->id < 999) <td>KK00{{ $item->id }}</td>
-                                                    @elseif ($item->id < 9999) <td>KK0{{ $item->id }}</td>
+                                                <td>KM0000{{ $item->id }}</td>
+                                            @elseif ($item->id < 99) <td>KM000{{ $item->id }}</td>
+                                                @elseif ($item->id < 999) <td>KM00{{ $item->id }}</td>
+                                                    @elseif ($item->id < 9999) <td>KM0{{ $item->id }}</td>
                                                         @else
-                                                            <td>KK{{ $item->id }}</td>
+                                                            <td>KM{{ $item->id }}</td>
                                             @endif
                                         @endif
-                                        <td>{{ $item->akuns->name }} - {{ $item->akuns->subklasifikasi->name }}</td>
+                                        <td>{{ $item->akun->name }} - {{ $item->akun->subklasifikasi->name }}</td>
                                         <td>{{ $item->desk }}</td>
-                                        <td>{{ $item->value }}</td>
+                                        <td>{{ number_format($item->value) }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"

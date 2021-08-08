@@ -2,20 +2,24 @@
 @section('title', 'Buku Kas Masuk')
 @section('content')
     @push('breadcrumb')
-        <li class="breadcrumb-item active">Kas & Bank</li>
-        <li class="breadcrumb-item active">Buku Kas Masuk</li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.cash-bank') }}">Kas & Bank</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a href="{{ route('admin.bkm.index') }}">Buku Kas Masuk</a>
+        </li>
         <li class="breadcrumb-item active">Detail Data</li>
     @endpush
     <div class="row">
         <!-- end message area-->
         <div class="col-md-12">
-            <div class="card p-3">
+            <div class="card py-2">
                 <div class="card-header justify-content-between d-flex">
                     <table class="table">
                         <tr>
                             <td>To</td>
                             <td>:</td>
-                            <td>{{ $show->kontaks->nama }}</td>
+                            <td>{{ $show->kontak->nama }}</td>
                         </tr>
                         <tr>
                             <td>Nomor Kas Masuk </td>
@@ -47,7 +51,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($show->uraians as $item)
+                            @foreach ($show->bkk_details as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->rekening->name }} - {{ $item->rekening->subklasifikasi->name }}</td>

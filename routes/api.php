@@ -77,14 +77,9 @@ Route::name('api.')->group(function () {
     /**==== END PEMBELIAN ======*/
 
     // Kas & Bank ++++++++++++++++++++++++++
-    // BKK
     Route::name('bkk.')->group(function () {
         Route::get('bkk_details/{bkk_id}', 'Api\KasController@getBkkDetail')->name('details');
     });
-    // END BKK ===
-
-    // BKM
-    // END BKM ===
     // END Kas & Bank ======================
 
     // Get template jurnal
