@@ -439,6 +439,13 @@
         field_dinamis()
     </script>
     <script>
+        let url_template_id = parseURLParams(window.location.href);
+
+        if (url_template_id !== undefined) {
+            let template_id = parseInt(url_template_id.template_id[0])
+            getTemplate(template_id)
+        }
+
         $("#modalTemplateJurnal").on("show.bs.modal", function () {
             $("#template-datatables").DataTable({
                 // responsive: true,
