@@ -47,7 +47,6 @@
                                 <th>Nama</th>
                                 <th>Jumlah</th>
                                 <th>Catatan</th>
-                                <th>Mata uang</th>
                             </tr>
                         </thead>
                         <tbody>
