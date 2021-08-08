@@ -46,8 +46,7 @@
                                 <th>no</th>
                                 <th>Nama</th>
                                 <th>Jumlah</th>
-                                <th>catatat</th>
-                                <th>Mata uang</th>
+                                <th>Catatan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,7 +56,6 @@
                                     <td>{{ $item->rekening->name }} - {{ $item->rekening->subklasifikasi->name }}</td>
                                     <td>{{ $item->jml_uang }}</td>
                                     <td>{{ $item->catatan }}</td>
-                                    <td>{{ $item->uang }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -66,8 +64,7 @@
                                 <th>no</th>
                                 <th>Nama</th>
                                 <th>Jumlah</th>
-                                <th>catatat</th>
-                                <th>Mata uang</th>
+                                <th>Catatan</th>
                             </tr>
                         </tfoot>
                     </table>
