@@ -62,7 +62,7 @@
                             <div class="col-md-11 col-12 ">
                                 <div class="form-group">
                                     <label for="desk">Untuk Pembayaran</label>
-                                    <input type="text" name="desk" id="desk" class="form-control" 
+                                    <input type="text" name="desk" id="desk" class="form-control" value="{{ old('desk') }}"
                                         placeholder="Deskripsi keterangan" />
                                 </div>
                             </div>
@@ -77,41 +77,6 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        {{-- <div data-repeater-list="bkk">
-                            <div data-repeater-item>
-                                <div class="row d-flex align-items-end">
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="rekening">No. Rekening</label>
-                                            <select name="rekening" class="form-control rekening"></select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="jumlah">Jumlah uang</label>
-                                            <input type="text" name="jumlah" class="form-control jumlah" 
-                                                onkeypress="onlyNumber(event)" placeholder="0" autocomplete="off" />
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-4 col-sm-12 catatan-div">
-                                        <div class="form-group">
-                                            <label for="catatan">Catatan</label>
-                                            <input type="text" class="form-control catatan" name="catatan" />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group ml-auto mr-1">
-                                        <button class="btn btn-danger" data-repeater-delete type="button">
-                                            <i data-feather="trash-2"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <hr>
-                            </div>
-                        </div> --}}
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <thead>
@@ -467,6 +432,70 @@
             })
         })
         
+    </script>
+    <script>
+        @if(!empty(old('kontak_id')))
+            $.ajax({
+                type: 'get',
+                url: '{{ route('api.select2.get-kontak.selected', ':id') }}'.replace(':id', '{{ old('kontak_id') }}'),
+            }).then((data) => {
+                let option = new Option(data.text, data.id, true, true)
+                $("#kontak_id").append(option).trigger('change')
+                $("#kontak_id").trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                })
+            })
+        @endif
+
+        @if (!empty(old('rekening_id')))
+            $.ajax({
+                type: 'get',
+                url: '{{ route('api.select2.get-akun.selected', ':id') }}'.replace(':id', '{{ old('rekening_id') }}'),
+            }).then((data) => {
+                let option = new Option(data.text, data.id, true, true)
+                $("#rekening_id").append(option).trigger('change')
+                $("#rekening_id").trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                })
+            })
+        @endif
+
+        @if (isset(session()->getOldInput()['bkk']))
+            const bkk = @json(session()->getOldInput()['bkk']);
+            $("#dynamic_field").empty()
+            bkk.forEach((item, index) => {
+                field_dinamis()
+
+                if (item.rekening !== undefined) {
+                    $('select[name="bkk['+ index +'][rekening]"]').attr('disabled', true);
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ route('api.select2.get-akun.selected', ':id') }}'.replace(':id', item.rekening),
+                    }).then((data) => {
+                        let option = new Option(data.text, data.id, true, true)
+                        $('select[name="bkk['+ index +'][rekening]"]').append(option).trigger('change')
+                        $('select[name="bkk['+ index +'][rekening]"]').trigger({
+                            type: 'select2:select',
+                            params: {
+                                data: data
+                            }
+                        })
+                        $('select[name="bkk['+ index +'][rekening]"]').attr('disabled', false);
+                    })
+                }
+
+                $('[name="bkk['+ index +'][jumlah]"]').val(item.jumlah)
+                $('[name="bkk['+ index +'][catatan]"]').val(item.catatan)
+                eventJumlah()
+                hitungTotal()
+            })
+        @endif
     </script>
     <script>
         $("#modalTemplateJurnal").on("show.bs.modal", function () {
