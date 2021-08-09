@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 
@@ -7,19 +8,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     //auth management
     Route::get('/login', 'AuthController@loginView')->name('login');
-    Route::post('/login', 'AuthController@login')->name('login');
 });
+
 Route::middleware('auth')->group(function () {
+    Route::get('/login-redirects', function () {
+        return redirect(Redirect::intended()->getTargetUrl());
+    })->name('login-redirects');
+    Route::post('/logout', 'AuthController@logout')->name('logout');
+
+    Route::get('/', 'HomeController@home')->name('home');
 
     Route::prefix('/menu')->name('menu.')->group(function () {
         Route::get('/');
     });
-
-    Route::get('/home', function () {
-        return redirect()->route('home');
-    });
-    Route::get('/', 'HomeController@home')->name('home');
-    Route::post('/logout', 'AuthController@logout')->name('logout');
 
     //edit profile
     Route::prefix('profile')->name('profile.')->group(function () {
