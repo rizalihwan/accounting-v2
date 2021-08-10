@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Auth;
 
 use App\Services\AuthService;
+use App\Providers\RouteServiceProvider;
 use Livewire\Component;
 
 class Login extends Component
 {
+    protected $redirects = RouteServiceProvider::HOME;
     public $username, $password, $remember;
 
     protected $rules = [
@@ -35,7 +37,7 @@ class Login extends Component
         $remember = !empty($this->remember);
 
         if ($auth->login($credentials, $remember)) {
-            return redirect()->route('home');
+            return redirect()->route($this->redirects);
         } else {
             session()->flash('error', 'Your password is incorrect.');
         }

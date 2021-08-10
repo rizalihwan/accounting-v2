@@ -2,20 +2,24 @@
 @section('title', 'Buku Kas Keluar')
 @section('content')
     @push('breadcrumb')
-        <li class="breadcrumb-item active">Kas & Bank</li>
-        <li class="breadcrumb-item active">Buku Kas Keluar</li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.cash-bank') }}">Kas & Bank</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a href="{{ route('admin.bkk.index') }}">Buku Kas Keluar</a>
+        </li>
         <li class="breadcrumb-item active">Detail Data</li>
     @endpush
     <div class="row">
         <!-- end message area-->
         <div class="col-md-12">
-            <div class="card p-3">
+            <div class="card py-2">
                 <div class="card-header justify-content-between d-flex">
                     <table class="table">
                         <tr>
                             <td>To</td>
                             <td>:</td>
-                            <td>{{ $show->kontaks->nama }}</td>
+                            <td>{{ $show->kontak->nama }}</td>
                         </tr>
                         <tr>
                             <td>Nomor Kas Keluar </td>
@@ -42,18 +46,16 @@
                                 <th>no</th>
                                 <th>Nama</th>
                                 <th>Jumlah</th>
-                                <th>catatat</th>
-                                <th>Mata uang</th>
+                                <th>Catatan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($show->uraians as $item)
+                            @foreach ($show->bkk_details as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->rekening->name }} - {{ $item->rekening->subklasifikasi->name }}</td>
                                     <td>{{ $item->jml_uang }}</td>
                                     <td>{{ $item->catatan }}</td>
-                                    <td>{{ $item->uang }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -62,8 +64,7 @@
                                 <th>no</th>
                                 <th>Nama</th>
                                 <th>Jumlah</th>
-                                <th>catatat</th>
-                                <th>Mata uang</th>
+                                <th>Catatan</th>
                             </tr>
                         </tfoot>
                     </table>

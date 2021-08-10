@@ -50,7 +50,7 @@
                                                             <td>KK{{ $item->id }}</td>
                                             @endif
                                         @endif
-                                        <td>{{ $item->akuns->name }} - {{ $item->akuns->subklasifikasi->name }}</td>
+                                        <td>{{ $item->akun->name }} - {{ $item->akun->subklasifikasi->name }}</td>
                                         <td>{{ $item->desk }}</td>
                                         <td>{{ $item->value }}</td>
                                         <td>

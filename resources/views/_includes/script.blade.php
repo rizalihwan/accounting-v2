@@ -18,8 +18,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> 
 
     <!-- BEGIN: Page JS-->
-    <script src="{{ asset('app-assets/js/scripts/forms/form-repeater.min.js') }}"></script>
-    <!-- BEGIN: Page JS-->
     <script src="{{ asset('app-assets/js/scripts/extensions/ext-component-sweet-alerts.min.js') }}"></script>
     <!-- END: Page JS-->
 

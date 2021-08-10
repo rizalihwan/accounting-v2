@@ -353,24 +353,35 @@ class JurnalUmumController extends Controller
     public function getAkun(Request $request)
     {
         $search = $request->search;
-        $accounts = Akun::select('id', 'kode', 'name', 'status')
-            ->where('status', '1')
-            ->where('kode', 'like', "%{$search}%")
-            ->orWhere('name', 'like', "%{$search}%")
-            ->orderBy('name', 'ASC')->get();
+        $kas_bank = $request->kas_bank;
+        $accounts = Akun::active()->select('id', 'kode', 'name', 'subklasifikasi_id', 'status');
+
+        if ($kas_bank == 'yes') {
+            $accounts = $accounts->whereHas('subklasifikasi', function ($q) {
+                $q->whereIn('name', ['Kas', 'Bank']);
+            })->where(function ($q) use ($search) {
+                return $q->where('kode', 'like', "%{$search}%")
+                    ->orWhere('name', 'like', "%{$search}%");
+            })->orderBy('kode', 'ASC')->get();
+        } else {
+            $accounts = $accounts->where(function ($q) use ($search) {
+                return $q->where('kode', 'like', "%{$search}%")
+                    ->orWhere('name', 'like', "%{$search}%");
+            })->orderBy('kode', 'ASC')->get();
+        }
 
         $result = [];
 
         foreach ($accounts as $a) {
             $result[] = [
                 'id' => $a->id,
-                'text' => "{$a->name}",
+                'text' => "{$a->name} ({$a->kode})",
                 'kode' => $a->kode,
-                'name' => $a->name
+                'name' => $a->name,
             ];
         }
 
-        return $result;
+        return response()->json($result);
     }
 
     public function akunSelected(Akun $akun)
