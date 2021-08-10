@@ -124,7 +124,9 @@ class FakturController extends Controller
      */
     public function show($id)
     {
-        return view('admin.sales.penawaran.show');
+        $faktur = PengirimanSale::with('pengiriman_details.product', 'pelanggan')->findOrFail($id);
+
+        return view('admin.sales.faktur.show', compact('faktur'));
     }
 
     /**

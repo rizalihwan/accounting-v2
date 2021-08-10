@@ -120,7 +120,9 @@ class PesananController extends Controller
      */
     public function show($id)
     {
-        //
+        $pesanan = PesananSale::with('pesanan_details.product', 'pelanggan')->findOrFail($id);
+
+        return view('admin.sales.pesanan.show', compact('pesanan'));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PengirimanSale;
 use App\Models\Sale\PengirimanSaleDetail;
 use Illuminate\Http\Request;
@@ -99,7 +100,9 @@ class PengirimanController extends Controller
 
     public function show($id)
     {
-        //
+        $pengiriman = PengirimanSale::with('pengiriman_details.product', 'pelanggan')->findOrFail($id);
+
+        return view('admin.sales.pengiriman.show', compact('pengiriman'));
     }
 
     public function edit($id)
