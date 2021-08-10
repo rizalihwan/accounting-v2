@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Purchase\FakturBuy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Validator};
 use App\Models\Sale\{FakturSale, FakturSaleDetail};
@@ -124,7 +125,7 @@ class FakturController extends Controller
      */
     public function show($id)
     {
-        $faktur = PengirimanSale::with('pengiriman_details.product', 'pelanggan')->findOrFail($id);
+        $faktur = FakturBuy::with('pengiriman_details.product', 'pelanggan')->findOrFail($id);
 
         return view('admin.sales.faktur.show', compact('faktur'));
     }

@@ -12,7 +12,7 @@ class PengirimanBuys extends Model
     protected $guarded = [];
     protected $table = "terima_buys";
 
-    public function penerimaan_details()
+    public function pengiriman_details()
     {
         return $this->hasMany(PengirimanBuysDetail::class, 'terima_id');
     }
