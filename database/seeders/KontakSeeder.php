@@ -40,31 +40,5 @@ class KontakSeeder extends Seeder
             'email' => 'karyawan@gmail.com',
             'telepon' => '081234567890',
         ]);
-
-        Kontak::create([
-            'nama' => 'Jeki',
-            'pelanggan' => true,
-            'email' => 'jekigagah@gmail.com',
-            'telepon' => '081234567890',
-        ]);
-
-        Kontak::create([
-            'nama' => 'Junian',
-            'pelanggan' => true,
-            'karyawan' => true,
-            'pemasok' => true,
-            'email' => 'junianwangi@gmail.com',
-            'telepon' => '081234567890',
-        ]);
-
-        Kontak::create([
-            'nama' => 'Thomas',
-            'pelanggan' => true,
-            'karyawan' => true,
-            'pemasok' => true,
-            'email' => 'thomasjaya@gmail.com',
-            'telepon' => '081234567890',
-        ]);
-
     }
 }

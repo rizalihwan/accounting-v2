@@ -16,14 +16,11 @@ class Akun extends Model
         return $query->where('status', '=', '1');
     }
 
-    public function subklasifikasi()
-    {
-        return $this->belongsTo(Subklasifikasi::class);
-    }
     public function jurnalumumdetails()
     {
         return $this->hasMany(Jurnalumumdetail::class);
     }
+
     public function bkk()
     {
         return $this->hasMany(Bkk::class, 'rekening_id', 'id');

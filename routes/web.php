@@ -52,8 +52,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('product', 'ProductController');
             // Akun
             Route::view('akun', 'admin.akun.index')->name('akun.index');
-            // Subklasifikasi
-            Route::view('subklasifikasi', 'admin.subklasifikasi.index')->name('subklasifikasi.index');
             // Rekening
             Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
             // Bank
