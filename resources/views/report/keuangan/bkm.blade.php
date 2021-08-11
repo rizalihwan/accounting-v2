@@ -63,7 +63,7 @@
                                     @if (request('startDate') && request('endDate'))
                                     @php $desk =''; @endphp
                                         @forelse ($bkm as $item)
-                                            @foreach ($item->uraians as $black)
+                                            @foreach ($item->bkk_details as $black)
                                             @if ($desk != $item->desk)
                                             <tr>
                                                 <td>
@@ -92,7 +92,7 @@
                                             <tr>
                                                 <td>-</td>
                                                 <td>-</td>
-                                                <td>{{$item->akuns->subklasifikasi->name}}</td>
+                                                <td>{{$item->akun->subklasifikasi->name}}</td>
                                                 <td>{{$asik}}</td>
                                                 <td>{{$item->value}}</td>
                                                 <td>-</td>

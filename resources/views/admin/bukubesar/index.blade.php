@@ -7,57 +7,25 @@
             <div class="col-md-12">
                 <div class="card p-3">
                     <div class="card-header  d-flex">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>
                             <div class="d-inline-block">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#primary">
-                                    <i data-feather='list'></i>
-                                </button>
-                                <!-- Modal -->
-                                <div
-                                  class="modal fade text-left modal-primary"
-                                  id="primary"
-                                  tabindex="-1"
-                                  role="dialog"
-                                  aria-labelledby="myModalLabel160"
-                                  aria-hidden="true"
-                                >
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="myModalLabel160">Primary Modal</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <label for="tanggal" class="mb-1">tanggal</label>
-                                        <input type="date" class="form-control col-md-10 mb-1">
-                                        <input type="date" class="form-control col-md-10 mb-1">
-                                        <form class="needs-validation" novalidate="">
-                                            <div class="form-row">
-                                              <div class="col-md-4 col-12 mb-3">
-                                                <label for="validationTooltip01">First name</label>
-                                                <input type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark" required="">
-                                                <div class="valid-tooltip">Looks good!</div>
-                                              </div>
-                                              <div class="col-md-4 col-12 mb-3">
-                                                <label for="validationTooltip02">Last name</label>
-                                                <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required="">
-                                                <div class="valid-tooltip">Looks good!</div>
-                                              </div>
-                                              <div class="col-md-4 col-12 mb-3">
-                                                <label for="validationTooltip03">City</label>
-                                                <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required="">
-                                                <div class="invalid-tooltip">Please provide a valid city.</div>
-                                              </div>
-                                            </div>
-                                            <button class="btn btn-primary waves-effect waves-float waves-light ml-auto" type="submit">Submit</button>
-                                          </form>
-                                      </div>
+                                <form action="{{route('admin.bukubesar.cariakun')}}"  method="POST" >
+                                  @csrf
+                                  <div class="form-row">
+                                    <div class="col-md-6 col-12">
+                                      <select class="form-control" name="id" id="id" >
+                                        <option value="">Pilih Akun</option>
+                                        @foreach ($select as $item)
+                                        <option value="{{$item->id}}">{{$item->kode}} - {{$item->name}}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                    <div class="col-md-5 col-12 ">
+                                      <button class="btn btn-primary waves-effect waves-float waves-light ml-auto" type="submit">Cari</button>
                                     </div>
                                   </div>
-                                </div>
+                                </form>
+                                <!-- Modal -->
                               </div>
                     </div>
                     <div class="card-body">
@@ -71,6 +39,65 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              @foreach($akun as $row)
+                <br>
+                <hr>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <h3>{{ $row->name }} - {{ $row->id }}</h3>
+                    <h3>{{ $row->subklasifikasi->name }}</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Tipe</th>
+                                <th>No.Ref</th>
+                                <th>Kontak</th>
+                                <th>Debit</th>
+                                <th>Kredit</th>
+                                <th>Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6">Saldo Awal</td>
+                                <td>0</td>
+                            </tr>
+                            @foreach($row->jurnalumumdetails as $data)
+                            <tr class="bg-info">
+                                <td>{{ $data->jurnalumum->tanggal }}</td>
+                                <td>Jurnal Umum</td>
+                                <td>{{ $data->jurnalumum->kode_jurnal }}</td>
+                                <td>{{ $data->jurnalumum->kontak->nama }}</td>
+                                <td>{{ $data->debit }}</td>
+                                <td colspan="2">{{ $data->kredit }}</td>
+
+                            </tr>
+                            @endforeach
+                            @foreach($row->bkk as $data)
+                            <tr class="bg-warning">
+                                <td>{{ $data->tanggal }}</td>
+                                <td>Buku dan Kas</td>
+                                <td>{{ $data->desk }}</td>
+                                <td>{{ $data->kontak->nama }}</td>
+                                <td colspan="3">{{ $data->value }}</td>
+                            </tr>
+                            @endforeach
+                            <tr>
+                                <td colspan="4">Saldo Awal</td>
+                                <td>{{ $row->jurnalumumdetails->sum('debit') }}</td>
+                                <td>{{ $row->jurnalumumdetails->sum('kredit') }}</td>
+                            </tr>
+                            <tr class="bg-primary text-light">
+                                <td colspan="6">Saldo Akhir</td>
+                                <td>{{ $row->jurnalumumdetails->sum('debit')-$row->jurnalumumdetails->sum('kredit')+$row->bkk->sum('value') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @endforeach
                             </tbody>
                         </table>
                     </div>

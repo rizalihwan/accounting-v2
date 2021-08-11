@@ -62,7 +62,11 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'menu')->name('ledger');
 
             // Buku Besar
-            Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
+            Route::prefix('bukubesar')->name('bukubesar.')->group(function () {
+                Route::get('/', 'BukuBesarController@index')->name('index');
+                Route::post('/cari-akun', 'BukuBesarController@cariakun')->name('cariakun');
+                
+            });
             // Jurnal Umum
             Route::resource('jurnalumum', 'JurnalUmumController');
             // Template Jurnal Umum
@@ -94,8 +98,14 @@ Route::middleware('auth')->group(function () {
             Route::resource('bkm', 'BkmController');
         });
 
-        Route::prefix('inventory')->group(function () {
-            Route::view('/', 'menu')->name('inventory');
+        Route::prefix('simpanpinjam')->group(function () {
+            Route::view('/', 'menu')->name('simpanpinjam');
+
+            // Simpan
+            Route::resource('simpan', 'SimpanController');
+
+            //Pinjam
+            Route::resource('pinjam', 'PinjamController');
         });
 
         Route::prefix('report')->name('report.')->group(function () {
