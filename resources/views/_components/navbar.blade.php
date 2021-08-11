@@ -312,12 +312,12 @@
                         <span data-i18n="Card & Bank">Kas & Bank</span>
                     </a>
                 </li>
-                {{-- <li class="nav-item {{ request()->is('admin/inventory*') ? 'active' : '' }}">
-                <a class="nav-link d-flex align-items-center" href="{{ route('admin.inventory') }}">
+                <li class="nav-item {{ request()->is('admin/simpanpinjam*') ? 'active' : '' }}">
+                <a class="nav-link d-flex align-items-center" href="{{ route('admin.simpanpinjam') }}">
                     <i data-feather="box" class="text-danger"></i>
-                    <span data-i18n="Inventory">Persediaan Barang</span>
+                    <span data-i18n="simpanpinjam">Simpan & Pinjam</span>
                 </a>
-                </li> --}}
+                </li>
                 <li class="nav-item {{ request()->is('admin/report*') ? 'active' : '' }}">
                     <a class="nav-link d-flex align-items-center" href="{{ route('admin.report.menu') }}">
                         <i data-feather="file" class="text-danger"></i>
