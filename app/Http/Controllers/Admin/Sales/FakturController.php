@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Purchase\FakturBuy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Validator};
-use App\Models\Sale\{FakturSale, FakturSaleDetail};
+use App\Models\Sale\{FakturSale, FakturSaleDetail, PiutangSale};
 
 class FakturController extends Controller
 {
@@ -99,6 +99,18 @@ class FakturController extends Controller
                     ]
                 ));
 
+                if(empty($request->status) && empty($request->akun_id))
+                {
+                    PiutangSale::create([
+                        'pelanggan_id' => $fakturs->pelanggan_id,
+                        'faktur_id' => $fakturs->id,
+                        'total_hutang' => $fakturs->total,
+                        'lunas' => null,
+                        'sisa' => $fakturs->sisa,
+                        'status' => '0'
+                    ]);
+                }
+
                 foreach ($request->fakturs as $faktur) {
                     FakturSaleDetail::create([
                         'faktur_id' => $fakturs->id,
@@ -109,6 +121,7 @@ class FakturController extends Controller
                         'total' => preg_replace('/[^\d.]/', '', $faktur['total']),
                     ]);
                 }
+
             });
 
             return redirect()->route('admin.sales.faktur.index')->with('success', 'Faktur berhasil tersimpan');

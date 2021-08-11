@@ -93,6 +93,10 @@ class PesananController extends Controller
                 $pesanans = PesananSale::create(array_merge($request->except('pesanans', 'total'), [
                     'total' => preg_replace('/[^\d.]/', '', $request->total),
                 ]));
+                $penawaran = PenawaranSale::findOrFail($request->penawaran_id);
+                $penawaran->update([
+                    'status' => '1'
+                ]);
 
                 foreach ($request->pesanans as $pesanan) {
                     PesananSaleDetail::create([

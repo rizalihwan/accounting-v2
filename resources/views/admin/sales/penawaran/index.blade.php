@@ -40,7 +40,7 @@
                                 <td>{{ $penawaran->kode }}</td>
                                 <td>{{ $penawaran->pelanggan->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($penawaran->total, 0, ',', '.') }}</td>
-                                <td>@if($penawaran->status == 1)
+                                <td>@if($penawaran->status == 0)
                                     <span class="badge badge-success">Open</span>
                                     @else
                                     <span class="badge badge-warning">Closed</span>

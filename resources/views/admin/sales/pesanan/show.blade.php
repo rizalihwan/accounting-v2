@@ -17,13 +17,13 @@
       <div class="card py-2">
           <div class="card-header d-flex justify-content-center">
               @if($pesanan->status == 1)
-                  <h1 class="card-title">
-                      <span class="badge badge-success">Status : Open</span>
-                  </h1>
+                <h1 class="card-title">
+                    <span class="badge badge-info">Status : Delivered</span>
+                </h1>
               @else
-                  <h1 class="card-title">
-                      <span class="badge badge-warning">Status : Closed</span>
-                  </h1>
+                <h1 class="card-title">
+                    <span class="badge badge-warning">Status : Open</span>
+                </h1>
               @endif
           </div>
           <div class="card-body pt-2">

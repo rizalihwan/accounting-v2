@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Akun;
 use App\Models\Kontak;
 use App\Models\Product;
+use App\Models\Sale\FakturSale;
 use App\Models\Sale\FakturSaleDetail;
 use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PenawaranSaleDetail;
@@ -150,6 +151,49 @@ class SalesController extends Controller
             'data' => $details,
             'length' => $details->count()
         ]);
+    }
+
+    public function getAkun(Request $request)
+    {
+        $search = $request->search;
+        $akuns = Akun::select('id', 'name', 'kode')
+            ->where('name', 'like', "%{$search}%")
+            ->orWhere('kode', 'like', "%{$search}%")
+            ->orderBy('name', 'ASC')->get()->take(20);
+
+        $result = [];
+
+        foreach ($akuns as $akun) {
+            $result[] = [
+                "id" => $akun->id,
+                "text" => $akun->name,
+                "name" => $akun->name,
+                "kode" => $akun->kode,
+            ];
+        }
+
+        return $result;
+    }
+
+    public function getFaktur(Request $request)
+    {
+        $search = $request->search;
+        $fakturs = FakturSale::select('id', 'kode', 'total')
+            ->where('kode', 'like', "%{$search}%")
+            ->get()->take(20);
+
+        $result = [];
+
+        foreach ($fakturs as $faktur) {
+            $result[] = [
+                "id" => $faktur->id,
+                "text" => $faktur->kode,
+                "total" => $faktur->total,
+                "kode" => $faktur->kode,
+            ];
+        }
+
+        return $result;
     }
 
     /**

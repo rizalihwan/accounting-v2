@@ -77,6 +77,8 @@ Route::middleware('auth')->group(function () {
             Route::resource('pesanan', 'Sales\PesananController');
             Route::resource('pengiriman', 'Sales\PengirimanController');
             Route::resource('faktur', 'Sales\FakturController');
+            Route::get('piutang', 'Sales\PiutangController@index')->name('piutang.index');
+            Route::resource('pembayaran', 'Sales\PembayaranPiutangController');
         });
 
         Route::prefix('purchase')->name('purchase.')->group(function () {
