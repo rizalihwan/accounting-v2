@@ -25,7 +25,7 @@ class SimpanController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.simpan.create');
     }
 
     /**

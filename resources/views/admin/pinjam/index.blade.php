@@ -28,11 +28,11 @@
                             <thead>
                                 <tr>
                                     <th style="width: 1px">#</th>
-                                    <th>jumlah_pinjaman</th>
-                                    <th>jangka</th>
-                                    <th>bungapersen</th>
-                                    <th>type</th>
-                                    <th style="width: 1px">keterangan</th>
+                                    <th>Jumlah Pinjaman</th>
+                                    <th>Jangka</th>
+                                    <th>Bunga Persen</th>
+                                    <th>Type</th>
+                                    <th style="width: 1px">Keterangan</th>
                                     <th style="width: 1px">ACTION</th>
                                 </tr>
                             </thead>
