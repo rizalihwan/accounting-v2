@@ -1,5 +1,5 @@
 @extends('_layouts.main')
-@section('title', 'Pinjam')
+@section('title', 'Simpan')
 @push('breadcrumb')
     <li class="breadcrumb-item">
         <a href="{{ route('admin.simpanpinjam') }}">Simpan & Pinjam</a>
@@ -16,7 +16,7 @@
                         <h4 class="card-title">List Simpanan</h4>
                         <h4><span class="text-muted ml-1">0</span></h4>
                     </div>
-                    <a href="{{ route('admin.pinjam.create') }}" class="btn btn-success">
+                    <a href="{{ route('admin.simpan.create') }}" class="btn btn-success">
                         <i data-feather="plus"></i>
                         Tambah Baru
                     </a>
