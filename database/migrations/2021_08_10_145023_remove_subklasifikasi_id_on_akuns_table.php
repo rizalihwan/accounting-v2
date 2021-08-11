@@ -15,7 +15,7 @@ class RemoveSubklasifikasiIdOnAkunsTable extends Migration
     {
         Schema::table('akuns', function (Blueprint $table) {
             $table->dropConstrainedForeignId('subklasifikasi_id');
-            $table->string('subklasifikasi');
+            $table->string('subklasifikasi')->after('name');
         });
     }
 
