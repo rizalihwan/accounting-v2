@@ -5,7 +5,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel33">Edit Category</h4>
+                            <h4 class="modal-title" id="myModalLabel33">Edit Unit</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                 wire:click="$set('isOpen', false)">
                                 <span aria-hidden="true">&times;</span>
