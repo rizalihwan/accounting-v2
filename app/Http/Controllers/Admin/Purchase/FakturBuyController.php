@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Purchase;
 use App\Http\Controllers\Controller;
 use App\Models\Purchase\FakturBuy;
 use App\Models\Purchase\FakturBuyDetail;
+use App\Models\Purchase\PiutangBuy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Validator};
 
@@ -99,6 +100,18 @@ class FakturBuyController extends Controller
                         'total' => preg_replace('/[^\d.]/', '', $request->total),
                     ]
                 ));
+
+                if(empty($request->status) && empty($request->akun_id))
+                {
+                    PiutangBuy::create([
+                        'pemasok_id' => $fakturs->pemasok_id,
+                        'faktur_id' => $fakturs->id,
+                        'total_hutang' => $fakturs->total,
+                        'lunas' => null,
+                        'sisa' => $fakturs->total,
+                        'status' => '0'
+                    ]);
+                }
 
                 foreach ($request->fakturs as $faktur) {
                     FakturBuyDetail::create([

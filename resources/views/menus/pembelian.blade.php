@@ -135,7 +135,7 @@
         </div>
 
         <div class="col-md-3 col-xl-3">
-            <a href="{{ route('admin.sales.faktur.index') }}">
+            <a href="{{ route('admin.purchase.piutang.index') }}">
                 <div class="card border-0 text-white shadow" style="background-color : #F6A9A9">
                     <div class="card-body">
                         <div class="title">
@@ -155,7 +155,7 @@
                             </p>
                             <hr class="mr-1">
                             <p class="card-text">
-                                Menampilkan daftar perinci piutang dagang
+                                Menampilkan daftar perinci piutang dagang tiap pemasok
                             </p>
                             <p class="card-text">
                                 <small class="text-light"></small>
@@ -167,7 +167,7 @@
         </div>
 
         <div class="col-md-3 col-xl-3">
-            <a href="{{ route('admin.sales.faktur.index') }}">
+            <a href="{{ route('admin.purchase.pembayaran.index') }}">
                 <div class="card border-0 text-white shadow" style="background-color : #B85C38">
                     <div class="card-body">
                         <div class="title">

@@ -179,6 +179,7 @@ class SalesController extends Controller
     {
         $search = $request->search;
         $fakturs = FakturSale::select('id', 'kode', 'total')
+            ->where('status', '0')
             ->where('kode', 'like', "%{$search}%")
             ->get()->take(20);
 

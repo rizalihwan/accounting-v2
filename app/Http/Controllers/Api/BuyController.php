@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Kontak;
 use App\Models\Product;
+use App\Models\Purchase\FakturBuy;
 use App\Models\Purchase\FakturBuyDetail;
 use App\Models\Purchase\PenawaranBuys;
 use App\Models\Purchase\PenawaranBuysDetail;
@@ -142,6 +143,29 @@ class BuyController extends Controller
         }
         return $result;
     }
+
+    public function getFaktur(Request $request)
+    {
+        $search = $request->search;
+        $fakturs = FakturBuy::select('id', 'kode', 'total')
+            ->where('status', '0')
+            ->where('kode', 'like', "%{$search}%")
+            ->get()->take(20);
+
+        $result = [];
+
+        foreach ($fakturs as $faktur) {
+            $result[] = [
+                "id" => $faktur->id,
+                "text" => $faktur->kode,
+                "total" => $faktur->total,
+                "kode" => $faktur->kode,
+            ];
+        }
+
+        return $result;
+    }
+
 
     public function getPenawaranDetails($penawaran_id)
     {

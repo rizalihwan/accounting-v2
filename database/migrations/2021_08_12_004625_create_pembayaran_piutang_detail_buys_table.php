@@ -15,7 +15,7 @@ class CreatePembayaranPiutangDetailBuysTable extends Migration
     {
         Schema::create('pembayaran_piutang_detail_buys', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pembayaran_piutang_sale_id');
+            $table->unsignedBigInteger('pembayaran_piutang_buy_id');
             $table->unsignedBigInteger('faktur_id');
             $table->bigInteger('bayar');
             $table->timestamps();
