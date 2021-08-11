@@ -44,14 +44,9 @@
                                 <label for="subklasifikasi_id">Subklasifikasi</label>
                             </div>
                             <div class="col-sm-9">
-                                <select name="subklasifikasi_id" id="subklasifikasi_id" wire:model="subklasifikasi_id"
-                                    class="form-control @error('subklasifikasi_id') is-invalid @enderror">
-                                    <option value="" selected>-- Pilih Subklasifikasi --</option>
-                                    @foreach($subklasifikasi as $sub)
-                                        <option value="{{ $sub->id }}">{{ $sub->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('subklasifikasi_id')
+                                <input type="text" id="subklasifikasi" name="subklasifikasi" wire:model="subklasifikasi" 
+                                    class="form-control @error('subklasifikasi') is-invalid @enderror" placeholder="Subklasifikasi" />
+                                @error('subklasifikasi')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -15,7 +15,7 @@
             <div class="card ">
                 <div class="card-header">
                     <h3><i class="fa fa-user"></i></h3>
-                    <h4>Edit Contact {{ $kontak->nama }}</h4>
+                    <h4>Edit Kontak {{ $kontak->nama }}</h4>
                 </div>
                 <div class="card-body">
                     <form class="forms-sample" method="POST" action="{{ route('admin.kontak.update', $kontak->id) }}">
@@ -67,18 +67,26 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <div class="border-checkbox-section">
-                                        <div class="border-checkbox-group border-checkbox-group-primary">
-                                            <input class="border-checkbox" type="checkbox" id="pelanggan" name="pelanggan" {{ ($kontak->pelanggan == 1 ? ' checked' : '') }}>
-                                            <label class="border-checkbox-label" for="pelanggan">{{ __('Pelanggan')}}</label>
+                                    <div class="demo-inline-spacing">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="pelanggan" name="pelanggan" {{ ($kontak->pelanggan == 1 ? ' checked' : '') }} />
+                                            <label class="custom-control-label" for="pelanggan">Pelanggan</label>
                                         </div>
-                                        <div class="border-checkbox-group border-checkbox-group-primary">
-                                            <input class="border-checkbox" type="checkbox" id="pemasok" name="pemasok" {{ ($kontak->pemasok == 1 ? ' checked' : '') }}>
-                                            <label class="border-checkbox-label" for="pemasok">{{ __('Pemasok')}}</label>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="pemasok" name="pemasok" {{ ($kontak->pemasok == 1 ? ' checked' : '') }} />
+                                            <label class="custom-control-label" for="pemasok">Pemasok</label>
                                         </div>
-                                        <div class="border-checkbox-group border-checkbox-group-primary">
-                                            <input class="border-checkbox" type="checkbox" id="karyawan" name="karyawan" {{ ($kontak->karyawan == 1 ? ' checked' : '') }}>
-                                            <label class="border-checkbox-label" for="karyawan">{{ __('Karyawan')}}</label>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="karyawan" name="karyawan" {{ ($kontak->karyawan == 1 ? ' checked' : '') }} />
+                                            <label class="custom-control-label" for="karyawan">Karyawan</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="nasabah" name="nasabah" {{ ($kontak->nasabah == 1 ? ' checked' : '') }} />
+                                            <label class="custom-control-label" for="nasabah">Nasabah</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="petugas" name="petugas" {{ ($kontak->petugas == 1 ? ' checked' : '') }} />
+                                            <label class="custom-control-label" for="petugas">Petugas</label>
                                         </div>
                                     </div>
                                 </div>
@@ -204,23 +212,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-xl-4 mb-30">
-                                <p><strong>Aktif</strong></p>
-                                <input type="checkbox" class="js-single" name="aktif" {{ ($kontak->aktif == 1 ? ' checked' : '') }} />
-                            </div>
-                        </div>
-
-
-                            <div class="col-md-12 mt-4">
-                                <div class="form-group">
-                                    <a href="{{ route('admin.kontak.index') }}"
-                                        class="btn btn-danger">KEMBALI</a>
-                                    <button type="submit" class="btn btn-primary">
-                                        UPDATE</button>
+                            <div class="col-sm-12 mt-1">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="aktif" name="aktif" {{ ($kontak->aktif == 1 ? ' checked' : '') }} />
+                                    <label class="custom-control-label" for="aktif">Aktif</label>
                                 </div>
                             </div>
                         </div>
 
+                        <hr>
+                        <a href="{{ route('admin.kontak.index') }}" class="btn btn-danger">KEMBALI</a>
+                        <button type="submit" class="btn btn-primary">TAMBAH</button>
                     </form>
                 </div>
             </div>

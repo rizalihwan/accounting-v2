@@ -20,12 +20,5 @@ class AdminSeeder extends Seeder
             'password' => 'admin12345',
             'role' => 'admin',
         ]);
-
-        User::create([
-            'name' => 'User',
-            'username' => 'user',
-            'password' => 'user12345',
-            'role' => 'user',
-        ]);
     }
 }

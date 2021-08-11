@@ -20,7 +20,7 @@ class KontakController extends Controller
         // ->where('aktif', 1);
 
         return view('admin.kontak.index', [
-            'countkontak' => Kontak::count(), 
+            'countkontak' => Kontak::count(),
             'kontak' => $kontak
         ]);
     }
@@ -44,26 +44,32 @@ class KontakController extends Controller
     public function store(KontakRequest $request)
     {
         $attr = $request->all();
-        if(!request('pelanggan'))
-        {
+        if (!request('pelanggan')) {
             $attr['pelanggan'] = 0;
         } else {
             $attr['pelanggan'] = 1;
         }
-        if(!request('pemasok'))
-        {
+        if (!request('pemasok')) {
             $attr['pemasok'] = 0;
         } else {
             $attr['pemasok'] = 1;
         }
-        if(!request('karyawan'))
-        {
+        if (!request('karyawan')) {
             $attr['karyawan'] = 0;
         } else {
             $attr['karyawan'] = 1;
         }
-        if(!request('aktif'))
-        {
+        if (!request('nasabah')) {
+            $attr['nasabah'] = 0;
+        } else {
+            $attr['nasabah'] = 1;
+        }
+        if (!request('petugas')) {
+            $attr['petugas'] = 0;
+        } else {
+            $attr['petugas'] = 1;
+        }
+        if (!request('aktif')) {
             $attr['aktif'] = 0;
         } else {
             $attr['aktif'] = 1;
@@ -84,7 +90,7 @@ class KontakController extends Controller
      */
     public function show(Kontak $kontak)
     {
-        return view('admin.kontak.show',compact('kontak'));
+        return view('admin.kontak.show', compact('kontak'));
     }
 
     /**
@@ -108,26 +114,32 @@ class KontakController extends Controller
     public function update(Kontak $kontak, KontakRequest $request)
     {
         $attr = $request->all();
-        if(!request('pelanggan'))
-        {
+        if (!request('pelanggan')) {
             $attr['pelanggan'] = 0;
         } else {
             $attr['pelanggan'] = 1;
         }
-        if(!request('pemasok'))
-        {
+        if (!request('pemasok')) {
             $attr['pemasok'] = 0;
         } else {
             $attr['pemasok'] = 1;
         }
-        if(!request('karyawan'))
-        {
+        if (!request('karyawan')) {
             $attr['karyawan'] = 0;
         } else {
             $attr['karyawan'] = 1;
         }
-        if(!request('aktif'))
-        {
+        if (!request('nasabah')) {
+            $attr['nasabah'] = 0;
+        } else {
+            $attr['nasabah'] = 1;
+        }
+        if (!request('petugas')) {
+            $attr['petugas'] = 0;
+        } else {
+            $attr['petugas'] = 1;
+        }
+        if (!request('aktif')) {
             $attr['aktif'] = 0;
         } else {
             $attr['aktif'] = 1;
@@ -148,15 +160,14 @@ class KontakController extends Controller
      */
     public function destroy(Kontak $kontak)
     {
-        if($kontak->jurnalumums())
-        {
+        if ($kontak->jurnalumums()) {
             $kontak->jurnalumums()->delete();
         }
         $kontak->delete();
         return redirect()->route('admin.kontak.index')
-                        ->with('success','Data Berhasil Dihapus');
+            ->with('success', 'Data Berhasil Dihapus');
     }
-    
+
     public function kontakKode()
     {
         $nama = ltrim(request()->nama)[0];

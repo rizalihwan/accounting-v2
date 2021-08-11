@@ -26,16 +26,9 @@
 
                                 <label>Subklasifikasi: </label>
                                 <div class="form-group">
-                                    <select wire:model="akun.subklasifikasi_id" class="form-control @error('akun.subklasifikasi_id') is-invalid @enderror">
-                                        <option value="">-- Pilih Subklasifikasi --</option>
-                                        @foreach($subklasifikasi as $sub)
-                                            <option value="{{ $sub->id }}" 
-                                                {{ $sub->id == $akun->subklasifikasi_id ? 'selected' : ''}}>
-                                                {{ $sub->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('akun.subklasifikasi_id')
+                                    <input type="text" placeholder="Subklasifikasi" wire:model="akun.subklasifikasi"
+                                        class="form-control @error('akun.subklasifikasi') is-invalid @enderror" />
+                                    @error('akun.subklasifikasi')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -45,7 +38,7 @@
                                 <label>Level: </label>
                                 <div class="form-group">
                                     <select wire:model="akun.level" class="form-control @error('akun.level') is-invalid @enderror">
-                                        <option value="">-- Pilih Subklasifikasi --</option>
+                                        <option value="">-- Pilih Level --</option>
                                         @foreach($levels as $level)
                                             <option value="{{ $level }}" 
                                                 {{ $level == $akun->level ? 'selected' : ''}}>

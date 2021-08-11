@@ -28,13 +28,13 @@
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
-                                            <h4>{{ $data->saldo_akhir }}</h4>
+                                            <h4 class="text-right">Rp. {{ number_format($data->saldo_akhir) }}</h4>
                                         </li>
                                     </ul>
                                     @endforeach
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <h4>{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}</h4>
+                                        <h4 class="text-right">Rp. {{ number_format($row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
                                     </div>
                                 </li>
 
@@ -42,39 +42,7 @@
                             @endforeach
                             <div class="form-group">
                                 <h5 class="text-primary">Total Aktiva</h5>
-                                <h4 id="total">{{ $total_aktiva }}</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-12">
-                            <h5 class="text-primary">Modal</h5>
-                            @foreach($modal->unique('subklasifikasi_id') as $row)
-                            <ul>
-                                <li>
-                                    <h4>
-                                        {{ $row->subklasifikasi->name }}
-                                    </h4>
-                                    @foreach($row->subklasifikasi->akun->where('level', $row->level) as $data)
-                                    <ul>
-                                        <li>
-                                            <label for="">{{ $data->name }}</label>
-                                            <h4>{{ $data->saldo_akhir }}</h4>
-                                        </li>
-                                    </ul>
-                                    @endforeach
-                                    <div class="form-group">
-                                        <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <h4>{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}</h4>
-                                    </div>
-                                </li>
-
-                            </ul>
-                            @endforeach
-                            <div class="form-group">
-                                <h5 class="text-primary">Total Modal</h5>
-                                <h4>{{ $total_modal }}</h4>
+                                <h4 id="total"  class="text-right">Rp. {{ number_format($total_aktiva) }}</h4>
                             </div>
                         </div>
                     </div>
@@ -92,12 +60,12 @@
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
-                                            <h4>{{ $data->saldo_akhir }}</h4>
+                                            <h4 class="text-right">{{ number_format($data->saldo_akhir) }}</h4>
                                         </li>
                                     </ul>
                                     <div class="form-group">
                                         <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <h4>{{ $row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir') }}</h4>
+                                        <h4 class="text-right">{{ number_format($row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
                                     </div>
                                     @endforeach
                                 </li>
@@ -105,10 +73,43 @@
                             @endforeach
                             <div class="form-group">
                                 <h5 class="text-primary">Total Kewajiban</h5>
-                                <h4>{{ $total_kewajiban }}</h4>
+                                <h4 class="text-right">Rp. {{ number_format($total_kewajiban) }}</h4>
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-primary">Modal</h5>
+                            @foreach($modal->unique('subklasifikasi_id') as $row)
+                            <ul>
+                                <li>
+                                    <h4>
+                                        {{ $row->subklasifikasi->name }}
+                                    </h4>
+                                    @foreach($row->subklasifikasi->akun->where('level', $row->level) as $data)
+                                    <ul>
+                                        <li>
+                                            <label for="">{{ $data->name }}</label>
+                                            <h4 class="text-right">Rp. {{ number_format($data->saldo_akhir) }}</h4>
+                                        </li>
+                                    </ul>
+                                    @endforeach
+                                    <div class="form-group">
+                                        <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
+                                        <h4 class="text-right">Rp. {{ number_format($row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            @endforeach
+                            <div class="form-group">
+                                <h5 class="text-primary">Total Modal</h5>
+                                <h4 class="text-right">Rp. {{ number_format($total_modal) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

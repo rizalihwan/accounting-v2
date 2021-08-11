@@ -52,19 +52,21 @@ Route::middleware('auth')->group(function () {
             Route::resource('product', 'ProductController');
             // Akun
             Route::view('akun', 'admin.akun.index')->name('akun.index');
-            // Subklasifikasi
-            Route::view('subklasifikasi', 'admin.subklasifikasi.index')->name('subklasifikasi.index');
             // Rekening
             Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
             // Bank
-            Route::resource('bank', 'BankController');
+            // Route::resource('bank', 'BankController');
         });
 
         Route::prefix('ledger')->group(function () {
             Route::view('/', 'menu')->name('ledger');
 
             // Buku Besar
-            Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
+            Route::prefix('bukubesar')->name('bukubesar.')->group(function () {
+                Route::get('/', 'BukuBesarController@index')->name('index');
+                Route::post('/cari-akun', 'BukuBesarController@cariakun')->name('cariakun');
+                
+            });
             // Jurnal Umum
             Route::resource('jurnalumum', 'JurnalUmumController');
             // Template Jurnal Umum
@@ -98,13 +100,22 @@ Route::middleware('auth')->group(function () {
             Route::resource('bkm', 'BkmController');
         });
 
-        Route::prefix('inventory')->group(function () {
-            Route::view('/', 'menu')->name('inventory');
+        Route::prefix('simpanpinjam')->group(function () {
+            Route::view('/', 'menu')->name('simpanpinjam');
+
+            // Simpan
+            Route::resource('simpan', 'SimpanController');
+
+            //Pinjam
+            Route::resource('pinjam', 'PinjamController');
+            Route::post('pinjam/detail', 'PinjamController@detail')->name('pinjam.detail');
         });
 
         Route::prefix('report')->name('report.')->group(function () {
             // menu report
-            Route::view('/', 'menu')->name('menu');
+            Route::get('/', function(){
+                return redirect()->route('admin.report.keuangan.menu');
+            })->name('menu');
             Route::name('keuangan.')->prefix('keuangan')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
 
