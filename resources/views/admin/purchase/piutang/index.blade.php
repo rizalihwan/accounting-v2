@@ -2,9 +2,9 @@
 @section('title', 'Faktur Penjualan')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales.') }}">Penjualan</a>
+    <a href="{{ route('admin.purchase.') }}">Penjualan</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Daftar Piutang Usaha</li>
+<li class="breadcrumb-item" aria-current="page">Daftar Utang Usaha</li>
 @endpush
 @section('content')
 
@@ -19,11 +19,11 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" @if($piutangs->count() == 1) style="height: 140px" @endif>
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>
-                                <th>Nama Pelanggan</th>
+                                <th>Nama Pemasok</th>
                                 <th>Total Piutang</th>
                                 <th>Lunas</th>
                                 <th>Sisa</th>
@@ -33,7 +33,7 @@
                             @forelse ($piutangs as $piutang)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $piutang->pelanggan->nama }}</td>
+                                <td>{{ $piutang->pemasok->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($piutang->total_hutang) }}</td>
                                 <td>{{ 'Rp. ' . number_format($piutang->lunas) }}</td>
                                 <td>{{ 'Rp. ' . number_format($piutang->sisa) }}</td>

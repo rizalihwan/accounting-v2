@@ -106,7 +106,7 @@ class FakturController extends Controller
                         'faktur_id' => $fakturs->id,
                         'total_hutang' => $fakturs->total,
                         'lunas' => null,
-                        'sisa' => $fakturs->sisa,
+                        'sisa' => $fakturs->total,
                         'status' => '0'
                     ]);
                 }

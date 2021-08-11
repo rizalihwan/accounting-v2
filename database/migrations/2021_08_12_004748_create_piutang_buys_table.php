@@ -22,7 +22,6 @@ class CreatePiutangBuysTable extends Migration
             $table->bigInteger('sisa')->nullable();
             $table->enum('status', ['0', '1']);
             $table->timestamps();
-            $table->timestamps();
         });
     }
 

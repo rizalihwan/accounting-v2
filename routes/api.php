@@ -55,7 +55,7 @@ Route::name('api.')->group(function () {
 
         //faktur
         Route::post('/get-sale-faktur', 'Api\SalesController@getFaktur')->name('get-sale-faktur');
-        // Route::post('/get-buy-pesanan', 'Api\BuyController@getPesanan')->name('get-buy-pesanan');
+        Route::post('/get-buy-faktur', 'Api\BuyController@getFaktur')->name('get-buy-faktur');
 
         //faktur
         Route::post('/get-akun/faktur', 'Api\SalesController@getAkun')->name('get-akun-faktur');
