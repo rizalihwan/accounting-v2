@@ -3,19 +3,18 @@
 namespace App\Http\Livewire\Admin\Akun;
 
 use App\Models\Akun;
-use App\Models\Subklasifikasi;
 use Livewire\Component;
 
 class Edit extends Component
 {
-    public $isOpen, $subklasifikasi, $levels;
+    public $isOpen, $levels;
     public $akun;
 
     protected $listeners = ['edit'];
 
     protected $rules = [
         'akun.name' => 'required',
-        'akun.subklasifikasi_id' => 'required',
+        'akun.subklasifikasi' => 'required',
         'akun.level' => 'required',
         'akun.saldo_awal' => 'required'
     ];
@@ -34,7 +33,6 @@ class Edit extends Component
 
     public function mount()
     {
-        $this->subklasifikasi = Subklasifikasi::select('id', 'name')->orderBy('name')->get();
         $this->levels = ['Aktiva', 'Modal', 'Kewajiban'];
     }
 
@@ -42,14 +40,14 @@ class Edit extends Component
     {
         $this->validate(array_merge($this->rules, [
             'akun.name' => 'required',
-            'akun.subklasifikasi_id' => 'required|exists:subklasifikasis,id',
+            'akun.subklasifikasi' => 'required',
             'akun.level' => 'required|in:Aktiva,Modal,Kewajiban',
             'akun.saldo_awal' => 'required|numeric'
         ]));
 
         try {
             $this->akun->save();
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
             $this->emit('error', 'Data gagal diedit');
         }
 

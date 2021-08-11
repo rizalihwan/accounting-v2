@@ -15,9 +15,9 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('unit_id');
-            $table->foreignId('supplier_id');
-            $table->foreignId('category_id');
+            $table->foreignId('unit_id')->constrained();
+            $table->foreignId('supplier_id')->references('id')->on('kontaks')->onDelete('cascade');
+            $table->foreignId('category_id')->references('id')->on('categories_products')->onDelete('cascade');
             $table->string('name', 30);
             $table->bigInteger('price_buy');
             $table->bigInteger('price_sell');

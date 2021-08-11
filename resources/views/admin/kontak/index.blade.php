@@ -135,6 +135,8 @@
 @push('script')
     <script>
         $(document).ready(function() {
+            let cacheDetail, urlDetail;
+
             $(".close").on('click', function() {
                 $("#modal").modal('hide')
             })
@@ -144,14 +146,27 @@
                     url = me.attr('href'),
                     title = me.attr('title');
                 $('#modal-title').text(title);
-                $.ajax({
-                    url: url,
-                    dataType: 'html',
-                    success: function(response) {
-                        $('#modal-body').html(response);
-                        $('#modal').modal('show');
-                    }
-                });
+                $('#modal').modal('show');
+                $("#modal-body").html(`
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                `)
+                if (urlDetail == url) {
+                    $('#modal-body').html(cacheDetail);
+                } else {
+                    $.ajax({
+                        url: url,
+                        dataType: 'html',
+                        success: function(response) {
+                            $('#modal-body').html(response);
+                            cacheDetail = response;
+                            urlDetail = url;
+                        }
+                    });
+                }
             });
         })
     </script>

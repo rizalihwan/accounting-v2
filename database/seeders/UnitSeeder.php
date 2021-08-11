@@ -14,19 +14,20 @@ class UnitSeeder extends Seeder
      */
     public function run()
     {
-        Unit::create([
-            'name' => 'Jam',
-            'description' => 'Perjam'
-        ]);
+        $units = [
+            ["name" => "Jam", "description" => "Perjam"],
+            ["name" => "Kg", "description" => "Kiilogran"],
+            ["name" => "M", "description" => "Meter"],
+            ["name" => "Rupiah", "description" => "Rupiah"],
+            ["name" => "Bulan", "description" => "Bulan"]
+        ];
 
-        Unit::create([
-            'name' => 'Kg',
-            'description' => 'Kilogram'
-        ]);
-
-        Unit::create([
-            'name' => 'M',
-            'description' => 'Meter'
-        ]);
+        foreach ($units as $item) {
+            Unit::create([
+                'name' => $item['name'],
+                'description' => $item['description'],
+                'status' => '1'
+            ]);
+        }
     }
 }
