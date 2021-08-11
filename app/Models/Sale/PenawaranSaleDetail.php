@@ -24,4 +24,9 @@ class PenawaranSaleDetail extends Model
     {
         return $this->belongsTo(PenawaranSale::class, 'penawaran_id');
     }
+
+    public function product()
+    {
+        return $this->belongsTo('\App\Models\Product', 'product_id');
+    }
 }

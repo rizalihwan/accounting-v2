@@ -2,10 +2,10 @@
 @section('title', 'Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.') }}">Penjualan</a>
+    <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.pesanan.index') }}">Pesanan</a>
+    <a href="{{ route('admin.sales.faktur.index') }}">Faktur</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Detail</li>
 @endpush
@@ -16,13 +16,13 @@
   <div class="col-md-12">
       <div class="card py-2">
           <div class="card-header d-flex justify-content-center">
-              @if($pesanan->status == 1)
+              @if($faktur->status == 1)
                   <h1 class="card-title">
                       <span class="badge badge-success">Status : Open</span>
                   </h1>
               @else
                   <h1 class="card-title">
-                      <span class="badge badge-warning">Status : Delivered</span>
+                      <span class="badge badge-warning">Status : Closed</span>
                   </h1>
               @endif
           </div>
@@ -33,14 +33,14 @@
                           Kode
                           <span class="float-right">:</span>
                       </th>
-                      <td>{{ $pesanan->kode  }}</td>
+                      <td>{{ $faktur->kode  }}</td>
                   </tr>
                   <tr>
                       <th>
                           Tanggal
                           <span class="float-right">:</span>
                       </th>
-                      <td>{{ $pesanan->tanggal }}</td>
+                      <td>{{ $faktur->tanggal }}</td>
                   </tr>
               
                   <tr>
@@ -48,7 +48,7 @@
                           Pelanggan
                           <span class="float-right">:</span>
                       </th>
-                      <td>{{ $pesanan->pemasok->nama }}</td>
+                      <td>{{ $faktur->pelanggan->nama }}</td>
                   </tr>
               </table>
               <div class="table-responsive">
@@ -63,7 +63,7 @@
                           </tr>
                       </thead>
                       <tbody>
-                          @foreach ($pesanan->pesanan_details as $item)
+                          @foreach ($faktur->faktur_details as $item)
                               <tr>
                                   <td>{{ $item->product->name }}</td>
                                   <td>{{ $item->satuan }}</td>
@@ -80,7 +80,7 @@
                               <th></th>
                               <th></th>
                               <th>
-                                {{ 'Rp. ' . number_format($pesanan->total, 0, ',', '.') }}
+                                {{ 'Rp. ' . number_format($faktur->total, 0, ',', '.') }}
                               </th>
                           </tr>
                       </tfoot>
@@ -88,7 +88,7 @@
               </div>
           </div>
           <div class="card-footer">
-            <a class="btn btn-primary" href="{{ route('admin.purchase.pesanan.index') }}">
+            <a class="btn btn-primary" href="{{ route('admin.sales.faktur.index') }}">
               Kembali</a>
           </div>
       </div>

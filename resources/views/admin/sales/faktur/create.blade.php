@@ -275,7 +275,7 @@
             $("#akun_id").select2({
                 placeholder: "-- Pilih Akun --",
                 ajax: {
-                    url: '{{ route('api.select2.get-akun') }}',
+                    url: '{{ route('api.select2.get-akun-faktur') }}',
                     type: 'post',
                     dataType: 'json',
                     data: params => {

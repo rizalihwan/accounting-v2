@@ -126,7 +126,8 @@ class FakturBuyController extends Controller
      */
     public function show($id)
     {
-        return view('admin.purchase.faktur.' . $id);
+        $faktur = FakturBuy::with('faktur_details.product', 'pemasok')->findOrFail($id);
+        return view('admin.purchase.faktur.show', compact('faktur'));
     }
 
     /**

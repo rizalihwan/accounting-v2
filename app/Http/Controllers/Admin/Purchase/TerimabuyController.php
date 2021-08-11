@@ -128,10 +128,8 @@ class TerimabuyController extends Controller
      */
     public function show($id)
     {
-        $produk = Product::all();
-        $pemasok = Kontak::all();
-        $pesanan = PesananBuys::all();
-        return view('admin.purchase.penerimaan.' . $id, compact('produk', 'pemasok', 'pesanan'));
+        $pengiriman = PengirimanBuys::with('pengiriman_details.product', 'pemasok')->findOrFail($id);
+        return view('admin.purchase.penerimaan.show', compact('pengiriman'));
     }
 
     /**

@@ -40,7 +40,11 @@
                                 <td>{{ $pengiriman->kode }}</td>
                                 <td>{{ $pengiriman->pelanggan->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($pengiriman->total, 0, ',', '.') }}</td>
-                                <td>{{ $pengiriman->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>@if($pengiriman->status == 0)
+                                    <span class="badge badge-success">Open</span>
+                                    @else
+                                    <span class="badge badge-warning">Closed</span>
+                                    @endif</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"

@@ -129,10 +129,8 @@ class PesananbuyController extends Controller
      */
     public function show($id)
     {
-        $produk = Product::all();
-        $pemasok = Kontak::all();
-        $penawaran = PenawaranBuys::all();
-        return view('admin.purchase.pemesanan.' . $id, compact('produk', 'pemasok', 'penawaran'));
+        $pesanan = PesananBuys::with('pesanan_details.product', 'pemasok')->findOrFail($id);
+        return view('admin.purchase.pemesanan.show', compact('pesanan'));
     }
 
     /**

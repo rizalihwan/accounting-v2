@@ -2,10 +2,10 @@
 @section('title', 'Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.') }}">Penjualan</a>
+    <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.pesanan.index') }}">Pesanan</a>
+    <a href="{{ route('admin.sales.pesanan.index') }}">Pesanan</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Detail</li>
 @endpush
@@ -17,13 +17,13 @@
       <div class="card py-2">
           <div class="card-header d-flex justify-content-center">
               @if($pesanan->status == 1)
-                  <h1 class="card-title">
-                      <span class="badge badge-success">Status : Open</span>
-                  </h1>
+                <h1 class="card-title">
+                    <span class="badge badge-info">Status : Delivered</span>
+                </h1>
               @else
-                  <h1 class="card-title">
-                      <span class="badge badge-warning">Status : Delivered</span>
-                  </h1>
+                <h1 class="card-title">
+                    <span class="badge badge-warning">Status : Open</span>
+                </h1>
               @endif
           </div>
           <div class="card-body pt-2">
@@ -48,7 +48,7 @@
                           Pelanggan
                           <span class="float-right">:</span>
                       </th>
-                      <td>{{ $pesanan->pemasok->nama }}</td>
+                      <td>{{ $pesanan->pelanggan->nama }}</td>
                   </tr>
               </table>
               <div class="table-responsive">
@@ -88,7 +88,7 @@
               </div>
           </div>
           <div class="card-footer">
-            <a class="btn btn-primary" href="{{ route('admin.purchase.pesanan.index') }}">
+            <a class="btn btn-primary" href="{{ route('admin.sales.pesanan.index') }}">
               Kembali</a>
           </div>
       </div>

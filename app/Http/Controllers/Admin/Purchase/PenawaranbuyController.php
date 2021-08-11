@@ -118,9 +118,9 @@ class PenawaranbuyController extends Controller
      */
     public function show($id)
     {
-        $produk = Product::all();
-        $pemasok = Kontak::all();
-        return view('admin.purchase.penawaran.'.$id,compact('pemasok','produk'));
+        $penawaran = PenawaranBuys::with('penawaran_details.product', 'pemasok')->findOrFail($id);
+
+        return view('admin.purchase.penawaran.show', compact('penawaran'));
     }
 
     /**

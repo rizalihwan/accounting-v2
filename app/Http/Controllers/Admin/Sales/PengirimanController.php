@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PengirimanSale;
 use App\Models\Sale\PengirimanSaleDetail;
+use App\Models\Sale\PesananSale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -79,6 +81,11 @@ class PengirimanController extends Controller
                     )
                 );
 
+                $pesanan = PesananSale::findOrFail($request->pesanan_id);
+                $pesanan->update([
+                    'status' => '1'
+                ]);
+
                 foreach ($request->pengirimans as $pengiriman) {
                     PengirimanSaleDetail::create([
                         'pengiriman_id' => $pengirimans->id,
@@ -99,7 +106,9 @@ class PengirimanController extends Controller
 
     public function show($id)
     {
-        //
+        $pengiriman = PengirimanSale::with('pengiriman_details.product', 'pelanggan')->findOrFail($id);
+
+        return view('admin.sales.pengiriman.show', compact('pengiriman'));
     }
 
     public function edit($id)
