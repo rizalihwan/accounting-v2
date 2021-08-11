@@ -98,12 +98,13 @@
     @if (request()->routeIs('admin.cash-bank'))
         @include('menus.kas-bank')
     @endif
-    
-    @if (request()->routeIs('admin.inventory'))
-        @section('title', 'Inventory')
+
+    @if (request()->routeIs('admin.simpanpinjam'))
+        @section('title', 'Simpan Pinjam')
         @push('breadcrumb')
-            <li class="breadcrumb-item active">Inventory</li>
+            <li class="breadcrumb-item active">Simpan Pinjam</li>
         @endpush
+        @include('menus.simpan-pinjam')
     @endif
 
     @if (request()->routeIs('admin.report.menu'))
