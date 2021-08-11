@@ -22,7 +22,8 @@ class CreatePinjamsTable extends Migration
             $table->integer('total_bunga');
             $table->integer('total_pokok');
             $table->text('keterangan');
-            $table->foreignId('kontak_id')->constrained('kontaks');
+            $table->foreignId('petugas_id')->constrained('kontaks');
+            $table->foreignId('nasabah_id')->constrained('kontaks');
             $table->timestamps();
         });
     }
