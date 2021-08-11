@@ -1,10 +1,10 @@
 @extends('_layouts.main')
-@section('title', 'Faktur Penjualan')
+@section('title', 'pembayaran hutang')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.sales.') }}">Penjualan</a>
+    <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Daftar Piutang Usaha</li>
+<li class="breadcrumb-item" aria-current="page">pembayaran hutang</li>
 @endpush
 @section('content')
 
@@ -13,34 +13,34 @@
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <h4 class="card-title">Piutang usaha</h4>
-                    <h4><span class="text-muted ml-1">{{ $piutangs->count() }}</span></h4>
+                    <h4 class="card-title">List pembayaran hutang</h4>
                 </div>
+                <a href="{{ route('admin.purchase.pembayaran.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" @if($piutangs->count() == 1) style="height: 140px" @endif>
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th style="width: 1px">#</th>
-                                <th>Nama Pelanggan</th>
-                                <th>Total Piutang</th>
-                                <th>Lunas</th>
-                                <th>Sisa</th>
+                                <th>Tanggal</th>
+                                <th>kode</th>
+                                <th>Nama Pemasok</th>
+                                <th>Nilai</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($piutangs as $piutang)
+                            @forelse ($pembayarans as $pembayaran)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $piutang->pelanggan->nama }}</td>
-                                <td>{{ 'Rp. ' . number_format($piutang->total_hutang) }}</td>
-                                <td>{{ 'Rp. ' . number_format($piutang->lunas) }}</td>
-                                <td>{{ 'Rp. ' . number_format($piutang->sisa) }}</td>
+                                <td>{{ $pembayaran->tanggal }}</td>
+                                <td>{{ $pembayaran->kode }}</td>
+                                <td>{{ $pembayaran->pemasok->nama }}</td>
+                                <td>{{ 'Rp. ' . number_format($pembayaran->total, 0, ',', '.') }}</td>
                             </tr>      
                             @empty
                             <tr>
-                                <td colspan="7" align="center">
+                                <td colspan="6" align="center">
                                     Tidak ada data
                                 </td>
                             </tr>
@@ -48,7 +48,7 @@
                         </tbody>
                     </table>
                     <hr style="margin-top: -1px">
-                    {{ $piutangs->links() }}
+                    {{ $pembayarans->links() }}
                 </div>
             </div>
         </div>

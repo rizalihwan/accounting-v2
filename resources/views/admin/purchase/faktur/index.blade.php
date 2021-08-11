@@ -42,7 +42,11 @@
                                 <td>{{ $faktur->kode }}</td>
                                 <td>{{ $faktur->pemasok->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($faktur->total, 0, ',', '.') }}</td>
-                                <td>{{ $faktur->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>@if($faktur->status == 0)
+                                    <span class="badge badge-success">Open</span>
+                                    @else
+                                    <span class="badge badge-warning">Paid</span>
+                                    @endif</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
