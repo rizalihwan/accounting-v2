@@ -40,7 +40,7 @@
                                             <span class="badge badge-success">{{ $account->kode }}</span>
                                         </td>
                                         <td>{{ $account->name }}</td>
-                                        <td>{{ $account->subklasifikasi->name }}</td>
+                                        <td>{{ $account->subklasifikasi }}</td>
                                         <td>{{ $account->level }}</td>
                                         <td>{{ $account->saldo_awal }}</td>
                                         <td>

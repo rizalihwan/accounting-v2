@@ -4,13 +4,12 @@ namespace App\Http\Livewire\Admin\Akun;
 
 use Livewire\Component;
 use App\Models\Akun;
-use App\Models\Subklasifikasi;
 
 class Create extends Component
 {
-    public $kode, $name, $subklasifikasi_id, $level, $saldo_awal;
+    public $kode, $name, $subklasifikasi, $level, $saldo_awal;
 
-    public $subklasifikasi, $levels = [];
+    public $levels = [];
 
     protected $listeners = [
         'kodeOtomatis'
@@ -19,7 +18,7 @@ class Create extends Component
     protected $rules = [
         'kode' => 'required|min:4|unique:akuns',
         'name' => 'required',
-        'subklasifikasi_id' => 'required|exists:subklasifikasis,id',
+        'subklasifikasi' => 'required',
         'level' => 'required|in:Aktiva,Modal,Kewajiban',
         'saldo_awal' => 'required|numeric'
     ];
@@ -48,7 +47,6 @@ class Create extends Component
     public function mount()
     {
         $this->kodeOtomatis();
-        $this->subklasifikasi = Subklasifikasi::select('id', 'name')->orderBy('name')->get();
         $this->levels = ['Aktiva', 'Modal', 'Kewajiban'];
     }
 
@@ -70,7 +68,7 @@ class Create extends Component
         }
 
         $this->emit('refresh', 'Data berhasil disimpan');
-        $this->reset('name', 'subklasifikasi_id', 'level', 'saldo_awal');
+        $this->reset('name', 'subklasifikasi', 'level', 'saldo_awal');
         $this->kodeOtomatis();
     }
 }

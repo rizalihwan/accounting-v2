@@ -22,9 +22,7 @@ class Data extends Component
         $search = $this->search;
         $accounts = Akun::where('kode', 'like', "%{$search}%")
             ->orWhere('name', 'like', "%{$search}%")
-            ->orWhereHas('subklasifikasi', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
-            })->orWhere('level', 'like', "%{$search}%")
+            ->orWhere('subklasifikasi', 'like', "%{$search}%")
             ->orWhere('saldo_awal', 'like', "%{$search}%")
             ->latest();
 
