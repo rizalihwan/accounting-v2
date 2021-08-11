@@ -52,35 +52,25 @@
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="nasabah_id">{{ __('Nomor Anggota') }}<span class="text-danger">*</span></label>
-                                    <select name="nasabah_id" id="nasabah_id" class="form-control select2">
-                                        {{-- DISINI ngambil dari kode kontak kosna --}}
-                                        <option value="1">1180</option>
-                                        <option value="2">1190</option>
-                                    </select>
-                                    <div class="help-block with-errors"></div>
+                                    <select name="nasabah_id" id="nasabah_id" class="form-control select2"></select>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="nama">Nama</label>
-                                <input disabled name="nama" class="form-control" id="nama" type="number" placeholder="Nama" required="">
+                                <input disabled name="nama" class="form-control" id="nama" type="text" placeholder="Nama" required="">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="alamat">Alamat</label>
-                                <input disabled name="alamat" class="form-control" id="alamat" type="number" placeholder="Alamat" required="">
+                                <input disabled name="alamat" class="form-control" id="alamat" type="text" placeholder="Alamat" required="">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="pekerjaan">Pekerjaan</label>
-                                <input disabled name="pekerjaan" class="form-control" id="pekerjaan" type="number" placeholder="Pekerjaan" required="">
+                                <input disabled name="pekerjaan" class="form-control" id="pekerjaan" type="text" placeholder="Pekerjaan" required="">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="petugas_id">{{ __('Petugas') }}<span class="text-danger">*</span></label>
-                                    <select name="petugas_id" id="petugas_id" class="form-control select2">
-
-                                        <option value="1">Petugas 1</option>
-                                        <option value="2">petugas 2</option>
-                                    </select>
-                                    <div class="help-block with-errors"></div>
+                                    <select name="petugas_id" id="petugas_id" class="form-control select2"></select>
                                 </div>
                             </div>
                         </div>
@@ -96,3 +86,74 @@
     <!-- Container-fluid Ends-->
 </div>
 @endsection
+
+@push('select2')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+@endpush
+@push('head')
+    <style>
+        .select2 {
+            width: 100%!important;
+        }
+    </style>
+@endpush
+@push('script')
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script>
+        const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        $(document).ready(function() {
+            $("#petugas_id").select2({
+                placeholder: "-- Pilih Petugas --",
+                ajax: {
+                    url: '{{ route('api.select2.kontak.petugas') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
+                allowClear: true
+            })
+
+            $("#nasabah_id").select2({
+                placeholder: "-- Pilih Nasabah --",
+                ajax: {
+                    url: '{{ route('api.select2.kontak.nasabah') }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: params => {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    processResults: data => {
+                        return {
+                            results: data
+                        }
+                    },
+                    cache: true
+                },
+                allowClear: true
+            })
+
+            $('#nasabah_id').on('select2:select', function (e) {
+                const data = e.params.data;
+
+                $('#nama').val(data.nama)
+                $('#alamat').val(data.alamat)
+                $('#pekerjaan').val(data.pekerjaan)
+            })
+        })
+    </script>
+@endpush
