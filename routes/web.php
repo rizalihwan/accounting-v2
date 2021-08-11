@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
             // Rekening
             Route::resource('rekening', 'RekeningController')->except(['store', 'update', 'destroy']);
             // Bank
-            Route::resource('bank', 'BankController');
+            // Route::resource('bank', 'BankController');
         });
 
         Route::prefix('ledger')->group(function () {

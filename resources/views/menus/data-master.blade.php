@@ -68,7 +68,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-3 col-xl-3">
+        {{-- <div class="col-md-3 col-xl-3">
             <a href="{{ route('admin.bank.index') }}">
                 <div class="card border-0 text-white" style="background-color: #A799B7;">
                     <div class="card-body">
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </div> --}}
         <div class="col-md-3 col-xl-3">
             <a href="{{ route('admin.divisi.index') }}">
                 <div class="card border-0 text-white" style="background-color: #194350;">
