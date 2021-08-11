@@ -28,35 +28,35 @@
                             <thead>
                                 <tr>
                                     <th style="width: 1px">#</th>
-                                    <th>TANGGAL</th>
-                                    <th>NO. REFERENSI</th>
-                                    <th>URAIAN</th>
-                                    <th>NILAI</th>
-                                    <th style="width: 1px">STATUS</th>
+                                    <th>jumlah_pinjaman</th>
+                                    <th>jangka</th>
+                                    <th>bungapersen</th>
+                                    <th>type</th>
+                                    <th style="width: 1px">keterangan</th>
                                     <th style="width: 1px">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse ($data as $key)
+                                @forelse ($pinjam as $key)
                                     <tr>
-                                        <td>{{ $loop->iteration + $data->firstItem() - 1 }}</td>
-                                        <td>{{ $key->tanggal }}</td>
-                                        <td>{{ $key->kode_jurnal }}</td>
-                                        <td>{{ $key->uraian }}</td>
-                                        <td>{{ 'IDR ' . number_format($key->jurnalumumdetails[0]->debit, 0, ',', '.') }}</td>
-                                        <td>{!! $key->StatusType !!}</td>
+                                        <td>{{ $loop->iteration++ }}</td>
+                                        <td>{{ $key->jumlah_pinjaman }}</td>
+                                        <td>{{ $key->jangka }}</td>
+                                        <td>{{ $key->bungapersen }}</td>
+                                        <td>{{ $key->type }}</td>
+                                        <td>{{ $key->keterangan }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
                                                     <i data-feather="more-vertical"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('admin.jurnalumum.edit', $key->id) }}">
+                                                    <a class="dropdown-item" href="{{ route('admin.pinjam.edit', $key->id) }}">
                                                         <i data-feather="edit" class="text-warning"></i>
                                                         <span class="ml-1">Edit</span>
                                                     </a>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('admin.jurnalumum.show', $key->id) }}">
+                                                        href="{{ route('admin.pinjam.show', $key->id) }}">
                                                         <i data-feather="eye"></i>
                                                         <span class="ml-1">Show</span>
                                                     </a>
@@ -65,7 +65,7 @@
                                                         <i data-feather="trash"></i>
                                                         <span class="ml-1">Delete</span>
                                                     </a>
-                                                    <form id="form-delete{{ $key->id }}" action="{{ route('admin.jurnalumum.destroy', $key->id) }}" method="POST">
+                                                    <form id="form-delete{{ $key->id }}" action="{{ route('admin.pinjam.destroy', $key->id) }}" method="POST">
                                                         @csrf
                                                         @method('delete')
                                                     </form>
@@ -73,16 +73,16 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @empty --}}
+                                @empty
                                     <tr>
                                         <td colspan="7" align="center">Data kosong.</td>
                                     </tr>
-                                {{-- @endforelse --}}
+                                @endforelse
                             </tbody>
                         </table>
                         <hr style="margin-top: -1px">
                     </div>
-                    {{-- {{ $data->links('pagination::bootstrap-4') }} --}}
+                    {{ $pinjam->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

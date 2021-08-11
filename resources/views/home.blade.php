@@ -13,14 +13,130 @@
 
         <!-- Statistics Card -->
         <div class="col-xl-12 col-md-12 col-12">
-            <div class="card card-statistics">
+            <div class="card shadow card-statistics">
                 <div class="card-header">
-                    <h4 class="card-title">Statistik</h4>
+                    <h4 class="card-title">Statistik dan Analisa Data</h4>
                     <div class="d-flex align-items-center">
                         <p class="card-text font-small-2 mr-25 mb-0"><i class="fa fa-clock"></i> {{ date('Y-m-d') }}</p>
                     </div>
                 </div>
                 <div class="card-body statistics-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="reponsive-table">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th colspan="4">
+                                                <h6 class="text-light">Saldo Kas/Bank</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Nomor</th>
+                                            <th>Nama Rekening</th>
+                                            <th>Uang</th>
+                                            <th>Saldo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($kas as $data)
+                                        <tr>
+                                            <td>{{$data->kode}}</td>
+                                            <td>{{$data->name}}</td>
+                                            <td>RP</td>
+                                            <td>{{$data->saldo_akhir}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow card-statistics">
+                <div class="card-header">
+                    <h4 class="card-title">Top 10 Piutang Per Kontak</h4>
+                    <div class="d-flex align-items-center">
+                        <p class="card-text font-small-2 mr-25 mb-0"><i class="fa fa-clock"></i> {{ date('Y-m-d') }}</p>
+                    </div>
+                </div>
+                <div class="card-body statistics-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="reponsive-table">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th colspan="4">
+                                                <h6 class="text-light">Top 10 Piutang Per Kontak</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Kode</th>
+                                            <th>Nama</th>
+                                            <th>Uang</th>
+                                            <th>Jumlah</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($kas as $data)
+                                        <tr>
+                                            <td>{{$data->kode}}</td>
+                                            <td>{{$data->name}}</td>
+                                            <td>RP</td>
+                                            <td>{{$data->saldo_akhir}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow card-statistics">
+                <div class="card-header">
+                    <h4 class="card-title">Top 10 Piutang Per Kontak</h4>
+                    <div class="d-flex align-items-center">
+                        <p class="card-text font-small-2 mr-25 mb-0"><i class="fa fa-clock"></i> {{ date('Y-m-d') }}</p>
+                    </div>
+                </div>
+                <div class="card-body statistics-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="reponsive-table">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th colspan="4">
+                                                <h6 class="text-light">Top 10 Piutang Per Kontak</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Nomor</th>
+                                            <th>Nama Rekening</th>
+                                            <th>Uang</th>
+                                            <th>Saldo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($kas as $data)
+                                        <tr>
+                                            <td>{{$data->kode}}</td>
+                                            <td>{{$data->name}}</td>
+                                            <td>RP</td>
+                                            <td>{{$data->saldo_akhir}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                {{--<div class="card-body statistics-body">
                     <div class="row">
                         <div class="col-xl-4 col-sm-6 col-12">
                             <div class="media">
@@ -108,8 +224,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>--}}
         </div>
         <!--/ Statistics Card -->
     </div>
