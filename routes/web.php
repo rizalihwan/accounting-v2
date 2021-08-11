@@ -96,8 +96,15 @@ Route::middleware('auth')->group(function () {
             Route::resource('bkm', 'BkmController');
         });
 
-        Route::prefix('inventory')->group(function () {
-            Route::view('/', 'menu')->name('inventory');
+        Route::prefix('simpanpinjam')->group(function () {
+            Route::view('/', 'menu')->name('simpanpinjam');
+
+            // Simpan
+            Route::resource('simpan', 'SimpanController');
+
+            //Pinjam
+            Route::resource('pinjam', 'PinjamController');
+            Route::post('pinjam/detail', 'PinjamController@detail')->name('pinjam.detail');
         });
 
         Route::prefix('report')->name('report.')->group(function () {
