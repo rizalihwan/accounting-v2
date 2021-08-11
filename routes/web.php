@@ -64,7 +64,11 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'menu')->name('ledger');
 
             // Buku Besar
-            Route::get('/bukubesar', 'BukuBesarController@index')->name('bukubesar.index');
+            Route::prefix('bukubesar')->name('bukubesar.')->group(function () {
+                Route::get('/', 'BukuBesarController@index')->name('index');
+                Route::post('/cari-akun', 'BukuBesarController@cariakun')->name('cariakun');
+                
+            });
             // Jurnal Umum
             Route::resource('jurnalumum', 'JurnalUmumController');
             // Template Jurnal Umum
