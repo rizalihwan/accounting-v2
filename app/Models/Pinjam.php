@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Pinjam extends Model
 {
     use HasFactory;
+    protected $guarded = [];    
 }
