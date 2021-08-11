@@ -20,7 +20,10 @@ class HomeController extends Controller
         $result = $kerugianOrKeuntungan < 1 ? 'Kerugian' : 'Keuntungan';
         $sumExpense = Bkk::where('status', 'BKK')->sum('value');
         $sumIncome = Bkk::where('status', 'BKM')->sum('value');
+
+        $kas = Akun::orderBy('saldo_akhir','desc')->get();
         return view('home', [
+            'kas' => $kas,
             'saldoKeseluruhan' => $sumSaldoAkhir,
             'kerugianOrKeuntungan' => $kerugianOrKeuntungan,
             'result' => $result,

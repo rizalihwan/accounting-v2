@@ -102,7 +102,9 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('report')->name('report.')->group(function () {
             // menu report
-            Route::view('/', 'menu')->name('menu');
+            Route::get('/', function(){
+                return redirect()->route('admin.report.keuangan.menu');
+            })->name('menu');
             Route::name('keuangan.')->prefix('keuangan')->group(function () {
                 Route::view('/', 'report.menu')->name('menu');
 

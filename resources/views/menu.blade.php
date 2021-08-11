@@ -98,7 +98,7 @@
     @if (request()->routeIs('admin.cash-bank'))
         @include('menus.kas-bank')
     @endif
-    
+
     @if (request()->routeIs('admin.inventory'))
         @section('title', 'Inventory')
         @push('breadcrumb')
