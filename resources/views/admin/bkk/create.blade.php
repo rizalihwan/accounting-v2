@@ -7,7 +7,7 @@
         <li class="breadcrumb-item active">
             <a href="{{ route('admin.bkk.index') }}">Buku Kas Keluar</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Create</li>
+        <li class="breadcrumb-item active" aria-current="page">Tambah Buku kas Keluar</li>
     @endpush
 @section('content')
     <div class="row">
@@ -31,7 +31,7 @@
                 @csrf
                 <div class="card mb-2 ">
                     <div class="card-header">
-                        <h4>Create Expanse</h4>
+                        <h4>Tambah Buku Kas Keluar</h4>
                         <button type="button" class="btn btn-light"
                             data-toggle="modal" data-target="#modalTemplateJurnal">
                             Gunakan Template

@@ -82,6 +82,9 @@ class BkmController extends Controller
                 $totalUang = 0;
                 foreach ($request->bkm as $detail) {
                     $jumlah_uang = (int)preg_replace('/[^\d.]/', '', $detail['jumlah']);
+                    DB::table('akuns')->where('id',$detail['rekening'])->update([
+                        'kredit'=> DB::raw('kredit + '.$jumlah_uang) 
+                    ]);
                     BkkDetail::create([
                         'bkk_id' => $bkm->id,
                         'rekening_id' => $detail['rekening'],
@@ -91,7 +94,9 @@ class BkmController extends Controller
 
                     $totalUang += $jumlah_uang;
                 }
-
+                DB::table('akuns')->where('id',$request['rekening_id'])->update([
+                    'debit'=> DB::raw('debit + '.$totalUang) 
+                ]);
                 $bkm->update(['value' => $totalUang]);
             });
 
@@ -150,6 +155,16 @@ class BkmController extends Controller
         }
 
         $bkm = Bkk::where('status', 'BKM')->findOrFail($id);
+        //buat hapus yang lama biar di update yang baru
+        DB::table('akuns')->where('id',$bkm->rekening_id)->update([
+            'debit'=> DB::raw('debit - '.$bkm->value) 
+        ]);
+        $bkkdetail = BkkDetail::where('bkk_id',$bkm->id)->get();
+        foreach ($bkkdetail as $key) {
+            DB::table('akuns')->where('id',$key->rekening_id)->update([
+                'kredit'=> DB::raw('kredit - '.$key->jml_uang) 
+            ]);
+        }
 
         try {
             DB::transaction(function () use ($request, $id, $bkm) {
@@ -169,12 +184,20 @@ class BkmController extends Controller
                     $jml_uang = (int)preg_replace('/[^\d.]/', '', $item['jumlah']);
 
                     if ($item['id'] != null) {
+                        //update akunsnya
+                        DB::table('akuns')->where('id',$item['rekening'])->update([
+                            'kredit'=> DB::raw('kredit + '.$jml_uang) 
+                        ]);
                         BkkDetail::where('id', $item['id'])->update([
                             'rekening_id' => $item['rekening'],
                             'jml_uang' => $jml_uang,
                             'catatan' => $item['catatan'],
                         ]);
                     } else {
+                        //update akunsnya
+                        DB::table('akuns')->where('id',$item['rekening'])->update([
+                            'kredit'=> DB::raw('kredit + '.$jml_uang) 
+                        ]);
                         BkkDetail::create([
                             'bkk_id' => $id,
                             'rekening_id' => $item['rekening'],
@@ -185,7 +208,10 @@ class BkmController extends Controller
 
                     $value += $jml_uang;
                 }
-
+                //ini buat update akunsnya
+                DB::table('akuns')->where('id',$request['rekening_id'])->update([
+                    'debit'=> DB::raw('debit + '.$value) 
+                ]);
                 $bkm->update(array_merge($request->except('bkm'), [
                     'value' => $value
                 ]));
@@ -205,7 +231,16 @@ class BkmController extends Controller
      */
     public function destroy($id)
     {
-        $bkm = Bkk::where('status', 'BKM')->findOrFail($id);
+        $bkm = Bkk::findOrFail($id);
+        DB::table('akuns')->where('id',$bkm->rekening_id)->update([
+            'debit'=> DB::raw('debit - '.$bkm->value) 
+        ]);
+        $bkkdetail = BkkDetail::where('bkk_id',$bkm->id)->get();
+        foreach ($bkkdetail as $key) {
+            DB::table('akuns')->where('id',$key->rekening_id)->update([
+                'kredit'=> DB::raw('kredit - '.$key->jml_uang) 
+            ]);
+        }
         $bkm->delete();
 
         return back()->with('success', 'Data Berhasil Dihapus');
