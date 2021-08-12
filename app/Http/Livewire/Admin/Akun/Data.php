@@ -23,7 +23,6 @@ class Data extends Component
         $accounts = Akun::where('kode', 'like', "%{$search}%")
             ->orWhere('name', 'like', "%{$search}%")
             ->orWhere('subklasifikasi', 'like', "%{$search}%")
-            ->orWhere('saldo_awal', 'like', "%{$search}%")
             ->latest();
 
         $totalAkun = $accounts->count();
