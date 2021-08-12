@@ -38,7 +38,7 @@
                             <div class="col-md-4 col-12 ">
                                 <div class="form-group">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" class="form-control" name="tanggal" value="{{ old('tanggal') ?? $bkk->tanggal }}" required />
+                                    <input type="date" class="form-control" name="tanggal" value="{{  $bkk->tanggal }}" required />
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <div class="form-group">
                                     <label for="desk">Untuk Pembayaran</label>
                                     <input type="text" name="desk" id="desk" class="form-control" 
-                                        placeholder="Deskripsi keterangan" value="{{ old('desk') $bkk->desk }}" />
+                                        placeholder="Deskripsi keterangan" value="{{  $bkk->desk }}" />
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 ">
