@@ -53,7 +53,7 @@
                             @foreach ($show->bkk_details as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->rekening->name }} - {{ $item->rekening->subklasifikasi->name }}</td>
+                                    <td>{{ $item->rekening->name }} - {{ $item->rekening->name }}</td>
                                     <td>{{ $item->jml_uang }}</td>
                                     <td>{{ $item->catatan }}</td>
                                 </tr>
