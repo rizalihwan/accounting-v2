@@ -27,6 +27,7 @@ Route::name('api.')->group(function () {
         Route::prefix('kontak')->name('kontak.')->group(function () {
             Route::post('/nasabah', 'Api\KontakController@getNasabah')->name('nasabah');
             Route::post('/petugas', 'Api\KontakController@getPetugas')->name('petugas');
+            Route::post('/{id}', 'Api\KontakController@selectedKontak')->name('selected');
         });
         // Akun
         Route::post('/get-akun', 'Admin\JurnalUmumController@getAkun')->name('get-akun');

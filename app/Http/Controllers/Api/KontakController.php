@@ -27,7 +27,7 @@ class KontakController extends Controller
 
         $results = [];
         foreach ($data as $kontak) {
-            $kode = $kontak->kode_kontak ?? '-';
+            $kode = $kontak->kode_kontak ?? ' - ';
             $results[] = [
                 'id' => $kontak->id,
                 'text' => "{$kontak->nama} ({$kode})",
@@ -51,7 +51,7 @@ class KontakController extends Controller
 
         $results = [];
         foreach ($data as $kontak) {
-            $kode = $kontak->kode_kontak ?? '-';
+            $kode = $kontak->kode_kontak ?? ' - ';
             $results[] = [
                 'id' => $kontak->id,
                 'text' => "{$kontak->nama} ({$kode})",
@@ -59,5 +59,19 @@ class KontakController extends Controller
         }
 
         return $results;
+    }
+
+    public function selectedKontak($id)
+    {
+        $kontak = $this->kontak->find($id);
+        $kode = $kontak->kode_kontak ?? ' - ';
+
+        return [
+            'id' => $kontak->id,
+            'text' => "{$kontak->nama} ({$kode})",
+            'nama' => $kontak->nama,
+            'alamat' => $kontak->alamat,
+            'pekerjaan' => $kontak->pekerjaan,
+        ];
     }
 }
