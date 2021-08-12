@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontak;
 use App\Models\Pinjam;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,9 @@ class PinjamController extends Controller
             'jangka' => 'required',
             'bunga' => 'required',
             'tipe_pinjaman' => 'required',
-            'keterangan' => 'required'
+            'keterangan' => 'required',
+            'nasabah_id' => 'required|exists:kontaks,id',
+            'petugas_id' => 'required|exists:kontaks,id',
         ]);
         $besar_pinjam = $request->besar_pinjam;
         $jangka = $request->jangka;
@@ -103,9 +106,9 @@ class PinjamController extends Controller
                 'besar_pinjam' => $request->besar_pinjam,
                 'jangka' => $jangka,
                 'bunga' => $bunga,
-                'keterangan' => $request->keterangan
-
-                // 'kontak_id' => $request->kontak_id
+                'keterangan' => $request->keterangan,
+                'nasabah_id' => $request->nasabah_id,
+                'petugas_id' => $request->petugas_id
             ]);
         } else if ($tipe == 'Flat') {
             //tentuin bunga ke persen 6 ke 6%
@@ -149,10 +152,9 @@ class PinjamController extends Controller
                 'besar_pinjam' => $request->besar_pinjam,
                 'jangka' => $jangka,
                 'bunga' => $bunga,
-                'keterangan' => $request->keterangan
-
-                // 'kontak_id' => $request->kontak_id
-
+                'keterangan' => $request->keterangan,
+                'nasabah_id' => $request->nasabah_id,
+                'petugas_id' => $request->petugas_id
             ]);
         } else {
             return back()->with('error', 'Tidak Ada Tipe Yang Dipilih');
@@ -168,9 +170,9 @@ class PinjamController extends Controller
             'type' => $request->tipe,
             'total_bunga' => $request->bunga,
             'total_pokok' => $request->pokok,
-            'keterangan' => $request->keterangan
-
-                // 'kontak_id' => $request->kontak_id
+            'keterangan' => $request->keterangan,
+            'nasabah_id' => $request->nasabah_id,
+            'petugas_id' => $request->petugas_id
         ]);
         return redirect()->route('admin.pinjam.index');
     }
@@ -285,8 +287,9 @@ class PinjamController extends Controller
                 'besar_pinjam' => $pinjam->jumlah_pinjaman,
                 'jangka' => $jangka,
                 'bunga' => $bunga,
-                'keterangan' => $pinjam->keterangan
-                // 'kontak_id' => $request->kontak_id
+                'keterangan' => $pinjam->keterangan,
+                'nasabah_id' => $pinjam->nasabah_id,
+                'petugas_id' => $pinjam->petugas_id
             ]);
         } else {
             return back()->with('error', 'Tidak Ada Tipe Yang Dipilih');
@@ -315,7 +318,15 @@ class PinjamController extends Controller
      */
     public function update(Request $request, Pinjam $pinjam)
     {
-
+        $this->validate($request, [
+            'besar_pinjam' => 'required',
+            'jangka' => 'required',
+            'bungapersen' => 'required',
+            'tipe_pinjaman' => 'required',
+            'keterangan' => 'required',
+            'nasabah_id' => 'required|exists:kontaks,id',
+            'petugas_id' => 'required|exists:kontaks,id',
+        ]);
         $tipe = $request->tipe_pinjaman;
         $bunga =  $request->bungapersen;
         $jangka = $request->jangka;
@@ -376,7 +387,8 @@ class PinjamController extends Controller
                 'total_bunga' => array_sum($array_bunga),
                 'total_pokok' => array_sum($array_pokok),
                 'keterangan' => $request->keterangan,
-                // 'kontak_id' => $request->kontak_id
+                'nasabah_id' => $request->nasabah_id,
+                'petugas_id' => $request->petugas_id
             ]);
         } else if ($tipe == 'Flat') {
             //tentuin bunga ke persen 6 ke 6%
@@ -421,8 +433,9 @@ class PinjamController extends Controller
                 'type' => $request->tipe_pinjaman,
                 'total_bunga' => array_sum($array_bunga),
                 'total_pokok' => array_sum($array_pokok),
-                'keterangan' => $request->keterangan
-                // 'kontak_id' => $request->kontak_id
+                'keterangan' => $request->keterangan,
+                'nasabah_id' => $request->nasabah_id,
+                'petugas_id' => $request->petugas_id
             ]);
         }
 
@@ -436,8 +449,9 @@ class PinjamController extends Controller
      * @param  \App\Models\Pinjam  $pinjam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pinjam $pinjam)
+    public function destroy($id)
     {
+        $pinjam = Pinjam::findOrFail($id);
         $pinjam->delete();
         return back()->with('success', 'Berhasil Menghapus Pinjaman');
     }

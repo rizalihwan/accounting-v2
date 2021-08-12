@@ -23,16 +23,15 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        {{-- <table class="table table-hover" @if($data->count() == 1) style="height: 140px" @endif> --}}
-                            <table class="table table-hover">
+                        <table class="table table-hover" @if($pinjam->count() == 1) style="height: 140px" @endif>
                             <thead>
                                 <tr>
                                     <th style="width: 1px">#</th>
                                     <th>Jumlah Pinjaman</th>
                                     <th>Jangka</th>
-                                    <th>Bunga Persen</th>
-                                    <th>Type</th>
-                                    <th style="width: 1px">Keterangan</th>
+                                    <th>Bunga</th>
+                                    <th>Tipe</th>
+                                    <th>Keterangan</th>
                                     <th style="width: 1px">ACTION</th>
                                 </tr>
                             </thead>
@@ -41,8 +40,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration++ }}</td>
                                         <td>{{ $key->jumlah_pinjaman }}</td>
-                                        <td>{{ $key->jangka }}</td>
-                                        <td>{{ $key->bungapersen }}</td>
+                                        <td>{{ $key->jangka }} Bulan</td>
+                                        <td>{{ $key->bungapersen }}%</td>
                                         <td>{{ $key->type }}</td>
                                         <td>{{ $key->keterangan }}</td>
                                         <td>

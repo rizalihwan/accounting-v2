@@ -17,8 +17,6 @@ class KontakSeeder extends Seeder
         Kontak::create([
             'nama' => 'Pelanggan',
             'pelanggan' => true,
-            'pemasok' => false,
-            'karyawan' => false,
             'email' => 'pelanggan@gmail.com',
             'telepon' => '081234567890',
         ]);
@@ -26,8 +24,6 @@ class KontakSeeder extends Seeder
         Kontak::create([
             'nama' => 'Pemasok',
             'pemasok' => true,
-            'pelanggan' => false,
-            'karyawan' => false,
             'email' => 'pemasok@gmail.com',
             'telepon' => '081234567890',
         ]);
@@ -35,9 +31,24 @@ class KontakSeeder extends Seeder
         Kontak::create([
             'nama' => 'Karyawan',
             'karyawan' => true,
-            'pelanggan' => false,
-            'pemasok' => false,
             'email' => 'karyawan@gmail.com',
+            'telepon' => '081234567890',
+        ]);
+
+        Kontak::create([
+            'nama' => 'Nasabah',
+            'nasabah' => true,
+            'email' => 'nasabah@gmail.com',
+            'telepon' => '081234567890',
+            'kode_kontak' => 'N-00001',
+            'alamat' => 'Sillicon Valley',
+            'pekerjaan' => 'AI Engineer'
+        ]);
+
+        Kontak::create([
+            'nama' => 'Petugas',
+            'petugas' => true,
+            'email' => 'nasabah@gmail.com',
             'telepon' => '081234567890',
         ]);
     }

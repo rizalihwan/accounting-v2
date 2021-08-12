@@ -24,6 +24,11 @@ Route::name('api.')->group(function () {
         // Kontak
         Route::post('/get-kontak', 'Admin\JurnalUmumController@getKontak')->name('get-kontak');
         Route::get('/get-kontak/{kontak}', 'Admin\JurnalUmumController@kontakSelected')->name('get-kontak.selected');
+        Route::prefix('kontak')->name('kontak.')->group(function () {
+            Route::post('/nasabah', 'Api\KontakController@getNasabah')->name('nasabah');
+            Route::post('/petugas', 'Api\KontakController@getPetugas')->name('petugas');
+            Route::post('/{id}', 'Api\KontakController@selectedKontak')->name('selected');
+        });
         // Akun
         Route::post('/get-akun', 'Admin\JurnalUmumController@getAkun')->name('get-akun');
         Route::get('/get-akun/{akun}', 'Admin\JurnalUmumController@akunSelected')->name('get-akun.selected');

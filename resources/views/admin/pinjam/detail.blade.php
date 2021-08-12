@@ -17,7 +17,7 @@
     <!-- end message area-->
     <form action="{{ route('admin.pinjam.store') }}" method="post">
         @csrf
-        <div class="col-lg-12 col-md-6 col-12">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
@@ -25,8 +25,8 @@
                         <h4><span class="text-primary ml-1">{{ $tipe }}</span></h4>
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                     </div>
-                    <button href="{{ route('admin.pinjam.store') }}" class="btn btn-success">
-                        <i data-feather="plus"></i>
+                    <button href="{{ route('admin.pinjam.store') }}" class="btn btn-primary">
+                        <i data-feather='save'></i>
                         Simpan
                     </button>
                 </div>
@@ -54,6 +54,15 @@
                             <label for="validationCustomUsername">Keterangan</label>
                             <textarea name="keterangan" class="form-control" required="" readonly>{{ $keterangan }}</textarea>
                         </div>
+                        <div class="col-md-4 col-sm-6">
+                            <label for="nasabah_id">Nasabah</label>
+                            <select name="nasabah_id" id="nasabah_id" class="form-control" readonly></select>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <label for="petugas_id">Petugas</label>
+                            <select name="petugas_id" id="petugas_id" class="form-control" readonly></select>
+                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Total Bunga</label>
@@ -70,7 +79,6 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        {{-- <table class="table table-hover" @if($data->count() == 1) style="height: 140px" @endif> --}}
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
@@ -110,3 +118,55 @@
     </form>
 </div>
 @endsection
+
+@push('select2')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+@endpush
+@push('head')
+    <style>
+        .select2 {
+            width: 100%!important;
+        }
+    </style>
+@endpush
+@push('script')
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script>
+        const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '{{ route('api.select2.kontak.selected', ':id') }}'.replace(':id', '{{ $nasabah_id }}'),
+                type: 'post',
+                data: {
+                    _token: CSRF_TOKEN
+                },
+            }).then((data) => {
+                let option = new Option(data.text, data.id, true, true)
+                $('#nasabah_id').append(option).trigger('change')
+                $('#nasabah_id').trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                })
+            })
+            $.ajax({
+                url: '{{ route('api.select2.kontak.selected', ':id') }}'.replace(':id', '{{ $petugas_id }}'),
+                type: 'post',
+                data: {
+                    _token: CSRF_TOKEN
+                },
+            }).then((data) => {
+                let option = new Option(data.text, data.id, true, true)
+                $('#petugas_id').append(option).trigger('change')
+                $('#petugas_id').trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
