@@ -75,6 +75,9 @@ class Data extends Component
             {
                 $divisi->jurnalumums()->delete();
             }
+            
+            $divisi->delete();
+            
             $this->refresh('Data berhasil dihapus');
         } catch (\Throwable $th) {
             $this->error('Data gagal dihapus' . $th->getMessage());
