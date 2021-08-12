@@ -23,7 +23,7 @@ class Kontak extends Model
     {
         return $this->hasMany(Bkk::class);
     }
-    
+
     public function jurnalumums()
     {
         return $this->hasMany(Jurnalumum::class);
@@ -39,5 +39,9 @@ class Kontak extends Model
     public function Pengirimanbuy()
     {
         return $this->hasMany(PengirimanBuys::class);
+    }
+    public function simpans()
+    {
+        return $this->hasMany(Simpan::class);
     }
 }

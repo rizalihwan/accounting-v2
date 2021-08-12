@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <div class="d-flex">
                         <h4 class="card-title">List Simpanan</h4>
-                        <h4><span class="text-muted ml-1">0</span></h4>
+                        <h4><span class="text-muted ml-1">{{ \DB::table('simpans')->count() }}</span></h4>
                     </div>
                     <a href="{{ route('admin.simpan.create') }}" class="btn btn-success">
                         <i data-feather="plus"></i>
@@ -28,24 +28,28 @@
                             <thead>
                                 <tr>
                                     <th style="width: 1px">#</th>
-                                    <th>TANGGAL</th>
-                                    <th>NO. REFERENSI</th>
-                                    <th>URAIAN</th>
-                                    <th>NILAI</th>
-                                    <th style="width: 1px">STATUS</th>
-                                    <th style="width: 1px">ACTION</th>
+                                    <th>KETERANGAN</th>
+                                    <th>KODE KONTAK</th>
+                                    <th>JENIS SIMPANAN</th>
+                                    <th>NO. REKENING</th>
+                                    <th>ADMINISTRASI</th>
+                                    <th>SETORAN</th>
+                                    <th>PETUGAS</th>
+                                    {{-- <th style="width: 1px">ACTION</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse ($data as $key)
+                                @forelse ($data as $key)
                                     <tr>
                                         <td>{{ $loop->iteration + $data->firstItem() - 1 }}</td>
-                                        <td>{{ $key->tanggal }}</td>
-                                        <td>{{ $key->kode_jurnal }}</td>
-                                        <td>{{ $key->uraian }}</td>
-                                        <td>{{ 'IDR ' . number_format($key->jurnalumumdetails[0]->debit, 0, ',', '.') }}</td>
-                                        <td>{!! $key->StatusType !!}</td>
-                                        <td>
+                                        <td>{{ $key->keterangan }}</td>
+                                        <td>{{ $key->kontak->kode_kontak }}</td>
+                                        <td>{{ $key->jenis_simpanan }}</td>
+                                        <td>{{ $key->no_rekening }}</td>
+                                        <td>{{ $key->administrasi }}</td>
+                                        <td>{{ $key->setoran }}</td>
+                                        <td>{{ $key->petugas }}</td>
+                                        {{-- <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
                                                     <i data-feather="more-vertical"></i>
@@ -71,18 +75,18 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
-                                @empty --}}
+                                @empty
                                     <tr>
-                                        <td colspan="7" align="center">Data kosong.</td>
+                                        <td colspan="8" align="center">Data kosong.</td>
                                     </tr>
-                                {{-- @endforelse --}}
+                                @endforelse
                             </tbody>
                         </table>
                         <hr style="margin-top: -1px">
                     </div>
-                    {{-- {{ $data->links('pagination::bootstrap-4') }} --}}
+                    {{ $data->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
