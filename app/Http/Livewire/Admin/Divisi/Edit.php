@@ -38,11 +38,11 @@ class Edit extends Component
 
         try {
             $this->divisi->save();
+
+            $this->reset(['isOpen', 'akun']);
+            $this->emit('refresh', 'Data berhasil diedit');
         } catch (\Throwable $th) {
             $this->emit('error', 'Data gagal diedit');
         }
-
-        $this->reset(['isOpen', 'divisi']);
-        $this->emit('refresh', 'Data berhasil diedit');
     }
 }
