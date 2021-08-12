@@ -82,7 +82,7 @@
                                             <tr>
                                                 <td>-</td>
                                                 <td>-</td>
-                                                <td>{{$black->rekening->subklasifikasi->name }}</td>
+                                                <td>{{$black->rekening->name }}</td>
                                                 <td>{{$black->uang}}</td>
                                                 <td>{{$black->jml_uang}}</td> 
                                                 <td>-</td> 
@@ -92,7 +92,7 @@
                                             <tr>
                                                 <td>-</td>
                                                 <td>-</td>
-                                                <td>{{$item->akun->subklasifikasi->name}}</td>
+                                                <td>{{$item->akun->name}}</td>
                                                 <td>{{$asik}}</td>
                                                 <td>-</td>
                                                 <td>{{$item->value}}</td>
