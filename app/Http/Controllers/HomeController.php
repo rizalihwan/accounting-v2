@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\{Akun, Bkk, Jurnalumumdetail};
 use App\Models\Purchase\FakturBuy;
 use App\Models\Sale\FakturSale;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
