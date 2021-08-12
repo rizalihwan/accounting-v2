@@ -67,7 +67,7 @@
                 <br>
                 <div class="d-flex justify-content-between">
                     <h3>{{ $row->name }} - {{ $row->id }}</h3>
-                    <h3>{{ $row->subklasifikasi->name }}</h3>
+                    <h3>{{ $row->name }}</h3>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">

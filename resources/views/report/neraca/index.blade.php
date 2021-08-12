@@ -22,9 +22,9 @@
                             <ul>
                                 <li>
                                     <h4>
-                                        {{ $row->subklasifikasi->name }}
+                                        {{ $row->name }}
                                     </h4>
-                                    @foreach($row->subklasifikasi->akun->where('level', $row->level) as $data)
+                                    @foreach($row->where('level', $row->level) as $data)
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
@@ -33,8 +33,8 @@
                                     </ul>
                                     @endforeach
                                     <div class="form-group">
-                                        <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <h4 class="text-right">Rp. {{ number_format($row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
+                                        <label for="" class="text-primary">Total {{ $row->name }}</label>
+                                        <h4 class="text-right">Rp. {{ number_format($row->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
                                     </div>
                                 </li>
 
@@ -54,9 +54,9 @@
                             <ul>
                                 <li>
                                     <h4>
-                                        {{ $row->subklasifikasi->name }}
+                                        {{ $row->name }}
                                     </h4>
-                                    @foreach($row->subklasifikasi->akun->where('level', $row->level) as $data)
+                                    @foreach($row->where('level', $row->level) as $data)
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
@@ -64,8 +64,8 @@
                                         </li>
                                     </ul>
                                     <div class="form-group">
-                                        <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <h4 class="text-right">{{ number_format($row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
+                                        <label for="" class="text-primary">Total {{ $row->name }}</label>
+                                        <h4 class="text-right">{{ number_format($row->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
                                     </div>
                                     @endforeach
                                 </li>
@@ -85,9 +85,9 @@
                             <ul>
                                 <li>
                                     <h4>
-                                        {{ $row->subklasifikasi->name }}
+                                        {{ $row->name }}
                                     </h4>
-                                    @foreach($row->subklasifikasi->akun->where('level', $row->level) as $data)
+                                    @foreach($row->where('level', $row->level) as $data)
                                     <ul>
                                         <li>
                                             <label for="">{{ $data->name }}</label>
@@ -96,8 +96,8 @@
                                     </ul>
                                     @endforeach
                                     <div class="form-group">
-                                        <label for="" class="text-primary">Total {{ $row->subklasifikasi->name }}</label>
-                                        <h4 class="text-right">Rp. {{ number_format($row->subklasifikasi->akun->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
+                                        <label for="" class="text-primary">Total {{ $row->name }}</label>
+                                        <h4 class="text-right">Rp. {{ number_format($row->where('level', $row->level)->where('subklasifikasi_id', $row->subklasifikasi_id)->sum('saldo_akhir')) }}</h4>
                                     </div>
                                 </li>
 
