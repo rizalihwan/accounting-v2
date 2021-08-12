@@ -82,13 +82,35 @@ class ReportController extends Controller
         // foreach($akuns->unique('subklasifikasi_id') as $data){
         //     echo $data->subklasifikasi->name.'<br>';
         // }
+        $akun_aktiva = Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get();
+        $hitung_aktiva = [];
+        foreach ($akun_aktiva as $key) {
+            array_push($hitung_aktiva, $key->debit - $key->kredit);
+        }
+        $total_aktiva = array_sum($hitung_aktiva);
+
+        $akun_modal = Akun::where('level', 'Modal')->orderBy('id', 'asc')->get();
+        $hitung_modal = [];
+        foreach ($akun_modal as $key) {
+            array_push($hitung_modal, $key->debit - $key->kredit);
+        }
+        $total_modal = array_sum($hitung_modal);
+
+        $akun_kewajiban = Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
+        $hitung_kewajiban = [];
+        foreach ($akun_kewajiban as $key) {
+            array_push($hitung_kewajiban, $key->debit - $key->kredit);
+        }
+        $total_kewajiban = array_sum($hitung_kewajiban);
+        
+
         return view('report.neraca.index', [
-            'aktiva' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Aktiva')->orderBy('subklasifikasi_id', 'asc')->get(),
-            'modal' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Modal')->orderBy('subklasifikasi_id', 'asc')->get(),
-            'kewajiban' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Kewajiban')->orderBy('subklasifikasi_id', 'asc')->get(),
-            'total_aktiva' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Aktiva')->sum('saldo_akhir'),
-            'total_modal' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Modal')->sum('saldo_akhir'),
-            'total_kewajiban' => Akun::where('saldo_berjalan', '!=', 0)->where('level', 'Kewajiban')->sum('saldo_akhir')
+            'aktiva' => Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get(),
+            'modal' => Akun::where('level', 'Modal')->orderBy('id', 'asc')->get(),
+            'kewajiban' => Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get(),
+            'total_aktiva' => $total_aktiva,
+            'total_modal' => $total_modal,
+            'total_kewajiban' => $total_kewajiban
         ]);
     }
     public function labarugi()
