@@ -77,7 +77,7 @@ class KontakController extends Controller
         try {
             Kontak::create($attr);
         } catch (\Exception $e) {
-            return back()->with('error', 'Data Gagal Disimpan!');
+            return back()->with('error', 'Data Gagal Disimpan!')->withErrors($e->getMessage());
         }
         return redirect()->route('admin.kontak.index')->with('success', 'Data Berhasil Disimpan');
     }
@@ -147,7 +147,7 @@ class KontakController extends Controller
         try {
             $kontak->update($attr);
         } catch (\Exception $e) {
-            return back()->with('error', 'Data Gagal diupdate!');
+            return back()->with('error', 'Data Gagal diupdate!')->withErrors($e->getMessage());
         }
         return redirect()->route('admin.kontak.index')->with('success', 'Data Berhasil DIupdate');
     }

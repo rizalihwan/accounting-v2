@@ -12,10 +12,24 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div class="alert-body">
+                        @foreach ($errors->all() as $error)
+                        <ul style="margin: 0 12px 0 -11px">
+                            <li>{{ $error }}</li>
+                        </ul>
+                        @endforeach
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="card ">
                 <div class="card-header">
-                    <h3><i class="fa fa-user"></i></h3>
                     <h4>Tambah Kontak</h4>
+                    <h3><i data-feather="user"></i></h3>
                 </div>
                 <div class="card-body">
                     <form class="forms-sample" method="POST" action="{{ route('admin.kontak.store') }}">
@@ -25,8 +39,8 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="nama">{{ __('Nama') }}<span class="text-red">*</span></label>
-                                    <input id="nama" type="text"
-                                        class="form-control @error('nama') is-invalid @enderror" name="nama" required>
+                                    <input id="nama" type="text" value="{{ old('nama') }}"
+                                        class="form-control @error('nama') is-invalid @enderror" name="nama">
                                     <div class="help-block with-errors"></div>
                                     @error('nama')
                                         <span class="invalid-feedback" role="alert">
@@ -55,7 +69,7 @@
                                     <label for="telepon">Telepon<span class="text-red">*</span></label>
                                     <input id="telepon" type="text"
                                         class="form-control @error('telepon') is-invalid @enderror" name="telepon"
-                                        minlength="11" maxlength="13" onkeypress="return hanyaAngka(event)">
+                                        minlength="11" maxlength="13" onkeypress="onlyNumber(event)">
                                     <div class="help-block with-errors"></div>
                                     @error('telepon')
                                         <span class="invalid-feedback" role="alert">
@@ -68,23 +82,23 @@
                                 <div class="form-group">
                                     <div class="demo-inline-spacing">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="pelanggan" name="pelanggan" />
+                                            <input type="checkbox" class="custom-control-input" id="pelanggan" name="pelanggan" {{ old('pelanggan') ? 'checked' :'' }} />
                                             <label class="custom-control-label" for="pelanggan">Pelanggan</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="pemasok" name="pemasok" />
+                                            <input type="checkbox" class="custom-control-input" id="pemasok" name="pemasok" {{ old('pemasok') ? 'checked' :'' }} />
                                             <label class="custom-control-label" for="pemasok">Pemasok</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="karyawan" name="karyawan" />
+                                            <input type="checkbox" class="custom-control-input" id="karyawan" name="karyawan" {{ old('karyawan') ? 'checked' :'' }} />
                                             <label class="custom-control-label" for="karyawan">Karyawan</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="nasabah" name="nasabah" />
+                                            <input type="checkbox" class="custom-control-input" id="nasabah" name="nasabah" {{ old('nasabah') ? 'checked' :'' }} />
                                             <label class="custom-control-label" for="nasabah">Nasabah</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="petugas" name="petugas" />
+                                            <input type="checkbox" class="custom-control-input" id="petugas" name="petugas" {{ old('petugas') ? 'checked' :'' }} />
                                             <label class="custom-control-label" for="petugas">Petugas</label>
                                         </div>
                                     </div>
@@ -142,8 +156,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="kode_kontak">Kode Kontak</label>
-                                    <input id="kode_kontak" type="text"
-                                        class="form-control @error('kode_kontak') is-invalid @enderror" name="kode_kontak" required>
+                                    <input id="kode_kontak" type="text" value="{{ old('kode_kontak') }}"
+                                        class="form-control @error('kode_kontak') is-invalid @enderror" name="kode_kontak">
                                     <div class="help-block with-errors"></div>
                                     @error('kode_kontak')
                                         <span class="invalid-feedback" role="alert">
@@ -173,7 +187,7 @@
                                     <label for="nik">NIK</label>
                                     <input id="nik" type="text"
                                         class="form-control @error('nik') is-invalid @enderror" name="nik"
-                                        onkeypress="return hanyaAngka(event)" minlength="16" maxlength="16">
+                                        onkeypress="onlyNumber(event)" minlength="16" maxlength="16">
                                     <div class="help-block with-errors"></div>
                                     @error('nik')
                                         <span class="invalid-feedback" role="alert">
@@ -232,15 +246,8 @@
 @endsection
 
 @push('script')
+    <script src="{{ asset('js/helpers.js') }}"></script>
     <script>
-        function hanyaAngka(e){
-            let charCode = (e.which) ? e.which : e.keyCode
-            if (charCode > 32 && (charCode < 48 || charCode > 57)) {
-                return false
-            }
-            return true
-        }
-
         $(document).ready(function(){
             let csrf = '{{ csrf_token() }}'
 
@@ -257,9 +264,6 @@
                     success: data => {
                         $("#kode_kontak").val(data.success)
                     },
-                    // error: err => {
-                    //     console.log(err)
-                    // }
                 })
             })
         })
