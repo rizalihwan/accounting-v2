@@ -354,15 +354,14 @@ class JurnalUmumController extends Controller
     {
         $search = $request->search;
         $kas_bank = $request->kas_bank;
-        $accounts = Akun::active()->select('id', 'kode', 'name', 'subklasifikasi_id', 'status');
+        $accounts = Akun::active()->select('id', 'kode', 'name', 'subklasifikasi', 'status');
 
         if ($kas_bank == 'yes') {
-            $accounts = $accounts->whereHas('subklasifikasi', function ($q) {
-                $q->whereIn('name', ['Kas', 'Bank']);
-            })->where(function ($q) use ($search) {
-                return $q->where('kode', 'like', "%{$search}%")
-                    ->orWhere('name', 'like', "%{$search}%");
-            })->orderBy('kode', 'ASC')->get();
+            $accounts = $accounts->whereIn('subklasifikasi', ['Kas', 'Bank'])
+                ->where(function ($q) use ($search) {
+                    return $q->where('kode', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%");
+                })->orderBy('kode', 'ASC')->get();
         } else {
             $accounts = $accounts->where(function ($q) use ($search) {
                 return $q->where('kode', 'like', "%{$search}%")
