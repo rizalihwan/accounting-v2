@@ -50,7 +50,7 @@
                                                             <td>KM{{ $item->id }}</td>
                                             @endif
                                         @endif
-                                        <td>{{ $item->akun->name }} - {{ $item->akun->subklasifikasi->name }}</td>
+                                        <td>{{ $item->akun->name }} - {{ $item->akun->name }}</td>
                                         <td>{{ $item->desk }}</td>
                                         <td>{{ number_format($item->value) }}</td>
                                         <td>
