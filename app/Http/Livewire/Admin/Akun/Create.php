@@ -7,7 +7,7 @@ use App\Models\Akun;
 
 class Create extends Component
 {
-    public $kode, $name, $subklasifikasi, $level, $saldo_awal;
+    public $kode, $name, $subklasifikasi, $level;
 
     public $levels = [];
 
@@ -19,8 +19,7 @@ class Create extends Component
         'kode' => 'required|min:4|unique:akuns',
         'name' => 'required',
         'subklasifikasi' => 'required',
-        'level' => 'required|in:Aktiva,Modal,Kewajiban',
-        'saldo_awal' => 'required|numeric'
+        'level' => 'required|in:Aktiva,Modal,Kewajiban'
     ];
 
     public function kodeOtomatis()
@@ -58,8 +57,6 @@ class Create extends Component
     public function store()
     {
         $data = $this->validate();
-        $data['saldo_berjalan'] = 0;
-        $data['saldo_akhir'] = 0;
 
         try {
             Akun::create($data);
@@ -68,7 +65,7 @@ class Create extends Component
         }
 
         $this->emit('refresh', 'Data berhasil disimpan');
-        $this->reset('name', 'subklasifikasi', 'level', 'saldo_awal');
+        $this->reset('name', 'subklasifikasi', 'level');
         $this->kodeOtomatis();
     }
 }

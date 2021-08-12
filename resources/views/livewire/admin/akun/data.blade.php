@@ -28,7 +28,8 @@
                                     <th>Nama Akun</th>
                                     <th>Subklasifikasi</th>
                                     <th>Level</th>
-                                    <th>Saldo Awal</th>
+                                    <th>Debit</th>
+                                    <th>Kredit</th>
                                     <th style="width: 1px">Action</th>
                                 </tr>
                             </thead>
@@ -42,7 +43,8 @@
                                         <td>{{ $account->name }}</td>
                                         <td>{{ $account->subklasifikasi }}</td>
                                         <td>{{ $account->level }}</td>
-                                        <td>{{ $account->saldo_awal }}</td>
+                                        <td>{{ $account->debit }}</td>
+                                        <td>{{ $account->kredit }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
@@ -65,7 +67,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" align="center">
+                                        <td colspan="8" align="center">
                                             @if($search != null)
                                                 Maaf, <b><i>"{{ $search }}"</i></b> tidak ditemukan.
                                             @else

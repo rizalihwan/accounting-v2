@@ -75,22 +75,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="form-group row">
-                            <div class="col-sm-3 col-form-label">
-                                <label for="saldo_awal">Saldo Awal</label>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="text" id="saldo_awal" name="saldo_awal" wire:model="saldo_awal" 
-                                    class="form-control @error('saldo_awal') is-invalid @enderror" placeholder="Saldo Awal" />
-                                @error('saldo_awal')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-sm-9 offset-sm-3">
                         <button type="submit" class="btn btn-primary" style="width: 100px"

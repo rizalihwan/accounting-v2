@@ -52,17 +52,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
-                                <label>Saldo Awal: </label>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Saldo Awal" wire:model="akun.saldo_awal"
-                                        class="form-control @error('akun.saldo_awal') is-invalid @enderror" />
-                                    @error('akun.saldo_awal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" data-dismiss="modal" class="btn btn-primary" style="width: 100px"
