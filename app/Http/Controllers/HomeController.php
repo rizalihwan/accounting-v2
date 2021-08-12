@@ -10,7 +10,8 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $sumSaldoAkhir = Akun::sum('saldo_akhir');
+        $akun = Akun::select('debit', 'kredit');
+        $sumSaldoAkhir = $akun->sum('debit') - $akun->sum('kredit');
         $sumJurnalUmum = Jurnalumumdetail::sum('debit');
         $sumFakturPenjualan = FakturSale::sum('total');
         $sumFakturPembelian = FakturBuy::sum('total');
@@ -21,7 +22,7 @@ class HomeController extends Controller
         $sumExpense = Bkk::where('status', 'BKK')->sum('value');
         $sumIncome = Bkk::where('status', 'BKM')->sum('value');
 
-        $kas = Akun::orderBy('saldo_akhir','desc')->get();
+        $kas = Akun::orderBy('kredit', 'desc')->get();
         return view('home', [
             'kas' => $kas,
             'saldoKeseluruhan' => $sumSaldoAkhir,
