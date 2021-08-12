@@ -9,7 +9,7 @@
 @section('content')
     <div class="row">
         <!-- end message area-->
-        <div class="col-lg-12 col-md-6 col-12">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         {{-- <table class="table table-hover" @if($data->count() == 1) style="height: 140px" @endif> --}}
-                            <table class="table table-hover">
+                            <table class="table table-hover" style="border-bottom: 1px solid #dddddd">
                             <thead>
                                 <tr>
                                     <th style="width: 1px">#</th>
@@ -84,7 +84,6 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <hr style="margin-top: -1px">
                     </div>
                     {{ $data->links('pagination::bootstrap-4') }}
                 </div>
