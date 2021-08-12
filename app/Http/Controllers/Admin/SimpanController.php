@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontak;
 use App\Models\Simpan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SimpanController extends Controller
 {
@@ -15,7 +17,9 @@ class SimpanController extends Controller
      */
     public function index()
     {
-        return view('admin.simpan.index');
+        return view('admin.simpan.index', [
+            'data' => Simpan::latest()->paginate(5)
+        ]);
     }
 
     /**
@@ -25,7 +29,10 @@ class SimpanController extends Controller
      */
     public function create()
     {
-        return view('admin.simpan.create');
+        return view('admin.simpan.create', [
+            'contacts' => Kontak::get(),
+            'petugas' => Kontak::where('nasabah', 1)->pluck('nama')
+        ]);
     }
 
     /**
@@ -34,9 +41,28 @@ class SimpanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $reqArr = [
+            'keterangan' => 'required',
+            'kontak_id' => 'required',
+            'jenis_simpanan' => 'required',
+            'no_rekening' => 'required',
+            'administrasi' => 'required',
+            'setoran' => 'required',
+            'petugas' => 'required'
+        ];
+        $attr = $this->validate(request(), $reqArr);
+        $allReq = Validator::make(request()->all(), $reqArr);
+        if ($allReq->fails()) {
+            return redirect()->back()->withErrors($allReq);
+        }
+        try {
+            Simpan::create($attr);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Simpanan gagal!' . $e->getMessage());
+        }
+        return redirect()->route('admin.simpan.index')->with('success', 'Simpanan berhasil');
     }
 
     /**

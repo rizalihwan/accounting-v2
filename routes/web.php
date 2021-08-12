@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('bukubesar')->name('bukubesar.')->group(function () {
                 Route::get('/', 'BukuBesarController@index')->name('index');
                 Route::post('/cari-akun', 'BukuBesarController@cariakun')->name('cariakun');
-                
+
             });
             // Jurnal Umum
             Route::resource('jurnalumum', 'JurnalUmumController');
