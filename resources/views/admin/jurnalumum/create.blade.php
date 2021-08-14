@@ -112,8 +112,8 @@
                                         <tbody>
                                             <tr>
                                                 <th style="width: 180px">Total</th>
-                                                <td id="total_debit">0</td>
-                                                <td id="total_kredit">0</td>
+                                                <td id="total_debit">Rp 0</td>
+                                                <td id="total_kredit">Rp 0</td>
                                             </tr>
                                             <tr>
                                                 <th>Difference</th>
@@ -212,6 +212,32 @@
     <script src="{{ asset('js/helpers.js') }}"></script>
     <script>
         const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        function eventJumlah () {
+            const debit = document.querySelectorAll('.debit');
+            const kredit = document.querySelectorAll('.kredit');
+            debit.forEach(el => {
+                el.addEventListener('keyup', function() {
+                    const val = this.value == '' ? 0 : unformatter(this.value);
+                    const n = parseInt(val, 10);
+                    el.value = formatter(n);
+                });
+                el.addEventListener('focusout', function() {
+                    jumlahin();
+                });
+            });
+
+            kredit.forEach(el => {
+                el.addEventListener('keyup', function() {
+                    const val = this.value == '' ? 0 : unformatter(this.value);
+                    const n = parseInt(val, 10);
+                    el.value = formatter(n);
+                });
+                el.addEventListener('focusout', function() {
+                    jumlahin();
+                });
+            });
+        }
 
         function chooseTemplate(template_id) {
             history.pushState({}, null, `?template_id=${template_id}`);
@@ -338,22 +364,29 @@
                         <select name="jurnals[${index}][akun_id]" class="form-control select-${index}"></select>
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][debit]" class="form-control debit" oninput="jumlahin()" placeholder="0" onkeypress="onlyNumber(event)">
+                        <input type="text" name="jurnals[${index}][debit]" class="form-control debit" placeholder="0" onkeypress="onlyNumber(event)">
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" oninput="jumlahin()" placeholder="0" onkeypress="onlyNumber(event)">
+                        <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" placeholder="0" onkeypress="onlyNumber(event)">
                     </td>
-                    <td>
+            `
+            if (index > 0) {
+                html += `<td>
                         <button type="button" name="remove" 
                             class="btn btn-danger btn-sm text-white btn_remove">
                             <i data-feather="trash-2"></i>
                         </button>
                     </td>
-                </tr>
-            `
+                </tr>`
+            } else {
+                html += `<td></td></tr>`;
+            }
+
             $("#dynamic_field").append(html)
-            // jurnalEachColumn(index)
+
+            eventJumlah()
             feather.replace()
+
             $('select[name="jurnals['+index+'][akun_id]"]').select2({
                 placeholder: '-- Pilih Akun --',
                 ajax: {
@@ -424,8 +457,8 @@
             for (let i = 0; i < cols_debit.length; i++) {
                 let e_debit = cols_debit[i]
                 let e_kredit = cols_kredit[i]
-                total_debit += e_debit.value == "" ? 0 : parseInt(e_debit.value.replace(/\D/g, ""))
-                total_kredit += e_kredit.value == "" ? 0 :parseInt(e_kredit.value.replace(/\D/g, ""))
+                total_debit += e_debit.value == "" ? 0 : unformatter(e_debit.value)
+                total_kredit += e_kredit.value == "" ? 0 :unformatter(e_kredit.value)
             }
             if (total_debit > total_kredit) {
                 difference = total_kredit - total_debit
@@ -434,8 +467,8 @@
             } else {
                 difference = 0
             }
-            $("#total_debit").text(formatter(total_debit))
-            $("#total_kredit").text(formatter(total_kredit))
+            $("#total_debit").text("Rp " + formatter(total_debit))
+            $("#total_kredit").text("Rp " + formatter(total_kredit))
             $("#difference").text(formatter(difference))
             if (difference === 0) {
                 $("#btn-submit").attr('disabled', false)
@@ -445,14 +478,23 @@
         }
 
         function getTemplate(template_id) {
+            $('#add').html(`
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `).attr('disabled', true);
+            $('#btn-submit').attr('disabled', true);
+
             $.ajax({
                 url: '{{ route('api.template-jurnal.selected', ':id') }}'.replace(':id', template_id),
                 type: 'get',
                 dataType: 'json',
                 success: result => {
                     const data = result.data;
-                    $("#dynamic_field").html('')
 
+                    $("#dynamic_field").empty()
                     $("#uraian").val(data.uraian)
 
                     Object.keys(data.template_details).forEach(index => {
@@ -462,7 +504,6 @@
                         $('select[name="jurnals['+ index +'][akun_id]"]').attr('disabled', true);
                         $('[name="jurnals['+ index +'][debit]"]').val(formatter(detail.debit))
                         $('[name="jurnals['+ index +'][kredit]"]').val(formatter(detail.kredit))
-                        jumlahin()
 
                         $.ajax({
                             type: 'get',
@@ -478,11 +519,18 @@
                                         data: akun
                                     }
                                 })
-                                if ((index + 1) == data.template_details.length) {
-                                    // 
+                                if ((parseInt(index) + 1) == data.template_details.length) {
+                                    $('#add').html(`
+                                        <i data-feather="plus"></i>
+                                        Tambah Row Baru
+                                    `).attr('disabled', false);
+                                    $('#btn-submit').attr('disabled', false);
+                                    jumlahin();
+                                    feather.replace();
                                 }
                             }
                         })
+
                     })
 
                     $.ajax({
