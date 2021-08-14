@@ -57,7 +57,7 @@
                                                     <i data-feather="more-vertical"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('admin.template-jurnal.edit', $key->id) }}">
+                                                    {{-- <a class="dropdown-item" href="{{ route('admin.template-jurnal.edit', $key->id) }}">
                                                         <i data-feather="edit" class="text-warning"></i>
                                                         <span class="ml-1">Edit</span>
                                                     </a>
@@ -65,7 +65,7 @@
                                                         href="{{ route('admin.template-jurnal.show', $key->id) }}">
                                                         <i data-feather="eye"></i>
                                                         <span class="ml-1">Show</span>
-                                                    </a>
+                                                    </a> --}}
                                                     <a href="javascript:void('delete')" class="dropdown-item text-danger" 
                                                         onclick="deleteConfirm('form-delete', '{{ $key->id }}')">
                                                         <i data-feather="trash"></i>

@@ -81,42 +81,45 @@ class JurnalUmumController extends Controller
         if ($error->fails()) {
             return redirect()->back()->withErrors($error);
         }
-        DB::beginTransaction();
+
         try {
-            $jurnal = Jurnalumum::create([
-                'kode_jurnal' => $input['kode_jurnal'],
-                'tanggal' => $input['tanggal'],
-                'kontak_id' => $input['kontak_id'],
-                'divisi_id' => $input['divisi_id'],
-                'uraian' => $input['uraian'],
-                'status' => 1
-            ]);
-
-            foreach ($input['jurnals'] as $input_jurnal) {
-                $jurnal_detail = Jurnalumumdetail::create([
-                    'akun_id' => $input_jurnal['akun_id'],
-                    'jurnalumum_id' => $jurnal->id,
-                    'debit' => $input_jurnal['debit'] == null ? '0' : $input_jurnal['debit'],
-                    'kredit' => $input_jurnal['kredit'] == null ? '0' : $input_jurnal['kredit'],
+            DB::transaction(function () use ($input) {
+                $jurnal = Jurnalumum::create([
+                    'kode_jurnal' => $input['kode_jurnal'],
+                    'tanggal' => $input['tanggal'],
+                    'kontak_id' => $input['kontak_id'],
+                    'divisi_id' => $input['divisi_id'],
+                    'uraian' => $input['uraian'],
+                    'status' => 1
                 ]);
 
-                $debit = $input_jurnal['debit'] == null ? 0 : (int)$input_jurnal['debit'];
-                $kredit = $input_jurnal['kredit'] == null ? 0 : (int)$input_jurnal['kredit'];
+                foreach ($input['jurnals'] as $input_jurnal) {
+                    $debit = $input_jurnal['debit'] == null
+                        ? 0
+                        : (int)preg_replace('/[^\d.]/', '', $input_jurnal['debit']);
+                    $kredit = $input_jurnal['kredit'] == null
+                        ? 0
+                        : (int)preg_replace('/[^\d.]/', '', $input_jurnal['kredit']);
 
-                $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
-                $akun->update([
-                    'debit' => $akun->debit + $debit,
-                    'kredit' => $akun->kredit + $kredit
-                ]);
-            }
+                    $jurnal_detail = Jurnalumumdetail::create([
+                        'akun_id' => $input_jurnal['akun_id'],
+                        'jurnalumum_id' => $jurnal->id,
+                        'debit' => $debit,
+                        'kredit' => $kredit,
+                    ]);
 
-            DB::commit();
+                    $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
+                    $akun->update([
+                        'debit' => $akun->debit + $debit,
+                        'kredit' => $akun->kredit + $kredit
+                    ]);
+                }
+            });
+
+            return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil Tersimpan');
         } catch (\Exception $e) {
-            DB::rollBack();
             return back()->with('error', 'Jurnal tidak Tersimpan!' . $e->getMessage());
         }
-
-        return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil Tersimpan');
     }
 
     /**
@@ -176,14 +179,6 @@ class JurnalUmumController extends Controller
             return redirect()->back()->withErrors($error);
         }
 
-        $jurnal = Jurnalumum::find($id);
-        $jurnal->update([
-            'tanggal' => $request->tanggal,
-            'kontak_id' => $request->kontak_id,
-            'divisi_id' => $request->divisi_id,
-            'uraian' => $request->uraian,
-        ]);
-
         $detail_id = [];
 
         foreach ($input['jurnals'] as $value) {
@@ -197,85 +192,103 @@ class JurnalUmumController extends Controller
             ->where('jurnalumum_id', $id)
             ->whereNotIn('id', $detail_id)->get();
 
-        DB::beginTransaction();
         try {
-            if ($detail_jurnals_except->count() > 0) {
-                foreach ($detail_jurnals_except as $detail) {
-                    $debit = $detail->debit;
-                    $kredit = $detail->kredit;
+            DB::transaction(function () use ($id, $request, $input, $detail_jurnals_except, $jurnals) {
+                $jurnal = Jurnalumum::find($id);
+                $jurnal->update([
+                    'tanggal' => $request->tanggal,
+                    'kontak_id' => $request->kontak_id,
+                    'divisi_id' => $request->divisi_id,
+                    'uraian' => $request->uraian,
+                ]);
 
-                    $akun = Akun::where('id', $detail->akun_id)->first();
+                if ($detail_jurnals_except->count() > 0) {
+                    foreach ($detail_jurnals_except as $detail) {
+                        $debit = $detail->debit;
+                        $kredit = $detail->kredit;
 
-                    $akun->update([
-                        'debit' => $akun->debit - $debit,
-                        'kredit' => $akun->kredit - $kredit
-                    ]);
+                        $akun = Akun::where('id', $detail->akun_id)->first();
 
-                    $detail->delete();
+                        $akun->update([
+                            'debit' => $akun->debit - $debit,
+                            'kredit' => $akun->kredit - $kredit
+                        ]);
+
+                        $detail->delete();
+                    }
                 }
-            }
 
-            foreach ($jurnals as $value) {
-                foreach ($input['jurnals'] as $item) {
-                    if ($value == $item['id']) {
-                        $jurnal_detail = Jurnalumumdetail::create([
+                foreach ($jurnals as $value) {
+                    foreach ($input['jurnals'] as $item) {
+                        if ($value == $item['id']) {
+                            $debit = $item['debit'] == null
+                                ? 0
+                                : (int)preg_replace('/[^\d.]/', '', $item['debit']);
+                            $kredit = $item['kredit'] == null
+                                ? 0
+                                : (int)preg_replace('/[^\d.]/', '', $item['kredit']);
+
+                            $jurnal_detail = Jurnalumumdetail::create([
+                                'akun_id' => $item['akun_id'],
+                                'jurnalumum_id' => $jurnal->id,
+                                'debit' => $debit,
+                                'kredit' => $kredit
+                            ]);
+
+                            $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
+                            $akun->update([
+                                'debit' => $akun->debit + $debit,
+                                'kredit' => $akun->kredit + $kredit
+                            ]);
+                        }
+                    }
+                }
+
+                foreach ($input['jurnals'] as $index => $item) {
+                    if ($item['id'] != null) {
+                        $jurnal_detail = Jurnalumumdetail::find($item['id']);
+
+                        $debit = $jurnal_detail->debit;
+                        $kredit = $jurnal_detail->kredit;
+
+                        $itm_debit = $item['debit'] == null
+                            ? 0
+                            : (int)preg_replace('/[^\d.]/', '', $item['debit']);
+                        $itm_kredit = $item['kredit'] == null
+                            ? 0
+                            : (int)preg_replace('/[^\d.]/', '', $item['kredit']);
+
+                        if ($debit != $itm_debit) {
+                            $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
+
+                            $debit = $akun->debit - $debit;
+                            $akun->update([
+                                'debit' => $debit + $itm_debit,
+                            ]);
+                        }
+                        if ($kredit != $itm_kredit) {
+                            $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
+
+                            $kredit = $akun->kredit - $kredit;
+                            $akun->update([
+                                'kredit' => $kredit + $itm_kredit
+                            ]);
+                        }
+
+                        $jurnal_detail->update([
                             'akun_id' => $item['akun_id'],
-                            'jurnalumum_id' => $jurnal->id,
-                            'debit' => $item['debit'],
-                            'kredit' => $item['kredit']
-                        ]);
-
-                        $debit = $item['debit'] == null ? 0 : (int)$item['debit'];
-                        $kredit = $item['kredit'] == null ? 0 : (int)$item['kredit'];
-
-                        $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
-                        $akun->update([
-                            'debit' => $akun->debit + $debit,
-                            'kredit' => $akun->kredit + $kredit
+                            'debit' => $itm_debit,
+                            'kredit' => $itm_kredit,
                         ]);
                     }
                 }
-            }
+            });
 
-            foreach ($input['jurnals'] as $index => $item) {
-                if ($item['id'] != null) {
-                    $jurnal_detail = Jurnalumumdetail::find($item['id']);
-
-                    $debit = $jurnal_detail->debit;
-                    $kredit = $jurnal_detail->kredit;
-
-                    if ($debit != $item['debit']) {
-                        $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
-
-                        $debit = $akun->debit - $debit;
-                        $akun->update([
-                            'debit' => $debit + $item['debit'],
-                        ]);
-                    }
-                    if ($kredit != $item['kredit']) {
-                        $akun = Akun::where('id', $jurnal_detail->akun_id)->first();
-
-                        $kredit = $akun->kredit - $kredit;
-                        $akun->update([
-                            'kredit' => $kredit + $item['kredit']
-                        ]);
-                    }
-
-                    $jurnal_detail->update([
-                        'akun_id' => $item['akun_id'],
-                        'debit' => $item['debit'],
-                        'kredit' => $item['kredit'],
-                    ]);
-                }
-            }
-
-            DB::commit();
+            return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil diubah!');
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'Oops, something went wrong');
         }
-
-        return redirect()->route('admin.jurnalumum.index')->with('success', 'Jurnal Umum berhasil diubah!');
     }
 
     /**

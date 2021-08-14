@@ -46,11 +46,11 @@
 <script>
     function deleteConfirm(form_id, id) {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Apakah Anda yakin?",
+            text: "Anda tidak dapat memulihkan data ini!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "Ya, hapus ini!",
             customClass:{
                 confirmButton: "btn btn-primary",
                 cancelButton: "btn btn-outline-danger ml-1"
@@ -66,7 +66,7 @@
     function logoutConfirm() {
         Swal.fire({
             title: "Logout",
-            text: "You will be returned to the login screen.",
+            text: "Anda akan kembali ke halaman login.",
             icon: "warning",
             showCancelButton: true,
             allowOutsideClick: false,
