@@ -80,16 +80,22 @@
             showLoaderOnConfirm: true,
             preConfirm: () => {
                 return new Promise((resolve) => {
-                    $("#logout-form").submit();
+                    const CSRF = $('meta[name="csrf-token"]').attr('content');
+                    
+                    $.ajax({
+                        url: '{{ route('logout') }}',
+                        type: 'post',
+                        data: {
+                            _token: CSRF
+                        },
+                        error: () => window.location.href = '{{ route('login') }}'
+                    });
+
                     // setTimeout(function() {
                     //     console.log('logic ends');
                     //     resolve();
                     // }, 5000);
                 });
-            }
-        }).then((willLogout) => {
-            if (willLogout.value) {
-                console.log("Logged out.");
             }
         })
     }
