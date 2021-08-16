@@ -42,7 +42,15 @@
                                         <td>{{ $key->tanggal }}</td>
                                         <td>{{ $key->kode_jurnal }}</td>
                                         <td>{{ $key->uraian }}</td>
-                                        <td>{{ 'IDR ' . number_format($key->jurnalumumdetails[0]->debit, 0, ',', '.') }}</td>
+                                        <td>
+                                            @php
+                                                $debit = 0;
+                                                foreach ($key->jurnalumumdetails as $detail) {
+                                                    $debit += $detail->debit;
+                                                }
+                                            @endphp
+                                            {{ 'IDR ' . number_format($debit, 0, ',', '.') }}
+                                        </td>
                                         <td>{!! $key->StatusType !!}</td>
                                         <td>
                                             <div class="dropdown">
