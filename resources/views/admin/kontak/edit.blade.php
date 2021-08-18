@@ -12,10 +12,24 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div class="alert-body">
+                        @foreach ($errors->all() as $error)
+                        <ul style="margin: 0 12px 0 -11px">
+                            <li>{{ $error }}</li>
+                        </ul>
+                        @endforeach
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="card ">
                 <div class="card-header">
-                    <h3><i class="fa fa-user"></i></h3>
                     <h4>Edit Kontak {{ $kontak->nama }}</h4>
+                    <h3><i data-feather="user"></i></h3>
                 </div>
                 <div class="card-body">
                     <form class="forms-sample" method="POST" action="{{ route('admin.kontak.update', $kontak->id) }}">
@@ -26,8 +40,8 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="nama">{{ __('Nama') }}<span class="text-red">*</span></label>
-                                    <input id="nama" type="text" value="{{$kontak->nama}}"
-                                        class="form-control @error('nama') is-invalid @enderror" name="nama" required>
+                                    <input id="nama" type="text" value="{{ old('nama') ?? $kontak->nama}}"
+                                        class="form-control @error('nama') is-invalid @enderror" name="nama" >
                                     <div class="help-block with-errors"></div>
                                     @error('nama')
                                         <span class="invalid-feedback" role="alert">
@@ -40,8 +54,8 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="email">{{ __('Email') }}<span class="text-red">*</span></label>
-                                    <input id="email" type="email" value="{{$kontak->email}}"
-                                        class="form-control @error('email') is-invalid @enderror" name="email" required>
+                                    <input id="email" type="email" value="{{ old('email') ?? $kontak->email}}"
+                                        class="form-control @error('email') is-invalid @enderror" name="email" >
                                     <div class="help-block with-errors"></div>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -54,9 +68,9 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="telepon">Telepon<span class="text-red">*</span></label>
-                                    <input id="telepon" type="text" value="{{$kontak->telepon}}"
+                                    <input id="telepon" type="text" value="{{ old('telepon') ?? $kontak->telepon}}"
                                         class="form-control @error('telepon') is-invalid @enderror" name="telepon"
-                                        minlength="11" maxlength="13" onkeypress="return hanyaAngka(event)">
+                                        minlength="11" maxlength="13" onkeypress="onlyNumber(event)">
                                     <div class="help-block with-errors"></div>
                                     @error('telepon')
                                         <span class="invalid-feedback" role="alert">
@@ -69,23 +83,23 @@
                                 <div class="form-group">
                                     <div class="demo-inline-spacing">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="pelanggan" name="pelanggan" {{ ($kontak->pelanggan == 1 ? ' checked' : '') }} />
+                                            <input type="checkbox" class="custom-control-input" id="pelanggan" name="pelanggan" {{ old('pelanggan') ?? $kontak->pelanggan == 1 ? ' checked' : '' }} />
                                             <label class="custom-control-label" for="pelanggan">Pelanggan</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="pemasok" name="pemasok" {{ ($kontak->pemasok == 1 ? ' checked' : '') }} />
+                                            <input type="checkbox" class="custom-control-input" id="pemasok" name="pemasok" {{ old('pemasok') ?? $kontak->pemasok == 1 ? ' checked' : '' }} />
                                             <label class="custom-control-label" for="pemasok">Pemasok</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="karyawan" name="karyawan" {{ ($kontak->karyawan == 1 ? ' checked' : '') }} />
+                                            <input type="checkbox" class="custom-control-input" id="karyawan" name="karyawan" {{ old('karyawan') ?? $kontak->karyawan == 1 ? ' checked' : '' }} />
                                             <label class="custom-control-label" for="karyawan">Karyawan</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="nasabah" name="nasabah" {{ ($kontak->nasabah == 1 ? ' checked' : '') }} />
+                                            <input type="checkbox" class="custom-control-input" id="nasabah" name="nasabah" {{ old('nasabah') ?? $kontak->nasabah == 1 ? ' checked' : '' }} />
                                             <label class="custom-control-label" for="nasabah">Nasabah</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="petugas" name="petugas" {{ ($kontak->petugas == 1 ? ' checked' : '') }} />
+                                            <input type="checkbox" class="custom-control-input" id="petugas" name="petugas" {{ old('petugas') ?? $kontak->petugas == 1 ? ' checked' : '' }} />
                                             <label class="custom-control-label" for="petugas">Petugas</label>
                                         </div>
                                     </div>
@@ -99,7 +113,7 @@
                                 <div class="form-group">
                                     <label for="alamat">alamat</label>
                                     <textarea name="alamat" id="alamat"
-                                        class="form-control @error('alamat') is-invalid @enderror">{{$kontak->alamat}}</textarea>
+                                        class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat') ?? $kontak->alamat}}</textarea>
                                     <div class="help-block with-errors"></div>
                                     @error('alamat')
                                         <span class="invalid-feedback" role="alert">
@@ -112,7 +126,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="kota">kota</label>
-                                    <input id="kota" type="text" value="{{$kontak->kota}}"
+                                    <input id="kota" type="text" value="{{ old('kota') ?? $kontak->kota}}"
                                         class="form-control @error('kota') is-invalid @enderror" name="kota">
                                     <div class="help-block with-errors"></div>
                                     @error('kota')
@@ -126,7 +140,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="kode_pos">kode pos</label>
-                                    <input id="kode_pos" type="text" value="{{$kontak->kode_pos}}"
+                                    <input id="kode_pos" type="text" value="{{ old('kode_pos') ?? $kontak->kode_pos}}"
                                         class="form-control @error('kode_pos') is-invalid @enderror" name="kode_pos">
                                     <div class="help-block with-errors"></div>
                                     @error('kode_pos')
@@ -143,8 +157,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="kode_kontak">Kode Kontak</label>
-                                    <input id="kode_kontak" type="text" value="{{$kontak->kode_kontak}}"
-                                        class="form-control @error('kode_kontak') is-invalid @enderror" name="kode_kontak" required>
+                                    <input id="kode_kontak" type="text" value="{{ old('kode_kontak') ?? $kontak->kode_kontak}}"
+                                        class="form-control @error('kode_kontak') is-invalid @enderror" name="kode_kontak" >
                                     <div class="help-block with-errors"></div>
                                     @error('kode_kontak')
                                         <span class="invalid-feedback" role="alert">
@@ -156,7 +170,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="mata_uang">{{ __('Mata Uang') }}</label>
-                                    <select name="mata_uang" id="mata_uang" value="{{$kontak->mata_uang}}"
+                                    <select name="mata_uang" id="mata_uang" value="{{ old('mata_uang') ?? $kontak->mata_uang}}"
                                         class="form-control @error('mata_uang') is-invalid @enderror">
                                         <option value="IDR">IDR</option>
                                     </select>
@@ -172,9 +186,9 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="nik">NIK</label>
-                                    <input id="nik" type="text" value="{{$kontak->nik}}"
+                                    <input id="nik" type="text" value="{{ old('nik') ?? $kontak->nik}}"
                                         class="form-control @error('nik') is-invalid @enderror" name="nik"
-                                        onkeypress="return hanyaAngka(event)" minlength="16" maxlength="16">
+                                        onkeypress="onlyNumber(event)" minlength="16" maxlength="16">
                                     <div class="help-block with-errors"></div>
                                     @error('nik')
                                         <span class="invalid-feedback" role="alert">
@@ -187,7 +201,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="kontak_person">Kontak Person</label>
-                                    <input id="kontak_person" type="text" value="{{$kontak->kontak_person}}"
+                                    <input id="kontak_person" type="text" value="{{ old('kontak_person') ?? $kontak->kontak_person}}"
                                         class="form-control @error('kontak_person') is-invalid @enderror" name="kontak_person">
                                     <div class="help-block with-errors"></div>
                                     @error('kontak_person')
@@ -201,7 +215,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="website">Website</label>
-                                    <input id="website" type="text" value="{{$kontak->website}}"
+                                    <input id="website" type="text" value="{{ old('wesite') ?? $kontak->website}}"
                                         class="form-control @error('website') is-invalid @enderror" name="website">
                                     <div class="help-block with-errors"></div>
                                     @error('website')
@@ -231,13 +245,26 @@
 @endsection
 
 @push('script')
+    <script src="{{ asset('js/helpers.js') }}"></script>
     <script>
-        function hanyaAngka(e){
-            let charCode = (e.which) ? e.which : e.keyCode
-            if (charCode > 32 && (charCode < 48 || charCode > 57)) {
-                return false
-            }
-            return true
-        }
+        $(document).ready(function(){
+            let csrf = '{{ csrf_token() }}'
+
+            let inputNama = document.getElementById('nama')
+            inputNama.addEventListener('input', function(e){
+                let nama = this.value
+                $.ajax({
+                    url: '{{ route('admin.kontak.kode') }}',
+                    type: 'post',
+                    data: {
+                        _token: csrf,
+                        nama: nama
+                    },
+                    success: data => {
+                        $("#kode_kontak").val(data.success)
+                    },
+                })
+            })
+        })
     </script>
 @endpush

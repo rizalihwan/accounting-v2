@@ -55,6 +55,7 @@ class KontakController extends Controller
             $results[] = [
                 'id' => $kontak->id,
                 'text' => "{$kontak->nama} ({$kode})",
+                'nama' => $kontak->nama,
             ];
         }
 

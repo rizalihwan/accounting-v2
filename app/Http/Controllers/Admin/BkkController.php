@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Bkk, BkkDetail};
+use App\Models\{Bkk, BkkDetail,Akun};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -85,16 +85,20 @@ class BkkController extends Controller
 
                 foreach ($request->bkk as $detail) {
                     $jumlah_uang = (int)preg_replace('/[^\d.]/', '', $detail['jumlah']);
+                    DB::table('akuns')->where('id',$detail['rekening'])->update([
+                        'debit'=> DB::raw('debit + '.$jumlah_uang) 
+                    ]);
                     BkkDetail::create([
                         'bkk_id' => $bkk->id,
                         'rekening_id' => $detail['rekening'],
                         'jml_uang' => $jumlah_uang,
                         'catatan' => $detail['catatan'],
                     ]);
-
                     $totalUang += $jumlah_uang;
                 }
-
+                DB::table('akuns')->where('id',$request['rekening_id'])->update([
+                    'kredit'=> DB::raw('kredit + '.$totalUang) 
+                ]);
                 $bkk->update(['value' => $totalUang]);
             });
 
@@ -153,6 +157,16 @@ class BkkController extends Controller
         }
 
         $bkk = Bkk::findOrFail($id);
+        //buat hapus yang lama biar di update yang baru
+        DB::table('akuns')->where('id',$bkk->rekening_id)->update([
+            'kredit'=> DB::raw('kredit - '.$bkk->value) 
+        ]);
+        $bkkdetail = BkkDetail::where('bkk_id',$bkk->id)->get();
+        foreach ($bkkdetail as $key) {
+            DB::table('akuns')->where('id',$key->rekening_id)->update([
+                'debit'=> DB::raw('debit - '.$key->jml_uang) 
+            ]);
+        }
 
         try {
             DB::transaction(function () use ($request, $id, $bkk) {
@@ -172,12 +186,20 @@ class BkkController extends Controller
                     $jml_uang = (int)preg_replace('/[^\d.]/', '', $item['jumlah']);
 
                     if ($item['id'] != null) {
+                        //update akunsnya
+                        DB::table('akuns')->where('id',$item['rekening'])->update([
+                            'debit'=> DB::raw('debit + '.$jml_uang) 
+                        ]);
                         BkkDetail::where('id', $item['id'])->update([
                             'rekening_id' => $item['rekening'],
                             'jml_uang' => $jml_uang,
                             'catatan' => $item['catatan'],
                         ]);
                     } else {
+                        //update akunsnya
+                        DB::table('akuns')->where('id',$item['rekening'])->update([
+                            'debit'=> DB::raw('debit + '.$jml_uang) 
+                        ]);
                         BkkDetail::create([
                             'bkk_id' => $id,
                             'rekening_id' => $item['rekening'],
@@ -186,9 +208,13 @@ class BkkController extends Controller
                         ]);
                     }
 
+
                     $value += $jml_uang;
                 }
-
+                //ini buat update akunsnya
+                DB::table('akuns')->where('id',$request['rekening_id'])->update([
+                    'kredit'=> DB::raw('kredit + '.$value) 
+                ]);
                 $bkk->update(array_merge($request->except('bkk'), [
                     'value' => $value
                 ]));
@@ -209,6 +235,15 @@ class BkkController extends Controller
     public function destroy($id)
     {
         $bkk = Bkk::findOrFail($id);
+        DB::table('akuns')->where('id',$bkk->rekening_id)->update([
+            'kredit'=> DB::raw('kredit - '.$bkk->value) 
+        ]);
+        $bkkdetail = BkkDetail::where('bkk_id',$bkk->id)->get();
+        foreach ($bkkdetail as $key) {
+            DB::table('akuns')->where('id',$key->rekening_id)->update([
+                'debit'=> DB::raw('debit - '.$key->jml_uang) 
+            ]);
+        }
         $bkk->delete();
 
         return back()->with('success', 'Data Berhasil Dihapus');

@@ -23,7 +23,6 @@ class Data extends Component
         $accounts = Akun::where('kode', 'like', "%{$search}%")
             ->orWhere('name', 'like', "%{$search}%")
             ->orWhere('subklasifikasi', 'like', "%{$search}%")
-            ->orWhere('saldo_awal', 'like', "%{$search}%")
             ->latest();
 
         $totalAkun = $accounts->count();
@@ -41,8 +40,8 @@ class Data extends Component
     {
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'title' => $message,
-            'text' => '',
+            'title' => 'Success',
+            'text' => $message,
         ]);
 
         $this->search = '';
@@ -52,8 +51,8 @@ class Data extends Component
     {
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'error',
-            'title' => $message,
-            'text' => '',
+            'title' => 'Error',
+            'text' => $message,
         ]);
 
         $this->search = '';
@@ -64,7 +63,7 @@ class Data extends Component
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'warning',
             'title' => 'Apakah Anda yakin?',
-            'text' => '',
+            'text' => 'Anda tidak dapat memulihkan data ini!',
             'id' => $id
         ]);
     }
@@ -76,7 +75,7 @@ class Data extends Component
             $akun->delete();
             $this->emit('kodeOtomatis');
             $this->refresh('Data berhasil dihapus');
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
             $this->error('Data gagal dihapus');
         }
     }

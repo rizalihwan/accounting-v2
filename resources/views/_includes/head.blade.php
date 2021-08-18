@@ -5,7 +5,7 @@
 <meta name="keywords" content="Aplikasi Akunting TWP AD, TWP AD, Akunting TWP AD">
 <meta name="author" content="Akunting">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>@yield('title', '') | Akunting</title>
+<title>@yield('title', '') | {{ config('app.name') }}</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
 <!-- BEGIN: Vendor CSS-->
@@ -46,11 +46,11 @@
 <script>
     function deleteConfirm(form_id, id) {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Apakah Anda yakin?",
+            text: "Anda tidak dapat memulihkan data ini!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "Ya, hapus ini!",
             customClass:{
                 confirmButton: "btn btn-primary",
                 cancelButton: "btn btn-outline-danger ml-1"
@@ -66,7 +66,7 @@
     function logoutConfirm() {
         Swal.fire({
             title: "Logout",
-            text: "You will be returned to the login screen.",
+            text: "Anda akan kembali ke halaman login.",
             icon: "warning",
             showCancelButton: true,
             allowOutsideClick: false,
@@ -80,16 +80,22 @@
             showLoaderOnConfirm: true,
             preConfirm: () => {
                 return new Promise((resolve) => {
-                    $("#logout-form").submit();
+                    const CSRF = $('meta[name="csrf-token"]').attr('content');
+                    
+                    $.ajax({
+                        url: '{{ route('logout') }}',
+                        type: 'post',
+                        data: {
+                            _token: CSRF
+                        },
+                        error: () => window.location.href = '{{ route('login') }}'
+                    });
+
                     // setTimeout(function() {
                     //     console.log('logic ends');
                     //     resolve();
                     // }, 5000);
                 });
-            }
-        }).then((willLogout) => {
-            if (willLogout.value) {
-                console.log("Logged out.");
             }
         })
     }
