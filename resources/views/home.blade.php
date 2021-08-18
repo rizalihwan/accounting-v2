@@ -85,7 +85,7 @@
                                             <td>{{$data->kode}}</td>
                                             <td>{{$data->name}}</td>
                                             <td>RP</td>
-                                            <td>{{$data->debit - $data->kredit}}</td>
+                                            <td>{{$data->debit}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -110,7 +110,7 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th colspan="4">
-                                                Hutang Per Kontak
+                                                Hutang Per Akun
                                             </th>
                                         </tr>
                                         <tr>
@@ -126,7 +126,7 @@
                                             <td>{{$data->kode}}</td>
                                             <td>{{$data->name}}</td>
                                             <td>RP</td>
-                                            <td>{{$data->debit - $data->kredit}}</td>
+                                            <td>{{$data->kredit}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
