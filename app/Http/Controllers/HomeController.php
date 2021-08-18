@@ -21,9 +21,12 @@ class HomeController extends Controller
         $sumExpense = Bkk::where('status', 'BKK')->sum('value');
         $sumIncome = Bkk::where('status', 'BKM')->sum('value');
 
-        $kas = Akun::orderBy('saldo_akhir','desc')->get();
+        $piutang = Akun::orderBy('debit','desc')->get();
+        $hutang = Akun::orderBy('kredit', 'desc')->get();
+
         return view('home', [
-            'kas' => $kas,
+            'piutang' => $piutang,
+            'hutang' => $hutang,
             'saldoKeseluruhan' => $sumSaldoAkhir,
             'kerugianOrKeuntungan' => $kerugianOrKeuntungan,
             'result' => $result,

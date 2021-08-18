@@ -23,17 +23,17 @@
                 <div class="card-body statistics-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="reponsive-table">
+                            <div class="responsive-table">
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th colspan="4">
-                                                <h6 class="text-light">Saldo Kas/Bank</h6>
+                                               Saldo Akun
                                             </th>
                                         </tr>
                                         <tr>
                                             <th>Nomor</th>
-                                            <th>Nama Rekening</th>
+                                            <th>Nama Akun</th>
                                             <th>Uang</th>
                                             <th>Saldo</th>
                                         </tr>
@@ -56,7 +56,7 @@
             </div>
             <div class="card shadow card-statistics">
                 <div class="card-header">
-                    <h4 class="card-title">Top 10 Piutang Per Kontak</h4>
+                    <h4 class="card-title">Piutang Per Akun</h4>
                     <div class="d-flex align-items-center">
                         <p class="card-text font-small-2 mr-25 mb-0"><i class="fa fa-clock"></i> {{ date('Y-m-d') }}</p>
                     </div>
@@ -69,18 +69,18 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th colspan="4">
-                                                <h6 class="text-light">Top 10 Piutang Per Kontak</h6>
+                                                Top 10 Piutang per Akun
                                             </th>
                                         </tr>
                                         <tr>
                                             <th>Kode</th>
-                                            <th>Nama</th>
+                                            <th>Nama Akun</th>
                                             <th>Uang</th>
                                             <th>Jumlah</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($kas as $data)
+                                        @foreach($piutang as $data)
                                         <tr>
                                             <td>{{$data->kode}}</td>
                                             <td>{{$data->name}}</td>
@@ -97,7 +97,7 @@
             </div>
             <div class="card shadow card-statistics">
                 <div class="card-header">
-                    <h4 class="card-title">Top 10 Piutang Per Kontak</h4>
+                    <h4 class="card-title">Hutang Per Akun</h4>
                     <div class="d-flex align-items-center">
                         <p class="card-text font-small-2 mr-25 mb-0"><i class="fa fa-clock"></i> {{ date('Y-m-d') }}</p>
                     </div>
@@ -110,18 +110,18 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th colspan="4">
-                                                <h6 class="text-light">Top 10 Piutang Per Kontak</h6>
+                                                Hutang Per Kontak
                                             </th>
                                         </tr>
                                         <tr>
                                             <th>Nomor</th>
-                                            <th>Nama Rekening</th>
+                                            <th>Nama Akun</th>
                                             <th>Uang</th>
                                             <th>Saldo</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($kas as $data)
+                                        @foreach($hutang as $data)
                                         <tr>
                                             <td>{{$data->kode}}</td>
                                             <td>{{$data->name}}</td>
