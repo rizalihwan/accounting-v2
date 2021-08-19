@@ -20,7 +20,7 @@
                                 <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="">Chart Of Account</a>
+                                <a href="">Daftar Akun</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="">Tambah data Bank</a>

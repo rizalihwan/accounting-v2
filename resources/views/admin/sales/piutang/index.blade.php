@@ -1,5 +1,5 @@
 @extends('_layouts.main')
-@section('title', 'Faktur Penjualan')
+@section('title', 'Daftar Piutang')
 @push('breadcrumb')
 <li class="breadcrumb-item">
     <a href="{{ route('admin.sales.') }}">Penjualan</a>
@@ -37,7 +37,7 @@
                                 <td>{{ 'Rp. ' . number_format($piutang->total_hutang) }}</td>
                                 <td>{{ 'Rp. ' . number_format($piutang->lunas) }}</td>
                                 <td>{{ 'Rp. ' . number_format($piutang->sisa) }}</td>
-                            </tr>      
+                            </tr>
                             @empty
                             <tr>
                                 <td colspan="7" align="center">

@@ -20,7 +20,7 @@
                                 <a href="{{ route('home') }}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Chart Of Account
+                                Daftar Akun
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Edit data Bank
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
