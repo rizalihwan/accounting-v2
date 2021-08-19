@@ -44,7 +44,7 @@
                         <div class="title">
                             <div class="row">
                                 <div class="col">
-                                    <h1 class="text-light">Chart Of Account</h1>
+                                    <h1 class="text-light">Daftar Akun</h1>
                                 </div>
                                 <div class="col">
                                     <i class="fa fa-clipboard-list fa-lg fa-5x"></i>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Chart Of Account</h1>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Daftar Akun</h1>
                             <i class="fa fa-clipboard-list"></i>
                             </p>
                             <hr class="mr-1">

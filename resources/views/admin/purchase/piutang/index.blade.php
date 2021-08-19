@@ -1,8 +1,8 @@
 @extends('_layouts.main')
-@section('title', 'Faktur Penjualan')
+@section('title', 'Daftar Utang')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.') }}">Penjualan</a>
+    <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
 <li class="breadcrumb-item" aria-current="page">Daftar Utang Usaha</li>
 @endpush
@@ -13,7 +13,7 @@
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <h4 class="card-title">Piutang usaha</h4>
+                    <h4 class="card-title">Utang usaha</h4>
                     <h4><span class="text-muted ml-1">{{ $piutangs->count() }}</span></h4>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                                 <td>{{ 'Rp. ' . number_format($piutang->total_hutang) }}</td>
                                 <td>{{ 'Rp. ' . number_format($piutang->lunas) }}</td>
                                 <td>{{ 'Rp. ' . number_format($piutang->sisa) }}</td>
-                            </tr>      
+                            </tr>
                             @empty
                             <tr>
                                 <td colspan="7" align="center">

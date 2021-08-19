@@ -54,7 +54,7 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Pesanan Pemasok</h1>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Pesanan Pembelian</h1>
                             <i class="fa fa-chart-line"></i>
                             </p>
                             <hr class="mr-1">
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-            </a>  
+            </a>
         </div>
 
         <div class="col-md-3 col-xl-3">
@@ -150,7 +150,7 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Daftar Piutang Usaha</h1>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Daftar Utang Usaha</h1>
                             <i class="fa fa-tasks"></i>
                             </p>
                             <hr class="mr-1">
@@ -163,7 +163,7 @@
                         </div>
                     </div>
                 </div>
-            </a>  
+            </a>
         </div>
 
         <div class="col-md-3 col-xl-3">
@@ -182,7 +182,7 @@
                         </div>
                         <div class="info">
                             <p class="card-text">
-                            <h1 class="card-text display-5 text-white font-weight-bold">Pembayaran Piutang Usaha</h1>
+                            <h1 class="card-text display-5 text-white font-weight-bold">Pembayaran Utang Usaha</h1>
                             <i class="fa fa-credit-card"></i>
                             </p>
                             <hr class="mr-1">
@@ -195,7 +195,7 @@
                         </div>
                     </div>
                 </div>
-            </a>  
+            </a>
         </div>
     </div>
 </section>

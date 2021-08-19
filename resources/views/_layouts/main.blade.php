@@ -28,7 +28,7 @@
 
     </div>
     <!-- END: CONTENT -->
-    
+
     <!-- Begin: Customizer -->
     @include('_components.customizer')
     <!-- End: Customizer -->
@@ -39,7 +39,7 @@
 
     <!-- SCRIPT -->
     @include('_includes.script')
-    @include('_include.alert')
+    @include('_includes.alert')
 </body>
 
 </html>

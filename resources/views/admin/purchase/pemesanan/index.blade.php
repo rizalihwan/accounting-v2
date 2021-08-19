@@ -2,9 +2,9 @@
 @section('title', 'Penawaran Harga')
 @push('breadcrumb')
 <li class="breadcrumb-item">
-    <a href="{{ route('admin.purchase.') }}">Admin</a>
+    <a href="{{ route('admin.purchase.') }}">Pembelian</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Pesanan Penjualan</li>
+<li class="breadcrumb-item" aria-current="page">Pesanan Pembelian</li>
 @endpush
 @section('content')
 
@@ -13,7 +13,7 @@
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <h4 class="card-title">List Pesanan Penjualan</h4>
+                    <h4 class="card-title">List Pesanan Pembelian</h4>
                     <h4><span class="text-muted ml-1">{{ $countPesanan }}</span></h4>
                 </div>
                 <a href="{{ route('admin.purchase.pesanan.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
@@ -61,7 +61,7 @@
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
-                                            <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                            <a href="javascript:void('delete')" class="dropdown-item text-danger"
                                                 onclick="deleteConfirm('form-delete', '{{ $pesanan->id }}')">
                                                 <i data-feather="trash"></i>
                                                 <span class="ml-1">Delete</span>
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>      
+                            </tr>
                             @empty
                             <tr>
                                 <td colspan="7" align="center">
