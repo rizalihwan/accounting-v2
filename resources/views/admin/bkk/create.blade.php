@@ -55,7 +55,7 @@
                         <div class="row d-flex align-items-end">
                             <div class="col-md-4 col-12 ">
                                 <div class="form-group">
-                                    <label for="kontak_id">Sudah Bayar Ke</label>
+                                    <label for="kontak_id">Diterima Dari</label>
                                     <select name="kontak_id" id="kontak_id" class="form-control"></select>
                                 </div>
                             </div>
@@ -320,7 +320,7 @@
                             })
                         }
                     })
-                    
+
                     eventJumlah();
                     hitungTotal();
                 }
@@ -376,7 +376,7 @@
                         <select name="bkk[${index}][rekening]" class="form-control select-${index} rekening"></select>
                     </td>
                     <td>
-                        <input type="text" name="bkk[${index}][jumlah]" class="form-control jumlah" 
+                        <input type="text" name="bkk[${index}][jumlah]" class="form-control jumlah"
                             onkeypress="onlyNumber(event)" placeholder="0" autocomplete="off" >
                     </td>
                     <td>
@@ -385,7 +385,7 @@
             `
             if (index > 0) {
                 html += `<td>
-                        <button type="button" name="remove" 
+                        <button type="button" name="remove"
                             class="btn btn-danger btn-sm text-white btn_remove">
                             <i data-feather="trash-2"></i>
                         </button>
@@ -396,7 +396,7 @@
                 html += `<td></td></tr>`;
                 $("#dynamic_field").append(html)
             }
-            
+
             feather.replace()
             select2Rekening(index)
             eventJumlah()
@@ -405,7 +405,7 @@
     </script>
     <script>
         let url_template_id = parseURLParams(window.location.href);
-        
+
         if (url_template_id !== undefined) {
             let template_id = parseInt(url_template_id.template_id[0])
             getTemplate(template_id)
@@ -431,7 +431,7 @@
                 hitungTotal()
             })
         })
-        
+
     </script>
     <script>
         @if(!empty(old('kontak_id')))
@@ -534,12 +534,12 @@
                         searchable: false,
                     },
                 ],
-                
+
             });
 
             $('.dataTable').wrap('<div class="dataTables_scroll" />');
         });
-        
+
         $("#kontak_id").select2({
             placeholder: "Pilih Kontak",
             ajax: {
