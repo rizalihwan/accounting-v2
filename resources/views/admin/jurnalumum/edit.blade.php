@@ -347,12 +347,8 @@
                     data: params => {
                         return {
                             _token: CSRF_TOKEN,
-                            search: params.term
-                        }
-                    },
-                    processResults: data => {
-                        return {
-                            results: data
+                            search: params.term || '',
+                            page: params.page || 1
                         }
                     },
                     cache: true
