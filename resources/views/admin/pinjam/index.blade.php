@@ -39,7 +39,7 @@
                                 @forelse ($pinjam as $key)
                                     <tr>
                                         <td>{{ $loop->iteration++ }}</td>
-                                        <td>{{ $key->jumlah_pinjaman }}</td>
+                                        <td>{{ number_format($key->jumlah_pinjaman) }}</td>
                                         <td>{{ $key->jangka }} Bulan</td>
                                         <td>{{ $key->bungapersen }}%</td>
                                         <td>{{ $key->type }}</td>
