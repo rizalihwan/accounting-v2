@@ -337,13 +337,9 @@
                     data: params => {
                         return {
                             _token: CSRF_TOKEN,
-                            search: params.term,
+                            search: params.term || '',
+                            page: params.page || 1,
                             kas_bank: 'no',
-                        }
-                    },
-                    processResults: data => {
-                        return {
-                            results: data
                         }
                     },
                     cache: true
@@ -571,13 +567,9 @@
                 data: params => {
                     return {
                         _token: CSRF_TOKEN,
-                        search: params.term,
+                        search: params.term || '',
+                        page: params.page || 1,
                         kas_bank: 'yes',
-                    }
-                },
-                processResults: data => {
-                    return {
-                        results: data
                     }
                 },
                 cache: true

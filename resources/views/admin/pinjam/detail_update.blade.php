@@ -35,7 +35,12 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Jumlah Pinjaman</label>
-                                <input type="text" class="form-control" name="besar_pinjman" value="{{ $besar_pinjam }}" readonly>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="besar_pinjman" value="{{ number_format($besar_pinjam) }}" readonly>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">

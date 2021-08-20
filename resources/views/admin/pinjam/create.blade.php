@@ -35,8 +35,13 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="besar_pinjam">Jumlah Pinjaman <span class="text-danger">*</span></label>
-                                    <input name="besar_pinjam" class="form-control" id="besar_pinjam" type="number" value="{{ old('besar_pinjam') }}"
-                                        onkeypress="onlyNumber(event)" placeholder="Jumlah Pinjaman">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp</span>
+                                        </div>
+                                        <input name="besar_pinjam" class="form-control" id="besar_pinjam" type="text" value="{{ old('besar_pinjam') }}"
+                                            onkeypress="onlyNumber(event)" placeholder="Jumlah Pinjaman">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-6">
@@ -141,6 +146,12 @@
         const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
         $(document).ready(function() {
+            $("#besar_pinjam").on('keyup', function() {
+                let val = $(this).val();
+                val = val == '' ? 0 : unformatter(val);
+                $(this).val(formatter(parseInt(val, 10)));
+            });
+
             $("#petugas_id").select2({
                 placeholder: "-- Pilih Petugas --",
                 ajax: {
