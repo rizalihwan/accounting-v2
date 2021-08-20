@@ -41,6 +41,10 @@
             .mobile-text-dark {
                 color: #4b4b4b !important;
             }
+
+            .dark-layout .mobile-text-dark {
+                color: #fff !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -91,6 +95,8 @@
         });
 
         $('img').on('dragstart', function(event) { event.preventDefault(); });
+
+        $('body').addClass(localStorage.getItem('light-layout-current-skin'));
     </script>
 
 </body>
