@@ -11,11 +11,11 @@
     <div class="d-flex justify-content-center">
         <div class="col-8">
             <div class="card shadow rounded">
-                <div class="card-header">
-                    <h5 class="card-title">NERACA - STANDARD</h5>
-                </div>
+                <p class="text-black text-center pt-2 font-weight-bolder">Direktorat Keuangan TNI Angkatan Darat</p>
+                <h2 class="text-center text-primary">Neraca</h2>
+                <p class="text-black text-center">{{ date('F Y') }}</p>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row border">
                         <div class="col-12">
                             <h5 class="text-primary">Aktiva</h5>
                             @foreach($aktiva->unique('id') as $row)
@@ -46,8 +46,8 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="row">
+
+                    <div class="row border">
                         <div class="col-12">
                             <h5 class="text-primary">Kewajiban</h5>
                             @foreach($kewajiban->unique('id') as $row)
@@ -78,7 +78,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+
+                    <div class="row border">
                         <div class="col-12">
                             <h5 class="text-primary">Modal</h5>
                             @foreach($modal->unique('id') as $row)
