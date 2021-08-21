@@ -55,7 +55,7 @@
                         <div class="row d-flex align-items-end">
                             <div class="col-md-4 col-12 ">
                                 <div class="form-group">
-                                    <label for="kontak_id">Diterima Dari</label>
+                                    <label for="kontak_id">Sudah Bayar Ke</label>
                                     <select name="kontak_id" id="kontak_id" class="form-control"></select>
                                 </div>
                             </div>
