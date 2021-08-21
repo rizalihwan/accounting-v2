@@ -159,4 +159,13 @@ class ReportController extends Controller
         ]);
     }
 
+    public function neraca_detail($id)
+    {
+        return view('admin.bukubesar.index', [
+            'kontak' => Akun::where('id',$id)->get(),
+            'akun' => Akun::where('id',$id)->get(),
+            'select' => Akun::get()
+        ]);
+    }
+
 }

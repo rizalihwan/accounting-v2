@@ -131,6 +131,8 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('/neraca', 'ReportController@neraca')->name('neraca.index');
 
+                Route::get('/neraca/detail/{id}', 'ReportController@neraca_detail')->name('neraca.detail');
+
                 Route::get('/labarugi', 'ReportController@labarugi')->name('labarugi');
 
                 Route::get('/bukubesar', 'ReportController@bukubesar')->name('bukubesar');

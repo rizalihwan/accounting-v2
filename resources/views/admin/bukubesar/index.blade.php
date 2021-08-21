@@ -6,7 +6,7 @@
             <div class="card p-3">
                 <div class="card-header d-flex">
                     <div class="d-inline-block">
-                        <!-- Button trigger modal -->
+                        @if (!empty($ada))
                         <form action="{{route('admin.bukubesar.cariakun')}}"  method="POST" >
                             @csrf
                             <div class="form-row">
@@ -23,6 +23,7 @@
                             </div>
                             </div>
                         </form>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -30,8 +31,6 @@
                         <tbody>
                             @if ($akun != NULL)
                             @foreach($akun as $row)
-                            <br>
-                            <hr>
                             <br>
                             <div class="d-flex justify-content-between">
                                 <h3>{{ $row->name }} - {{ $row->id }}</h3>
@@ -63,7 +62,6 @@
                                             <td>{{ $data->jurnalumum->kontak->nama }}</td>
                                             <td>{{ $data->debit }}</td>
                                             <td colspan="2">{{ $data->kredit }}</td>
-
                                         </tr>
                                         @endforeach
                                             @php $desk =''; @endphp
