@@ -29,12 +29,90 @@
                     </div> --}}
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.neraca.index') }}"><i class=""></i> Neraca</a></li>
-                        <li class="list-group-item"><a href="{{ route('admin.report.keuangan.labarugi') }}"><i class=""></i> Laba Rugi</a></li>
+                        <li class="list-group-item"><a href="#" data-toggle="modal" data-target="#neracaModal">Neraca</a></li>
+                        <li class="list-group-item"><a href="#" data-toggle="modal" data-target="#labarugiModal">Laba Rugi</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+        <!-- Neraca Modal -->
+        <div class="modal fade" id="neracaModal" tabindex="-1" role="dialog" aria-labelledby="neracaModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="neracaModalLabel">Pilih Periode Neraca</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                        <label for="startDate" class="mr-2">Tanggal Awal</label>
+                        <input type="date" class="form-control @error('startDate') is-invalid @enderror"
+                            name="startDate" id="startDate" required>
+                        @error('startDate')
+                            <div class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+
+                        <hr>
+
+                        <label for="endDate" class="mr-2">Tanggal Akhir</label>
+                        <input type="date" class="form-control @error('endDate') is-invalid @enderror mr-1"
+                            name="endDate" id="endDate" required>
+                        @error('endDate')
+                            <div class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ route('admin.report.keuangan.neraca.index') }}" type="button" class="btn btn-primary">Submit</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Laba Rugi Modal -->
+        <div class="modal fade" id="labarugiModal" tabindex="-1" role="dialog" aria-labelledby="labarugiModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="labarugiModalLabel">Pilih Periode Laba Rugi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                        <label for="startDate" class="mr-2">Tanggal Awal</label>
+                        <input type="date" class="form-control @error('startDate') is-invalid @enderror"
+                            name="startDate" id="startDate" required>
+                        @error('startDate')
+                            <div class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+
+                        <hr>
+
+                        <label for="endDate" class="mr-2">Tanggal Akhir</label>
+                        <input type="date" class="form-control @error('endDate') is-invalid @enderror mr-1"
+                            name="endDate" id="endDate" required>
+                        @error('endDate')
+                            <div class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ route('admin.report.keuangan.labarugi') }}" type="button" class="btn btn-primary">Submit</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
         <div class="col-md-4 col-sm-12">
             <div class="card">
                 <div class="card-header">
