@@ -14,7 +14,8 @@ class BukuBesarController extends Controller
         return view('admin.bukubesar.index', [
             'kontak' => Akun::get(),
             'akun' => null,
-            'select' => Akun::get()
+            'select' => Akun::get(),
+            'ada' => 'ada'
         ]);
     }
 
@@ -24,7 +25,8 @@ class BukuBesarController extends Controller
         return view('admin.bukubesar.index', [
             'kontak' => Akun::where('id',$request->id)->get(),
             'akun' => Akun::where('id',$request->id)->get(),
-            'select' => Akun::get()
+            'select' => Akun::get(),
+            'ada' => 'ada'
         ]);
     }
 }
