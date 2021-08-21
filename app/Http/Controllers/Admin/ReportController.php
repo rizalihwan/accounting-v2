@@ -3,16 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Akun;
-use App\Models\Bank;
-use App\Models\Jurnalumum;
-use App\Models\Jurnalumumdetail;
-use App\Models\Bkk;
+use App\Models\{Akun, Jurnalumumdetail, Bkk};
 use App\Models\Purchase\FakturBuy;
 use App\Models\Sale\FakturSale;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 
 class ReportController extends Controller
 {
@@ -102,7 +96,7 @@ class ReportController extends Controller
             array_push($hitung_kewajiban, $key->debit - $key->kredit);
         }
         $total_kewajiban = array_sum($hitung_kewajiban);
-        
+
 
         return view('report.neraca.index', [
             'aktiva' => Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get(),
@@ -118,10 +112,22 @@ class ReportController extends Controller
         $pendapatan = FakturSale::sum('total');
         $beban = FakturBuy::sum('total');
         $total_laba = $pendapatan - $beban;
+
+        $JU_AkunBO = Jurnalumumdetail::whereHas('akun', function($query){
+            $query->where('level', 'BiayaOperasional');
+        })->sum('debit');
+
+        $BKK_AkunBO = Bkk::whereHas('akun', function ($query) {
+            $query->where('level', 'BiayaOperasional');
+        })->sum('value');
+
+        $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+
         return view('report.keuangan.labarugi', [
             'pendapatan' => $pendapatan,
             'total_laba' => $total_laba,
-            'beban' => $beban
+            'beban' => $beban,
+            'BiayaOperasional' => $BiayaOperasional
         ]);
     }
     public function bukubesar()
