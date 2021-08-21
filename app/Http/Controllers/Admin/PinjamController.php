@@ -48,7 +48,7 @@ class PinjamController extends Controller
             'nasabah_id' => 'required|exists:kontaks,id',
             'petugas_id' => 'required|exists:kontaks,id',
         ]);
-        $besar_pinjam = $request->besar_pinjam;
+        $besar_pinjam = (int)preg_replace('/[^\d.]/', '', $request->besar_pinjam);
         $jangka = $request->jangka;
         $bunga = $request->bunga;
         $tipe = $request->tipe_pinjaman;
@@ -103,7 +103,7 @@ class PinjamController extends Controller
                 'resource' => $resource,
                 'besar_angsuran' => $besar_angsuran,
                 'tipe' => $tipe,
-                'besar_pinjam' => $request->besar_pinjam,
+                'besar_pinjam' => (int)preg_replace('/[^\d.]/', '', $request->besar_pinjam),
                 'jangka' => $jangka,
                 'bunga' => $bunga,
                 'keterangan' => $request->keterangan,
@@ -149,7 +149,7 @@ class PinjamController extends Controller
                 'resource' => $resource,
                 'besar_angsuran' => $besar_angsuran,
                 'tipe' => $tipe,
-                'besar_pinjam' => $request->besar_pinjam,
+                'besar_pinjam' => (int)preg_replace('/[^\d.]/', '', $request->besar_pinjam),
                 'jangka' => $jangka,
                 'bunga' => $bunga,
                 'keterangan' => $request->keterangan,
@@ -164,7 +164,7 @@ class PinjamController extends Controller
     public function store(Request $request)
     {
         Pinjam::create([
-            'jumlah_pinjaman' => $request->besar_pinjman,
+            'jumlah_pinjaman' => (int)preg_replace('/[^\d.]/', '', $request->besar_pinjman),
             'jangka' => $request->jangka,
             'bungapersen' => $request->bungapersen,
             'type' => $request->tipe,
@@ -330,11 +330,11 @@ class PinjamController extends Controller
         $tipe = $request->tipe_pinjaman;
         $bunga =  $request->bungapersen;
         $jangka = $request->jangka;
-        $besar_pinjam = $request->besar_pinjam;
+        $besar_pinjam = (int)preg_replace('/[^\d.]/', '', $request->besar_pinjam);
 
         $array_bunga = [0 => 'bunga'];
         $array_pokok = [0 => 'pokok'];
-        $array_pinjaman = [0 => $request->besar_pinjam];
+        $array_pinjaman = [0 => (int)preg_replace('/[^\d.]/', '', $request->besar_pinjam)];
         if ($tipe == 'Anuitas') {
             //tentuin bunga ke persen 6 ke 6%
             $bungapersen = $bunga / 100;
@@ -380,7 +380,7 @@ class PinjamController extends Controller
                 'pinjaman' => $array_pinjaman
             ];
             Pinjam::where('id', $pinjam->id)->update([
-                'jumlah_pinjaman' => $request->besar_pinjam,
+                'jumlah_pinjaman' => (int)preg_replace('/[^\d.]/', '', $request->besar_pinjam),
                 'jangka' => $request->jangka,
                 'bungapersen' => $request->bungapersen,
                 'type' => $request->tipe_pinjaman,
@@ -427,7 +427,7 @@ class PinjamController extends Controller
             ];
 
             Pinjam::where('id', $pinjam->id)->update([
-                'jumlah_pinjaman' => $request->besar_pinjam,
+                'jumlah_pinjaman' => (int)preg_replace('/[^\d.]/', '', $request->besar_pinjam),
                 'jangka' => $request->jangka,
                 'bungapersen' => $request->bungapersen,
                 'type' => $request->tipe_pinjaman,

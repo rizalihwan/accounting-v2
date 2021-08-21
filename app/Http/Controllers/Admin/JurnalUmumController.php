@@ -381,6 +381,10 @@ class JurnalUmumController extends Controller
     public function getAkun(Request $request)
     {
         $search = $request->search;
+        $page = $request->page;
+        $result_count = 10;
+        $offset = ($page - 1) * $result_count;
+
         $kas_bank = $request->kas_bank;
         $accounts = Akun::active()->select('id', 'kode', 'name', 'subklasifikasi', 'status');
 
@@ -389,24 +393,33 @@ class JurnalUmumController extends Controller
                 ->where(function ($q) use ($search) {
                     return $q->where('kode', 'like', "%{$search}%")
                         ->orWhere('name', 'like', "%{$search}%");
-                })->orderBy('kode', 'ASC')->get();
+                })->orderBy('kode', 'ASC')->skip($offset)->take($result_count)->get();
         } else {
             $accounts = $accounts->where(function ($q) use ($search) {
                 return $q->where('kode', 'like', "%{$search}%")
                     ->orWhere('name', 'like', "%{$search}%");
-            })->orderBy('kode', 'ASC')->get();
+            })->orderBy('kode', 'ASC')->skip($offset)->take($result_count)->get();
         }
 
-        $result = [];
+        $endCount = $offset + $result_count;
+        $morePages = Akun::active()->count() > $endCount;
 
+        $data = [];
         foreach ($accounts as $a) {
-            $result[] = [
+            $data[] = [
                 'id' => $a->id,
                 'text' => "{$a->name} ({$a->kode})",
                 'kode' => $a->kode,
                 'name' => $a->name,
             ];
         }
+
+        $result = [
+            'results' => $data,
+            'pagination' => [
+                'more' => $morePages
+            ]
+        ];
 
         return response()->json($result);
     }

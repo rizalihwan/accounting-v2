@@ -2,10 +2,6 @@
 
 @push('head')
     <style>
-        a {
-            display: block;
-        }
-
         .card {
             height: 300px;
             position: relative;

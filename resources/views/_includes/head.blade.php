@@ -44,6 +44,12 @@
 </style>
 
 <script>
+    let style = document.getElementsByClassName('nav-link-style');
+    let currentSkin = localStorage.getItem('light-layout-current-skin');
+
+    document.getElementsByTagName('html')[0].classList.add(currentSkin);
+</script>
+<script>
     function deleteConfirm(form_id, id) {
         Swal.fire({
             title: "Apakah Anda yakin?",

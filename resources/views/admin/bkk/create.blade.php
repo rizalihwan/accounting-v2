@@ -55,7 +55,7 @@
                         <div class="row d-flex align-items-end">
                             <div class="col-md-4 col-12 ">
                                 <div class="form-group">
-                                    <label for="kontak_id">Diterima Dari</label>
+                                    <label for="kontak_id">Sudah Bayar Ke</label>
                                     <select name="kontak_id" id="kontak_id" class="form-control"></select>
                                 </div>
                             </div>
@@ -337,13 +337,9 @@
                     data: params => {
                         return {
                             _token: CSRF_TOKEN,
-                            search: params.term,
+                            search: params.term || '',
+                            page: params.page || 1,
                             kas_bank: 'no',
-                        }
-                    },
-                    processResults: data => {
-                        return {
-                            results: data
                         }
                     },
                     cache: true
@@ -571,13 +567,9 @@
                 data: params => {
                     return {
                         _token: CSRF_TOKEN,
-                        search: params.term,
+                        search: params.term || '',
+                        page: params.page || 1,
                         kas_bank: 'yes',
-                    }
-                },
-                processResults: data => {
-                    return {
-                        results: data
                     }
                 },
                 cache: true

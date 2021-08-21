@@ -22,6 +22,12 @@
     <!-- END: Page JS-->
 
     <script>
+        if (currentSkin == 'dark-layout') {
+            $('.nav-link-style').html('<i class="ficon" data-feather="sun"></i>');
+        } else {
+            $('.nav-link-style').html('<i class="ficon" data-feather="moon"></i>');
+        }
+
         $(window).on('load', function() {
             if (feather) {
                 feather.replace({
