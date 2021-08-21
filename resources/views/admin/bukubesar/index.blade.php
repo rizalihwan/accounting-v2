@@ -26,16 +26,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-light table-hover">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Jumlah</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                    <table class="table table-hover" style="">
                         <tbody>
+                            @if ($akun != NULL)
                             @foreach($akun as $row)
                             <br>
                             <hr>
@@ -46,7 +39,7 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead class="thead-dark">
+                                    <thead>
                                         <tr>
                                             <th>Tanggal</th>
                                             <th>Tipe</th>
@@ -60,7 +53,7 @@
                                     <tbody>
                                         <tr>
                                             <td colspan="6">Saldo Awal</td>
-                                            <td>0</td>
+                                            <td>{{ $row->saldo_awal }} </td>
                                         </tr>
                                         @foreach($row->jurnalumumdetails as $data)
                                         <tr class="bg-info">
@@ -73,28 +66,101 @@
 
                                         </tr>
                                         @endforeach
-                                        @foreach($row->bkk as $data)
-                                        <tr class="bg-warning">
-                                            <td>{{ $data->tanggal }}</td>
-                                            <td>Buku dan Kas</td>
-                                            <td>{{ $data->desk }}</td>
-                                            <td>{{ $data->kontak->nama }}</td>
-                                            <td colspan="3">{{ $data->value }}</td>
-                                        </tr>
-                                        @endforeach
-                                        <tr>
-                                            <td colspan="4">Saldo Awal</td>
-                                            <td>{{ $row->jurnalumumdetails->sum('debit') }}</td>
-                                            <td>{{ $row->jurnalumumdetails->sum('kredit') }}</td>
-                                        </tr>
+                                            @php $desk =''; @endphp
+                                            @foreach($row->bkk as $item)
+                                                @if ($item->status == 'BKK')
+                                                    @foreach ($item->bkk_details as $black)
+                                                        @if ($desk != $item->desk)
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge badge-info">
+                                                                        {{ $item->tanggal }}
+                                                                    </span>
+                                                                </td>
+                                                                <td>Bank Dan Kas</td>
+                                                                <td>{{ $item->desk }}</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            @php $desk = $item->desk @endphp
+                                                        @endif
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>BKK</td>
+                                                            <td>-</td>
+                                                            <td>{{$black->rekening->name }}</td>
+                                                            <td>{{$black->jml_uang}}</td> 
+                                                            <td>-</td> 
+                                                            <td></td> 
+                                                            @php $asik = $black->uang; @endphp
+                                                        </tr>      
+                                                    @endforeach
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>BKK</td>
+                                                        <td>-</td>
+                                                        <td>{{$item->akun->name}}</td>
+                                                        <td>-</td>
+                                                        <td>{{$item->value}}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                @endif
+                                                @if ($item->status == 'BKM')
+                                                    @foreach ($item->bkk_details as $black)
+                                                        @if ($desk != $item->desk)
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge badge-info">
+                                                                        {{ $item->tanggal }}
+                                                                    </span>
+                                                                </td>
+                                                                <td>Bank Dan Kas</td>
+                                                                <td>{{ $item->desk }}</td>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            @php $desk = $item->desk @endphp
+                                                        @endif
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>BKM</td>
+                                                            <td>-</td>
+                                                            <td>{{$black->rekening->name }}</td>
+                                                            <td>-</td> 
+                                                            <td>{{$black->jml_uang}}</td> 
+                                                            <td></td>
+                                                            @php $asik = $black->uang; @endphp
+                                                        </tr>      
+                                                    @endforeach
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>BKM</td>
+                                                        <td>-</td>
+                                                        <td>{{$item->akun->name}}</td>
+                                                        <td>{{$item->value}}</td>
+                                                        <td>-</td>
+                                                        <td></td>
+                                                    </tr> 
+                                                @endif
+                                            @endforeach
                                         <tr class="bg-primary text-light">
                                             <td colspan="6">Saldo Akhir</td>
-                                            <td>{{ $row->jurnalumumdetails->sum('debit')-$row->jurnalumumdetails->sum('kredit')+$row->bkk->sum('value') }}</td>
+                                            <td>{{ $row->saldo_akhir }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             @endforeach
+                            @else
+                                <td colspan="6">
+                                    <center>No Select</center>
+                                </td>
+                            @endif
                         </tbody>
                     </table>
                 </div>
