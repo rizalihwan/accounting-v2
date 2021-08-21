@@ -36,7 +36,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($indeks as $item)
+                                @forelse ($indeks as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->tanggal }}</td>
@@ -85,7 +85,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="7" align="center">Data kosong.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         <div class="my-2">

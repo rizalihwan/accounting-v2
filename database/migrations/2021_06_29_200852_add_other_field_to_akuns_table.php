@@ -14,7 +14,7 @@ class AddOtherFieldToAkunsTable extends Migration
     public function up()
     {
         Schema::table('akuns', function (Blueprint $table) {
-            $table->enum('level', ['Aktiva', 'Modal', 'Kewajiban'])->after('name');
+            $table->enum('level', ['Aktiva', 'Modal', 'Kewajiban', 'BiayaOperasional'])->after('name');
             $table->bigInteger('debit')->nullable()->default(0)->after('level');
             $table->bigInteger('kredit')->nullable()->default(0)->after('debit');
         });

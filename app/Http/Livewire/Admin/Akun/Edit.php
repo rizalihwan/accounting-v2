@@ -32,7 +32,7 @@ class Edit extends Component
 
     public function mount()
     {
-        $this->levels = ['Aktiva', 'Modal', 'Kewajiban'];
+        $this->levels = ['Aktiva', 'Modal', 'Kewajiban', 'BiayaOperasional'];
     }
 
     public function update()
@@ -40,7 +40,7 @@ class Edit extends Component
         $this->validate(array_merge($this->rules, [
             'akun.name' => 'required',
             'akun.subklasifikasi' => 'required',
-            'akun.level' => 'required|in:Aktiva,Modal,Kewajiban'
+            'akun.level' => 'required|in:Aktiva,Modal,Kewajiban,BiayaOperasional'
         ]));
 
         try {
