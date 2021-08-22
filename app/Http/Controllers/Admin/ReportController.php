@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    private $startDate;
+    private $endDate;
+
+    public function __construct()
+    {
+        $this->startDate = request('startDate');
+        $this->endDate = request('endDate');
+    }
+
     public function menu()
     {
         return view('report.menu');
@@ -26,8 +35,8 @@ class ReportController extends Controller
             'startDate' => 'required',
             'endDate' => 'required',
         ]);
-        $from = $request->startDate;
-        $to = $request->endDate;
+        $from = $this->startDate;
+        $to = $this->endDate;
         $startDate = $from;
         $endDate = $to;
         $data = Jurnalumumdetail::whereBetween('created_at', [$startDate, $endDate])->latest()->paginate(10);
@@ -109,19 +118,38 @@ class ReportController extends Controller
     }
     public function labarugi()
     {
-        $pendapatan = FakturSale::sum('total');
-        $beban = FakturBuy::sum('total');
-        $total_laba = $pendapatan - $beban;
+        $start = $this->startDate;
+        $end = $this->endDate;
 
-        $JU_AkunBO = Jurnalumumdetail::whereHas('akun', function($query){
-            $query->where('level', 'BiayaOperasional');
-        })->sum('debit');
+        if($start && $end) {
+            $pendapatan = FakturSale::whereBetween('created_at', [$start, $end])->sum('total');
+            $beban = FakturBuy::whereBetween('created_at', [$start, $end])->sum('total');
+            $total_laba = $pendapatan - $beban;
 
-        $BKK_AkunBO = Bkk::whereHas('akun', function ($query) {
-            $query->where('level', 'BiayaOperasional');
-        })->sum('value');
+            $JU_AkunBO = Jurnalumumdetail::whereBetween('created_at', [$start, $end])->whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('debit');
 
-        $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+            $BKK_AkunBO = Bkk::whereBetween('created_at', [$start, $end])->whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('value');
+
+            $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+        } else {
+            $pendapatan = FakturSale::sum('total');
+            $beban = FakturBuy::sum('total');
+            $total_laba = $pendapatan - $beban;
+
+            $JU_AkunBO = Jurnalumumdetail::whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('debit');
+
+            $BKK_AkunBO = Bkk::whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('value');
+
+            $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+        }
 
         return view('report.keuangan.labarugi', [
             'pendapatan' => $pendapatan,
