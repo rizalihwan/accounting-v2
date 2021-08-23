@@ -22,7 +22,7 @@
                             <ul>
                                 <li>
                                     <h4>
-                                        {{ $row->name }}
+                                       {{ $row->kode }} - {{ $row->name }}
                                     </h4>
                                     @foreach($row->where('level', $row->level) as $data)
                                     <ul>
@@ -54,7 +54,7 @@
                             <ul>
                                 <li>
                                     <h4>
-                                        {{ $row->name }}
+                                        {{ $row->kode }} - {{ $row->name }}
                                     </h4>
                                     @foreach($row->where('level', $row->level) as $data)
                                     <ul>
@@ -86,7 +86,7 @@
                             <ul>
                                 <li>
                                     <h4>
-                                        {{ $row->name }}
+                                        {{ $row->kode }} - {{ $row->name }}
                                     </h4>
                                     @foreach($row->where('level', $row->level) as $data)
                                     <ul>
