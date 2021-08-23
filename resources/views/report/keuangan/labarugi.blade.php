@@ -33,7 +33,7 @@
                                     <th class="text-primary">
                                         Laba Kotor
                                     </th>
-                                    <td class="text-right">{{ 'Rp. ' . number_format(0, 0, ',', '.') }}</td>
+                                    <td class="text-right">{{ 'Rp. ' . number_format($laba_kotor, 0, ',', '.') }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-primary">
@@ -45,7 +45,7 @@
                                     <th class="text-primary">
                                         Laba Bersih
                                     </th>
-                                    <td class="text-right">{{ 'Rp. ' . number_format(0, 0, ',', '.') }}</td>
+                                    <td class="text-right">{{ 'Rp. ' . number_format($laba_bersih, 0, ',', '.') }}</td>
                                 </tr>
                             </table>
                         </div>
