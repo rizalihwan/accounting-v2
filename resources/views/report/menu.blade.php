@@ -48,32 +48,33 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <label for="startDate" class="mr-2">Tanggal Awal</label>
-                                <input type="date" class="form-control @error('startDate') is-invalid @enderror"
-                                    name="startDate" id="startDate" required>
-                                @error('startDate')
-                                    <div class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
+                            <form action="{{ route('admin.report.keuangan.neraca.index') }}" method="GET">
+                                <div class="modal-body">
+                                    <label for="startDate" class="mr-2">Tanggal Awal</label>
+                                    <input type="date" class="form-control @error('startDate') is-invalid @enderror"
+                                        name="startDate" id="startDate">
+                                    @error('startDate')
+                                        <div class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
 
-                                <hr>
+                                    <hr>
 
-                                <label for="endDate" class="mr-2">Tanggal Akhir</label>
-                                <input type="date" class="form-control @error('endDate') is-invalid @enderror mr-1"
-                                    name="endDate" id="endDate" required>
-                                @error('endDate')
-                                    <div class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a href="{{ route('admin.report.keuangan.neraca.index') }}" type="button"
-                                    class="btn btn-primary">Submit</a>
-                            </div>
+                                    <label for="endDate" class="mr-2">Tanggal Akhir</label>
+                                    <input type="date" class="form-control @error('endDate') is-invalid @enderror mr-1"
+                                        name="endDate" id="endDate">
+                                    @error('endDate')
+                                        <div class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
