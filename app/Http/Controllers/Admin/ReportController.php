@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    private $startDate;
+    private $endDate;
+
+    public function __construct()
+    {
+        $this->startDate = request('startDate');
+        $this->endDate = request('endDate');
+    }
+
     public function menu()
     {
         return view('report.menu');
@@ -26,8 +35,8 @@ class ReportController extends Controller
             'startDate' => 'required',
             'endDate' => 'required',
         ]);
-        $from = $request->startDate;
-        $to = $request->endDate;
+        $from = $this->startDate;
+        $to = $this->endDate;
         $startDate = $from;
         $endDate = $to;
         $data = Jurnalumumdetail::whereBetween('created_at', [$startDate, $endDate])->latest()->paginate(10);
@@ -76,32 +85,65 @@ class ReportController extends Controller
         // foreach($akuns->unique('subklasifikasi_id') as $data){
         //     echo $data->subklasifikasi->name.'<br>';
         // }
-        $akun_aktiva = Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get();
-        $hitung_aktiva = [];
-        foreach ($akun_aktiva as $key) {
-            array_push($hitung_aktiva, $key->debit - $key->kredit);
-        }
-        $total_aktiva = array_sum($hitung_aktiva);
+        $start = $this->startDate;
+        $end = $this->endDate;
 
-        $akun_modal = Akun::where('level', 'Modal')->orderBy('id', 'asc')->get();
-        $hitung_modal = [];
-        foreach ($akun_modal as $key) {
-            array_push($hitung_modal, $key->debit - $key->kredit);
-        }
-        $total_modal = array_sum($hitung_modal);
+        if ($start && $end) {
+            $akun_aktiva = Akun::whereBetween('created_at', [$start, $end])->where('level', 'Aktiva')->orderBy('id', 'asc')->get();
+            $hitung_aktiva = [];
+            foreach ($akun_aktiva as $key) {
+                array_push($hitung_aktiva, $key->debit - $key->kredit);
+            }
+            $total_aktiva = array_sum($hitung_aktiva);
 
-        $akun_kewajiban = Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
-        $hitung_kewajiban = [];
-        foreach ($akun_kewajiban as $key) {
-            array_push($hitung_kewajiban, $key->debit - $key->kredit);
-        }
-        $total_kewajiban = array_sum($hitung_kewajiban);
+            $akun_modal = Akun::whereBetween('created_at', [$start, $end])->where('level', 'Modal')->orderBy('id', 'asc')->get();
+            $hitung_modal = [];
+            foreach ($akun_modal as $key) {
+                array_push($hitung_modal, $key->debit - $key->kredit);
+            }
+            $total_modal = array_sum($hitung_modal);
 
+            $akun_kewajiban = Akun::whereBetween('created_at', [$start, $end])->where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
+            $hitung_kewajiban = [];
+            foreach ($akun_kewajiban as $key) {
+                array_push($hitung_kewajiban, $key->debit - $key->kredit);
+            }
+            $total_kewajiban = array_sum($hitung_kewajiban);
+
+            $aktiva = Akun::whereBetween('created_at', [$start, $end])->where('level', 'Aktiva')->orderBy('id', 'asc')->get();
+            $modal = Akun::whereBetween('created_at', [$start, $end])->where('level', 'Modal')->orderBy('id', 'asc')->get();
+            $kewajiban = Akun::whereBetween('created_at', [$start, $end])->where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
+        } else {
+            $akun_aktiva = Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get();
+            $hitung_aktiva = [];
+            foreach ($akun_aktiva as $key) {
+                array_push($hitung_aktiva, $key->debit - $key->kredit);
+            }
+            $total_aktiva = array_sum($hitung_aktiva);
+
+            $akun_modal = Akun::where('level', 'Modal')->orderBy('id', 'asc')->get();
+            $hitung_modal = [];
+            foreach ($akun_modal as $key) {
+                array_push($hitung_modal, $key->debit - $key->kredit);
+            }
+            $total_modal = array_sum($hitung_modal);
+
+            $akun_kewajiban = Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
+            $hitung_kewajiban = [];
+            foreach ($akun_kewajiban as $key) {
+                array_push($hitung_kewajiban, $key->debit - $key->kredit);
+            }
+
+            $total_kewajiban = array_sum($hitung_kewajiban);
+            $aktiva = Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get();
+            $modal = Akun::where('level', 'Modal')->orderBy('id', 'asc')->get();
+            $kewajiban = Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
+        }
 
         return view('report.neraca.index', [
-            'aktiva' => Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get(),
-            'modal' => Akun::where('level', 'Modal')->orderBy('id', 'asc')->get(),
-            'kewajiban' => Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get(),
+            'aktiva' => $aktiva,
+            'modal' => $modal,
+            'kewajiban' => $kewajiban,
             'total_aktiva' => $total_aktiva,
             'total_modal' => $total_modal,
             'total_kewajiban' => $total_kewajiban
@@ -109,23 +151,45 @@ class ReportController extends Controller
     }
     public function labarugi()
     {
-        $pendapatan = FakturSale::sum('total');
-        $beban = FakturBuy::sum('total');
-        $total_laba = $pendapatan - $beban;
+        $start = $this->startDate;
+        $end = $this->endDate;
 
-        $JU_AkunBO = Jurnalumumdetail::whereHas('akun', function($query){
-            $query->where('level', 'BiayaOperasional');
-        })->sum('debit');
+        if ($start && $end) {
+            $pendapatan = FakturSale::whereBetween('created_at', [$start, $end])->sum('total');
+            $beban = FakturBuy::whereBetween('created_at', [$start, $end])->sum('total');
+            $laba_kotor = $pendapatan - $beban;
 
-        $BKK_AkunBO = Bkk::whereHas('akun', function ($query) {
-            $query->where('level', 'BiayaOperasional');
-        })->sum('value');
+            $JU_AkunBO = Jurnalumumdetail::whereBetween('created_at', [$start, $end])->whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('debit');
 
-        $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+            $BKK_AkunBO = Bkk::whereBetween('created_at', [$start, $end])->whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('value');
+
+            $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+            $laba_bersih = $laba_kotor - $BiayaOperasional;
+        } else {
+            $pendapatan = FakturSale::sum('total');
+            $beban = FakturBuy::sum('total');
+            $laba_kotor = $pendapatan - $beban;
+
+            $JU_AkunBO = Jurnalumumdetail::whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('debit');
+
+            $BKK_AkunBO = Bkk::whereHas('akun', function ($query) {
+                $query->where('level', 'BiayaOperasional');
+            })->sum('value');
+
+            $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+            $laba_bersih = $laba_kotor - $BiayaOperasional;
+        }
 
         return view('report.keuangan.labarugi', [
             'pendapatan' => $pendapatan,
-            'total_laba' => $total_laba,
+            'laba_kotor' => $laba_kotor,
+            'laba_bersih' => $laba_bersih,
             'beban' => $beban,
             'BiayaOperasional' => $BiayaOperasional
         ]);
@@ -142,15 +206,15 @@ class ReportController extends Controller
         $from = $request->startDate;
         $to = $request->endDate;
         $kontak = $request->kontak;
-        if($kontak == 'all'){
+        if ($kontak == 'all') {
             $akun = Akun::whereHas('jurnalumumdetails', function ($q) use ($from, $to, $kontak) {
                 return $q->whereHas('jurnalumum', function ($qr) use ($from, $to, $kontak) {
                     return
                         $qr->whereBetween('tanggal', [$from, $to]);
                 });
             })->get();
-        }else{
-            $akun = Akun::where('id',$kontak)->whereHas('jurnalumumdetails', function ($q) use ($from, $to, $kontak) {
+        } else {
+            $akun = Akun::where('id', $kontak)->whereHas('jurnalumumdetails', function ($q) use ($from, $to, $kontak) {
                 return $q->whereHas('jurnalumum', function ($qr) use ($from, $to, $kontak) {
                     return
                         $qr->whereBetween('tanggal', [$from, $to]);
@@ -168,10 +232,9 @@ class ReportController extends Controller
     public function neraca_detail($id)
     {
         return view('admin.bukubesar.index', [
-            'kontak' => Akun::where('id',$id)->get(),
-            'akun' => Akun::where('id',$id)->get(),
+            'kontak' => Akun::where('id', $id)->get(),
+            'akun' => Akun::where('id', $id)->get(),
             'select' => Akun::get()
         ]);
     }
-
 }
