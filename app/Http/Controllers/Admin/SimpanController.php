@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\SimpanExport;
 use App\Http\Controllers\Controller;
+use App\Imports\SimpanImport;
 use App\Models\Kontak;
 use App\Models\Simpan;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SimpanController extends Controller
 {
@@ -108,5 +112,30 @@ class SimpanController extends Controller
     public function destroy(Simpan $simpan)
     {
         //
+    }
+    public function export()
+    {
+        ob_end_clean();
+        ob_start();
+        return Excel::download(new SimpanExport(), 'Simpan Export.xlsx');
+    }
+    public function import_form()
+    {
+        return view('admin.simpan.import');
+    }
+    public function import(Request $request)
+    {
+        $this->validate($request, [
+            'import' => 'required|mimes:csv,xlsx,xls'
+        ]);
+        try {
+            $file = $request->file('import');
+            $name_file = rand() . '_' . $file->getClientOriginalName();
+            $file->move('import/simpan/', $name_file);
+            Excel::import(new SimpanImport, public_path('import/simpan/' . $name_file));
+            return redirect('/admin/simpanpinjam/simpan');
+        } catch (Exception $err) {
+            dd($err->getMessage());
+        }
     }
 }

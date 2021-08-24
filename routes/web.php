@@ -106,11 +106,17 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'menu')->name('simpanpinjam');
 
             // Simpan
+            Route::get('simpan/import/form', 'SimpanController@import_form')->name('simpan.import_form');
+            Route::post('simpan/import', 'SimpanController@import')->name('simpan.import');
+            Route::get('simpan/export', 'SimpanController@export')->name('simpan.export');
             Route::resource('simpan', 'SimpanController');
 
             //Pinjam
+            Route::get('/pinjam/import/form', 'PinjamController@import_form')->name('pinjam.import_form');
+            Route::post('/pinjam/import', 'PinjamController@import')->name('pinjam.import');
+            Route::get('/pinjam/export', 'PInjamController@export')->name('pinjam.export');
             Route::resource('pinjam', 'PinjamController');
-            Route::post('pinjam/detail', 'PinjamController@detail')->name('pinjam.detail');
+            Route::post('/pinjam/detail', 'PinjamController@detail')->name('pinjam.detail');
         });
 
         Route::prefix('report')->name('report.')->group(function () {
@@ -132,6 +138,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('/neraca', 'ReportController@neraca')->name('neraca.index');
 
                 Route::get('/neraca/detail/{id}', 'ReportController@neraca_detail')->name('neraca.detail');
+
+                Route::get('/neraca/pdf', 'ReportController@neraca_pdf')->name('neraca.pdf');
 
                 Route::get('/labarugi', 'ReportController@labarugi')->name('labarugi');
 

@@ -16,10 +16,18 @@
                         <h4 class="card-title">List Pinjaman</h4>
                         <h4><span class="text-muted ml-1">0</span></h4>
                     </div>
-                    <a href="{{ route('admin.pinjam.create') }}" class="btn btn-success">
-                        <i data-feather="plus"></i>
-                        Tambah Baru
-                    </a>
+                    <div class="d-flex justify-content-around">
+                        <a href="{{ route('admin.pinjam.import_form') }}" class="btn btn-info ml-1">
+                            Import
+                        </a>
+                        <a href="{{ route('admin.pinjam.export') }}" class="btn btn-primary ml-1">
+                            Export
+                        </a>
+                        <a href="{{ route('admin.pinjam.create') }}" class="btn btn-success ml-1">
+                            <i data-feather="plus"></i>
+                            Tambah Baru
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

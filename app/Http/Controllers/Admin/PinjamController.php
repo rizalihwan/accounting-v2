@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PinjamExport;
 use App\Http\Controllers\Controller;
+use App\Imports\PinjamImport;
 use App\Models\Kontak;
 use App\Models\Pinjam;
+use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PinjamController extends Controller
 {
@@ -454,5 +458,30 @@ class PinjamController extends Controller
         $pinjam = Pinjam::findOrFail($id);
         $pinjam->delete();
         return back()->with('success', 'Berhasil Menghapus Pinjaman');
+    }
+    public function export()
+    {
+        ob_end_clean();
+        ob_start();
+        return Excel::download(new PinjamExport(), 'Pinjam Export.xlsx');
+    }
+    public function import_form()
+    {
+        return view('admin.pinjam.import');
+    }
+    public function import(Request $request)
+    {
+        $this->validate($request, [
+            'import' => 'required|mimes:csv,xlsx,xls'
+        ]);
+        try {
+            $file = $request->file('import');
+            $name_file = rand() . '_' . $file->getClientOriginalName();
+            $file->move('import/pinjam/', $name_file);
+            Excel::import(new PinjamImport, public_path('import/pinjam/' . $name_file));
+            return redirect('/admin/simpanpinjam/pinjam');
+        } catch (Exception $err) {
+            dd($err->getMessage());
+        }
     }
 }
