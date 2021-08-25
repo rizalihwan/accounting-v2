@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\LabarugiExport;
+use App\Exports\NeracaExport;
 use App\Http\Controllers\Controller;
 use App\Models\{Akun, Jurnalumumdetail, Bkk};
 use App\Models\Purchase\FakturBuy;
 use App\Models\Sale\FakturSale;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -194,6 +198,7 @@ class ReportController extends Controller
             'BiayaOperasional' => $BiayaOperasional
         ]);
     }
+
     public function bukubesar()
     {
         return view('report.bukubesar.index', [
@@ -236,5 +241,80 @@ class ReportController extends Controller
             'akun' => Akun::where('id', $id)->get(),
             'select' => Akun::get()
         ]);
+    }
+    public function neraca_pdf()
+    {
+        $akun_aktiva = Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get();
+        $hitung_aktiva = [];
+        foreach ($akun_aktiva as $key) {
+            array_push($hitung_aktiva, $key->debit - $key->kredit);
+        }
+        $total_aktiva = array_sum($hitung_aktiva);
+
+        $akun_modal = Akun::where('level', 'Modal')->orderBy('id', 'asc')->get();
+        $hitung_modal = [];
+        foreach ($akun_modal as $key) {
+            array_push($hitung_modal, $key->debit - $key->kredit);
+        }
+        $total_modal = array_sum($hitung_modal);
+
+        $akun_kewajiban = Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
+        $hitung_kewajiban = [];
+        foreach ($akun_kewajiban as $key) {
+            array_push($hitung_kewajiban, $key->debit - $key->kredit);
+        }
+
+        $total_kewajiban = array_sum($hitung_kewajiban);
+        $aktiva = Akun::where('level', 'Aktiva')->orderBy('id', 'asc')->get();
+        $modal = Akun::where('level', 'Modal')->orderBy('id', 'asc')->get();
+        $kewajiban = Akun::where('level', 'Kewajiban')->orderBy('id', 'asc')->get();
+        $pdf = PDF::loadview('report.neraca.pdf', [
+            'aktiva' => $aktiva,
+            'modal' => $modal,
+            'kewajiban' => $kewajiban,
+            'total_aktiva' => $total_aktiva,
+            'total_modal' => $total_modal,
+            'total_kewajiban' => $total_kewajiban
+        ]);
+        return $pdf->stream();
+    }
+    public function labarugi_pdf()
+    {
+        $pendapatan = FakturSale::sum('total');
+        $beban = FakturBuy::sum('total');
+        $laba_kotor = $pendapatan - $beban;
+
+        $JU_AkunBO = Jurnalumumdetail::whereHas('akun', function ($query) {
+            $query->where('level', 'BiayaOperasional');
+        })->sum('debit');
+
+        $BKK_AkunBO = Bkk::whereHas('akun', function ($query) {
+            $query->where('level', 'BiayaOperasional');
+        })->sum('value');
+
+        $BiayaOperasional = $JU_AkunBO + $BKK_AkunBO;
+        $laba_bersih = $laba_kotor - $BiayaOperasional;
+
+        $pdf = PDF::loadview('report.keuangan.pdf', [
+            'pendapatan' => $pendapatan,
+            'laba_kotor' => $laba_kotor,
+            'laba_bersih' => $laba_bersih,
+            'beban' => $beban,
+            'BiayaOperasional' => $BiayaOperasional
+        ]);
+        return $pdf->stream();
+    }
+    public function neraca_excel()
+    {
+
+        ob_end_clean();
+        ob_start();
+        return Excel::download(new NeracaExport(), 'NeracaExport.xlsx');
+    }
+    public function labarugi_excel()
+    {
+        ob_end_clean();
+        ob_start();
+        return Excel::download(new LabarugiExport(), 'LabarugiExport.xlsx');
     }
 }

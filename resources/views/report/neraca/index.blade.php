@@ -13,8 +13,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-around">
-                        <a href="{{ route('admin.report.keuangan.neraca.pdf') }}" class="btn btn-danger">PDF</a>
-                        <a href="" class="btn btn-success">EXCEL</a>
+                        <a target="_blank" href="{{ route('admin.report.keuangan.neraca.pdf') }}" class="btn btn-danger">PDF</a>
+                        <a target="_blank" href="{{ route('admin.report.keuangan.neraca.excel') }}" class="btn btn-success">EXCEL</a>
                     </div>
                 </div>
             </div>

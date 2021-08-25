@@ -140,8 +140,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('/neraca/detail/{id}', 'ReportController@neraca_detail')->name('neraca.detail');
 
                 Route::get('/neraca/pdf', 'ReportController@neraca_pdf')->name('neraca.pdf');
+                Route::get('/neraca/excel', 'ReportController@neraca_excel')->name('neraca.excel');
 
                 Route::get('/labarugi', 'ReportController@labarugi')->name('labarugi');
+                Route::get('/labarugi/pdf', 'ReportController@labarugi_pdf')->name('labarugi.pdf');
+                Route::get('/labarugi/excel', 'ReportController@labarugi_excel')->name('labarugi.excel');
 
                 Route::get('/bukubesar', 'ReportController@bukubesar')->name('bukubesar');
                 Route::get('/bukubesar/cari', 'ReportController@bukubesarcari')->name('bukubesar.cari');

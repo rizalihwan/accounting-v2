@@ -10,6 +10,15 @@
     <div class="container">
         <div class="d-flex justify-content-center">
             <div class="col-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-around">
+                        <a target="_blank" href="{{ route('admin.report.keuangan.labarugi.pdf') }}" class="btn btn-danger">PDF</a>
+                        <a target="_blank" href="{{ route('admin.report.keuangan.labarugi.excel') }}" class="btn btn-success">EXCEL</a>
+                    </div>
+                </div>
+            </div>
                 <div class="card rounded">
                     <p class="text-black text-center pt-2 font-weight-bolder">Direktorat Keuangan TNI Angkatan Darat</p>
                     <h2 class="text-center text-primary">Laba Rugi</h2>

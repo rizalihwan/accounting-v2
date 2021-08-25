@@ -44,7 +44,6 @@ class PinjamExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
                 'nasabah_id' => $this->nasabah($collect->nasabah_id),
             ];
         });
-
         return $data;
     }
     public function petugas($id)
