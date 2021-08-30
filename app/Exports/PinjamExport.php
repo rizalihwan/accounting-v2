@@ -32,16 +32,16 @@ class PinjamExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
         $data = collect($qr)->map(function ($qr, $key) {
             $collect = (object)$qr;
             return [
-                'id' => $collect->id,
+                'id' => '#',
                 'jumlah_pinjaman' => $collect->jumlah_pinjaman,
                 'jangka' => $collect->jangka,
                 'bungapersen' => $collect->bungapersen,
                 'type' => $collect->type,
-                'total_bunga' => $collect->total_bunga,
-                'total_pokok' => $collect->total_pokok,
                 'keterangan' => $collect->keterangan,
                 'petugas_id' => $this->petugas($collect->petugas_id),
                 'nasabah_id' => $this->nasabah($collect->nasabah_id),
+                'total_bunga' => $collect->total_bunga,
+                'total_pokok' => $collect->total_pokok
             ];
         });
         return $data;
@@ -64,11 +64,11 @@ class PinjamExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
                 'jangka',
                 'bungapersen',
                 'type',
-                'total_bunga',
-                'total_pokok',
                 'keterangan',
                 'petugas_id',
-                'nasabah_id'
+                'nasabah_id',
+                'total_bunga',
+                'total_pokok'
             ]
         ];
     }

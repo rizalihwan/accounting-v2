@@ -30,7 +30,7 @@ class SimpanExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
         $data = collect($qr)->map(function ($qr, $key) {
             $collect = (object)$qr;
             return [
-                'id' => $collect->id,
+                'id' => '#',
                 'keterangan' => $collect->keterangan,
                 'kontak_id' => $this->kontak($collect->kontak_id),
                 'jenis_simpanan' => $collect->jenis_simpanan,
