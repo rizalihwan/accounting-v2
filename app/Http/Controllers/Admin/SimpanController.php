@@ -121,7 +121,9 @@ class SimpanController extends Controller
     }
     public function import_form()
     {
-        return view('admin.simpan.import');
+        return view('admin.simpan.import',[
+            'kontak' => Kontak::get()
+        ]);
     }
     public function import(Request $request)
     {

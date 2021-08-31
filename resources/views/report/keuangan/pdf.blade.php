@@ -14,17 +14,22 @@
         <div class="d-flex justify-content-center">
             <div class="col-8">
                 <div class="card rounded">
-                    <p class="text-black text-center pt-2 font-weight-bolder" style="text-align: center;color : #6e6b7b">Direktorat Keuangan TNI Angkatan Darat</p>
+                    <img src="{{ public_path('pdf/logoijo-removebg-preview.png') }}" alt="" width="90px" style="margin-left : 42%">
+
+                    <h2 class="text-black text-center pt-2 font-weight-bolder" style="text-align: center;color : #6e6b7b">Direktorat Keuangan TNI Angkatan Darat</h2>
                     <h2 class="text-center text-primary" style="text-align: center;color : #7367f0">Laba Rugi</h2>
                     <p class="text-black text-center" style="text-align: center;color : #6e6b7b">{{ date('F Y') }}</p>
+                    <br>
+                    <hr>
+                    <br>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table cellpadding="20px" class="" border="1">
+                            <table cellpadding="20px" class="" border="1" style="margin-left: auto;margin-right: auto;">
                                 <tr>
                                     <th class="text-primary" style="color : #7367f0">
                                         Pendapatan
                                     </th>
-                                    <td class="text-right" style="text-align: center;color : #6e6b7b">{{ 'Rp. ' . number_format($pendapatan, 0, ',', '.') }}</td>
+                                    <td class="text-right" style="text-align: center;color : #6e6b7b;">{{ 'Rp. ' . number_format($pendapatan, 0, ',', '.') }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-primary" style="text-align: left; color : #7367f0">

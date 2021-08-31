@@ -32,7 +32,7 @@ class SimpanExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
             return [
                 'id' => '#',
                 'keterangan' => $collect->keterangan,
-                'kontak_id' => $this->kontak($collect->kontak_id),
+                'kontak_id' => $collect->kontak_id,
                 'jenis_simpanan' => $collect->jenis_simpanan,
                 'no_rekening' => $collect->no_rekening,
                 'administrasi' => $collect->administrasi,

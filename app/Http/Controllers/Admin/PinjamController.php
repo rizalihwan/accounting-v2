@@ -467,7 +467,9 @@ class PinjamController extends Controller
     }
     public function import_form()
     {
-        return view('admin.pinjam.import');
+        return view('admin.pinjam.import',[
+            'kontak' => Kontak::get()
+        ]);
     }
     public function import(Request $request)
     {

@@ -13,12 +13,17 @@
         <div class="d-flex justify-content-center">
             <div class="col-8">
                 <div class="card shadow rounded">
-                    <p style="text-align: center;color : #6e6b7b">Direktorat Keuangan TNI Angkatan Darat</p>
+
+                <img src="{{ public_path('pdf/logoijo-removebg-preview.png') }}" alt="" width="90px" style="margin-left : 42%">
+                    <h2 style="text-align: center;color : #6e6b7b">Direktorat Keuangan TNI Angkatan Darat</h2>
                     <h2 style="text-align: center;color: #7367f0 !important">Neraca</h2>
                     <p style="text-align: center;color : #6e6b7b">{{ date('F Y') }}</p>
+                    <br>
+                    <hr>
+                    <br>
                     <div class="card-body">
                         <div class="row border">
-                            <div class="col-12">
+                            <div class="col-12" style="border:2px solid #a1a1a1;padding: 10px">
                                 <h3 style="color: #7367f0 !important">Aktiva</h3>
                                 @foreach($aktiva->unique('id') as $row)
                                 <ul>
@@ -50,7 +55,7 @@
                         </div>
 
                         <div class="row border">
-                            <div class="col-12">
+                            <div class="col-12" style="border:2px solid #a1a1a1;padding: 10px">
                                 <h3 style="color: #7367f0 !important">Kewajiban</h3>
                                 @foreach($kewajiban->unique('id') as $row)
                                 <ul>
@@ -82,7 +87,7 @@
                         </div>
 
                         <div class="row border">
-                            <div class="col-12">
+                            <div class="col-12" style="border:2px solid #a1a1a1;padding: 10px">
                                 <h3 style="color: #7367f0 !important">Modal</h3>
                                 @foreach($modal->unique('id') as $row)
                                 <ul>

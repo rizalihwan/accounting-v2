@@ -38,8 +38,8 @@ class PinjamExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
                 'bungapersen' => $collect->bungapersen,
                 'type' => $collect->type,
                 'keterangan' => $collect->keterangan,
-                'petugas_id' => $this->petugas($collect->petugas_id),
-                'nasabah_id' => $this->nasabah($collect->nasabah_id),
+                'petugas_id' => $collect->petugas_id,
+                'nasabah_id' => $collect->nasabah_id,
                 'total_bunga' => $collect->total_bunga,
                 'total_pokok' => $collect->total_pokok
             ];
@@ -75,8 +75,8 @@ class PinjamExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
     public function styles(Worksheet $sheet)
     {
         $count = Pinjam::count() + 1;
-        $string = 'A1:L' . $count;
-        $sheet->getStyle('A1:L1')->getFont()->setBold(true);
+        $string = 'A1:J' . $count;
+        $sheet->getStyle('A1:J1')->getFont()->setBold(true);
         $sheet->getStyle($string)->applyFromArray([
             'borders' => [
                 'allBorders' => [
