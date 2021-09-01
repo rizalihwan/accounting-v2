@@ -14,10 +14,9 @@ class AddOtherFieldToAkunsTable extends Migration
     public function up()
     {
         Schema::table('akuns', function (Blueprint $table) {
-            $table->enum('level', ['Aktiva', 'Modal', 'Kewajiban']);
-            $table->bigInteger('saldo_awal')->nullable()->after('level');
-            $table->bigInteger('saldo_berjalan')->nullable()->after('saldo_awal');
-            $table->bigInteger('saldo_akhir')->nullable()->after('saldo_berjalan');
+            $table->enum('level', ['Aktiva', 'Modal', 'Kewajiban', 'BiayaOperasional'])->after('name');
+            $table->bigInteger('debit')->nullable()->default(0)->after('level');
+            $table->bigInteger('kredit')->nullable()->default(0)->after('debit');
         });
     }
 
@@ -29,10 +28,7 @@ class AddOtherFieldToAkunsTable extends Migration
     public function down()
     {
         Schema::table('akuns', function (Blueprint $table) {
-            $table->dropColumn('level');
-            $table->dropColumn('saldo_awal');
-            $table->dropColumn('saldo_berjalan');
-            $table->dropColumn('saldo_akhir');
+            $table->dropColumn(['level', 'debit', 'kredit']);
         });
     }
 }

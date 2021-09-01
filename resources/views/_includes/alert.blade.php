@@ -3,7 +3,7 @@
 <script>
     Swal.fire({
         icon: 'success',
-        title: 'Informasi Pesan',
+        title: 'Success',
         text: `{{ session()->get('success ') }}`
     })
 </script>
@@ -14,7 +14,7 @@
 <script>
     Swal.fire({
         icon: 'error',
-        title: 'Informasi Pesan',
+        title: 'Error',
         text: `{{ session()->get('error') }}`
     })
 </script>
@@ -24,7 +24,7 @@
     window.addEventListener('swal:modal', event => {
         Swal.fire({
             title: event.detail.title,
-            text: event.detail.text
+            text: event.detail.text,
             icon: event.detail.type,
             customClass: {
                 confirmButton: "btn btn-primary"
@@ -39,7 +39,7 @@
             text: event.detail.text,
             icon: event.detail.type,
             showCancelButton: !0,
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "Ya, hapus ini!",
             customClass:{
                 confirmButton: "btn btn-primary",
                 cancelButton: "btn btn-outline-danger ml-1"

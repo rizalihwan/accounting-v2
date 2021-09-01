@@ -117,7 +117,9 @@ class PenawaranController extends Controller
      */
     public function show($id)
     {
-        //
+        $penawaran = PenawaranSale::with('penawaran_details.product', 'pelanggan')->findOrFail($id);
+
+        return view('admin.sales.penawaran.show', compact('penawaran'));
     }
 
     /**

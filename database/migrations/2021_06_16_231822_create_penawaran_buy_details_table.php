@@ -16,16 +16,12 @@ class CreatePenawaranBuyDetailsTable extends Migration
         Schema::create('penawaran_buy_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('penawaran_id');
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->unsignedBigInteger('akun_id')->nullable();
-            $table->integer('service_desk')->nullable();
-            $table->integer('jumlah');
-            $table->integer('satuan');
-            $table->integer('harga_satuan');
-            $table->integer('total');
+            $table->unsignedBigInteger('product_id');
+            $table->string('satuan');
+            $table->bigInteger('harga');
+            $table->bigInteger('jumlah');
+            $table->bigInteger('total');
             $table->foreign('penawaran_id')->references('id')->on('penawaran_buys')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('akun_id')->references('id')->on('akuns')->onDelete('cascade');
             $table->timestamps();
         });
     }

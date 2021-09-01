@@ -5,7 +5,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel33">Edit Category</h4>
+                            <h4 class="modal-title" id="myModalLabel33">Edit Unit</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                 wire:click="$set('isOpen', false)">
                                 <span aria-hidden="true">&times;</span>
@@ -13,7 +13,7 @@
                         </div>
                         <form wire:submit.prevent="update">
                             <div class="modal-body">
-                                <label>Unit Name: </label>
+                                <label>Nama Unit: </label>
                                 <div class="form-group">
                                     <input type="text" placeholder="Unit Name" wire:model="unit.name"
                                         class="form-control @error('unit.name') is-invalid @enderror" />
@@ -23,7 +23,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                
+
                                 <label>Deskripsi: </label>
                                 <div class="form-group">
                                     <textarea name="description" id="description" wire:model="unit.description"
@@ -34,20 +34,20 @@
                                         </span>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <div class="demo-inline-spacing">
                                         <div class="custom-control custom-control-primary custom-radio">
-                                            <input type="radio" id="status1-edit" wire:model="unit.status" 
+                                            <input type="radio" id="status1-edit" wire:model="unit.status"
                                                 name="status" class="custom-control-input" value="1"
                                                 {{ $unit->status == '1' ? 'checked' : '' }} />
-                                            <label class="custom-control-label" for="status1-edit">Active</label>
+                                            <label class="custom-control-label" for="status1-edit">Aktif</label>
                                             </div>
                                             <div class="custom-control custom-control-primary custom-radio">
                                             <input type="radio" id="status2-edit" wire:model="unit.status"
                                                 name="status" class="custom-control-input" value="0"
                                                 {{ $unit->status == '0' ? 'checked' : '' }} />
-                                            <label class="custom-control-label" for="status2-edit">Non active</label>
+                                            <label class="custom-control-label" for="status2-edit">Non Aktif</label>
                                         </div>
                                     </div>
                                 </div>

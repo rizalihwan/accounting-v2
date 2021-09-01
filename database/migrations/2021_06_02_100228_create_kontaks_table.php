@@ -18,9 +18,11 @@ class CreateKontaksTable extends Migration
             $table->string('nama');
             $table->string('email')->nullable();
             $table->string('telepon')->nullable();
-            $table->boolean('pelanggan')->default(true);
-            $table->boolean('pemasok')->default(true);
-            $table->boolean('karyawan')->default(true);
+            $table->boolean('pelanggan')->default(false);
+            $table->boolean('pemasok')->default(false);
+            $table->boolean('karyawan')->default(false);
+            $table->boolean('nasabah')->default(false);
+            $table->boolean('petugas')->default(false);
             $table->longText('alamat')->nullable();
             $table->string('kota')->nullable();
             $table->string('kode_pos')->nullable();
@@ -28,6 +30,7 @@ class CreateKontaksTable extends Migration
             $table->string('mata_uang')->nullable();
             $table->string('nik')->nullable();
             $table->string('kontak_person')->nullable();
+            $table->string('pekerjaan')->nullable();
             $table->string('website')->nullable();
             $table->boolean('aktif')->default(true);
             $table->timestamps();

@@ -1,79 +1,166 @@
 @extends('_layouts.main')
 @section('title', 'Buku Besar')
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <!-- end message area-->
-            <div class="col-md-12">
-                <div class="card p-3">
-                    <div class="card-header  d-flex">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>
-                            <div class="d-inline-block">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#primary">
-                                    <i data-feather='list'></i>
-                                </button>
-                                <!-- Modal -->
-                                <div
-                                  class="modal fade text-left modal-primary"
-                                  id="primary"
-                                  tabindex="-1"
-                                  role="dialog"
-                                  aria-labelledby="myModalLabel160"
-                                  aria-hidden="true"
-                                >
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="myModalLabel160">Primary Modal</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <label for="tanggal" class="mb-1">tanggal</label>
-                                        <input type="date" class="form-control col-md-10 mb-1">
-                                        <input type="date" class="form-control col-md-10 mb-1">
-                                        <form class="needs-validation" novalidate="">
-                                            <div class="form-row">
-                                              <div class="col-md-4 col-12 mb-3">
-                                                <label for="validationTooltip01">First name</label>
-                                                <input type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark" required="">
-                                                <div class="valid-tooltip">Looks good!</div>
-                                              </div>
-                                              <div class="col-md-4 col-12 mb-3">
-                                                <label for="validationTooltip02">Last name</label>
-                                                <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required="">
-                                                <div class="valid-tooltip">Looks good!</div>
-                                              </div>
-                                              <div class="col-md-4 col-12 mb-3">
-                                                <label for="validationTooltip03">City</label>
-                                                <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required="">
-                                                <div class="invalid-tooltip">Please provide a valid city.</div>
-                                              </div>
-                                            </div>
-                                            <button class="btn btn-primary waves-effect waves-float waves-light ml-auto" type="submit">Submit</button>
-                                          </form>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card p-3">
+                <div class="card-header d-flex">
+                    <div class="d-inline-block">
+                        @if (!empty($ada))
+                        <form action="{{route('admin.bukubesar.cariakun')}}"  method="POST" >
+                            @csrf
+                            <div class="form-row">
+                            <div class="col-md-6 col-12">
+                                <select class="form-control" name="id" id="id" >
+                                <option value="">Pilih Akun</option>
+                                @foreach ($select as $item)
+                                <option value="{{$item->id}}">{{$item->kode}} - {{$item->name}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-5 col-12 ">
+                                <button class="btn btn-primary waves-effect waves-float waves-light ml-auto" type="submit">Cari</button>
+                            </div>
+                            </div>
+                        </form>
+                        @endif
                     </div>
-                    <div class="card-body">
-                        <table class="table table-light table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Tanggal</th>
-                                    <th>Jumlah</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover" style="">
+                        <tbody>
+                            @if ($akun != NULL)
+                            @foreach($akun as $row)
+                            <br>
+                            <div class="d-flex justify-content-between">
+                                <h3>{{ $row->name }} - {{ $row->id }}</h3>
+                                <h3>{{ $row->subklasifikasi }}</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <th>Tipe</th>
+                                            <th>No.Ref</th>
+                                            <th>Kontak</th>
+                                            <th>Debit</th>
+                                            <th>Kredit</th>
+                                            <th>Saldo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="6">Saldo Awal</td>
+                                            <td>{{ $row->saldo_awal }} </td>
+                                        </tr>
+                                        @foreach($row->jurnalumumdetails as $data)
+                                        <tr class="bg-info">
+                                            <td>{{ $data->jurnalumum->tanggal }}</td>
+                                            <td>Jurnal Umum</td>
+                                            <td>{{ $data->jurnalumum->kode_jurnal }}</td>
+                                            <td>{{ $data->jurnalumum->kontak->nama }}</td>
+                                            <td>{{ $data->debit }}</td>
+                                            <td colspan="2">{{ $data->kredit }}</td>
+                                        </tr>
+                                        @endforeach
+                                            @php $desk =''; @endphp
+                                            @foreach($row->bkk as $item)
+                                                @if ($item->status == 'BKK')
+                                                    @foreach ($item->bkk_details as $black)
+                                                        @if ($desk != $item->desk)
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge badge-info">
+                                                                        {{ $item->tanggal }}
+                                                                    </span>
+                                                                </td>
+                                                                <td>Bank Dan Kas</td>
+                                                                <td>{{ $item->desk }}</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            @php $desk = $item->desk @endphp
+                                                        @endif
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>BKK</td>
+                                                            <td>-</td>
+                                                            <td>{{$black->rekening->name }}</td>
+                                                            <td>{{$black->jml_uang}}</td> 
+                                                            <td>-</td> 
+                                                            <td></td> 
+                                                            @php $asik = $black->uang; @endphp
+                                                        </tr>      
+                                                    @endforeach
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>BKK</td>
+                                                        <td>-</td>
+                                                        <td>{{$item->akun->name}}</td>
+                                                        <td>-</td>
+                                                        <td>{{$item->value}}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                @endif
+                                                @if ($item->status == 'BKM')
+                                                    @foreach ($item->bkk_details as $black)
+                                                        @if ($desk != $item->desk)
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge badge-info">
+                                                                        {{ $item->tanggal }}
+                                                                    </span>
+                                                                </td>
+                                                                <td>Bank Dan Kas</td>
+                                                                <td>{{ $item->desk }}</td>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            @php $desk = $item->desk @endphp
+                                                        @endif
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>BKM</td>
+                                                            <td>-</td>
+                                                            <td>{{$black->rekening->name }}</td>
+                                                            <td>-</td> 
+                                                            <td>{{$black->jml_uang}}</td> 
+                                                            <td></td>
+                                                            @php $asik = $black->uang; @endphp
+                                                        </tr>      
+                                                    @endforeach
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>BKM</td>
+                                                        <td>-</td>
+                                                        <td>{{$item->akun->name}}</td>
+                                                        <td>{{$item->value}}</td>
+                                                        <td>-</td>
+                                                        <td></td>
+                                                    </tr> 
+                                                @endif
+                                            @endforeach
+                                        <tr class="bg-primary text-light">
+                                            <td colspan="6">Saldo Akhir</td>
+                                            <td>{{ $row->saldo_akhir }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            @endforeach
+                            @else
+                                <td colspan="6">
+                                    <center>No Select</center>
+                                </td>
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

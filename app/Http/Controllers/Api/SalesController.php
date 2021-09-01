@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Akun;
 use App\Models\Kontak;
 use App\Models\Product;
+use App\Models\Sale\FakturSale;
+use App\Models\Sale\FakturSaleDetail;
 use App\Models\Sale\PenawaranSale;
 use App\Models\Sale\PenawaranSaleDetail;
 use App\Models\Sale\PesananSale;
@@ -120,7 +122,7 @@ class SalesController extends Controller
         $result = [];
 
         foreach ($pesanans as $pesanan) {
-            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'jumlah')
+            $detail = PesananSaleDetail::select('id', 'pesanan_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
                 ->where('pesanan_id', $pesanan->id)
                 ->get();
             $result[] = [
@@ -130,6 +132,68 @@ class SalesController extends Controller
                 "detail" => $detail->toArray(),
             ];
         }
+        return $result;
+    }
+
+    public function getFakturDetails($faktur_id)
+    {
+        $details = FakturSaleDetail::select('id', 'faktur_id', 'product_id', 'satuan', 'harga', 'jumlah', 'total')
+            ->where('faktur_id', $faktur_id)->get();
+
+        if ($details->count() == 0) {
+            return response()->json([
+                'message' => 'not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Success get faktur_details data',
+            'data' => $details,
+            'length' => $details->count()
+        ]);
+    }
+
+    public function getAkun(Request $request)
+    {
+        $search = $request->search;
+        $akuns = Akun::select('id', 'name', 'kode')
+            ->where('name', 'like', "%{$search}%")
+            ->orWhere('kode', 'like', "%{$search}%")
+            ->orderBy('name', 'ASC')->get()->take(20);
+
+        $result = [];
+
+        foreach ($akuns as $akun) {
+            $result[] = [
+                "id" => $akun->id,
+                "text" => $akun->name,
+                "name" => $akun->name,
+                "kode" => $akun->kode,
+            ];
+        }
+
+        return $result;
+    }
+
+    public function getFaktur(Request $request)
+    {
+        $search = $request->search;
+        $fakturs = FakturSale::select('id', 'kode', 'total')
+            ->where('status', '0')
+            ->where('kode', 'like', "%{$search}%")
+            ->get()->take(20);
+
+        $result = [];
+
+        foreach ($fakturs as $faktur) {
+            $result[] = [
+                "id" => $faktur->id,
+                "text" => $faktur->kode,
+                "total" => $faktur->total,
+                "kode" => $faktur->kode,
+            ];
+        }
+
         return $result;
     }
 

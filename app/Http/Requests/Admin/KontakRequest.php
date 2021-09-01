@@ -24,17 +24,22 @@ class KontakRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required',
-            'email' => 'nullable',
-            'telepon' => 'nullable',
-            'alamat' => 'nullable',
-            'kota' => 'nullable',
-            'kode_pos' => 'nullable',
-            'kode_kontak' => 'nullable',
-            'mata_uang' => 'nullable',
-            'nik' => 'nullable',
+            'nama'          => 'required',
+            'email'         => 'nullable|email',
+            'telepon'       => 'nullable|numeric',
+            'alamat'        => 'nullable',
+            'kota'          => 'nullable',
+            'kode_pos'      => 'nullable|numeric',
+            'kode_kontak'   => 'nullable',
+            'mata_uang'     => 'nullable',
+            'nik'           => 'nullable|numeric',
             'kontak_person' => 'nullable',
-            'website' => 'nullable',
+            'website'       => 'nullable',
+            'pelanggan'     => 'required_without_all:pemasok,karyawan,nasabah,petugas',
+            'pemasok'       => 'required_without_all:pelanggan,karyawan,nasabah,petugas',
+            'karyawan'      => 'required_without_all:pelanggan,pemasok,nasabah,petugas',
+            'nasabah'       => 'required_without_all:pelanggan,pemasok,karyawan,petugas',
+            'petugas'       => 'required_without_all:pelanggan,pemasok,karyawan,nasabah',
         ];
     }
 }

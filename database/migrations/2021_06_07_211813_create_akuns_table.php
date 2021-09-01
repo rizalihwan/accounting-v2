@@ -18,7 +18,7 @@ class CreateAkunsTable extends Migration
             $table->string('kode');
             $table->string('name');
             $table->foreignId('subklasifikasi_id')->constrained();
-            $table->enum('status', [0, 1])->default(0);
+            $table->enum('status', [0, 1])->default(1);
             $table->timestamps();
         });
     }

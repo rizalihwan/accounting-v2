@@ -1,4 +1,4 @@
-<div class="customizer d-none d-md-block"><a class="customizer-toggle d-flex align-items-center justify-content-center" href="javascript:void(0);"><i class="spinner" data-feather="settings"></i></a><div class="customizer-content">
+<div class="customizer d-none d-md-block"><a class="customizer-toggle d-none align-items-center justify-content-center" href="javascript:void(0);"><i class="spinner" data-feather="settings"></i></a><div class="customizer-content">
     <!-- Customizer header -->
     <div class="customizer-header px-2 pt-1 pb-0 position-relative">
         <h4 class="mb-0">Theme Customizer</h4>

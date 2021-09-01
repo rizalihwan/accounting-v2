@@ -12,7 +12,10 @@
     <div class="col-lg-12 col-md-12 col-12">
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                <h4 class="card-title">Pesanan Penjualan</h4>
+                <div class="d-flex">
+                    <h4 class="card-title">List Pesanan Penjualan</h4>
+                    <h4><span class="text-muted ml-1">{{ $countPesanan }}</span></h4>
+                </div>
                 <a href="{{ route('admin.sales.pesanan.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
@@ -37,7 +40,13 @@
                                 <td>{{ $pesanan->kode }}</td>
                                 <td>{{ $pesanan->pelanggan->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($pesanan->total, 0, ',', '.') }}</td>
-                                <td>{{ $pesanan->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>
+                                    @if($pesanan->status == 0)
+                                        <span class="badge badge-success">Open</span>
+                                    @else
+                                        <span class="badge badge-info">Delivered</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"

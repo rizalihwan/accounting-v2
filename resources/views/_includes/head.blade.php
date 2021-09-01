@@ -1,10 +1,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-<meta name="description" content="This is a web application.">
-<meta name="keywords" content="Accounting Website">
-<meta name="author" content="Accounting">
-<title>@yield('title','') | Accounting</title>
+<meta name="description" content="Aplikasi Akunting TWP AD">
+<meta name="keywords" content="Aplikasi Akunting TWP AD, TWP AD, Akunting TWP AD">
+<meta name="author" content="Akunting">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>@yield('title', '') | {{ config('app.name') }}</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
 <!-- BEGIN: Vendor CSS-->
@@ -43,21 +44,64 @@
 </style>
 
 <script>
+    let style = document.getElementsByClassName('nav-link-style');
+    let currentSkin = localStorage.getItem('light-layout-current-skin');
+
+    document.getElementsByTagName('html')[0].classList.add(currentSkin);
+</script>
+<script>
     function deleteConfirm(form_id, id) {
         Swal.fire({
-            title:"Are you sure?",
-            text:"You won't be able to revert this!",
-            icon:"warning",
-            showCancelButton:!0,
-            confirmButtonText:"Yes, delete it!",
+            title: "Apakah Anda yakin?",
+            text: "Anda tidak dapat memulihkan data ini!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya, hapus ini!",
             customClass:{
-                confirmButton:"btn btn-primary",
-                cancelButton:"btn btn-outline-danger ml-1"
+                confirmButton: "btn btn-primary",
+                cancelButton: "btn btn-outline-danger ml-1"
             },
-            buttonsStyling:!1
+            buttonsStyling: false
         }).then((willDelete) => {
             if (willDelete.value) {
                 $(`#${form_id}${id}`).submit();
+            }
+        })
+    }
+
+    function logoutConfirm() {
+        Swal.fire({
+            title: "Logout",
+            text: "Anda akan kembali ke halaman login.",
+            icon: "warning",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonText: "Logout",
+            customClass: {
+                confirmButton:"btn btn-primary",
+                cancelButton:"btn btn-outline-danger ml-1"
+            },
+            buttonsStyling: false,
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return new Promise((resolve) => {
+                    const CSRF = $('meta[name="csrf-token"]').attr('content');
+                    
+                    $.ajax({
+                        url: '{{ route('logout') }}',
+                        type: 'post',
+                        data: {
+                            _token: CSRF
+                        },
+                        error: () => window.location.href = '{{ route('login') }}'
+                    });
+
+                    // setTimeout(function() {
+                    //     console.log('logic ends');
+                    //     resolve();
+                    // }, 5000);
+                });
             }
         })
     }

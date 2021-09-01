@@ -4,7 +4,7 @@
 <li class="breadcrumb-item">
     <a href="{{ route('admin.sales.') }}">Penjualan</a>
 </li>
-<li class="breadcrumb-item" aria-current="page">Pengiriman Barang</li>
+<li class="breadcrumb-item active" aria-current="page">Pengiriman Barang</li>
 @endpush
 @section('content')
 
@@ -12,7 +12,10 @@
     <div class="col-lg-12 col-md-12 col-12">
         <div class="card card-payment">
             <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                <h4 class="card-title">Pengiriman Barang</h4>
+                <div class="d-flex">
+                    <h4 class="card-title">List Pengiriman Barang</h4>
+                    <h4><span class="text-muted ml-1">{{ $countPengiriman }}</span></h4>
+                </div>
                 <a href="{{ route('admin.sales.pengiriman.create') }}" class="btn btn-sm btn-primary shadow"><i data-feather="plus"></i></a>
             </div>
             <div class="card-body">
@@ -37,7 +40,11 @@
                                 <td>{{ $pengiriman->kode }}</td>
                                 <td>{{ $pengiriman->pelanggan->nama }}</td>
                                 <td>{{ 'Rp. ' . number_format($pengiriman->total, 0, ',', '.') }}</td>
-                                <td>{{ $pengiriman->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                <td>@if($pengiriman->status == 0)
+                                    <span class="badge badge-success">Open</span>
+                                    @else
+                                    <span class="badge badge-warning">Closed</span>
+                                    @endif</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
@@ -54,14 +61,15 @@
                                                 <i data-feather="edit"></i>
                                                 <span class="ml-1">Edit</span>
                                             </a>
-                                            <div class="dropdown-item">
-                                                <form action="{{ route('admin.sales.pengiriman.destroy', $pengiriman->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="button delete-confirm btn btn-flat-danger"><i data-feather="trash"></i>
-                                                        <span class="ml-1">Delete</span></button>
-                                                </form>
-                                            </div>
+                                            <a href="javascript:void('delete')" class="dropdown-item text-danger" 
+                                                onclick="deleteConfirm('form-delete', '{{ $pengiriman->id }}')">
+                                                <i data-feather="trash"></i>
+                                                <span class="ml-1">Delete</span>
+                                            </a>
+                                            <form id="form-delete{{ $pengiriman->id }}" action="{{ route('admin.sales.pengiriman.destroy', $pengiriman->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
                                         </div>
                                     </div>
                                 </td>

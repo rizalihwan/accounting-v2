@@ -4,7 +4,7 @@
     <li class="breadcrumb-item">
         <a href="{{ route('admin.jurnalumum.index') }}">Jurnal Umum</a>
     </li>
-    <li class="breadcrumb-item" aria-current="page">Buat Jurnal Umum</li>
+    <li class="breadcrumb-item" aria-current="page">Edit Jurnal Umum</li>
     @endpush
 @section('content')
     <div class="row">
@@ -105,8 +105,8 @@
                                         <tbody>
                                             <tr>
                                                 <th style="width: 180px">Total</th>
-                                                <td id="total_debit">0</td>
-                                                <td id="total_kredit">0</td>
+                                                <td id="total_debit">Rp 0</td>
+                                                <td id="total_kredit">Rp 0</td>
                                             </tr>
                                             <tr>
                                                 <th>Difference</th>
@@ -159,8 +159,36 @@
     <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
+    <script src="{{ asset('js/helpers.js') }}"></script>
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
+
+        function eventJumlah () {
+            const debit = document.querySelectorAll('.debit');
+            const kredit = document.querySelectorAll('.kredit');
+            debit.forEach(el => {
+                el.addEventListener('keyup', function() {
+                    const val = this.value == '' ? 0 : unformatter(this.value);
+                    const n = parseInt(val, 10);
+                    el.value = formatter(n);
+                });
+                el.addEventListener('focusout', function() {
+                    jumlahin();
+                });
+            });
+
+            kredit.forEach(el => {
+                el.addEventListener('keyup', function() {
+                    const val = this.value == '' ? 0 : unformatter(this.value);
+                    const n = parseInt(val, 10);
+                    el.value = formatter(n);
+                });
+                el.addEventListener('focusout', function() {
+                    jumlahin();
+                });
+            });
+        }
+
         $(document).ready(function() {
             $("#kontak_id").select2({
                 ajax: {
@@ -260,9 +288,14 @@
             }
             if (debit == undefined) {
                 debit = ''
+            } else {
+                debit = formatter(debit);
             }
+
             if (kredit == undefined) {
                 kredit = ''
+            } else {
+                kredit = formatter(kredit);
             }
             let index = $('#dynamic_field tr').length
             let uuid = generateUUID()
@@ -279,23 +312,30 @@
                         <select name="jurnals[${index}][akun_id]" class="form-control select-${index}"></select>
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][debit]" class="form-control debit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)"
+                        <input type="text" name="jurnals[${index}][debit]" class="form-control debit" placeholder="0" onkeypress="return onlyNumber(event)"
                             value="${debit}">
                     </td>
                     <td>
-                        <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" oninput="jumlahin()" placeholder="0" onkeypress="return onlyNumber(event)"
+                        <input type="text" name="jurnals[${index}][kredit]" class="form-control kredit" placeholder="0" onkeypress="return onlyNumber(event)"
                             value="${kredit}">
                     </td>
-                    <td>
+            `
+
+            if (index > 0) {
+                html += `<td>
                         <button type="button" name="remove" 
                             class="btn btn-danger btn-sm text-white btn_remove">
                             <i data-feather="trash-2"></i>
                         </button>
                     </td>
-                </tr>
-            `
+                </tr>`
+            } else {
+                html += `<td></td></tr>`;
+            }
+
             $("#dynamic_field").append(html)
             feather.replace()
+            eventJumlah()
             jumlahin()
             countTr()
 
@@ -307,12 +347,8 @@
                     data: params => {
                         return {
                             _token: CSRF_TOKEN,
-                            search: params.term
-                        }
-                    },
-                    processResults: data => {
-                        return {
-                            results: data
+                            search: params.term || '',
+                            page: params.page || 1
                         }
                     },
                     cache: true
@@ -388,13 +424,7 @@
                 return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
             });
         }
-        function onlyNumber(evt){
-            let charCode = (evt.which) ? evt.which : evt.keyCode
-            if (charCode > 32 && (charCode < 48 || charCode > 57)) {
-                return false
-            }
-            return true
-        }
+
         function jumlahin() {
             let total_debit = 0
             let total_kredit = 0
@@ -404,8 +434,8 @@
             for (let i = 0; i < cols_debit.length; i++) {
                 let e_debit = cols_debit[i]
                 let e_kredit = cols_kredit[i]
-                total_debit += e_debit.value == "" ? 0 : parseInt(e_debit.value)
-                total_kredit += e_kredit.value == "" ? 0 : parseInt(e_kredit.value)
+                total_debit += e_debit.value == "" ? 0 : unformatter(e_debit.value)
+                total_kredit += e_kredit.value == "" ? 0 : unformatter(e_kredit.value)
             }
             if (total_debit > total_kredit) {
                 difference = total_kredit - total_debit
@@ -414,9 +444,9 @@
             } else {
                 difference = 0
             }
-            $("#total_debit").text(total_debit)
-            $("#total_kredit").text(total_kredit)
-            $("#difference").text(difference)
+            $("#total_debit").text("Rp " + formatter(total_debit))
+            $("#total_kredit").text("Rp " + formatter(total_kredit))
+            $("#difference").text(formatter(difference))
 
             if (difference != 0) {
                 $("#btn-submit").attr('disabled', true)
